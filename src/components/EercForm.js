@@ -42,6 +42,10 @@ const clean_re = /^\s*([0-9]*(\.[0-9]*)?).*$/; // if match replace with $1
 const needlead0_re = /^\./;
 const nonnumeric_re = /[^0-9.]/g;
 
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+const numYears = 3;
+
 const energytypes = [
   { slug: "coal", name: "Coal" },
   { slug: "distillateoil", name: "Distillate Oil" },
@@ -60,7 +64,11 @@ const locales = [
 
 const sectors = ["Commercial", "Industrial"];
 
-const startdates = [ unselected, '2020', '2021', '2022' ];  // TODO: compute this from base year!
+var startdates = [ unselected ];
+for (let i = 0; i < numYears; i++) {
+  //let year = currentYear + i;
+  startdates[i+1] = currentYear + i;  //year.toString();
+}
 
 const carbonprices = [ unselected, 'None', 'Low', 'Medium', 'High'];
 
@@ -229,7 +237,7 @@ export default function EercForm() {
           </Grid>
           <Grid item xs={6}>
             <TextField
-              helperText={pecsTotal() !== 100 ? "Must total 100%" : ""}
+              helperText={pecsTotal() !== 100 ? "Must equal 100%" : ""}
               error={pecsTotal() !== 100}
               label="Total"
               disabled
@@ -380,6 +388,7 @@ export default function EercForm() {
               label="REAL"
               disabled
               variant="filled"
+              InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
               value={isNaN(resultReal()) ? "" : resultReal()}
             /><br />
             <TextField
@@ -389,6 +398,7 @@ export default function EercForm() {
               label="NOMINAL"
               disabled
               variant="filled"
+              InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
               value={isNaN(resultNominal()) ? "" : resultNominal()}
             />
           </Grid>
