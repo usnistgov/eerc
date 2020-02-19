@@ -389,7 +389,7 @@ export default function EercForm() {
               disabled
               variant="filled"
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              value={isNaN(resultReal()) ? "" : resultReal()}
+              value={isNaN(resultReal()) ? "---" : resultReal()}
             /><br />
             <TextField
               className={classes.result}
@@ -399,7 +399,7 @@ export default function EercForm() {
               disabled
               variant="filled"
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              value={isNaN(resultNominal()) ? "" : resultNominal()}
+              value={isNaN(resultNominal()) ? "---" : resultNominal()}
             />
           </Grid>
         </Grid>
