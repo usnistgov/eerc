@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "NIST EERC App",
+  "name": "NIST Energy Escalation Rate Calculator",
   "icons": [
     {
       "src": "favicon.ico",
