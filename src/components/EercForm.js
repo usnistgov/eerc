@@ -3,16 +3,16 @@
 //
 // Principal Investigator:
 //     Josh Kniefel <josh.kniefel@nist.gov>
-//     Applied Economics Office
-//     Engineering Laboratory
-//     National Institute of Standards and Technology
+//     Applied Economics Office (AEO)
+//     Engineering Laboratory (EL)
+//     National Institute of Standards and Technology (NIST)
 //
 // Developers:
 //     Steve Barber <steve.barber@nist.gov>
 //     Priya Lavappa <priya.lavappa@nist.gov>
-//     ELDST
-//     Engineering Laboratory
-//     National Institute of Standards and Technology
+//     EL Data, Security and Technology (ELDST)
+//     Engineering Laboratory (EL)
+//     National Institute of Standards and Technology (NIST)
 //
 // This static single-page app reproduces a prior standalone Java application.
 //
