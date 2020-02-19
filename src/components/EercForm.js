@@ -1,11 +1,30 @@
+//
+// NIST Energy Escalation Rate Calculator (web edition)
+//
+// Principal Investigator:
+//     Josh Kniefel <josh.kniefel@nist.gov>
+//     Applied Economics Office
+//     Engineering Laboratory
+//     National Institute of Standards and Technology
+//
+// Developers:
+//     Steve Barber <steve.barber@nist.gov>
+//     Priya Lavappa <priya.lavappa@nist.gov>
+//     ELDST
+//     Engineering Laboratory
+//     National Institute of Standards and Technology
+//
+// This static single-page app reproduces a prior standalone Java application.
+//
+
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
+//import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
+//import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 //import FormHelperText from '@material-ui/core/FormHelperText';
 import Radio from '@material-ui/core/Radio';
@@ -14,6 +33,8 @@ import Grid from '@material-ui/core/Grid';
 //import Box from '@material-ui/core/Box';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 const unselected = '--';
 const valid_re = /^(([0-9]*)(\.([0-9]+))?)$/;
@@ -43,7 +64,9 @@ const startdates = [ unselected, '2020', '2021', '2022' ];  // TODO: compute thi
 
 const carbonprices = [ unselected, 'None', 'Low', 'Medium', 'High'];
 
-const default_duration = 1;
+const min_duration = 1;
+const max_duration = 25;
+const default_duration = min_duration;
 const default_inflationrate = 2.2;
 const default_locale = unselected;
 const default_sector = sectors[0].toLowerCase();
@@ -75,6 +98,7 @@ const useStyles = makeStyles(theme => ({
     '& .MuiFilledInput-input': {
       width: 200,
       color: 'darkviolet',
+      backgroundColor: 'yellow',
       fontWeight: 'bold',
       fontSize: '2.0em',
     }
@@ -110,7 +134,6 @@ export default function EercForm() {
         let v = event.target.value.replace(clean_re, '$1').replace(needlead0_re, '0.');
         event.target.value = v;
       }
-      console.log("handlePecsChange('" + prop + "') = " + val);
       setPecs({ ...pecs, [prop]: val});
     } else {
       let v = event.target.value.replace(nonnumeric_re, '');
@@ -160,13 +183,32 @@ export default function EercForm() {
     return pecs.coal + pecs.distillateoil + pecs.electricity + pecs.naturalgas + pecs.residual;
   };
 
+  const validate = () => {
+    return (
+        (pecsTotal() === 100) &&
+        (locale !== unselected) &&
+        (startdate !== unselected) &&
+        (carbonprice !== unselected) &&
+        (!isNaN(parseFloat(inflationrate))) &&
+        (inflationrate >= -100 && inflationrate <= 100)
+    );
+  };
+
   const resultReal = () => {
-    return 0.0;
-  }
+    if (validate()) {
+      return 0.0;
+    } else {
+      return NaN;
+    }
+  };
 
   const resultNominal = () => {
-    return 0.0;
-  }
+    if (validate()) {
+      return 0.0;
+    } else {
+      return NaN;
+    }
+  };
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -174,12 +216,16 @@ export default function EercForm() {
         <FormLabel component="legend">Percent of Energy Cost Savings</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={6}>
+            <List dense>
               {energytypes.map((energy, index) => (
-                <div><TextField label={energy.name} key={energy.slug} value={pecs[energy.slug]} margin="dense"
-                  InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-                  onChange={handlePecsChange(energy.slug)}
-                /></div>
+                <ListItem key={energy.slug}>
+                  <TextField key={energy.name} label={energy.name} value={pecs[energy.slug]} margin="dense"
+                    InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
+                    onChange={handlePecsChange(energy.slug)}
+                  />
+                </ListItem>
               ))}
+            </List>
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -277,8 +323,8 @@ export default function EercForm() {
               <Slider
                 defaultValue={default_duration}
                 onChangeCommitted={handleDurationChange}
-                min={1}
-                max={25}
+                min={min_duration}
+                max={max_duration}
                 step={1}
                 width={300}
                 aria-label="years duration"
@@ -317,12 +363,12 @@ export default function EercForm() {
         </Grid>
       </fieldset><br />
       <fieldset>
-        <FormLabel>Annual Energy Escalation Rate</FormLabel>
+        <FormLabel component="legend">Annual Energy Escalation Rate</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={6}>
-            <FormControlLabel
-              label="Inflation Rate"
-              control={<Input value={inflationrate} endAdornment={<InputAdornment position="end">%</InputAdornment>} onChange={handleInflationrateChange} />}
+            <TextField label="Inflation Rate" value={inflationrate}
+              InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
+              onChange={handleInflationrateChange}
             />
           </Grid>
           <Grid item xs={6}>
