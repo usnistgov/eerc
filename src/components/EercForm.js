@@ -17,7 +17,8 @@
 // This static single-page app reproduces a prior standalone Java application.
 //
 
-import React from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
+//import { createStateLink, useStateLink } from '@hookstate/core';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 //import Input from '@material-ui/core/Input';
@@ -35,12 +36,24 @@ import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+//import { set, has } from 'lodash';
+
+//import '../EercCalc.js';
+////////////////////////////////////////////////////////////////////////////////
+const CO2ePricesURL = 'CO2ePrices.json';
+const CO2FactorsURL = 'CO2Factors.txt';
+const CO2FutureEmissionsURL = 'CO2FutureEmissions.json';
+const EncostURL = 'Encost.json';
+
+////////////////////////////////////////////////////////////////////////////////
 
 const unselected = '--';
-const valid_re = /^(([0-9]*)(\.([0-9]+))?)$/;
-const clean_re = /^\s*([0-9]*(\.[0-9]*)?).*$/; // if match replace with $1
+const valid_re = /^((\d+\.?\d*)|(\d*\.\d+))$/;
+const clean_re = /^\s*(\d*\.?\d*).*$/; // if match replace with $1
 const needlead0_re = /^\./;
-const nonnumeric_re = /[^0-9.]/g;
+const trim0_re = /^0*(\d+)0*$/;
+const nonnumeric_re = /[^\d.]/g;
+const empty_re = /^\s*$/g;
 
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
@@ -75,7 +88,7 @@ const carbonprices = [ unselected, 'None', 'Low', 'Medium', 'High'];
 const min_duration = 1;
 const max_duration = 25;
 const default_duration = min_duration;
-const default_inflationrate = 2.2;
+const default_inflationrate = "2.2";
 const default_locale = unselected;
 const default_sector = sectors[0].toLowerCase();
 const default_startdate = unselected;
@@ -109,47 +122,84 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: 'yellow',
       fontWeight: 'bold',
       fontSize: '2.0em',
-    }
+    },
+    'fieldset': {
+      backgroundColor: 'green',
+    },
   }
 }));
+
+// encostReducer is a vastly simplified reducer that just returns the new state,
+// because we only set state once after the file is loaded - there are no
+// incremental updates.
+function encostReducer(state, updateArg) {
+  return { ...state, ...updateArg };
+}
+
+const eercCalculate = () => {
+  var Rreal = 0;
+  var Rnominal = 1.5;
+  return {real: Rreal, nominal: Rnominal};
+};
+
 
 export default function EercForm() {
   const classes = useStyles();
   const [locale, setLocale] = React.useState(default_locale);
   const [pecs, setPecs] = React.useState({
-    coal: 0,
-    distillateoil: 0,
-    electricity: 0,
-    naturalgas: 0,
-    residual: 0,
+    coal: "0",
+    distillateoil: "0",
+    electricity: "0",
+    naturalgas: "0",
+    residual: "0",
   });
-  const [sector, setSector] = React.useState(default_sector);
-  const [startdate, setStartdate] = React.useState(default_startdate); // TODO compute this!
-  const [duration, setDuration] = React.useState(default_duration);
-  const [carbonprice, setCarbonprice] = React.useState(default_carbonprice);
-  const [inflationrate, setInflationrate] = React.useState(default_inflationrate);
+  const [sector, setSector] = useState(default_sector);
+  const [startdate, setStartdate] = useState(default_startdate); // TODO compute this!
+  const [duration, setDuration] = useState(default_duration);
+  const [carbonprice, setCarbonprice] = useState(default_carbonprice);
+  const [inflationrate, setInflationrate] = useState(default_inflationrate);
+  const [CO2Factors, setCO2Factors] = useState({});
+  const [CO2ePrices, setCO2ePrices] = useState({});
+  const [CO2FutureEmissions, setCO2FutureEmissions] = useState({});
+  const [Encost, updateEncost] = useReducer(encostReducer, {});
+
+  async function loadDatafiles() {
+    const co2factorsresponse = await fetch(CO2FactorsURL);
+    const co2factorstxt = await co2factorsresponse.text();
+    setCO2Factors(co2factorstxt.split('\n').reduce((accum, l) => {
+      let m = l.match(/^\s*(\S+)\s+(\S.*)\s*$/);
+      if (m) {
+        accum[m[1]] = m[2];
+      }
+      return accum;
+    }, {} ));
+
+    setCO2ePrices(await (await fetch(CO2ePricesURL)).json());
+    // if (CO2ePrices['startyear'] === 0 ||
+    //     !('Default' in CO2ePrices) ||
+    //     !('Low' in CO2ePrices) ||
+    //     !('High' in CO2ePrices) ) {
+    //   console.log("ERROR: Parse of " + CO2ePricesURL + " failed!");
+    //   console.log("CO2ePrices = " + JSON.stringify(CO2ePrices));
+    //   alert("ERROR: Parse of " + CO2ePricesURL + " failed!");
+    // }
+
+    setCO2FutureEmissions(await (await fetch(CO2FutureEmissionsURL)).json());
+    updateEncost(await (await fetch(EncostURL)).json());
+  }
+
+  useEffect(() => {
+    loadDatafiles();
+  }, []);
 
   const handleLocaleChange = event => {
     setLocale(event.target.value);
   };
 
   const handlePecsChange = prop => event => {
-    var val = parseFloat(event.target.value);
-    if (!isNaN(val)) {
-      if (event.target.value.match(valid_re)) {
-        event.target.value = val; // this makes it difficult to enter decimal points
-      } else {
-        let v = event.target.value.replace(clean_re, '$1').replace(needlead0_re, '0.');
-        event.target.value = v;
-      }
-      setPecs({ ...pecs, [prop]: val});
-    } else {
-      let v = event.target.value.replace(nonnumeric_re, '');
-      if (v === '') {
-        v = '0';
-      }
-      event.target.value = v;
-    }
+    let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$1').replace(needlead0_re, '0.').replace(empty_re, '0');
+    event.target.value = v;
+    setPecs({ ...pecs, [prop]: event.target.value });
   };
 
   const handleSectorChange = event => {
@@ -169,26 +219,13 @@ export default function EercForm() {
   };
 
   const handleInflationrateChange = event => {
-    var val = parseFloat(event.target.value);
-    if (!isNaN(val)) {
-      if (event.target.value.match(valid_re)) {
-        event.target.value = val; // this makes it difficult to enter decimal points
-      } else {
-        let v = event.target.value.replace(clean_re, '$1').replace(needlead0_re, '0.');
-        event.target.value = v;
-      }
-      setInflationrate(val);
-    } else {
-      let v = event.target.value.replace(nonnumeric_re, '');
-      if (v === '') {
-        v = '0';
-      }
-      event.target.value = v;
-    }
+    let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$1').replace(needlead0_re, '0.').replace(empty_re, '0');
+    event.target.value = v;
+    setInflationrate(v);
   };
 
   const pecsTotal = () => {
-    return pecs.coal + pecs.distillateoil + pecs.electricity + pecs.naturalgas + pecs.residual;
+    return parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual);
   };
 
   const validate = () => {
@@ -197,14 +234,13 @@ export default function EercForm() {
         (locale !== unselected) &&
         (startdate !== unselected) &&
         (carbonprice !== unselected) &&
-        (!isNaN(parseFloat(inflationrate))) &&
-        (inflationrate >= -100 && inflationrate <= 100)
+        (!isNaN(parseFloat(inflationrate)))
     );
   };
 
   const resultReal = () => {
     if (validate()) {
-      return 0.0;
+      return 10.0;
     } else {
       return NaN;
     }
@@ -212,7 +248,7 @@ export default function EercForm() {
 
   const resultNominal = () => {
     if (validate()) {
-      return 0.0;
+      return 10.0;
     } else {
       return NaN;
     }
@@ -371,16 +407,21 @@ export default function EercForm() {
         </Grid>
       </fieldset><br />
       <fieldset>
-        <FormLabel component="legend">Annual Energy Escalation Rate</FormLabel>
+        <FormLabel component="legend">Annual Inflation Rate</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={6}>
-            <TextField label="Inflation Rate" value={inflationrate}
+            <TextField label="Inflation" value={inflationrate}
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
               onChange={handleInflationrateChange}
             />
           </Grid>
+        </Grid>
+      </fieldset><br />
+      <fieldset style={{ border: "6px groove", borderColor: "black" }}>
+        <FormLabel component="legend">Annual Energy Escalation Rate</FormLabel>
+        <FormLabel component="legend">RESULTS</FormLabel><br />
+        <Grid container alignItems="center" justify="center" direction="row" style={{backgroundColor:"lightgrey"}}>
           <Grid item xs={6}>
-            <FormLabel>Results</FormLabel><br />
             <TextField
               className={classes.result}
               helperText={isNaN(resultReal()) ? "Fix selections" : ""}
@@ -390,7 +431,9 @@ export default function EercForm() {
               variant="filled"
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
               value={isNaN(resultReal()) ? "---" : resultReal()}
-            /><br />
+            />
+          </Grid>
+          <Grid item xs={6}>
             <TextField
               className={classes.result}
               helperText={isNaN(resultNominal()) ? "Fix selections" : ""}
@@ -404,6 +447,7 @@ export default function EercForm() {
           </Grid>
         </Grid>
       </fieldset>
+      <br />
     </form>
   );
 }
