@@ -44,6 +44,7 @@ const CO2ePricesURL = 'CO2ePrices.json';
 const CO2FactorsURL = 'CO2Factors.txt';
 const CO2FutureEmissionsURL = 'CO2FutureEmissions.json';
 const EncostURL = 'Encost.json';
+const ZipToStateURL = 'zipcodetostate.json';
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -162,6 +163,7 @@ export default function EercForm() {
   const [CO2ePrices, setCO2ePrices] = useState({});
   const [CO2FutureEmissions, setCO2FutureEmissions] = useState({});
   const [Encost, updateEncost] = useReducer(encostReducer, {});
+  const [ZipToState, setZipToState] = useState({});
 
   async function loadDatafiles() {
     const co2factorsresponse = await fetch(CO2FactorsURL);
@@ -186,6 +188,7 @@ export default function EercForm() {
 
     setCO2FutureEmissions(await (await fetch(CO2FutureEmissionsURL)).json());
     updateEncost(await (await fetch(EncostURL)).json());
+    setZipToState(await (await fetch(ZipToStateURL)).json());
   }
 
   useEffect(() => {
@@ -231,7 +234,7 @@ export default function EercForm() {
   const validate = () => {
     return (
         (pecsTotal() === 100) &&
-        (locale !== unselected) &&
+        (ZipToState.hasOwnProperty(locale)) &&
         (startdate !== unselected) &&
         (carbonprice !== unselected) &&
         (!isNaN(parseFloat(inflationrate)))
@@ -294,22 +297,14 @@ export default function EercForm() {
               <FormLabel component="legend">Location</FormLabel>
               <TextField
                 margin="dense"
-                id="select-location"
-                select
                 value={locale}
                 onChange={handleLocaleChange}
-                SelectProps={{
-                  native: true,
+                error={!(ZipToState.hasOwnProperty(locale))}
+                helperText={ZipToState.hasOwnProperty(locale)?"":"Enter US ZIP code"}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end"> ({ZipToState[locale]})</InputAdornment>
                 }}
-                error={locale===unselected}
-                helperText={locale===unselected?"Select location":""}
-              >
-                {locales.map((option, index) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </TextField>
+              />
             </FormControl>
           </Grid>
           <Grid item xs={6}>
