@@ -227,22 +227,30 @@ export default function EercForm() {
     setInflationrate(v);
   };
 
-  const pecsTotal = () => {
-    return parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual);
-  };
+  //const pecsTotal = () => {
+  //  return parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual);
+  //};
+  const pecsTotal = parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual);
 
-  const validate = () => {
-    return (
-        (pecsTotal() === 100) &&
-        (ZipToState.hasOwnProperty(locale)) &&
-        (startdate !== unselected) &&
-        (carbonprice !== unselected) &&
-        (!isNaN(parseFloat(inflationrate)))
-    );
-  };
+  //const validate = () => {
+  //  return (
+  //      (pecsTotal() === 100) &&
+  //      (ZipToState.hasOwnProperty(locale)) &&
+  //      (startdate !== unselected) &&
+  //      (carbonprice !== unselected) &&
+  //      (!isNaN(parseFloat(inflationrate)))
+  //  );
+  //};
+  const valid = (
+    (pecsTotal === 100) &&
+    (ZipToState.hasOwnProperty(locale)) &&
+    (startdate !== unselected) &&
+    (carbonprice !== unselected) &&
+    (!isNaN(parseFloat(inflationrate)))
+  );
 
   const resultReal = () => {
-    if (validate()) {
+    if (valid) {
       return 10.0;
     } else {
       return NaN;
@@ -250,7 +258,7 @@ export default function EercForm() {
   };
 
   const resultNominal = () => {
-    if (validate()) {
+    if (valid) {
       return 10.0;
     } else {
       return NaN;
@@ -276,12 +284,12 @@ export default function EercForm() {
           </Grid>
           <Grid item xs={6}>
             <TextField
-              helperText={pecsTotal() !== 100 ? "Must equal 100%" : ""}
-              error={pecsTotal() !== 100}
+              helperText={pecsTotal !== 100 ? "Must equal 100%" : ""}
+              error={pecsTotal !== 100}
               label="Total"
               disabled
               variant="filled"
-              value={pecsTotal()}
+              value={pecsTotal}
               InputProps={{
                 endAdornment: <InputAdornment position="end">%</InputAdornment>,
               }}
