@@ -45,15 +45,17 @@ const CO2FactorsURL = 'CO2Factors.txt';
 const CO2FutureEmissionsURL = 'CO2FutureEmissions.json';
 const EncostURL = 'Encost.json';
 const ZipToStateURL = 'zipcodetostate.json';
+const yearsIn = 31;  // number of years being read in
+const carbonConvert = 0.912130;    // factor used to convert results from 2019$/GJ to 2012$/Mbtu; see Step 4 in EERC Calculations Excel file
 
 ////////////////////////////////////////////////////////////////////////////////
 
 const unselected = '--';
-const valid_re = /^((\d+\.?\d*)|(\d*\.\d+))$/;
+//const valid_re = /^((\d+\.?\d*)|(\d*\.\d+))$/;
 const clean_re = /^\s*(\d*\.?\d*).*$/; // if match replace with $1
 const needlead0_re = /^\./;
 const trim0_re = /^0*(\d+)0*$/;
-const nonnumeric_re = /[^\d.]/g;
+const nonnumeric_re = /[^\d\.]/g;
 const empty_re = /^\s*$/g;
 
 const currentDate = new Date();
@@ -68,13 +70,13 @@ const energytypes = [
   { slug: "residual", name: "Residual" },
 ];
 
-const locales = [
-  unselected, "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "DC", "FL", "GA",
-  "HI","IA", "ID", "IL","IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI",
-  "MN", "MO", "MS", "MT", "NC","ND","NE", "NH", "NJ", "NM", "NV", "NY",
-  "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT",
-  "WA", "WI", "WV", "WY"
-];
+//const locales = [
+//  unselected, "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "DC", "FL", "GA",
+//  "HI","IA", "ID", "IL","IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI",
+//  "MN", "MO", "MS", "MT", "NC","ND","NE", "NH", "NJ", "NM", "NV", "NY",
+//  "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT",
+//  "WA", "WI", "WV", "WY"
+//];
 
 const sectors = ["Commercial", "Industrial"];
 
@@ -84,16 +86,17 @@ for (let i = 0; i < numYears; i++) {
   startdates[i+1] = currentYear + i;  //year.toString();
 }
 
-const carbonprices = [ unselected, 'None', 'Low', 'Medium', 'High'];
+const carbonprices = [ unselected, 'Default', 'Low', 'High'];
 
 const min_duration = 1;
 const max_duration = 25;
 const default_duration = min_duration;
 const default_inflationrate = "2.2";
-const default_locale = unselected;
+const default_locale = '';
 const default_sector = sectors[0].toLowerCase();
 const default_startdate = unselected;
 const default_carbonprice = unselected;
+const default_result = NaN;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -130,19 +133,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+// results of carbon pricing calculations
+var carbonC = new Array(yearsIn);
+var carbonNG = new Array(yearsIn);
+var carbonE = new Array(yearsIn);
+var carbonR = new Array(yearsIn);
+var carbonD = new Array(yearsIn);
+
 // encostReducer is a vastly simplified reducer that just returns the new state,
 // because we only set state once after the file is loaded - there are no
 // incremental updates.
 function encostReducer(state, updateArg) {
   return { ...state, ...updateArg };
 }
-
-const eercCalculate = () => {
-  var Rreal = 0;
-  var Rnominal = 1.5;
-  return {real: Rreal, nominal: Rnominal};
-};
-
 
 export default function EercForm() {
   const classes = useStyles();
@@ -159,11 +162,16 @@ export default function EercForm() {
   const [duration, setDuration] = useState(default_duration);
   const [carbonprice, setCarbonprice] = useState(default_carbonprice);
   const [inflationrate, setInflationrate] = useState(default_inflationrate);
+  const [result_real, set_Result_Real] = useState(default_result);
+  const [result_nominal, set_Result_Nominal] = useState(default_result);
   const [CO2Factors, setCO2Factors] = useState({});
   const [CO2ePrices, setCO2ePrices] = useState({});
   const [CO2FutureEmissions, setCO2FutureEmissions] = useState({});
   const [Encost, updateEncost] = useReducer(encostReducer, {});
   const [ZipToState, setZipToState] = useState({});
+  //const [valid, setValid] = useState(false);
+
+  let pecsTotal = parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual);
 
   async function loadDatafiles() {
     const co2factorsresponse = await fetch(CO2FactorsURL);
@@ -197,73 +205,294 @@ export default function EercForm() {
 
   const handleLocaleChange = event => {
     setLocale(event.target.value);
+    validate();
   };
 
   const handlePecsChange = prop => event => {
     let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$1').replace(needlead0_re, '0.').replace(empty_re, '0');
     event.target.value = v;
-    setPecs({ ...pecs, [prop]: event.target.value });
+    setPecs({ ...pecs, [prop]: v });
+    //setPecsTotal(parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual));
+    validate();
   };
 
   const handleSectorChange = event => {
     setSector(event.target.value);
+    validate();
   };
 
   const handleStartdateChange = event => {
     setStartdate(event.target.value);
+    validate();
   };
 
   const handleDurationChange = event => {
     setDuration(event.target.value);
+    validate();
   };
 
   const handleCarbonpriceChange = event => {
     setCarbonprice(event.target.value);
+    validate();
   };
 
   const handleInflationrateChange = event => {
     let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$1').replace(needlead0_re, '0.').replace(empty_re, '0');
     event.target.value = v;
     setInflationrate(v);
+    validate();
   };
 
-  //const pecsTotal = () => {
-  //  return parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual);
-  //};
-  const pecsTotal = parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual);
-
-  //const validate = () => {
-  //  return (
-  //      (pecsTotal() === 100) &&
-  //      (ZipToState.hasOwnProperty(locale)) &&
-  //      (startdate !== unselected) &&
-  //      (carbonprice !== unselected) &&
-  //      (!isNaN(parseFloat(inflationrate)))
-  //  );
-  //};
-  const valid = (
-    (pecsTotal === 100) &&
-    (ZipToState.hasOwnProperty(locale)) &&
-    (startdate !== unselected) &&
-    (carbonprice !== unselected) &&
-    (!isNaN(parseFloat(inflationrate)))
-  );
-
-  const resultReal = () => {
-    if (valid) {
-      return 10.0;
-    } else {
-      return NaN;
+  const stateToRegion = state => {
+    switch(state) {
+      case unselected:
+      case "":
+      case null:
+        console.err("stateToRegion cannot map "+state+" to a region");
+        return("");
+      case "ME": case "NH": case "VT": case "MA": case "RI": case "CT": case "NY": case "NJ": case "PA":
+        return("Northeast");
+      case "DE": case "MD": case "DC": case "VA": case "WV": case "NC": case "SC": case "GA": case "FL": case "KY": case "TN": case "AL": case "MS": case "AR": case "LA": case "OK": case "TX":
+        return("South");
+      case "OH": case "MI": case "IN": case "WI": case "IL": case "MO": case "IA": case "MN": case "ND": case "SD": case "NE": case "KS":
+        return("Midwest");
+      default:
+        return("West");
     }
   };
 
-  const resultNominal = () => {
-    if (valid) {
-      return 10.0;
+  const validate = () => {
+    let v = (
+        (pecsTotal === 100) &&
+        (ZipToState.hasOwnProperty(locale)) &&
+        (startdate !== unselected) &&
+        (carbonprice !== unselected) &&
+        (!isNaN(parseFloat(inflationrate)))
+    );
+    console.log("validate: %o (%f, %s, %s, %s, %s, %s, %f)", v, pecsTotal, locale, ZipToState[locale], startdate, carbonprice, inflationrate, parseFloat(inflationrate));
+    //setValid(v);
+    if (v) {
+      CalculateRate();
     } else {
-      return NaN;
+      set_Result_Real(NaN);
+      set_Result_Nominal(NaN);
     }
+    return(v);
   };
+
+  //const valid = (
+  //  (pecsTotal === 100) &&
+  //  (ZipToState.hasOwnProperty(locale)) &&
+  //  (startdate !== unselected) &&
+  //  (carbonprice !== unselected) &&
+  //  (!isNaN(parseFloat(inflationrate)))
+  //);
+
+  const CalculateRate = () => {
+    let CW=pecs["coal"];
+    let DW=pecs["distillateoil"];
+    let EW=pecs["electricity"];
+    let NGW=pecs["naturalgas"];
+    let RW=pecs["residual"];
+    //let total = 0;
+    let escalationRate = NaN;
+    let nomRate = NaN;
+    // prices used to calculate rate (EIA data plus carbon)
+    let pricesC = {};   // indexed by year string
+    let pricesNG = {};   // indexed by year string
+    let pricesE = {};   // indexed by year string
+    let pricesR = {};   // indexed by year string
+    let pricesD = {};   // indexed by year string
+    // value of C
+    let cC = 0;
+    let cNG = 0;
+    let cE = 0;
+    let cR = 0;
+    let cD = 0;
+    // changed by asr 6-5-11; is start date's index < end date's index?
+    let compareIndicesC = false;
+    let compareIndicesNG = false;
+    let compareIndicesE = false;
+    let compareIndicesR = false;
+    let compareIndicesD = false;
+
+    //let hold = 0;
+    //let start = startdate;  // modified by asr 6-5-11:  range of indexes to add in order to calculate C begins one year after the performance period starts
+    let rateC = 0.0;
+    let rateNG = 0;
+    let rateE = 0;
+    let rateR = 0;
+    let rateD = 0;
+
+    for (let i = 0 ; i < yearsIn; i++) {
+      carbonC[i] = 0.0;
+      carbonNG[i] = 0.0;
+      carbonE[i] = 0.0;
+      carbonR[i] = 0.0;
+      carbonD[i] = 0.0;
+    }
+
+    let date_start = parseInt(startdate);
+    let date_end = date_start + parseInt(duration) - 1; // modified by asr 6-5-11:  range of indexes to add in order to calculate C ends one year after the performance period end year
+                          // so study period = (end year-start year)+1
+
+    if ( CW>0 ) {                        // coal
+      calculateCarbonPrice(CO2Factors["Coal"], carbonC, false);
+      addPrices(pricesC, carbonC);
+      cC  = calculateC(date_start, date_end, pricesC);
+      compareIndicesC = compareStartEnd(date_start, date_end, pricesC);
+      rateC = solveForAnnualAverageRate(cC, compareIndicesC);
+    }
+    if ( NGW>0 ){                       // natural gas
+      calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false);
+      addPrices(pricesNG, carbonNG);
+      cNG = calculateC(date_start, date_end, pricesNG);
+      compareIndicesNG = compareStartEnd(date_start, date_end, pricesNG);
+      rateNG = solveForAnnualAverageRate(cNG, compareIndicesNG);
+    }
+    if ( EW>0 ) {                       // electricity
+      calculateCarbonPrice(CO2Factors[ZipToState[locale]], carbonE, true);
+      addPrices(pricesE, carbonE);
+      cE  = calculateC(date_start, date_end, pricesE);
+      compareIndicesE = compareStartEnd(date_start, date_end, pricesE);
+      rateE = solveForAnnualAverageRate(cE, compareIndicesE);
+    }
+    if ( RW>0 ) {                       // residual oil
+      calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false);
+      addPrices(pricesR, carbonR);
+      cR  = calculateC(date_start, date_end, pricesR);
+      compareIndicesR = compareStartEnd(date_start, date_end, pricesR);
+      rateR = solveForAnnualAverageRate(cR, compareIndicesR);
+    }
+    if ( DW>0 ) {                       // distillate oil
+      calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false);
+      addPrices(pricesD, carbonD);
+      cD  = calculateC(date_start, date_end, pricesD);
+      compareIndicesD = compareStartEnd(date_start, date_end, pricesD);
+      rateD= solveForAnnualAverageRate(cD, compareIndicesD);
+    }
+
+    escalationRate = (CW*rateC)+(DW*rateD)+(EW*rateE)+(RW*rateR)+(NGW*rateNG);  // blended rate
+    nomRate=((1+(escalationRate/100))*(1+(parseFloat(inflationrate)/100)))-1;
+    nomRate=nomRate*100;
+    set_Result_Real(escalationRate);
+    set_Result_Nominal(nomRate);
+  }
+
+  const calculateCarbonPrice = (CO2Factor, cP, isElectricity) => {
+    let sd = parseInt(startdate);
+    console.log("calculateCarbonPrice: CO2ePrices[%s]=%o", carbonprice, CO2ePrices[carbonprice]);
+    if (carbonprice !== unselected) {  // default, low, or high carbon price
+      for (let i=0; i<yearsIn; i++) {
+          cP[i] = CO2ePrices[carbonprice][i + sd] * CO2Factor;
+      }  // steps 1 & 2 from Excel file
+      if (isElectricity) {
+        for (let i=0; i<yearsIn; i++) {
+          cP[i] = cP[i] * CO2FutureEmissions[carbonprice][i + sd];
+        }
+      }  // step 3
+      for (let i=0; i<yearsIn; i++) {
+        cP[i] = cP[i] * carbonConvert;
+      }  // step 4
+    }
+  }
+
+  const addPrices = (prices, carbon) => {
+    // add EIA prices and carbon prices and store is prices array
+    if (carbonprice !== unselected) {  // default, low, or high carbon price
+      for(let i=0; i<yearsIn; i++) {
+        prices[i] = prices[i] + carbon[i];
+      }
+    }
+  }
+
+  const clearCarbonArrays = () => {
+    // when switching from default/low/high to no, these arrays could still have values in them
+    for(let i=0; i<yearsIn; i++) {
+      carbonC[i] = 0.0;
+      carbonNG[i] = 0.0;
+      carbonE[i] = 0.0;
+      carbonR[i] = 0.0;
+      carbonD[i] = 0.0;
+    }
+  }
+
+  const calculateC = (start, end, prices) => {  // added by asr 8-14-09; modified by asr 6-5-11
+    // method calculates indices for years in contract and sums to get C; to calculate C, we are assuming A = $1.00
+    let C = 0.0;
+    for ( let i=start; i<end+1; i++) {
+      C += prices[i]/prices[0];
+    }   // calculate index and add to C
+    return C;
+  }
+
+  const compareStartEnd = (start, end, prices) => {  // added by asr 8-14-09; changed 6-5-11, instead of testing for terminal index >= 1, now testing if start date's index < end year's index
+    // this method reports if start date's index < end date's index
+    return (prices[start] < prices[end]);
+  }
+
+  const solveForAnnualAverageRate = (computedC, compareYearIndex) => {  // added by asr 8-15-09; modified by asr 6-5-11 to use start date's index < end date's index and
+    // used modified UCA formula
+    // using modified UCA formula, this method iteratively solves for the annual average rate (real)
+    let eAvg = 0.0;
+    let previousEAvg = 0.0;
+    let estC = 0.0;
+    let diff = 0.0;
+    let previousDiff = 0.0;
+    let diffNeg = false;
+    let previousDiffNeg = false;
+    let signChanged = false;
+    let bump = 0.0;
+
+    if (compareYearIndex) {
+      eAvg = .02;     // 1st guess
+    } else {
+      // if start date's index > end year's index, need different initial setting for eAvg to
+      // account for possibility of negative eAvg results
+      eAvg = -.01;
+    }
+    // 11-6-11 asr now using modified UCA formula; when first making this change in June 2011, I only updated the formula in the while loop, I forgot it here
+    //	previous UCA formula:   estC = ((Math.pow((1 + eAvg), Contract))-1)/eAvg;  // estimated C
+    estC = ((Math.pow((1 + eAvg), (duration+1))  - (1+eAvg))) /eAvg;  // estimated C
+    diff = (estC - computedC);
+
+    diffNeg = (diff < 0);                 // is the difference between estimated C and computed C negative?
+
+    // set bump value
+    // if start date's index > end date's index, need different initial setting for Iteration Bump
+    if (diffNeg) {                        // the difference from actual C is negative
+      if (compareYearIndex) {
+        bump = .25;
+      } else {
+        bump = -.25;
+      }
+    } else {                              // the difference from actual C is positive
+      if (compareYearIndex) {
+        bump = -.25;
+      } else {
+        bump = .25;
+      }
+    }
+
+    while (!signChanged) {                // repeat until difference changes sign
+      // move values to "previous" variables
+      previousEAvg = eAvg;
+      previousDiff = diff;
+      previousDiffNeg = diffNeg;
+
+      eAvg = previousEAvg * (1+bump);      // eAvg
+      // 6-19-11 asr now using modified UCA formula
+      //	previous UCA formula:   estC = ((Math.pow((1 + eAvg), Contract))-1)/eAvg;  // estimated C
+      estC = ((Math.pow((1 + eAvg), (duration+1))  - (1+eAvg))) /eAvg;  // estimated C
+      diff = (estC - computedC);           // difference from actual C
+      diffNeg = (diff < 0);                // is difference negative?
+
+      signChanged = (diffNeg !== previousDiffNeg);  // difference changed sign?
+    }
+
+    // when difference changes sign, interpolate for a close approximation to eAvg; this is the annual average rate (real)
+    return (eAvg + (Math.abs(diff)/(Math.abs(previousDiff)+Math.abs(diff))) * (previousEAvg - eAvg));
+  }
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -400,7 +629,7 @@ export default function EercForm() {
                 helperText={carbonprice===unselected?"Select policy":""}
               >
                 {carbonprices.map((option, index) => (
-                  <option key={option} value={option.toLowerCase()}>
+                  <option key={option} value={option}>
                     {option}
                   </option>
                 ))}
@@ -427,25 +656,25 @@ export default function EercForm() {
           <Grid item xs={6}>
             <TextField
               className={classes.result}
-              helperText={isNaN(resultReal()) ? "Fix selections" : ""}
-              error={isNaN(resultReal())}
+              helperText={isNaN(result_real) ? "Fix selections" : ""}
+              error={isNaN(result_real)}
               label="REAL"
               disabled
               variant="filled"
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              value={isNaN(resultReal()) ? "---" : resultReal()}
+              value={isNaN(result_real) ? "---" : result_real}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               className={classes.result}
-              helperText={isNaN(resultNominal()) ? "Fix selections" : ""}
-              error={isNaN(resultNominal())}
+              helperText={isNaN(result_nominal) ? "Fix selections" : ""}
+              error={isNaN(result_nominal)}
               label="NOMINAL"
               disabled
               variant="filled"
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              value={isNaN(resultNominal()) ? "---" : resultNominal()}
+              value={isNaN(result_nominal) ? "---" : result_nominal}
             />
           </Grid>
         </Grid>
