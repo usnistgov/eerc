@@ -93,7 +93,7 @@ const max_duration = 25;
 const default_duration = min_duration;
 const default_inflationrate = "2.2";
 const default_locale = '';
-const default_sector = sectors[0].toLowerCase();
+const default_sector = sectors[0];
 const default_startdate = unselected;
 const default_carbonprice = unselected;
 const default_result = NaN;
@@ -199,48 +199,49 @@ export default function EercForm() {
     setZipToState(await (await fetch(ZipToStateURL)).json());
   }
 
+  // This asynchronously loads the data files on page load
   useEffect(() => {
     loadDatafiles();
   }, []);
 
   const handleLocaleChange = event => {
     setLocale(event.target.value);
-    validate();
+    //validate();
   };
 
   const handlePecsChange = prop => event => {
     let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$1').replace(needlead0_re, '0.').replace(empty_re, '0');
     event.target.value = v;
     setPecs({ ...pecs, [prop]: v });
-    //setPecsTotal(parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual));
-    validate();
+    ////setPecsTotal(parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual));
+    //validate();
   };
 
   const handleSectorChange = event => {
     setSector(event.target.value);
-    validate();
+    //validate();
   };
 
   const handleStartdateChange = event => {
     setStartdate(event.target.value);
-    validate();
+    //validate();
   };
 
-  const handleDurationChange = event => {
-    setDuration(event.target.value);
-    validate();
+  const handleDurationChange = (event, value) => {
+    setDuration(value);
+    //validate();
   };
 
   const handleCarbonpriceChange = event => {
     setCarbonprice(event.target.value);
-    validate();
+    //validate();
   };
 
   const handleInflationrateChange = event => {
     let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$1').replace(needlead0_re, '0.').replace(empty_re, '0');
     event.target.value = v;
     setInflationrate(v);
-    validate();
+    //validate();
   };
 
   const stateToRegion = state => {
@@ -261,24 +262,24 @@ export default function EercForm() {
     }
   };
 
-  const validate = () => {
-    let v = (
-        (pecsTotal === 100) &&
-        (ZipToState.hasOwnProperty(locale)) &&
-        (startdate !== unselected) &&
-        (carbonprice !== unselected) &&
-        (!isNaN(parseFloat(inflationrate)))
-    );
-    console.log("validate: %o (%f, %s, %s, %s, %s, %s, %f)", v, pecsTotal, locale, ZipToState[locale], startdate, carbonprice, inflationrate, parseFloat(inflationrate));
-    //setValid(v);
-    if (v) {
-      CalculateRate();
-    } else {
-      set_Result_Real(NaN);
-      set_Result_Nominal(NaN);
-    }
-    return(v);
-  };
+  //const validate = () => {
+  //  let v = (
+  //      (pecsTotal === 100) &&
+  //      (ZipToState.hasOwnProperty(locale)) &&
+  //      (startdate !== unselected) &&
+  //      (carbonprice !== unselected) &&
+  //      (!isNaN(parseFloat(inflationrate)))
+  //  );
+  //  console.log("validate: %o (%f, %s, %s, %s, %s, %s, %s, %f)", v, pecsTotal, locale, ZipToState[locale], startdate, duration, carbonprice, inflationrate, parseFloat(inflationrate));
+  //  //setValid(v);
+  //  if (v) {
+  //    CalculateRate();
+  //  } else {
+  //    set_Result_Real(NaN);
+  //    set_Result_Nominal(NaN);
+  //  }
+  //  return(v);
+  //};
 
   //const valid = (
   //  (pecsTotal === 100) &&
@@ -289,6 +290,7 @@ export default function EercForm() {
   //);
 
   const CalculateRate = () => {
+    console.log("entering CalculateRate");
     let CW=pecs["coal"];
     let DW=pecs["distillateoil"];
     let EW=pecs["electricity"];
@@ -298,11 +300,11 @@ export default function EercForm() {
     let escalationRate = NaN;
     let nomRate = NaN;
     // prices used to calculate rate (EIA data plus carbon)
-    let pricesC = {};   // indexed by year string
-    let pricesNG = {};   // indexed by year string
-    let pricesE = {};   // indexed by year string
-    let pricesR = {};   // indexed by year string
-    let pricesD = {};   // indexed by year string
+    let pricesC = new Array(yearsIn);   // TODO: I thinj this is supposed to be Encost data?
+    let pricesNG = new Array(yearsIn);
+    let pricesE = new Array(yearsIn);
+    let pricesR = new Array(yearsIn);
+    let pricesD = new Array(yearsIn);
     // value of C
     let cC = 0;
     let cNG = 0;
@@ -319,55 +321,62 @@ export default function EercForm() {
     //let hold = 0;
     //let start = startdate;  // modified by asr 6-5-11:  range of indexes to add in order to calculate C begins one year after the performance period starts
     let rateC = 0.0;
-    let rateNG = 0;
-    let rateE = 0;
-    let rateR = 0;
-    let rateD = 0;
+    let rateNG = 0.0;
+    let rateE = 0.0;
+    let rateR = 0.0;
+    let rateD = 0.0;
 
+    let date_start = parseInt(startdate);
+    let date_end = date_start + parseInt(duration) - 1; // modified by asr 6-5-11:  range of indexes to add in order to calculate C ends one year after the performance period end year
+                          // so study period = (end year-start year)+1
+    console.log("date_start: %s (%d)  date_end: %s (%d)  duration: %s (%d)", date_start, date_start, date_end, date_end, duration, duration);
+
+    let category = stateToRegion(ZipToState[locale]) + " " + sector;
     for (let i = 0 ; i < yearsIn; i++) {
       carbonC[i] = 0.0;
       carbonNG[i] = 0.0;
       carbonE[i] = 0.0;
       carbonR[i] = 0.0;
       carbonD[i] = 0.0;
+      pricesC[i] = Encost[category]["Coal"][i + date_start];
+      pricesNG[i] = Encost[category]["Natural Gas"][i + date_start];
+      pricesE[i] = Encost[category]["Electricity"][i + date_start];
+      pricesR[i] = Encost[category]["Residual Oil"][i + date_start];
+      pricesD[i] = Encost[category]["Distillate Oil"][i + date_start];
     }
-
-    let date_start = parseInt(startdate);
-    let date_end = date_start + parseInt(duration) - 1; // modified by asr 6-5-11:  range of indexes to add in order to calculate C ends one year after the performance period end year
-                          // so study period = (end year-start year)+1
 
     if ( CW>0 ) {                        // coal
       calculateCarbonPrice(CO2Factors["Coal"], carbonC, false);
       addPrices(pricesC, carbonC);
-      cC  = calculateC(date_start, date_end, pricesC);
+      cC  = calculateC(duration, pricesC);
       compareIndicesC = compareStartEnd(date_start, date_end, pricesC);
       rateC = solveForAnnualAverageRate(cC, compareIndicesC);
     }
     if ( NGW>0 ){                       // natural gas
       calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false);
       addPrices(pricesNG, carbonNG);
-      cNG = calculateC(date_start, date_end, pricesNG);
+      cNG = calculateC(duration, pricesNG);
       compareIndicesNG = compareStartEnd(date_start, date_end, pricesNG);
       rateNG = solveForAnnualAverageRate(cNG, compareIndicesNG);
     }
     if ( EW>0 ) {                       // electricity
       calculateCarbonPrice(CO2Factors[ZipToState[locale]], carbonE, true);
       addPrices(pricesE, carbonE);
-      cE  = calculateC(date_start, date_end, pricesE);
+      cE  = calculateC(duration, pricesE);
       compareIndicesE = compareStartEnd(date_start, date_end, pricesE);
       rateE = solveForAnnualAverageRate(cE, compareIndicesE);
     }
     if ( RW>0 ) {                       // residual oil
       calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false);
       addPrices(pricesR, carbonR);
-      cR  = calculateC(date_start, date_end, pricesR);
+      cR  = calculateC(duration, pricesR);
       compareIndicesR = compareStartEnd(date_start, date_end, pricesR);
       rateR = solveForAnnualAverageRate(cR, compareIndicesR);
     }
     if ( DW>0 ) {                       // distillate oil
       calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false);
       addPrices(pricesD, carbonD);
-      cD  = calculateC(date_start, date_end, pricesD);
+      cD  = calculateC(duration, pricesD);
       compareIndicesD = compareStartEnd(date_start, date_end, pricesD);
       rateD= solveForAnnualAverageRate(cD, compareIndicesD);
     }
@@ -377,6 +386,7 @@ export default function EercForm() {
     nomRate=nomRate*100;
     set_Result_Real(escalationRate);
     set_Result_Nominal(nomRate);
+    console.log("exiting CalculateRate");
   }
 
   const calculateCarbonPrice = (CO2Factor, cP, isElectricity) => {
@@ -395,18 +405,22 @@ export default function EercForm() {
         cP[i] = cP[i] * carbonConvert;
       }  // step 4
     }
+    console.log("exiting calculateCarbonPrice");
   }
 
   const addPrices = (prices, carbon) => {
+    console.log("entering addPrices: %o += %o", prices, carbon);
     // add EIA prices and carbon prices and store is prices array
     if (carbonprice !== unselected) {  // default, low, or high carbon price
       for(let i=0; i<yearsIn; i++) {
         prices[i] = prices[i] + carbon[i];
       }
     }
+    console.log("exiting addPrices");
   }
 
   const clearCarbonArrays = () => {
+    console.log("entering clearCarbonArrays");
     // when switching from default/low/high to no, these arrays could still have values in them
     for(let i=0; i<yearsIn; i++) {
       carbonC[i] = 0.0;
@@ -415,25 +429,30 @@ export default function EercForm() {
       carbonR[i] = 0.0;
       carbonD[i] = 0.0;
     }
+    console.log("exiting clearCarbonArrays");
   }
 
-  const calculateC = (start, end, prices) => {  // added by asr 8-14-09; modified by asr 6-5-11
+  const calculateC = (years, prices) => {  // added by asr 8-14-09; modified by asr 6-5-11
+    console.log("entering calculateC %d %o", years, prices);
     // method calculates indices for years in contract and sums to get C; to calculate C, we are assuming A = $1.00
     let C = 0.0;
-    for ( let i=start; i<end+1; i++) {
+    for ( let i = 0; i < years; i++) {
       C += prices[i]/prices[0];
     }   // calculate index and add to C
+    console.log("exiting calculateC %f", C);
     return C;
   }
 
   const compareStartEnd = (start, end, prices) => {  // added by asr 8-14-09; changed 6-5-11, instead of testing for terminal index >= 1, now testing if start date's index < end year's index
     // this method reports if start date's index < end date's index
-    return (prices[start] < prices[end]);
+    console.log("compareStartEnd: %d %d %o", start, end, prices);
+    return (prices[0] < prices[end - start]);
   }
 
   const solveForAnnualAverageRate = (computedC, compareYearIndex) => {  // added by asr 8-15-09; modified by asr 6-5-11 to use start date's index < end date's index and
     // used modified UCA formula
     // using modified UCA formula, this method iteratively solves for the annual average rate (real)
+    console.log("entering solveForAnnualAverageRate: %f %d", computedC, compareYearIndex);
     let eAvg = 0.0;
     let previousEAvg = 0.0;
     let estC = 0.0;
@@ -491,8 +510,32 @@ export default function EercForm() {
     }
 
     // when difference changes sign, interpolate for a close approximation to eAvg; this is the annual average rate (real)
+    console.log("about to exit solveForAnnualAverageRate");
     return (eAvg + (Math.abs(diff)/(Math.abs(previousDiff)+Math.abs(diff))) * (previousEAvg - eAvg));
   }
+
+  // This is an attempt to avoid delayed updates because of state change queuing by
+  // calling validate every time one of the state variables changes
+  useEffect(() => {
+    let pt = parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual);
+
+    let v = (
+        (pt === 100) &&
+        (ZipToState.hasOwnProperty(locale)) &&
+        (startdate !== unselected) &&
+        (duration >= min_duration && duration <= max_duration) &&
+        (carbonprice !== unselected) &&
+        (!isNaN(parseFloat(inflationrate)))
+    );
+    console.log("effect validate: %o (%f, %s, %s, %s, %s, %s, %f)", v, pt, locale, startdate, duration, carbonprice, inflationrate, parseFloat(inflationrate));
+    //setValid(v);
+    if (v) {
+      CalculateRate();
+    } else {
+      set_Result_Real(NaN);
+      set_Result_Nominal(NaN);
+    }
+  }, [ZipToState, CalculateRate, result_real, result_nominal, locale, pecs, sector, startdate, duration, carbonprice, inflationrate]);
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -556,7 +599,7 @@ export default function EercForm() {
                 {sectors.map(value => (
                   <FormControlLabel
                     key={value}
-                    value={value.toLowerCase()}
+                    value={value}
                     control={<Radio />}
                     label={value}
                   />
