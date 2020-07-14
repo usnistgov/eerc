@@ -253,11 +253,11 @@ export default function EercForm() {
         console.err("stateToRegion cannot map "+state+" to a region");
         return("");
       case "ME": case "NH": case "VT": case "MA": case "RI": case "CT": case "NY": case "NJ": case "PA":
-        return("Northeast");
+        return("NorthEast");
       case "DE": case "MD": case "DC": case "VA": case "WV": case "NC": case "SC": case "GA": case "FL": case "KY": case "TN": case "AL": case "MS": case "AR": case "LA": case "OK": case "TX":
         return("South");
       case "OH": case "MI": case "IN": case "WI": case "IL": case "MO": case "IA": case "MN": case "ND": case "SD": case "NE": case "KS":
-        return("Midwest");
+        return("MidWest");
       default:
         return("West");
     }
@@ -333,6 +333,7 @@ export default function EercForm() {
     console.log("date_start: %s (%d)  date_end: %s (%d)  duration: %s (%d)", date_start, date_start, date_end, date_end, duration, duration);
 
     let category = stateToRegion(ZipToState[locale]) + " " + sector;
+    console.log("Category: %s", category);
     for (let i = 0 ; i < yearsIn; i++) {
       carbonC[i] = 0.0;
       carbonNG[i] = 0.0;
