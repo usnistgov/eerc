@@ -81,12 +81,13 @@ const energytypes = [
 const sectors = ["Commercial", "Industrial"];
 
 var startdates = [ unselected ];
-for (let i = 0; i < numYears; i++) {
+for (let i = 1; i <= numYears; i++) {
   //let year = currentYear + i;
-  startdates[i+1] = currentYear + i;  //year.toString();
+  startdates[i] = currentYear + i;  //year.toString();
 }
 
-const carbonprices = [ unselected, 'Default', 'Low', 'High'];
+const zero_carbon_price_policy = '__zero__';
+const carbonprices = { '--': unselected, 'Medium': 'Default', 'Low': 'Low', 'High': 'High', 'No carbon price': zero_carbon_price_policy};
 
 const min_duration = 1;
 const max_duration = 25;
@@ -393,17 +394,19 @@ export default function EercForm() {
     let sd = parseInt(startdate);
     console.log("calculateCarbonPrice: CO2ePrices[%s]=%o", carbonprice, CO2ePrices[carbonprice]);
     if (carbonprice !== unselected) {  // default, low, or high carbon price
-      for (let i=0; i<yearsIn; i++) {
-          cP[i] = CO2ePrices[carbonprice][i + sd] * CO2Factor;
-      }  // steps 1 & 2 from Excel file
-      if (isElectricity) {
+      if (carbonprice !== zero_carbon_price_policy) {
         for (let i=0; i<yearsIn; i++) {
-          cP[i] = cP[i] * CO2FutureEmissions[carbonprice][i + sd];
-        }
-      }  // step 3
-      for (let i=0; i<yearsIn; i++) {
-        cP[i] = cP[i] * carbonConvert;
-      }  // step 4
+          cP[i] = CO2ePrices[carbonprice][i + sd] * CO2Factor;
+        }  // steps 1 & 2 from Excel file
+        if (isElectricity) {
+          for (let i=0; i<yearsIn; i++) {
+            cP[i] = cP[i] * CO2FutureEmissions[carbonprice][i + sd];
+          }
+        }  // step 3
+        for (let i=0; i<yearsIn; i++) {
+          cP[i] = cP[i] * carbonConvert;
+        }  // step 4
+      }
     }
     console.log("exiting calculateCarbonPrice");
   }
@@ -540,21 +543,21 @@ export default function EercForm() {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <fieldset className={classes.formControl}>
-        <FormLabel component="legend">Percent of Energy Cost Savings</FormLabel>
+        <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <List dense>
               {energytypes.map((energy, index) => (
                 <ListItem key={energy.slug}>
                   <TextField key={energy.name} label={energy.name} value={pecs[energy.slug]} margin="dense"
-                    InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
+                    InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
                     onChange={handlePecsChange(energy.slug)}
                   />
                 </ListItem>
               ))}
             </List>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               helperText={pecsTotal !== 100 ? "Must equal 100%" : ""}
               error={pecsTotal !== 100}
@@ -570,7 +573,7 @@ export default function EercForm() {
         </Grid>
       </fieldset><br />
       <fieldset>
-        <FormLabel component="legend">Fuel Rate Information</FormLabel>
+        <FormLabel component="legend">&nbsp;Fuel Rate Information&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={6}>
             <FormControl border={1} component="fieldset" className={classes.formControl}>
@@ -610,7 +613,7 @@ export default function EercForm() {
         </Grid>
       </fieldset><br />
       <fieldset>
-        <FormLabel component="legend">Contract Term</FormLabel>
+        <FormLabel component="legend">&nbsp;Contract Term&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={6}>
             <FormControl border={1} component="fieldset" className={classes.formControl}>
@@ -654,7 +657,7 @@ export default function EercForm() {
         </Grid>
       </fieldset><br />
       <fieldset>
-        <FormLabel component="legend">Carbon Pricing Policy</FormLabel>
+        <FormLabel component="legend">&nbsp;Carbon Pricing Policy&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={6}>
             <FormControl border={1} component="fieldset" className={classes.formControl}>
@@ -671,9 +674,9 @@ export default function EercForm() {
                 error={carbonprice===unselected}
                 helperText={carbonprice===unselected?"Select policy":""}
               >
-                {carbonprices.map((option, index) => (
-                  <option key={option} value={option}>
-                    {option}
+                {Object.keys(carbonprices).map((k, index) => (
+                  <option key={k} value={carbonprices[k]}>
+                    {k}
                   </option>
                 ))}
               </TextField>
@@ -682,7 +685,7 @@ export default function EercForm() {
         </Grid>
       </fieldset><br />
       <fieldset>
-        <FormLabel component="legend">Annual Inflation Rate</FormLabel>
+        <FormLabel component="legend">&nbsp;Annual Inflation Rate&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={6}>
             <TextField label="Inflation" value={inflationrate}
@@ -693,7 +696,7 @@ export default function EercForm() {
         </Grid>
       </fieldset><br />
       <fieldset style={{ border: "6px groove", borderColor: "black" }}>
-        <FormLabel component="legend">Annual Energy Escalation Rate</FormLabel>
+        <FormLabel component="legend">&nbsp;Annual Energy Escalation Rate&nbsp;</FormLabel>
         <FormLabel component="legend">RESULTS</FormLabel><br />
         <Grid container alignItems="center" justify="center" direction="row" style={{backgroundColor:"lightgrey"}}>
           <Grid item xs={6}>
@@ -705,7 +708,7 @@ export default function EercForm() {
               disabled
               variant="filled"
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              value={isNaN(result_real) ? "---" : result_real}
+              value={isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(1)}
             />
           </Grid>
           <Grid item xs={6}>
@@ -717,7 +720,7 @@ export default function EercForm() {
               disabled
               variant="filled"
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              value={isNaN(result_nominal) ? "---" : result_nominal}
+              value={isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(1)}
             />
           </Grid>
         </Grid>
