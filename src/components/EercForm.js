@@ -55,7 +55,7 @@ const unselected = '--';
 const clean_re = /^\s*(\d*\.?\d*).*$/; // if match replace with $1
 const needlead0_re = /^\./;
 const trim0_re = /^0*(\d+)0*$/;
-const nonnumeric_re = /[^\d\.]/g;
+const nonnumeric_re = /[^\d.]/g;
 const empty_re = /^\s*$/g;
 
 const currentDate = new Date();
@@ -411,7 +411,6 @@ export default function EercForm() {
   }
 
   const calculateCarbonPrice = (CO2Factor, cP, isElectricity, baseyear) => {
-    let sd = parseInt(startdate);
     console.log("calculateCarbonPrice: CO2ePrices[%s]=%o", carbonprice, CO2ePrices[carbonprice]);
     if (carbonprice !== unselected) {  // default, low, or high carbon price
       if (carbonprice !== zero_carbon_price_policy) {
@@ -440,19 +439,6 @@ export default function EercForm() {
       }
     }
     console.log("exiting addPrices");
-  }
-
-  const clearCarbonArrays = () => {
-    console.log("entering clearCarbonArrays");
-    // when switching from default/low/high to no, these arrays could still have values in them
-    for(let i=0; i<yearsIn; i++) {
-      carbonC[i] = 0.0;
-      carbonNG[i] = 0.0;
-      carbonE[i] = 0.0;
-      carbonR[i] = 0.0;
-      carbonD[i] = 0.0;
-    }
-    console.log("exiting clearCarbonArrays");
   }
 
   const calculateC = (start, end, prices) => {  // added by asr 8-14-09; modified by asr 6-5-11
