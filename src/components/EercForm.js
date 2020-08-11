@@ -89,7 +89,7 @@ for (let i = 1; i <= numYears; i++) {
 const zero_carbon_price_policy = '__zero__';
 const carbonprices = { '--': unselected, 'Medium': 'Default', 'Low': 'Low', 'High': 'High', 'No carbon price': zero_carbon_price_policy};
 
-const min_duration = 1;
+const min_duration = 10;
 const max_duration = 25;
 const default_duration = min_duration;
 const default_inflationrate = "2.2";
@@ -714,7 +714,7 @@ export default function EercForm() {
               disabled
               variant="filled"
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              value={isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(1)}
+              value={isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(2)}
             />
           </Grid>
           <Grid item xs={6}>
@@ -726,7 +726,7 @@ export default function EercForm() {
               disabled
               variant="filled"
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              value={isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(1)}
+              value={isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(2)}
             />
           </Grid>
         </Grid>
