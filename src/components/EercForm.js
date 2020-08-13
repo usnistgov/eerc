@@ -532,8 +532,7 @@ export default function EercForm() {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <Typography variant="body2" gutterBottom>(Loaded EERC {CO2ePrices.startyear} dataset)</Typography>
-      <Typography variant="p" gutterBottom>To use, complete all form fields. Computed results are shown immedately at the bottom of the page.</Typography>
-      <br /><br />
+      <Typography variant="body1" paragraph>To use, complete all form fields. Computed results are shown immedately at the bottom of the page.</Typography>
       <fieldset className={classes.formControl}>
         <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" spacing={1}>
