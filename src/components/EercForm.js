@@ -531,11 +531,13 @@ export default function EercForm() {
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <p>Loaded EERC {CO2ePrices.startyear} dataset</p>
+      <Typography variant="body2" gutterBottom>(Loaded EERC {CO2ePrices.startyear} dataset)</Typography>
+      <Typography variant="p" gutterBottom>To use, complete all form fields. Computed results are shown immedately at the bottom of the page.</Typography>
+      <br /><br />
       <fieldset className={classes.formControl}>
         <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" direction="row">
-          <Grid item xs={3}>
+        <Grid container alignItems="center" justify="center" spacing={1}>
+          <Grid item xs={12} sm={6}>
             <List dense>
               {energytypes.map((energy, index) => (
                 <ListItem key={energy.slug}>
@@ -547,7 +549,7 @@ export default function EercForm() {
               ))}
             </List>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} sm={6}>
             <TextField
               helperText={pecsTotal !== 100 ? "Must equal 100%" : ""}
               error={pecsTotal !== 100}
@@ -564,8 +566,8 @@ export default function EercForm() {
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Fuel Rate Information&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" direction="row">
-          <Grid item xs={6}>
+        <Grid container alignItems="center" justify="center" spacing={1}>
+          <Grid item xs={12} sm={6}>
             <FormControl border={1} component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">Location</FormLabel>
               <TextField
@@ -580,7 +582,7 @@ export default function EercForm() {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <FormControl component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">Sector</FormLabel>
               <RadioGroup
@@ -604,8 +606,8 @@ export default function EercForm() {
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Contract Term&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" direction="row">
-          <Grid item xs={6}>
+        <Grid container alignItems="center" justify="center" spacing={1}>
+          <Grid item xs={12} sm={6}>
             <FormControl border={1} component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">Start Date</FormLabel>
               <TextField
@@ -628,7 +630,7 @@ export default function EercForm() {
               </TextField>
             </FormControl>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <FormControl border={1} component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">Duration</FormLabel>
               <Typography id="discrete-slider-always" gutterBottom>Years</Typography><br /><br />
@@ -649,9 +651,8 @@ export default function EercForm() {
       <fieldset>
         <FormLabel component="legend">&nbsp;Carbon Pricing Policy&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <FormControl border={1} component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Carbon Price Policy Options</FormLabel>
               <TextField
                 margin="dense"
                 id="select-carbonprice"
@@ -676,8 +677,8 @@ export default function EercForm() {
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Annual Inflation Rate&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" direction="row">
-          <Grid item xs={6}>
+        <Grid container alignItems="center" justify="center" spacing={1}>
+          <Grid item xs={12}>
             <TextField label="Inflation" value={inflationrate}
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
               onChange={handleInflationrateChange}
@@ -688,8 +689,8 @@ export default function EercForm() {
       <fieldset style={{ border: "6px groove", borderColor: "black" }}>
         <FormLabel component="legend">&nbsp;Annual Energy Escalation Rate&nbsp;</FormLabel>
         <FormLabel component="legend">RESULTS</FormLabel><br />
-        <Grid container alignItems="center" justify="center" direction="row" style={{backgroundColor:"lightgrey"}}>
-          <Grid item xs={6}>
+        <Grid container alignItems="center" justify="center" spacing={1} style={{backgroundColor:"lightgrey"}}>
+          <Grid item xs={12} sm={6}>
             <TextField
               className={classes.result}
               helperText={isNaN(result_real) ? "Fix selections" : ""}
@@ -701,7 +702,7 @@ export default function EercForm() {
               value={isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(2)}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
               className={classes.result}
               helperText={isNaN(result_nominal) ? "Fix selections" : ""}
