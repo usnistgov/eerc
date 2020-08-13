@@ -18,27 +18,20 @@
 //
 
 import React, { useEffect, useState, useReducer, useCallback } from 'react';
-//import { createStateLink, useStateLink } from '@hookstate/core';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-//import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
-//import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-//import FormHelperText from '@material-ui/core/FormHelperText';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Grid from '@material-ui/core/Grid';
-//import Box from '@material-ui/core/Box';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-//import { set, has } from 'lodash';
 
-//import '../EercCalc.js';
 ////////////////////////////////////////////////////////////////////////////////
 const CO2ePricesURL = 'CO2ePrices.json';
 const CO2FactorsURL = 'CO2Factors.txt';
@@ -539,8 +532,8 @@ export default function EercForm() {
           <Grid item xs={12} sm={6}>
             <List dense>
               {energytypes.map((energy, index) => (
-                <ListItem key={energy.slug}>
-                  <TextField key={energy.name} label={energy.name} value={pecs[energy.slug]} margin="dense"
+                <ListItem key={energy.slug} alignItems="center" disableGutters>
+                  <TextField type="number" key={energy.name} label={energy.name} value={pecs[energy.slug]} margin="dense"
                     InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
                     onChange={handlePecsChange(energy.slug)}
                   />
@@ -549,7 +542,7 @@ export default function EercForm() {
             </List>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
+            <TextField type="number"
               helperText={pecsTotal !== 100 ? "Must equal 100%" : ""}
               error={pecsTotal !== 100}
               label="Total"
@@ -569,7 +562,7 @@ export default function EercForm() {
           <Grid item xs={12} sm={6}>
             <FormControl border={1} component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">Location</FormLabel>
-              <TextField
+              <TextField type="number"
                 margin="dense"
                 value={locale}
                 onChange={handleLocaleChange}
@@ -678,7 +671,7 @@ export default function EercForm() {
         <FormLabel component="legend">&nbsp;Annual Inflation Rate&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" spacing={1}>
           <Grid item xs={12}>
-            <TextField label="Inflation" value={inflationrate}
+            <TextField type="number" label="Inflation" value={inflationrate}
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
               onChange={handleInflationrateChange}
             />
