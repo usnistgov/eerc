@@ -179,11 +179,11 @@ const addPrices = (prices, carbon, carbonprice) => {
       prices[i] = prices[i] + carbon[i];
     }
   }
-  console.log("exiting addPrices");
+  console.log("exiting addPrices with prices=%o", prices);
 }
 
 const calculateC = (start, end, prices) => {  // added by asr 8-14-09; modified by asr 6-5-11
-  console.log("entering calculateC %d %d %o", start, end, prices);
+  console.log("entering calculateC startidx=%d endidx=%d prices=%o", start, end, prices);
   // method calculates indices for years in contract and sums to get C; to calculate C, we are assuming A = $1.00
   let C = 0.0;
   for ( let i = start; i <= end; i++) {
@@ -204,8 +204,7 @@ const compareStartEnd = (start, end, prices) => {  // added by asr 8-14-09; chan
 const solveForAnnualAverageRate = (computedC, compareYearIndex, duration) => {  // added by asr 8-15-09; modified by asr 6-5-11 to use start date's index < end date's index and
   // used modified UCA formula
   // using modified UCA formula, this method iteratively solves for the annual average rate (real)
-  console.log("entering solveForAnnualAverageRate: %f %s", computedC, compareYearIndex);
-  console.log("duration=%d", duration);
+  console.log("entering solveForAnnualAverageRate: computedC=%f cmpYrIdx=%s duration=%d", computedC, compareYearIndex, duration);
   let eAvg = 0.0;
   let previousEAvg = 0.0;
   let estC = 0.0;
@@ -389,137 +388,17 @@ export default function EercForm() {
     console.log("exiting calculateCarbonPrice");
   }, [carbonprice, CO2ePrices, CO2FutureEmissions]);
 
-  const CalculateRate = useCallback(() => {
-    let CW=pecs["coal"];
-    let DW=pecs["distillateoil"];
-    let EW=pecs["electricity"];
-    let NGW=pecs["naturalgas"];
-    let RW=pecs["residual"];
-    console.log("entering CalculateRate with CW=%f DW=%f EW=%f NGW=%f RW=%f", CW, DW, EW, NGW, RW);
-
-    //let total = 0;
-    let escalationRate = NaN;
-    let nomRate = NaN;
-    // prices used to calculate rate (EIA data plus carbon)
-    let pricesC = new Array(yearsIn);   // TODO: I thinj this is supposed to be Encost data?
-    let pricesNG = new Array(yearsIn);
-    let pricesE = new Array(yearsIn);
-    let pricesR = new Array(yearsIn);
-    let pricesD = new Array(yearsIn);
-    // value of C
-    let cC = 0;
-    let cNG = 0;
-    let cE = 0;
-    let cR = 0;
-    let cD = 0;
-    // changed by asr 6-5-11; is start date's index < end date's index?
-    let compareIndicesC = false;
-    let compareIndicesNG = false;
-    let compareIndicesE = false;
-    let compareIndicesR = false;
-    let compareIndicesD = false;
-
-    //let hold = 0;
-    //let start = startdate;  // modified by asr 6-5-11:  range of indexes to add in order to calculate C begins one year after the performance period starts
-    let rateC = 0.0;
-    let rateNG = 0.0;
-    let rateE = 0.0;
-    let rateR = 0.0;
-    let rateD = 0.0;
-
-    let date_start = parseInt(startdate);
-    let date_end = date_start + parseInt(duration) - 1; // modified by asr 6-5-11:  range of indexes to add in order to calculate C ends one year after the performance period end year
-                          // so study period = (end year-start year)+1
-    console.log("date_start: %s (%d)  date_end: %s (%d)  duration: %s (%d)", date_start, date_start, date_end, date_end, duration, duration);
-
-    let category = stateToRegion(ZipToState[locale]) + " " + sector;
-    let baseyearC = parseInt(Object.keys(Encost[category]["Coal"]).sort()[0]);
-    let baseyearNG = parseInt(Object.keys(Encost[category]["Natural Gas"]).sort()[0]);
-    let baseyearE = parseInt(Object.keys(Encost[category]["Electricity"]).sort()[0]);
-    let baseyearR = parseInt(Object.keys(Encost[category]["Residual Oil"]).sort()[0]);
-    let baseyearD = parseInt(Object.keys(Encost[category]["Distillate Oil"]).sort()[0]);
-    if (!(baseyearC > 0 && baseyearC === baseyearNG && baseyearC === baseyearE && baseyearC === baseyearR && baseyearC === baseyearD)) {
-      console.log("WARNING: baseyear mismatch: C:%s NG:%s E:%s R:%s D:%s", baseyearC, baseyearNG, baseyearE, baseyearR, baseyearD);
-    }
-
-    console.log("Category: %s", category);
-    for (let i = 0 ; i < yearsIn; i++) {
-      carbonC[i] = 0.0;
-      carbonNG[i] = 0.0;
-      carbonE[i] = 0.0;
-      carbonR[i] = 0.0;
-      carbonD[i] = 0.0;
-      pricesC[i] = Encost[category]["Coal"][i + baseyearC];
-      pricesNG[i] = Encost[category]["Natural Gas"][i + baseyearNG];
-      pricesE[i] = Encost[category]["Electricity"][i + baseyearE];
-      pricesR[i] = Encost[category]["Residual Oil"][i + baseyearR];
-      pricesD[i] = Encost[category]["Distillate Oil"][i + baseyearD];
-    }
-
-    if ( CW>0 ) {                        // coal
-      calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
-      addPrices(pricesC, carbonC, carbonprice);
-      let index_start = date_start - baseyearC;
-      let index_end = date_end - baseyearC;
-      cC  = calculateC(index_start, index_end, pricesC);
-      compareIndicesC = compareStartEnd(index_start, index_end, pricesC);
-      rateC = solveForAnnualAverageRate(cC, compareIndicesC, duration);
-    }
-    if ( NGW>0 ){                       // natural gas
-      calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearNG);
-      addPrices(pricesNG, carbonNG, carbonprice);
-      let index_start = date_start - baseyearNG;
-      let index_end = date_end - baseyearNG;
-      cNG = calculateC(index_start, index_end, pricesNG);
-      compareIndicesNG = compareStartEnd(index_start, index_end, pricesNG);
-      rateNG = solveForAnnualAverageRate(cNG, compareIndicesNG, duration);
-    }
-    if ( EW>0 ) {                       // electricity
-      calculateCarbonPrice(CO2Factors[ZipToState[locale]], carbonE, true, baseyearE);
-      addPrices(pricesE, carbonE, carbonprice);
-      let index_start = date_start - baseyearE;
-      let index_end = date_end - baseyearE;
-      cE  = calculateC(index_start, index_end, pricesE);
-      compareIndicesE = compareStartEnd(index_start, index_end, pricesE);
-      rateE = solveForAnnualAverageRate(cE, compareIndicesE, duration);
-    }
-    if ( RW>0 ) {                       // residual oil
-      calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearR);
-      addPrices(pricesR, carbonR, carbonprice);
-      let index_start = date_start - baseyearR;
-      let index_end = date_end - baseyearR;
-      cR  = calculateC(index_start, index_end, pricesR);
-      compareIndicesR = compareStartEnd(index_start, index_end, pricesR);
-      rateR = solveForAnnualAverageRate(cR, compareIndicesR, duration);
-    }
-    if ( DW>0 ) {                       // distillate oil
-      calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearD);
-      addPrices(pricesD, carbonD, carbonprice);
-      let index_start = date_start - baseyearD;
-      let index_end = date_end - baseyearD;
-      cD  = calculateC(index_start, index_end, pricesD);
-      compareIndicesD = compareStartEnd(index_start, index_end, pricesD);
-      rateD = solveForAnnualAverageRate(cD, compareIndicesD, duration);
-    }
-
-    console.log("rateC=%f rateD=%f rateE=%f rateR=%f rateNG=%f", rateC, rateD, rateE, rateR, rateNG);
-    escalationRate = (CW*rateC)+(DW*rateD)+(EW*rateE)+(RW*rateR)+(NGW*rateNG);  // blended rate
-    nomRate=((1+(escalationRate/100))*(1+(parseFloat(inflationrate)/100)))-1;
-    nomRate=nomRate*100;
-    console.log("Escalation rate = %f", escalationRate);
-    console.log("Nominal rate = %f", nomRate);
-
-    set_Result_Real(escalationRate);
-    set_Result_Nominal(nomRate);
-    console.log("exiting CalculateRate");
-  }, [ZipToState, calculateCarbonPrice, Encost, CO2Factors, set_Result_Real, set_Result_Nominal, locale, pecs, sector, startdate, duration, carbonprice, inflationrate]);
-
   // This is an attempt to avoid delayed updates because of state change queuing by
   // calling validate every time one of the state variables changes
   useEffect(() => {
-    let pt = parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual);
+    const CW=parseFloat(pecs.coal);
+    const DW=parseFloat(pecs.distillateoil);
+    const EW=parseFloat(pecs.electricity);
+    const NGW=parseFloat(pecs.naturalgas);
+    const RW=parseFloat(pecs.residual);
+    const pt = CW+DW+EW+NGW+RW;
 
-    let v = (
+    const v = (
         (pt === 100) &&
         (ZipToState.hasOwnProperty(locale)) &&
         (startdate !== unselected) &&
@@ -527,15 +406,131 @@ export default function EercForm() {
         (carbonprice !== unselected) &&
         (!isNaN(parseFloat(inflationrate)))
     );
-    console.log("effect validate: %o (%f, %s, %s, %s, %s, %s, %f)", v, pt, locale, startdate, duration, carbonprice, inflationrate, parseFloat(inflationrate));
-    //setValid(v);
     if (v) {
-      CalculateRate();
+      console.log("effect validated %o (sum %f%%, locale %s, start %s, dur %s, cp %s, infl %s => %f)", v, pt, locale, startdate, duration, carbonprice, inflationrate, parseFloat(inflationrate));
+      //CalculateRate();
+      console.log("entering useEffect-CalculateRate with CW=%f DW=%f EW=%f NGW=%f RW=%f", CW, DW, EW, NGW, RW);
+
+      //let total = 0;
+      let escalationRate = NaN;
+      let nomRate = NaN;
+      // prices used to calculate rate (EIA data plus carbon)
+      let pricesC = new Array(yearsIn);   // TODO: I thinj this is supposed to be Encost data?
+      let pricesNG = new Array(yearsIn);
+      let pricesE = new Array(yearsIn);
+      let pricesR = new Array(yearsIn);
+      let pricesD = new Array(yearsIn);
+      // value of C
+      let cC = 0;
+      let cNG = 0;
+      let cE = 0;
+      let cR = 0;
+      let cD = 0;
+      // changed by asr 6-5-11; is start date's index < end date's index?
+      let compareIndicesC = false;
+      let compareIndicesNG = false;
+      let compareIndicesE = false;
+      let compareIndicesR = false;
+      let compareIndicesD = false;
+
+      //let hold = 0;
+      //let start = startdate;  // modified by asr 6-5-11:  range of indexes to add in order to calculate C begins one year after the performance period starts
+      let rateC = 0.0;
+      let rateNG = 0.0;
+      let rateE = 0.0;
+      let rateR = 0.0;
+      let rateD = 0.0;
+
+      let date_start = parseInt(startdate);
+      let date_end = date_start + parseInt(duration) - 1; // modified by asr 6-5-11:  range of indexes to add in order to calculate C ends one year after the performance period end year
+                            // so study period = (end year-start year)+1
+      console.log("date_start: %s (%d)  date_end: %s (%d)  duration: %s (%d)", date_start, date_start, date_end, date_end, duration, duration);
+
+      let category = stateToRegion(ZipToState[locale]) + " " + sector;
+      let baseyearC = parseInt(Object.keys(Encost[category]["Coal"]).sort()[0]);
+      let baseyearNG = parseInt(Object.keys(Encost[category]["Natural Gas"]).sort()[0]);
+      let baseyearE = parseInt(Object.keys(Encost[category]["Electricity"]).sort()[0]);
+      let baseyearR = parseInt(Object.keys(Encost[category]["Residual Oil"]).sort()[0]);
+      let baseyearD = parseInt(Object.keys(Encost[category]["Distillate Oil"]).sort()[0]);
+      if (!(baseyearC > 0 && baseyearC === baseyearNG && baseyearC === baseyearE && baseyearC === baseyearR && baseyearC === baseyearD)) {
+        console.log("WARNING: baseyear mismatch: C:%s NG:%s E:%s R:%s D:%s", baseyearC, baseyearNG, baseyearE, baseyearR, baseyearD);
+      }
+
+      console.log("Category: %s", category);
+      for (let i = 0 ; i < yearsIn; i++) {
+        carbonC[i] = 0.0;
+        carbonNG[i] = 0.0;
+        carbonE[i] = 0.0;
+        carbonR[i] = 0.0;
+        carbonD[i] = 0.0;
+        pricesC[i] = Encost[category]["Coal"][i + baseyearC];
+        pricesNG[i] = Encost[category]["Natural Gas"][i + baseyearNG];
+        pricesE[i] = Encost[category]["Electricity"][i + baseyearE];
+        pricesR[i] = Encost[category]["Residual Oil"][i + baseyearR];
+        pricesD[i] = Encost[category]["Distillate Oil"][i + baseyearD];
+      }
+
+      if ( CW>0 ) {                        // coal
+        calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
+        addPrices(pricesC, carbonC, carbonprice);
+        let index_start = date_start - baseyearC;
+        let index_end = date_end - baseyearC;
+        cC  = calculateC(index_start, index_end, pricesC);
+        compareIndicesC = compareStartEnd(index_start, index_end, pricesC);
+        rateC = solveForAnnualAverageRate(cC, compareIndicesC, duration);
+      }
+      if ( NGW>0 ){                       // natural gas
+        calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearNG);
+        addPrices(pricesNG, carbonNG, carbonprice);
+        let index_start = date_start - baseyearNG;
+        let index_end = date_end - baseyearNG;
+        cNG = calculateC(index_start, index_end, pricesNG);
+        compareIndicesNG = compareStartEnd(index_start, index_end, pricesNG);
+        rateNG = solveForAnnualAverageRate(cNG, compareIndicesNG, duration);
+      }
+      if ( EW>0 ) {                       // electricity
+        calculateCarbonPrice(CO2Factors[ZipToState[locale]], carbonE, true, baseyearE);
+        addPrices(pricesE, carbonE, carbonprice);
+        let index_start = date_start - baseyearE;
+        let index_end = date_end - baseyearE;
+        cE  = calculateC(index_start, index_end, pricesE);
+        compareIndicesE = compareStartEnd(index_start, index_end, pricesE);
+        rateE = solveForAnnualAverageRate(cE, compareIndicesE, duration);
+      }
+      if ( RW>0 ) {                       // residual oil
+        calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearR);
+        addPrices(pricesR, carbonR, carbonprice);
+        let index_start = date_start - baseyearR;
+        let index_end = date_end - baseyearR;
+        cR  = calculateC(index_start, index_end, pricesR);
+        compareIndicesR = compareStartEnd(index_start, index_end, pricesR);
+        rateR = solveForAnnualAverageRate(cR, compareIndicesR, duration);
+      }
+      if ( DW>0 ) {                       // distillate oil
+        calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearD);
+        addPrices(pricesD, carbonD, carbonprice);
+        let index_start = date_start - baseyearD;
+        let index_end = date_end - baseyearD;
+        cD  = calculateC(index_start, index_end, pricesD);
+        compareIndicesD = compareStartEnd(index_start, index_end, pricesD);
+        rateD = solveForAnnualAverageRate(cD, compareIndicesD, duration);
+      }
+
+      console.log("rateC=%f rateD=%f rateE=%f rateR=%f rateNG=%f", rateC, rateD, rateE, rateR, rateNG);
+      escalationRate = (CW*rateC)+(DW*rateD)+(EW*rateE)+(RW*rateR)+(NGW*rateNG);  // blended rate
+      nomRate = ((1+(escalationRate/100))*(1+(parseFloat(inflationrate)/100)))-1;
+      nomRate = nomRate*100;
+      console.log("Escalation rate = %f", escalationRate);
+      console.log("Nominal rate = %f", nomRate);
+
+      set_Result_Real(escalationRate);
+      set_Result_Nominal(nomRate);
+      console.log("exiting useEffect-CalculateRate");
     } else {
       set_Result_Real(NaN);
       set_Result_Nominal(NaN);
     }
-  }, [CalculateRate, ZipToState, set_Result_Real, set_Result_Nominal, locale, pecs, sector, startdate, duration, carbonprice, inflationrate]);
+  }, [ZipToState, CO2Factors, Encost, calculateCarbonPrice, locale, pecs, sector, startdate, duration, carbonprice, inflationrate]);
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
