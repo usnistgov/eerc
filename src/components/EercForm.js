@@ -332,8 +332,9 @@ export default function EercForm() {
   }, []);
 
   const handleLocaleChange = event => {
-    setLocale(event.target.value);
-    //validate();
+    let v = event.target.value.replace(nonnumeric_re, '');
+    event.target.value = v;
+    setLocale(v);
   };
 
   const handlePecsChange = prop => event => {
@@ -344,29 +345,24 @@ export default function EercForm() {
 
   const handleSectorChange = event => {
     setSector(event.target.value);
-    //validate();
   };
 
   const handleStartdateChange = event => {
     setStartdate(event.target.value);
-    //validate();
   };
 
   const handleDurationChange = (event, value) => {
     setDuration(value);
-    //validate();
   };
 
   const handleCarbonpriceChange = event => {
     setCarbonprice(event.target.value);
-    //validate();
   };
 
   const handleInflationrateChange = event => {
     let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$1').replace(needlead0_re, '0.').replace(empty_re, '0');
     event.target.value = v;
     setInflationrate(v);
-    //validate();
   };
 
   const calculateCarbonPrice = useCallback((CO2Factor, cP, isElectricity, baseyear) => {
@@ -535,6 +531,7 @@ export default function EercForm() {
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
+      <p>Loaded EERC {CO2ePrices.startyear} dataset</p>
       <fieldset className={classes.formControl}>
         <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
