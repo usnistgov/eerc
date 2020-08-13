@@ -93,7 +93,7 @@ const carbonprices = { '--': unselected, 'Medium': 'Default', 'Low': 'Low', 'Hig
 const min_duration = 10;
 const max_duration = 25;
 const default_duration = min_duration;
-const default_inflationrate = "2.2";
+const default_inflationrate = "2.3";
 const default_locale = '';
 const default_sector = sectors[0];
 const default_startdate = unselected;
@@ -474,8 +474,8 @@ export default function EercForm() {
       if ( CW>0 ) {                        // coal
         calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
         addPrices(pricesC, carbonC, carbonprice);
-        let index_start = date_start - baseyearC;
-        let index_end = date_end - baseyearC;
+        let index_start = date_start - baseyearC + 1;
+        let index_end = index_start + duration - 1;
         cC  = calculateC(index_start, index_end, pricesC);
         compareIndicesC = compareStartEnd(index_start, index_end, pricesC);
         rateC = solveForAnnualAverageRate(cC, compareIndicesC, duration);
@@ -483,8 +483,8 @@ export default function EercForm() {
       if ( NGW>0 ){                       // natural gas
         calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearNG);
         addPrices(pricesNG, carbonNG, carbonprice);
-        let index_start = date_start - baseyearNG;
-        let index_end = date_end - baseyearNG;
+        let index_start = date_start - baseyearNG + 1;
+        let index_end = index_start + duration - 1;
         cNG = calculateC(index_start, index_end, pricesNG);
         compareIndicesNG = compareStartEnd(index_start, index_end, pricesNG);
         rateNG = solveForAnnualAverageRate(cNG, compareIndicesNG, duration);
@@ -492,8 +492,8 @@ export default function EercForm() {
       if ( EW>0 ) {                       // electricity
         calculateCarbonPrice(CO2Factors[ZipToState[locale]], carbonE, true, baseyearE);
         addPrices(pricesE, carbonE, carbonprice);
-        let index_start = date_start - baseyearE;
-        let index_end = date_end - baseyearE;
+        let index_start = date_start - baseyearE + 1;
+        let index_end = index_start + duration - 1;
         cE  = calculateC(index_start, index_end, pricesE);
         compareIndicesE = compareStartEnd(index_start, index_end, pricesE);
         rateE = solveForAnnualAverageRate(cE, compareIndicesE, duration);
@@ -501,8 +501,8 @@ export default function EercForm() {
       if ( RW>0 ) {                       // residual oil
         calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearR);
         addPrices(pricesR, carbonR, carbonprice);
-        let index_start = date_start - baseyearR;
-        let index_end = date_end - baseyearR;
+        let index_start = date_start - baseyearR + 1;
+        let index_end = index_start + duration - 1;
         cR  = calculateC(index_start, index_end, pricesR);
         compareIndicesR = compareStartEnd(index_start, index_end, pricesR);
         rateR = solveForAnnualAverageRate(cR, compareIndicesR, duration);
@@ -510,8 +510,8 @@ export default function EercForm() {
       if ( DW>0 ) {                       // distillate oil
         calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearD);
         addPrices(pricesD, carbonD, carbonprice);
-        let index_start = date_start - baseyearD;
-        let index_end = date_end - baseyearD;
+        let index_start = date_start - baseyearD + 1;
+        let index_end = index_start + duration - 1;
         cD  = calculateC(index_start, index_end, pricesD);
         compareIndicesD = compareStartEnd(index_start, index_end, pricesD);
         rateD = solveForAnnualAverageRate(cD, compareIndicesD, duration);
