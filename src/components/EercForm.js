@@ -55,8 +55,9 @@ const unselected = '--';
 const clean_re = /^\s*(\d*\.?\d*).*$/; // if match replace with $1
 const needlead0_re = /^\./;
 const trim0_re = /^0*(\d+)0*$/;
-const nonnumeric_re = /[^\d\.]/g;
 const empty_re = /^\s*$/g;
+// eslint-disable-next-line
+const nonnumeric_re = /[^\d\.]/g;
 
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
