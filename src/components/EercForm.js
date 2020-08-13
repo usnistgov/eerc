@@ -34,7 +34,7 @@ import ListItem from '@material-ui/core/ListItem';
 
 ////////////////////////////////////////////////////////////////////////////////
 const CO2ePricesURL = 'CO2ePrices.json';
-const CO2FactorsURL = 'CO2Factors.txt';
+const CO2FactorsURL = 'CO2Factors.json';
 const CO2FutureEmissionsURL = 'CO2FutureEmissions.json';
 const EncostURL = 'Encost.json';
 const ZipToStateURL = 'zipcodetostate.json';
@@ -294,17 +294,21 @@ export default function EercForm() {
 
   async function loadDatafiles() {
     console.log("loadDatafiles() called");
-    const co2factorsresponse = await fetch(CO2FactorsURL);
-    const co2factorstxt = await co2factorsresponse.text();
-    setCO2Factors(co2factorstxt.split('\n').reduce((accum, l) => {
-      let m = l.match(/^\s*(\S+)\s+(\S.*)\s*$/);
-      if (m) {
-        accum[m[1]] = m[2];
-      }
-      return accum;
-    }, {} ));
+
+    setCO2Factors(await (await fetch(CO2FactorsURL)).json());
+    // SWB: switched from txt file to JSON so below is no longer needed
+    //const co2factorsresponse = await fetch(CO2FactorsURL);
+    //const co2factorstxt = await co2factorsresponse.text();
+    //setCO2Factors(co2factorstxt.split('\n').reduce((accum, l) => {
+    //  let m = l.match(/^\s*(\S+)\s+(\S.*)\s*$/);
+    //  if (m) {
+    //    accum[m[1]] = m[2];
+    //  }
+    //  return accum;
+    //}, {} ));
 
     setCO2ePrices(await (await fetch(CO2ePricesURL)).json());
+    // SWB: validation inline here doesn't work; the value isn't yet set in this render?
     // if (CO2ePrices['startyear'] === 0 ||
     //     !('Default' in CO2ePrices) ||
     //     !('Low' in CO2ePrices) ||
