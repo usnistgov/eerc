@@ -19,20 +19,13 @@
 
 import React, { useEffect, useState, useReducer, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { sizing } from '@material-ui/system';
-import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 
 ////////////////////////////////////////////////////////////////////////////////
 const CO2ePricesURL = 'CO2ePrices.json';
@@ -89,7 +82,7 @@ const min_duration = 10;
 const max_duration = 25;
 const default_duration = min_duration;
 const default_inflationrate = "2.3";
-const default_locale = '';
+const default_locale = unselected;
 const default_sector = sectors[0];
 const default_startdate = unselected;
 const default_carbonprice = unselected;
@@ -565,10 +558,9 @@ export default function EercForm() {
       <fieldset>
         <FormLabel component="legend">&nbsp;Fuel Rate Information&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" spacing={1}>
-          <Grid item xs={12} sm={6}>
-            <FormControl border={1} component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Location</FormLabel>
+          <Grid item xs={6} sm={3}>
               <TextField
+                label="Location"
                 margin="dense"
                 value={locale}
                 onChange={handleLocaleChange}
@@ -578,45 +570,40 @@ export default function EercForm() {
                   endAdornment: <InputAdornment position="end"> ({ZipToState[locale]})</InputAdornment>
                 }}
               />
-            </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Sector</FormLabel>
-              <RadioGroup
-                name="sector"
-                aria-label="sector"
+          <Grid item xs={6} sm={3}>
+              <TextField
+                label="Sector"
+                margin="dense"
+                id="select-sector"
+                select
                 value={sector}
+                SelectProps={{ native: true }}
                 onChange={handleSectorChange}
+                error={sector===unselected}
+                helperText={sector===unselected?"Select sector":""}
               >
-                {sectors.map(value => (
-                  <FormControlLabel
-                    key={value}
-                    value={value}
-                    control={<Radio />}
-                    label={value}
-                  />
+                {sectors.map((option, index) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
                 ))}
-              </RadioGroup>
-            </FormControl>
+              </TextField>
           </Grid>
         </Grid>
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Contract Term&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" spacing={1}>
-          <Grid item xs={12} sm={6}>
-            <FormControl border={1} component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Start Date</FormLabel>
+        <Grid container alignItems="center" justify="center" spacing={3}>
+          <Grid item xs={6} sm={3}>
               <TextField
+                label="Start Date"
                 margin="dense"
                 id="select-startdate"
                 select
                 value={startdate}
+                SelectProps={{ native: true }}
                 onChange={handleStartdateChange}
-                SelectProps={{
-                  native: true,
-                }}
                 error={startdate===unselected}
                 helperText={startdate===unselected?"Select start date":""}
               >
@@ -626,12 +613,12 @@ export default function EercForm() {
                   </option>
                 ))}
               </TextField>
-            </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl border={1} component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Duration</FormLabel>
-              <Typography id="discrete-slider-always" gutterBottom>Years</Typography><br /><br />
+          <Grid item xs={6} sm={3}>
+            <div className={classes.root} align="left">
+              <Typography id="discrete-slider-always" align="left" variant="caption" gutterBottom>
+                Years Duration
+              </Typography>
               <Slider
                 defaultValue={default_duration}
                 onChangeCommitted={handleDurationChange}
@@ -639,10 +626,10 @@ export default function EercForm() {
                 max={max_duration}
                 step={1}
                 width={300}
-                aria-label="years duration"
+                aria-labelledby="discrete-slider-always"
                 valueLabelDisplay="on"
               />
-            </FormControl>
+            </div>
           </Grid>
         </Grid>
       </fieldset><br />
@@ -656,10 +643,8 @@ export default function EercForm() {
                 id="select-carbonprice"
                 select
                 value={carbonprice}
+                SelectProps={{ native: true }}
                 onChange={handleCarbonpriceChange}
-                SelectProps={{
-                  native: true,
-                }}
                 error={carbonprice===unselected}
                 helperText={carbonprice===unselected?"Select policy":""}
               >
@@ -677,8 +662,10 @@ export default function EercForm() {
         <FormLabel component="legend">&nbsp;Annual Inflation Rate&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" spacing={1}>
           <Grid item xs={12}>
-            <TextField type="number" label="Inflation" value={inflationrate}
+            <TextField label="Inflation" value={inflationrate}
+              className={classes.percent}
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
+              inputProps={{ maxLength: 5 }}
               onChange={handleInflationrateChange}
             />
           </Grid>
