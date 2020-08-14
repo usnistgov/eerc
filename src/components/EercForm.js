@@ -59,14 +59,6 @@ const energytypes = [
   { slug: "residual", name: "Residual" },
 ];
 
-//const locales = [
-//  unselected, "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "DC", "FL", "GA",
-//  "HI","IA", "ID", "IL","IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI",
-//  "MN", "MO", "MS", "MT", "NC","ND","NE", "NH", "NJ", "NM", "NV", "NY",
-//  "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT",
-//  "WA", "WI", "WV", "WY"
-//];
-
 const sectors = ["Commercial", "Industrial"];
 
 var startdates = [ unselected ];
@@ -80,6 +72,19 @@ const carbonprices = { '--': unselected, 'Medium': 'Default', 'Low': 'Low', 'Hig
 
 const min_duration = 10;
 const max_duration = 25;
+const slidermarks = [
+  {
+    value: min_duration,
+    label: `${min_duration} yrs`,
+  },
+  {
+    value: max_duration,
+    label: `${max_duration} yrs`,
+  },
+];
+function slidervaluetext(value) {
+  return `${value} years`;
+}
 const default_duration = min_duration;
 const default_inflationrate = "2.3";
 const default_locale = unselected;
@@ -96,6 +101,12 @@ const useStyles = makeStyles(theme => ({
     },
     '& .MuiInput-root': {
       width: 120,
+    },
+    '& .MuiInputLabel-shrink': {
+      transform: 'translate(0, 1.5px) scale(0.9)',
+    },
+    '& .MuiSlider-root': {
+      width: 100,
     },
     '.green': {
       color: 'green',
@@ -117,6 +128,9 @@ const useStyles = makeStyles(theme => ({
     '& .MuiInput-root': {
       width: 64,
     },
+    '& .MuiInputLabel-shrink': {
+      transform: 'translate(0, 1.5px) scale(0.9)',
+    },
   },
   result: {
     '& .MuiFilledInput-input': {
@@ -125,6 +139,9 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: 'yellow',
       fontWeight: 'bold',
       fontSize: '2.0em',
+    },
+    '& .MuiInputLabel-shrink': {
+      transform: 'translate(0, 1.5px) scale(0.9)',
     },
     'fieldset': {
       backgroundColor: 'green',
@@ -300,31 +317,11 @@ export default function EercForm() {
     console.log("loadDatafiles() called");
 
     setCO2Factors(await (await fetch(CO2FactorsURL)).json());
-    // SWB: switched from txt file to JSON so below is no longer needed
-    //const co2factorsresponse = await fetch(CO2FactorsURL);
-    //const co2factorstxt = await co2factorsresponse.text();
-    //setCO2Factors(co2factorstxt.split('\n').reduce((accum, l) => {
-    //  let m = l.match(/^\s*(\S+)\s+(\S.*)\s*$/);
-    //  if (m) {
-    //    accum[m[1]] = m[2];
-    //  }
-    //  return accum;
-    //}, {} ));
-
     setCO2ePrices(await (await fetch(CO2ePricesURL)).json());
-    // SWB: validation inline here doesn't work; the value isn't yet set in this render?
-    // if (CO2ePrices['startyear'] === 0 ||
-    //     !('Default' in CO2ePrices) ||
-    //     !('Low' in CO2ePrices) ||
-    //     !('High' in CO2ePrices) ) {
-    //   console.log("ERROR: Parse of " + CO2ePricesURL + " failed!");
-    //   console.log("CO2ePrices = " + JSON.stringify(CO2ePrices));
-    //   alert("ERROR: Parse of " + CO2ePricesURL + " failed!");
-    // }
-
     setCO2FutureEmissions(await (await fetch(CO2FutureEmissionsURL)).json());
     updateEncost(await (await fetch(EncostURL)).json());
     setZipToState(await (await fetch(ZipToStateURL)).json());
+    // SWB: validation inline here doesn't work; the value isn't yet set in this render?
   }
 
   // This asynchronously loads the data files on page load
@@ -394,7 +391,7 @@ export default function EercForm() {
     const EW=parseFloat(pecs.electricity);
     const NGW=parseFloat(pecs.naturalgas);
     const RW=parseFloat(pecs.residual);
-    const pt = CW+DW+EW+NGW+RW;
+    const pt = CW+DW+EW+NGW+RW; // total of energy percentages
 
     const v = (
         (pt === 100) &&
@@ -406,10 +403,8 @@ export default function EercForm() {
     );
     if (v) {
       console.log("effect validated %o (sum %f%%, locale %s, start %s, dur %s, cp %s, infl %s => %f)", v, pt, locale, startdate, duration, carbonprice, inflationrate, parseFloat(inflationrate));
-      //CalculateRate();
       console.log("entering useEffect-CalculateRate with CW=%f DW=%f EW=%f NGW=%f RW=%f", CW, DW, EW, NGW, RW);
 
-      //let total = 0;
       let escalationRate = NaN;
       let nomRate = NaN;
       // prices used to calculate rate (EIA data plus carbon)
@@ -431,8 +426,6 @@ export default function EercForm() {
       let compareIndicesR = false;
       let compareIndicesD = false;
 
-      //let hold = 0;
-      //let start = startdate;  // modified by asr 6-5-11:  range of indexes to add in order to calculate C begins one year after the performance period starts
       let rateC = 0.0;
       let rateNG = 0.0;
       let rateE = 0.0;
@@ -444,28 +437,28 @@ export default function EercForm() {
                             // so study period = (end year-start year)+1
       console.log("date_start: %s (%d)  date_end: %s (%d)  duration: %s (%d)", date_start, date_start, date_end, date_end, duration, duration);
 
-      let category = stateToRegion(ZipToState[locale]) + " " + sector;
-      let baseyearC = parseInt(Object.keys(Encost[category]["Coal"]).sort()[0]);
-      let baseyearNG = parseInt(Object.keys(Encost[category]["Natural Gas"]).sort()[0]);
-      let baseyearE = parseInt(Object.keys(Encost[category]["Electricity"]).sort()[0]);
-      let baseyearR = parseInt(Object.keys(Encost[category]["Residual Oil"]).sort()[0]);
-      let baseyearD = parseInt(Object.keys(Encost[category]["Distillate Oil"]).sort()[0]);
+      let region = stateToRegion(ZipToState[locale]) + " " + sector;
+      let baseyearC = parseInt(Object.keys(Encost[region]["Coal"]).sort()[0]);
+      let baseyearNG = parseInt(Object.keys(Encost[region]["Natural Gas"]).sort()[0]);
+      let baseyearE = parseInt(Object.keys(Encost[region]["Electricity"]).sort()[0]);
+      let baseyearR = parseInt(Object.keys(Encost[region]["Residual Oil"]).sort()[0]);
+      let baseyearD = parseInt(Object.keys(Encost[region]["Distillate Oil"]).sort()[0]);
       if (!(baseyearC > 0 && baseyearC === baseyearNG && baseyearC === baseyearE && baseyearC === baseyearR && baseyearC === baseyearD)) {
         console.log("WARNING: baseyear mismatch: C:%s NG:%s E:%s R:%s D:%s", baseyearC, baseyearNG, baseyearE, baseyearR, baseyearD);
       }
 
-      console.log("Category: %s", category);
+      console.log("Region: %s", region);
       for (let i = 0 ; i < yearsIn; i++) {
         carbonC[i] = 0.0;
         carbonNG[i] = 0.0;
         carbonE[i] = 0.0;
         carbonR[i] = 0.0;
         carbonD[i] = 0.0;
-        pricesC[i] = Encost[category]["Coal"][i + baseyearC];
-        pricesNG[i] = Encost[category]["Natural Gas"][i + baseyearNG];
-        pricesE[i] = Encost[category]["Electricity"][i + baseyearE];
-        pricesR[i] = Encost[category]["Residual Oil"][i + baseyearR];
-        pricesD[i] = Encost[category]["Distillate Oil"][i + baseyearD];
+        pricesC[i] = Encost[region]["Coal"][i + baseyearC];
+        pricesNG[i] = Encost[region]["Natural Gas"][i + baseyearNG];
+        pricesE[i] = Encost[region]["Electricity"][i + baseyearE];
+        pricesR[i] = Encost[region]["Residual Oil"][i + baseyearR];
+        pricesD[i] = Encost[region]["Distillate Oil"][i + baseyearD];
       }
 
       if ( CW>0 ) {                        // coal
@@ -536,7 +529,7 @@ export default function EercForm() {
       <Typography variant="body1" paragraph>To use, complete all form fields. Computed results are shown immedately at the bottom of the page.</Typography>
       <fieldset className={classes.formControl}>
         <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" spacing={3}>
+        <Grid container alignItems="flex-start" justify="center" spacing={3}>
             {energytypes.map((energy, index) => (
                 <Grid item xs={4} sm={2} key={'grid'+index}>
                   <TextField key={energy.name} className={classes.percent} label={energy.name} value={pecs[energy.slug]} margin="dense"
@@ -562,7 +555,7 @@ export default function EercForm() {
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Fuel Rate Information&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" spacing={1}>
+        <Grid container alignItems="flex-start" justify="center" spacing={1}>
           <Grid item xs={6} sm={3}>
               <TextField
                 label="Location"
@@ -599,7 +592,7 @@ export default function EercForm() {
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Contract Term&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" spacing={6}>
+        <Grid container alignItems="baseline" justify="center" spacing={6}>
           <Grid item xs={6} sm={3}>
               <TextField
                 label="Start Date"
@@ -621,7 +614,7 @@ export default function EercForm() {
           </Grid>
           <Grid item xs={6} sm={3}>
             <div className={classes.root} align="left">
-              <Typography id="discrete-slider-always" align="left" variant="caption" gutterBottom>
+              <Typography id="discrete-slider-always" align="left" variant="body2" gutterBottom>
                 Years Duration
               </Typography>
               <Slider
@@ -630,9 +623,10 @@ export default function EercForm() {
                 min={min_duration}
                 max={max_duration}
                 step={1}
-                width={300}
+                marks={slidermarks}
+                getAriaValueText={slidervaluetext}
                 aria-labelledby="discrete-slider-always"
-                valueLabelDisplay="on"
+                valueLabelDisplay="auto"
               />
             </div>
           </Grid>
