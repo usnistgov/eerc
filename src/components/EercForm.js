@@ -536,14 +536,17 @@ export default function EercForm() {
       <Typography variant="body1" paragraph>To use, complete all form fields. Computed results are shown immedately at the bottom of the page.</Typography>
       <fieldset className={classes.formControl}>
         <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
+        <Grid container alignItems="center" justify="center" spacing={3}>
             {energytypes.map((energy, index) => (
+                <Grid item xs={4} sm={2}>
                   <TextField key={energy.name} className={classes.percent} label={energy.name} value={pecs[energy.slug]} margin="dense"
                     InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
                     inputProps={{ maxLength: 5 }}
                     onChange={handlePecsChange(energy.slug)}
                   />
+                </Grid>
               ))}
-
+          <Grid item xs={12}>
             <TextField
               className={classes.percent}
               helperText={pecsTotal !== 100 ? "Must equal 100%" : ""}
@@ -554,6 +557,8 @@ export default function EercForm() {
               value={pecsTotal}
               InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
             />
+          </Grid>
+        </Grid>
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Fuel Rate Information&nbsp;</FormLabel>
@@ -594,7 +599,7 @@ export default function EercForm() {
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Contract Term&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" spacing={3}>
+        <Grid container alignItems="center" justify="center" spacing={6}>
           <Grid item xs={6} sm={3}>
               <TextField
                 label="Start Date"
