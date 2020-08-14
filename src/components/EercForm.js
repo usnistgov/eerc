@@ -19,6 +19,8 @@
 
 import React, { useEffect, useState, useReducer, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { sizing } from '@material-ui/system';
+import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -97,10 +99,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: 150,
+      width: 120,
     },
     '& .MuiInput-root': {
-      width: 150,
+      width: 120,
     },
     '.green': {
       color: 'green',
@@ -112,7 +114,16 @@ const useStyles = makeStyles(theme => ({
       color: 'purple',
       fontWeight: 'bold',
       fontSize: '1.5em',
-    }
+    },
+  },
+  percent: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: 64,
+    },
+    '& .MuiInput-root': {
+      width: 64,
+    },
   },
   result: {
     '& .MuiFilledInput-input': {
@@ -532,33 +543,24 @@ export default function EercForm() {
       <Typography variant="body1" paragraph>To use, complete all form fields. Computed results are shown immedately at the bottom of the page.</Typography>
       <fieldset className={classes.formControl}>
         <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" spacing={1}>
-          <Grid item xs={12} sm={6}>
-            <List dense>
-              {energytypes.map((energy, index) => (
-                <ListItem key={energy.slug} alignItems="center" disableGutters>
-                  <TextField type="number" key={energy.name} label={energy.name} value={pecs[energy.slug]} margin="dense"
+            {energytypes.map((energy, index) => (
+                  <TextField key={energy.name} className={classes.percent} label={energy.name} value={pecs[energy.slug]} margin="dense"
                     InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
+                    inputProps={{ maxLength: 5 }}
                     onChange={handlePecsChange(energy.slug)}
                   />
-                </ListItem>
               ))}
-            </List>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField type="number"
+
+            <TextField
+              className={classes.percent}
               helperText={pecsTotal !== 100 ? "Must equal 100%" : ""}
               error={pecsTotal !== 100}
               label="Total"
               disabled
               variant="filled"
               value={pecsTotal}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">%</InputAdornment>,
-              }}
+              InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
             />
-          </Grid>
-        </Grid>
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Fuel Rate Information&nbsp;</FormLabel>
@@ -566,7 +568,7 @@ export default function EercForm() {
           <Grid item xs={12} sm={6}>
             <FormControl border={1} component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">Location</FormLabel>
-              <TextField type="number"
+              <TextField
                 margin="dense"
                 value={locale}
                 onChange={handleLocaleChange}
@@ -685,7 +687,7 @@ export default function EercForm() {
       <fieldset style={{ border: "6px groove", borderColor: "black" }}>
         <FormLabel component="legend">&nbsp;Annual Energy Escalation Rate&nbsp;</FormLabel>
         <FormLabel component="legend">RESULTS</FormLabel><br />
-        <Grid container alignItems="center" justify="center" spacing={1} style={{backgroundColor:"lightgrey"}}>
+        <Grid container alignItems="center" justify="center" spacing={3} style={{backgroundColor:"lightgrey"}}>
           <Grid item xs={12} sm={6}>
             <TextField
               className={classes.result}
