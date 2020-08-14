@@ -538,7 +538,7 @@ export default function EercForm() {
         <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" spacing={3}>
             {energytypes.map((energy, index) => (
-                <Grid item xs={4} sm={2}>
+                <Grid item xs={4} sm={2} key={'grid'+index}>
                   <TextField key={energy.name} className={classes.percent} label={energy.name} value={pecs[energy.slug]} margin="dense"
                     InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
                     inputProps={{ maxLength: 5 }}
