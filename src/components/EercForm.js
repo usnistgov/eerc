@@ -133,12 +133,18 @@ const useStyles = makeStyles(theme => ({
     },
   },
   result: {
+    '& .MuiTextField-result': {
+      width: 250,
+    },
     '& .MuiFilledInput-input': {
-      width: 200,
       color: 'darkviolet',
       backgroundColor: 'yellow',
       fontWeight: 'bold',
       fontSize: '2.0em',
+      width: 250,
+    },
+    '& .MuiFormControl-result': {
+      width: 250,
     },
     '& .MuiInputLabel-shrink': {
       transform: 'translate(0, 1.5px) scale(0.9)',
@@ -534,7 +540,7 @@ export default function EercForm() {
                 <Grid item xs={4} sm={2} key={'grid'+index}>
                   <TextField key={energy.name} className={classes.percent} label={energy.name} value={pecs[energy.slug]} margin="dense"
                     InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
-                    inputProps={{ maxLength: 5 }}
+                    inputProps={{ maxLength: 5, style: { textAlign: 'right' } }}
                     onChange={handlePecsChange(energy.slug)}
                   />
                 </Grid>
@@ -549,6 +555,7 @@ export default function EercForm() {
               variant="filled"
               value={pecsTotal}
               InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
+              inputProps={{ style: { textAlign: 'right' } }}
             />
           </Grid>
         </Grid>
@@ -661,10 +668,10 @@ export default function EercForm() {
         <FormLabel component="legend">&nbsp;Annual Inflation Rate&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" spacing={1}>
           <Grid item xs={12}>
-            <TextField label="Inflation" value={inflationrate}
+            <TextField value={inflationrate}
               className={classes.percent}
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              inputProps={{ maxLength: 5 }}
+              inputProps={{ maxLength: 5, style: { textAlign: 'right' } }}
               onChange={handleInflationrateChange}
             />
           </Grid>
@@ -682,6 +689,8 @@ export default function EercForm() {
               label="REAL"
               disabled
               variant="filled"
+              style={{ width: 180 }}
+              inputProps={{ style: { textAlign: 'right' } }}
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
               value={isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(2)}
             />
@@ -694,6 +703,8 @@ export default function EercForm() {
               label="NOMINAL"
               disabled
               variant="filled"
+              style={{ width: 180 }}
+              inputProps={{ style: { textAlign: 'right' } }}
               InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
               value={isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(2)}
             />
