@@ -41,11 +41,14 @@ const carbonConvert = 0.912130;    // factor used to convert results from 2019$/
 const unselected = '--';
 //const valid_re = /^((\d+\.?\d*)|(\d*\.\d+))$/;
 const clean_re = /^\s*(\d*\.?\d*).*$/; // if match replace with $1
-const needlead0_re = /^\./;
-const trim0_re = /^0*(\d+)0*$/;
+const pctclean_re = /^\s*(\-?\d*\.?\d*).*$/; // if match replace with $1
+const needlead0_re = /^(?<neg>\-?)\./;
+const trim0_re = /^(?<neg>\-?)0*(?<num>\d+)0*$/;
 const empty_re = /^\s*$/g;
 // eslint-disable-next-line
 const nonnumeric_re = /[^\d\.]/g;
+// eslint-disable-next-line
+const nonpercent_re = /[^\d\.\-]/g;
 
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
@@ -342,7 +345,7 @@ export default function EercForm() {
   };
 
   const handlePecsChange = prop => event => {
-    let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$1').replace(needlead0_re, '0.').replace(empty_re, '0');
+    let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$<neg>$<num>').replace(needlead0_re, '$<neg>0.').replace(empty_re, '0');
     event.target.value = v;
     setPecs({ ...pecs, [prop]: v });
   };
@@ -364,7 +367,7 @@ export default function EercForm() {
   };
 
   const handleInflationrateChange = event => {
-    let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$1').replace(needlead0_re, '0.').replace(empty_re, '0');
+    let v = event.target.value.replace(nonpercent_re, '').replace(pctclean_re, '$1').replace(trim0_re, '$<neg>$<num>').replace(needlead0_re, '$<neg>0.').replace(empty_re, '0');
     event.target.value = v;
     setInflationrate(v);
   };
