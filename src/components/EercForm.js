@@ -41,8 +41,11 @@ const carbonConvert = 0.912130;    // factor used to convert results from 2019$/
 const unselected = '--';
 //const valid_re = /^((\d+\.?\d*)|(\d*\.\d+))$/;
 const clean_re = /^\s*(\d*\.?\d*).*$/; // if match replace with $1
+// eslint-disable-next-line
 const pctclean_re = /^\s*(\-?\d*\.?\d*).*$/; // if match replace with $1
+// eslint-disable-next-line
 const needlead0_re = /^(?<neg>\-?)\./;
+// eslint-disable-next-line
 const trim0_re = /^(?<neg>\-?)0*(?<num>\d+)0*$/;
 const empty_re = /^\s*$/g;
 // eslint-disable-next-line
