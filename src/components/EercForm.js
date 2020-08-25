@@ -18,14 +18,28 @@
 //
 
 import React, { useEffect, useState, useReducer, useCallback } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+
+////////////////////////////////////////////////////////////////////////////////
+// A tooltip customized to for showing HTML content
+const HtmlTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 280,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}))(Tooltip);
 
 ////////////////////////////////////////////////////////////////////////////////
 const CO2ePricesURL = 'CO2ePrices.json';
@@ -535,22 +549,40 @@ export default function EercForm() {
     }
   }, [ZipToState, CO2Factors, Encost, calculateCarbonPrice, locale, pecs, sector, startdate, duration, carbonprice, inflationrate]);
 
+  var dataset_msg = '';
+  if (typeof CO2ePrices.startyear === 'undefined' || CO2ePrices.startyear === 'null') {
+    dataset_msg = <Typography variant="h6" color="error" gutterBottom>[Warning: Dataset is not loaded!]</Typography>
+  } else {
+    dataset_msg = <Typography variant="body2" gutterBottom>(Loaded {CO2ePrices.startyear} dataset)</Typography>
+  }
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <Typography variant="body2" gutterBottom>(Loaded EERC {CO2ePrices.startyear} dataset)</Typography>
-      <Typography variant="body1" paragraph>To use, complete all form fields. Computed results are shown immedately at the bottom of the page.</Typography>
+      {dataset_msg}
+      <Typography variant="body2" paragraph>To use, complete all form fields. Computed results are shown immedately at the bottom of the page.<br />The EERC User Guide is here:&nbsp;
+        <Link target="_blank" rel="noopener" href="EERC User Guide.htm">HTML</Link>&nbsp;&nbsp;&nbsp;<Link target="_blank" rel="noopener" href="EERC User Guide.pdf">PDF</Link>
+      </Typography>
       <fieldset className={classes.formControl}>
         <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
         <Grid container alignItems="flex-start" justify="center" spacing={3}>
-            {energytypes.map((energy, index) => (
-                <Grid item xs={4} sm={2} key={'grid'+index}>
-                  <TextField key={energy.name} className={classes.percent} label={energy.name} value={pecs[energy.slug]} margin="dense"
-                    InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
-                    inputProps={{ maxLength: 5, style: { textAlign: 'right' } }}
-                    onChange={handlePecsChange(energy.slug)}
-                  />
-                </Grid>
-              ))}
+          {energytypes.map((energy, index) => (
+            <Grid item xs={4} sm={2} key={'grid'+index}>
+              <HtmlTooltip
+                arrow
+                title={
+                  <React.Fragment>
+                    {"Percentage of energy cost savings in dollars that is attributable to " + energy.name + " used in the project. This input is used to weight the escalation rate."}
+                  </React.Fragment>
+                }
+              >
+                <TextField key={energy.name} className={classes.percent} label={energy.name} value={pecs[energy.slug]} margin="dense"
+                  InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
+                  inputProps={{ maxLength: 5, style: { textAlign: 'right' } }}
+                  onChange={handlePecsChange(energy.slug)}
+                />
+              </HtmlTooltip>
+            </Grid>
+          ))}
           <Grid item xs={12}>
             <TextField
               className={classes.percent}
@@ -570,6 +602,14 @@ export default function EercForm() {
         <FormLabel component="legend">&nbsp;Fuel Rate Information&nbsp;</FormLabel>
         <Grid container alignItems="flex-start" justify="center" spacing={1}>
           <Grid item xs={6} sm={3}>
+            <HtmlTooltip
+              arrow
+              title={
+                <React.Fragment>
+                  {"Selecting the ZIP code in which the project is located is needed to select the associated energy price escalation rates (by Census Region) and CO2 pricing and emission rates (currently by State)."}
+                </React.Fragment>
+              }
+            >
               <TextField
                 label="Location"
                 margin="dense"
@@ -581,8 +621,17 @@ export default function EercForm() {
                   endAdornment: <InputAdornment position="end"> ({ZipToState[locale]})</InputAdornment>
                 }}
               />
+            </HtmlTooltip>
           </Grid>
           <Grid item xs={6} sm={3}>
+            <HtmlTooltip
+              arrow
+              title={
+                <React.Fragment>
+                  {"Selection of commercial sector or industrial sector determines the escalation rate schedule applied to the energy cost calculation."}
+                </React.Fragment>
+              }
+            >
               <TextField
                 label="Sector"
                 margin="dense"
@@ -600,6 +649,7 @@ export default function EercForm() {
                   </option>
                 ))}
               </TextField>
+            </HtmlTooltip>
           </Grid>
         </Grid>
       </fieldset><br />
@@ -607,6 +657,14 @@ export default function EercForm() {
         <FormLabel component="legend">&nbsp;Contract Term&nbsp;</FormLabel>
         <Grid container alignItems="baseline" justify="center" spacing={6}>
           <Grid item xs={6} sm={3}>
+            <HtmlTooltip
+              arrow
+              title={
+                <React.Fragment>
+                  {"Date (year) when energy savings start to accrue, which is usually after project acceptance at the beginning of performance period."}
+                </React.Fragment>
+              }
+            >
               <TextField
                 label="Start Date"
                 margin="dense"
@@ -624,24 +682,34 @@ export default function EercForm() {
                   </option>
                 ))}
               </TextField>
+            </HtmlTooltip>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <div className={classes.root} align="left">
-              <Typography id="discrete-slider-always" align="left" variant="body2" gutterBottom>
-                Years Duration
-              </Typography>
-              <Slider
-                defaultValue={default_duration}
-                onChangeCommitted={handleDurationChange}
-                min={min_duration}
-                max={max_duration}
-                step={1}
-                marks={slidermarks}
-                getAriaValueText={slidervaluetext}
-                aria-labelledby="discrete-slider-always"
-                valueLabelDisplay="auto"
-              />
-            </div>
+            <HtmlTooltip
+              arrow
+              title={
+                <React.Fragment>
+                  {"Number of years of the performance period for which the average escalation rate will be calculated."}
+                </React.Fragment>
+              }
+            >
+              <div className={classes.root} align="left">
+                <Typography id="discrete-slider-always" align="left" variant="body2" gutterBottom>
+                  Years Duration
+                </Typography>
+                <Slider
+                  defaultValue={default_duration}
+                  onChangeCommitted={handleDurationChange}
+                  min={min_duration}
+                  max={max_duration}
+                  step={1}
+                  marks={slidermarks}
+                  getAriaValueText={slidervaluetext}
+                  aria-labelledby="discrete-slider-always"
+                  valueLabelDisplay="auto"
+                />
+              </div>
+            </HtmlTooltip>
           </Grid>
         </Grid>
       </fieldset><br />
@@ -649,24 +717,39 @@ export default function EercForm() {
         <FormLabel component="legend">&nbsp;Carbon Pricing Policy&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={12}>
-            <FormControl border={1} component="fieldset" className={classes.formControl}>
-              <TextField
-                margin="dense"
-                id="select-carbonprice"
-                select
-                value={carbonprice}
-                SelectProps={{ native: true }}
-                onChange={handleCarbonpriceChange}
-                error={carbonprice===unselected}
-                helperText={carbonprice===unselected?"Select policy":""}
-              >
-                {Object.keys(carbonprices).map((k, index) => (
-                  <option key={k} value={carbonprices[k]}>
-                    {k}
-                  </option>
-                ))}
-              </TextField>
-            </FormControl>
+            <HtmlTooltip
+              arrow
+              title={
+                <React.Fragment>
+                  {"Determines the carbon pricing scenario to assume:"}
+                  <ul>
+                  <li><em>{"No Carbon Price"}</em> {"assumes that no carbon policy is enacted (status quo)"}</li>
+                  <li><em>{"Medium"}</em> {"assumes carbon prices based on implementation from recent climate change bill (American Clean Energy and Security Act of 2009: H.R. 2454) is enacted"}</li>
+                  <li><em>{"Low"}</em> {"assumes a carbon policy is implemented that is less restrictive than the Medium policy option on offsets and low carbon energy sources"}</li>
+                  <li><em>{"High"}</em> {"assumes significant restrictions relative to the Medium policy option on offsets and low carbon energy sources"}</li>
+                  </ul>
+                </React.Fragment>
+              }
+            >
+              <FormControl border={1} component="fieldset" className={classes.formControl}>
+                <TextField
+                  margin="dense"
+                  id="select-carbonprice"
+                  select
+                  value={carbonprice}
+                  SelectProps={{ native: true }}
+                  onChange={handleCarbonpriceChange}
+                  error={carbonprice===unselected}
+                  helperText={carbonprice===unselected?"Select policy":""}
+                >
+                  {Object.keys(carbonprices).map((k, index) => (
+                    <option key={k} value={carbonprices[k]}>
+                      {k}
+                    </option>
+                  ))}
+                </TextField>
+              </FormControl>
+            </HtmlTooltip>
           </Grid>
         </Grid>
       </fieldset><br />
@@ -674,12 +757,21 @@ export default function EercForm() {
         <FormLabel component="legend">&nbsp;Annual Inflation Rate&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" spacing={1}>
           <Grid item xs={12}>
-            <TextField value={inflationrate}
-              className={classes.percent}
-              InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              inputProps={{ maxLength: 5, style: { textAlign: 'right' } }}
-              onChange={handleInflationrateChange}
-            />
+            <HtmlTooltip
+              arrow
+              title={
+                <React.Fragment>
+                  {"The general rate of inflation for the nominal discount rate calculation. The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using the method described in 10 CFR 436 without consideration of the 3.0 % floor for the real discount rate."}
+                </React.Fragment>
+              }
+            >
+              <TextField value={inflationrate}
+                className={classes.percent}
+                InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
+                inputProps={{ maxLength: 5, style: { textAlign: 'right' } }}
+                onChange={handleInflationrateChange}
+              />
+            </HtmlTooltip>
           </Grid>
         </Grid>
       </fieldset><br />
@@ -688,32 +780,50 @@ export default function EercForm() {
         <FormLabel component="legend">RESULTS</FormLabel><br />
         <Grid container alignItems="center" justify="center" spacing={3} style={{backgroundColor:"lightgrey"}}>
           <Grid item xs={12} sm={6}>
-            <TextField
-              className={classes.result}
-              helperText={isNaN(result_real) ? "Fix selections" : ""}
-              error={isNaN(result_real)}
-              label="REAL"
-              disabled
-              variant="filled"
-              style={{ width: 180 }}
-              inputProps={{ style: { textAlign: 'right' } }}
-              InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              value={isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(2)}
-            />
+            <HtmlTooltip
+              arrow
+              title={
+                <React.Fragment>
+                  {"The calculated average escalation rate in real terms (excluding the rate of inflation). Estimated using the energy prices for the sector, fuel mix, and location."}
+                </React.Fragment>
+              }
+            >
+              <TextField
+                className={classes.result}
+                helperText={isNaN(result_real) ? "Fix selections" : ""}
+                error={isNaN(result_real)}
+                label="REAL"
+                disabled
+                variant="filled"
+                style={{ width: 180 }}
+                inputProps={{ style: { textAlign: 'right' } }}
+                InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
+                value={isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(2)}
+              />
+            </HtmlTooltip>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              className={classes.result}
-              helperText={isNaN(result_nominal) ? "Fix selections" : ""}
-              error={isNaN(result_nominal)}
-              label="NOMINAL"
-              disabled
-              variant="filled"
-              style={{ width: 180 }}
-              inputProps={{ style: { textAlign: 'right' } }}
-              InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
-              value={isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(2)}
-            />
+            <HtmlTooltip
+              arrow
+              title={
+                <React.Fragment>
+                  {"The calculated average escalation rate in nominal terms (including the rate of inflation).  Calculated using the real escalation rate and input inflation rate."}
+                </React.Fragment>
+              }
+            >
+              <TextField
+                className={classes.result}
+                helperText={isNaN(result_nominal) ? "Fix selections" : ""}
+                error={isNaN(result_nominal)}
+                label="NOMINAL"
+                disabled
+                variant="filled"
+                style={{ width: 180 }}
+                inputProps={{ style: { textAlign: 'right' } }}
+                InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
+                value={isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(2)}
+              />
+            </HtmlTooltip>
           </Grid>
         </Grid>
       </fieldset>
