@@ -1,3 +1,14 @@
+# NIST Energy Escalation Rate Calculator
+
+This project builds a single-page static calculator using React with Material-UI components.
+
+See `public/EERC%20User%20Guide.htm` for a description of the tool and the calculation it provides.
+
+Below are the generic instructions created by `create-react-app` .
+
+-------
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

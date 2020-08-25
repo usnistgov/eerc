@@ -559,8 +559,8 @@ export default function EercForm() {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       {dataset_msg}
-      <Typography variant="body2" paragraph>To use, complete all form fields. Computed results are shown immedately at the bottom of the page.<br />The EERC User Guide is here:&nbsp;
-        <Link target="_blank" rel="noopener" href="EERC User Guide.htm">HTML</Link>&nbsp;&nbsp;&nbsp;<Link target="_blank" rel="noopener" href="EERC User Guide.pdf">PDF</Link>
+      <Typography variant="body2" paragraph>To use, complete all form fields. Computed results are shown immedately at the bottom of the page.<br />The EERC User Guide is here:&nbsp;&nbsp;
+        <Link target="_blank" rel="noopener" href="EERC User Guide.htm">HTML</Link>&nbsp;&nbsp;<Link target="_blank" rel="noopener" href="EERC User Guide.pdf">PDF</Link>
       </Typography>
       <fieldset className={classes.formControl}>
         <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
