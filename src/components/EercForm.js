@@ -43,9 +43,13 @@
 import React, { useEffect, useState, useReducer, useCallback } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -131,8 +135,8 @@ function slidervaluetext(value) {
 }
 const default_duration = min_duration;
 const default_inflationrate = "2.3";
-const default_locale = unselected;
-const default_sector = sectors[0];
+const default_locale = '';
+const default_sector = '';
 const default_startdate = unselected;
 const default_carbonprice = unselected;
 const default_result = NaN;
@@ -355,6 +359,8 @@ export default function EercForm() {
   const [result_real, set_Result_Real] = useState(default_result);
   const [result_nominal, set_Result_Nominal] = useState(default_result);
   const [warnings, set_Warnings] = useState([]);
+  const [localeTooltipOpen, setLocaleTooltipOpen] = useState(false);
+  const [sectorTooltipOpen, setSectorTooltipOpen] = useState(false);
 
   const [CO2Factors, setCO2Factors] = useState({});
   const [CO2ePrices, setCO2ePrices] = useState({});
@@ -381,10 +387,15 @@ export default function EercForm() {
     loadDatafiles();
   }, []);
 
+  const handleLocaleTooltip = bool => {
+      setLocaleTooltipOpen(bool);
+  }
+
   const handleLocaleChange = event => {
-    let v = event.target.value.replace(nonnumeric_re, '');
-    event.target.value = v;
+    let v = event.target.value; //.replace(nonnumeric_re, '');
+    //event.target.value = v;
     setLocale(v);
+    setLocaleTooltipOpen(false);
   };
 
   const handlePecsChange = prop => event => {
@@ -392,6 +403,10 @@ export default function EercForm() {
     event.target.value = v;
     setPecs({ ...pecs, [prop]: v });
   };
+
+  const handleSectorTooltip = bool => {
+      setSectorTooltipOpen(bool);
+  }
 
   const handleSectorChange = event => {
     setSector(event.target.value);
@@ -447,7 +462,9 @@ export default function EercForm() {
 
     const v = (
         (pt === 100) &&
-        (ZipToState.hasOwnProperty(locale)) &&
+        /* (ZipToState.hasOwnProperty(locale)) && */
+        CO2Factors.hasOwnProperty(locale) &&
+        sectors.includes(sector) &&
         (startdate !== unselected) &&
         (duration >= min_duration && duration <= max_duration) &&
         (carbonprice !== unselected) &&
@@ -688,8 +705,9 @@ export default function EercForm() {
                   {"Selecting the ZIP code in which the project is located is needed to select the associated energy price escalation rates (by Census Region) and CO2 pricing and emission rates (currently by State)."}
                 </React.Fragment>
               }
+              open={localeTooltipOpen}
             >
-              <TextField
+              {/* <TextField
                 label="Location"
                 margin="dense"
                 value={locale}
@@ -699,7 +717,28 @@ export default function EercForm() {
                 InputProps={{
                   endAdornment: <InputAdornment position="end"> ({ZipToState[locale]})</InputAdornment>
                 }}
-              />
+              /> */}
+              <FormControl>
+                <InputLabel id="location-label" shrink>Location</InputLabel>
+                <Select
+                  labelId="location-label"
+                  margin="dense"
+                  value={locale}
+                  onChange={handleLocaleChange}
+                  error={!(CO2Factors.hasOwnProperty(locale))}
+                  onMouseEnter={() => {handleLocaleTooltip(true)}}
+                  onMouseLeave={() => {handleLocaleTooltip(false)}}
+                  onOpen={() => {handleLocaleTooltip(false)}}
+                >
+                  {/* filter the 2-letter states from CO2Factors keys */}
+                  {[...new Set(Object.keys(CO2Factors).filter(s => s.length === 2))].sort().map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>{CO2Factors.hasOwnProperty(locale)?"":"Select US state"}</FormHelperText>
+              </FormControl>
             </HtmlTooltip>
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -710,24 +749,24 @@ export default function EercForm() {
                   {"Selection of commercial sector or industrial sector determines the escalation rate schedule applied to the energy cost calculation."}
                 </React.Fragment>
               }
+              open={sectorTooltipOpen}
             >
-              <TextField
-                label="Sector"
-                margin="dense"
-                id="select-sector"
-                select
-                value={sector}
-                SelectProps={{ native: true }}
-                onChange={handleSectorChange}
-                error={sector===unselected}
-                helperText={sector===unselected?"Select sector":""}
-              >
-                {sectors.map((option, index) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </TextField>
+              <FormControl>
+                <InputLabel id="sector-label" shrink>Sector</InputLabel>
+                <Select
+                  labelId="sector-label"
+                  margin="dense"
+                  value={sector}
+                  onChange={handleSectorChange}
+                  error={!sectors.includes(sector)}
+                  onMouseEnter={() => {handleSectorTooltip(true)}}
+                  onMouseLeave={() => {handleSectorTooltip(false)}}
+                  onOpen={() => {handleSectorTooltip(false)}}
+                >
+                  {sectors.map(option => <MenuItem key={option} value={option}>{option}</MenuItem>)}
+                </Select>
+                <FormHelperText>{sectors.includes(sector)?"":"Select sector"}</FormHelperText>
+              </FormControl>
             </HtmlTooltip>
           </Grid>
         </Grid>
