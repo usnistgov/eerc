@@ -51,6 +51,7 @@ import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import Alert from '@material-ui/lab/Alert';
 
 ////////////////////////////////////////////////////////////////////////////////
 // A tooltip customized to for showing HTML content
@@ -353,6 +354,8 @@ export default function EercForm() {
   const [inflationrate, setInflationrate] = useState(default_inflationrate);
   const [result_real, set_Result_Real] = useState(default_result);
   const [result_nominal, set_Result_Nominal] = useState(default_result);
+  const [warnings, set_Warnings] = useState([]);
+
   const [CO2Factors, setCO2Factors] = useState({});
   const [CO2ePrices, setCO2ePrices] = useState({});
   const [CO2FutureEmissions, setCO2FutureEmissions] = useState({});
@@ -487,73 +490,110 @@ export default function EercForm() {
       console.log("date_start: %s (%d)  date_end: %s (%d)  duration: %s (%d)", date_start, date_start, date_end, date_end, duration, duration);
 
       let region = stateToRegion(ZipToState[locale]) + " " + sector;
-      let baseyearC = parseInt(Object.keys(Encost[region]["Coal"]).sort()[0]);
-      let baseyearNG = parseInt(Object.keys(Encost[region]["Natural Gas"]).sort()[0]);
-      let baseyearE = parseInt(Object.keys(Encost[region]["Electricity"]).sort()[0]);
-      let baseyearR = parseInt(Object.keys(Encost[region]["Residual Oil"]).sort()[0]);
-      let baseyearD = parseInt(Object.keys(Encost[region]["Distillate Oil"]).sort()[0]);
-      if (!(baseyearC > 0 && baseyearC === baseyearNG && baseyearC === baseyearE && baseyearC === baseyearR && baseyearC === baseyearD)) {
-        console.log("WARNING: baseyear mismatch: C:%s NG:%s E:%s R:%s D:%s", baseyearC, baseyearNG, baseyearE, baseyearR, baseyearD);
+      let baseyearC = null;
+      let baseyearNG = null;
+      let baseyearE = null;
+      let baseyearR = null;
+      let baseyearD = null;
+      let baseyear = null;
+      let hasC = true;
+      let hasNG = true;
+      let hasE = true;
+      let hasR = true;
+      let hasD = true;
+      let w = [];
+      try { baseyearC =  parseInt(Object.keys(Encost[region]["Coal"]).sort()[0]);           } catch(e) { hasC = false; };
+      try { baseyearNG = parseInt(Object.keys(Encost[region]["Natural Gas"]).sort()[0]);    } catch(e) { hasNG = false; };
+      try { baseyearE =  parseInt(Object.keys(Encost[region]["Electricity"]).sort()[0]);    } catch(e) { hasE = false; };
+      try { baseyearR =  parseInt(Object.keys(Encost[region]["Residual Oil"]).sort()[0]);   } catch(e) { hasR = false; };
+      try { baseyearD =  parseInt(Object.keys(Encost[region]["Distillate Oil"]).sort()[0]); } catch(e) { hasD = false; };
+      // set baseyear to be the consensus non-zero baseyear, if it exists
+      let a = [baseyearC, baseyearNG, baseyearE, baseyearR, baseyearD].filter(v => (v !== null));
+      console.log("non-zero baseyears: %o", a);
+      if ([...new Set(a)].length !== 1) { // use Set to remove duplicates from array
+        w.push(`Data file may be corrupt: unable to determine a concensus base year for data!`);
+      } else {
+        baseyear = a[0];
       }
 
-      console.log("Region: %s", region);
+      //console.log("Region: %s", region);
       for (let i = 0 ; i < yearsIn; i++) {
-        carbonC[i] = 0.0;
+        carbonC[i] =  0.0;
         carbonNG[i] = 0.0;
-        carbonE[i] = 0.0;
-        carbonR[i] = 0.0;
-        carbonD[i] = 0.0;
-        pricesC[i] = Encost[region]["Coal"][i + baseyearC];
-        pricesNG[i] = Encost[region]["Natural Gas"][i + baseyearNG];
-        pricesE[i] = Encost[region]["Electricity"][i + baseyearE];
-        pricesR[i] = Encost[region]["Residual Oil"][i + baseyearR];
-        pricesD[i] = Encost[region]["Distillate Oil"][i + baseyearD];
+        carbonE[i] =  0.0;
+        carbonR[i] =  0.0;
+        carbonD[i] =  0.0;
+        try { pricesC[i] =  Encost[region]["Coal"][i + baseyearC]; } catch(e) { pricesC[i] = 1; };
+        try { pricesNG[i] = Encost[region]["Natural Gas"][i + baseyearNG]; } catch(e) { pricesNG[i] = 1; };
+        try { pricesE[i] =  Encost[region]["Electricity"][i + baseyearE]; } catch(e) { pricesE[i] = 1; };
+        try { pricesR[i] =  Encost[region]["Residual Oil"][i + baseyearR]; } catch(e) { pricesR[i] = 1; };
+        try { pricesD[i] =  Encost[region]["Distillate Oil"][i + baseyearD]; } catch(e) { pricesD[i] = 1; };
       }
 
       if ( CW>0 ) {                        // coal
-        calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
-        addPrices(pricesC, carbonC, carbonprice);
-        let index_start = date_start - baseyearC + 1;
-        let index_end = index_start + duration - 1;
-        cC  = calculateC(index_start, index_end, pricesC);
-        compareIndicesC = compareStartEnd(index_start, index_end, pricesC);
-        rateC = solveForAnnualAverageRate(cC, compareIndicesC, duration);
+        if (hasC) {
+          calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
+          addPrices(pricesC, carbonC, carbonprice);
+          let index_start = date_start - baseyearC + 1;
+          let index_end = index_start + duration - 1;
+          cC  = calculateC(index_start, index_end, pricesC);
+          compareIndicesC = compareStartEnd(index_start, index_end, pricesC);
+          rateC = solveForAnnualAverageRate(cC, compareIndicesC, duration);
+        } else {
+          w.push(`Coal data is not available for the ${region} region`);
+        }
       }
-      if ( NGW>0 ){                       // natural gas
-        calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearNG);
-        addPrices(pricesNG, carbonNG, carbonprice);
-        let index_start = date_start - baseyearNG + 1;
-        let index_end = index_start + duration - 1;
-        cNG = calculateC(index_start, index_end, pricesNG);
-        compareIndicesNG = compareStartEnd(index_start, index_end, pricesNG);
-        rateNG = solveForAnnualAverageRate(cNG, compareIndicesNG, duration);
+      if ( NGW>0 ) {                       // natural gas
+        if (hasNG) {
+          calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearNG);
+          addPrices(pricesNG, carbonNG, carbonprice);
+          let index_start = date_start - baseyearNG + 1;
+          let index_end = index_start + duration - 1;
+          cNG = calculateC(index_start, index_end, pricesNG);
+          compareIndicesNG = compareStartEnd(index_start, index_end, pricesNG);
+          rateNG = solveForAnnualAverageRate(cNG, compareIndicesNG, duration);
+        } else {
+          w.push(`Natural Gas data is not available for the ${region} region`);
+        }
       }
       if ( EW>0 ) {                       // electricity
-        calculateCarbonPrice(CO2Factors[ZipToState[locale]], carbonE, true, baseyearE);
-        addPrices(pricesE, carbonE, carbonprice);
-        let index_start = date_start - baseyearE + 1;
-        let index_end = index_start + duration - 1;
-        cE  = calculateC(index_start, index_end, pricesE);
-        compareIndicesE = compareStartEnd(index_start, index_end, pricesE);
-        rateE = solveForAnnualAverageRate(cE, compareIndicesE, duration);
+        if (hasE) {
+          calculateCarbonPrice(CO2Factors[ZipToState[locale]], carbonE, true, baseyearE);
+          addPrices(pricesE, carbonE, carbonprice);
+          let index_start = date_start - baseyearE + 1;
+          let index_end = index_start + duration - 1;
+          cE  = calculateC(index_start, index_end, pricesE);
+          compareIndicesE = compareStartEnd(index_start, index_end, pricesE);
+          rateE = solveForAnnualAverageRate(cE, compareIndicesE, duration);
+        } else {
+          w.push(`Electricity data is not available for the ${region} region`);
+        }
       }
       if ( RW>0 ) {                       // residual oil
-        calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearR);
-        addPrices(pricesR, carbonR, carbonprice);
-        let index_start = date_start - baseyearR + 1;
-        let index_end = index_start + duration - 1;
-        cR  = calculateC(index_start, index_end, pricesR);
-        compareIndicesR = compareStartEnd(index_start, index_end, pricesR);
-        rateR = solveForAnnualAverageRate(cR, compareIndicesR, duration);
+        if (hasR) {
+          calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearR);
+          addPrices(pricesR, carbonR, carbonprice);
+          let index_start = date_start - baseyearR + 1;
+          let index_end = index_start + duration - 1;
+          cR  = calculateC(index_start, index_end, pricesR);
+          compareIndicesR = compareStartEnd(index_start, index_end, pricesR);
+          rateR = solveForAnnualAverageRate(cR, compareIndicesR, duration);
+        } else {
+          w.push(`Residual Oil data is not available for the ${region} region`);
+        }
       }
       if ( DW>0 ) {                       // distillate oil
-        calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearD);
-        addPrices(pricesD, carbonD, carbonprice);
-        let index_start = date_start - baseyearD + 1;
-        let index_end = index_start + duration - 1;
-        cD  = calculateC(index_start, index_end, pricesD);
-        compareIndicesD = compareStartEnd(index_start, index_end, pricesD);
-        rateD = solveForAnnualAverageRate(cD, compareIndicesD, duration);
+        if (hasD) {
+          calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearD);
+          addPrices(pricesD, carbonD, carbonprice);
+          let index_start = date_start - baseyearD + 1;
+          let index_end = index_start + duration - 1;
+          cD  = calculateC(index_start, index_end, pricesD);
+          compareIndicesD = compareStartEnd(index_start, index_end, pricesD);
+          rateD = solveForAnnualAverageRate(cD, compareIndicesD, duration);
+        } else {
+          w.push(`Distillate Oil data is not available for the ${region} region`);
+        }
       }
 
       console.log("rateC=%f rateD=%f rateE=%f rateR=%f rateNG=%f", rateC, rateD, rateE, rateR, rateNG);
@@ -565,10 +605,12 @@ export default function EercForm() {
 
       set_Result_Real(escalationRate);
       set_Result_Nominal(nomRate);
+      set_Warnings(w);
       console.log("exiting useEffect-CalculateRate");
     } else {
       set_Result_Real(NaN);
       set_Result_Nominal(NaN);
+      set_Warnings([]);
     }
   }, [ZipToState, CO2Factors, Encost, calculateCarbonPrice, locale, pecs, sector, startdate, duration, carbonprice, inflationrate]);
 
@@ -578,6 +620,10 @@ export default function EercForm() {
   } else {
     dataset_msg = <Typography variant="body2" gutterBottom>(Loaded {CO2ePrices.startyear} dataset)</Typography>
   }
+
+  let warnings_msg = warnings.map((m,i) => {
+    return <Alert key={`alert${i}`} severity="warning">{m}</Alert>;
+  });
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -798,6 +844,7 @@ export default function EercForm() {
           </Grid>
         </Grid>
       </fieldset><br />
+      {warnings_msg.length ? <div><fieldset style={{ border: "6px groove", borderColor: "red" }}>{warnings_msg}</fieldset><br /></div> : null}
       <fieldset style={{ border: "6px groove", borderColor: "black" }}>
         <FormLabel component="legend">&nbsp;Annual Energy Escalation Rate&nbsp;</FormLabel>
         <FormLabel component="legend">RESULTS</FormLabel><br />
