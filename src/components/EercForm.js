@@ -529,7 +529,7 @@ export default function EercForm() {
         try { pricesR[i] =  Encost[region]["Residual Oil"][i + baseyearR]; } catch(e) { pricesR[i] = 1; };
         try { pricesD[i] =  Encost[region]["Distillate Oil"][i + baseyearD]; } catch(e) { pricesD[i] = 1; };
       }
-
+      let uses_missing_data = false;
       if ( CW>0 ) {                        // coal
         if (hasC) {
           calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
@@ -541,6 +541,7 @@ export default function EercForm() {
           rateC = solveForAnnualAverageRate(cC, compareIndicesC, duration);
         } else {
           w.push(`Coal data is not available for the ${region} region`);
+          uses_missing_data = true;
         }
       }
       if ( NGW>0 ) {                       // natural gas
@@ -554,6 +555,7 @@ export default function EercForm() {
           rateNG = solveForAnnualAverageRate(cNG, compareIndicesNG, duration);
         } else {
           w.push(`Natural Gas data is not available for the ${region} region`);
+          uses_missing_data = true;
         }
       }
       if ( EW>0 ) {                       // electricity
@@ -567,6 +569,7 @@ export default function EercForm() {
           rateE = solveForAnnualAverageRate(cE, compareIndicesE, duration);
         } else {
           w.push(`Electricity data is not available for the ${region} region`);
+          uses_missing_data = true;
         }
       }
       if ( RW>0 ) {                       // residual oil
@@ -580,6 +583,7 @@ export default function EercForm() {
           rateR = solveForAnnualAverageRate(cR, compareIndicesR, duration);
         } else {
           w.push(`Residual Oil data is not available for the ${region} region`);
+          uses_missing_data = true;
         }
       }
       if ( DW>0 ) {                       // distillate oil
@@ -593,6 +597,7 @@ export default function EercForm() {
           rateD = solveForAnnualAverageRate(cD, compareIndicesD, duration);
         } else {
           w.push(`Distillate Oil data is not available for the ${region} region`);
+          uses_missing_data = true;
         }
       }
 
@@ -602,6 +607,11 @@ export default function EercForm() {
       nomRate = nomRate*100;
       console.log("Escalation rate = %f", escalationRate);
       console.log("Nominal rate = %f", nomRate);
+
+      if (uses_missing_data) {
+        escalationRate = NaN;
+        nomRate = NaN;
+      }
 
       set_Result_Real(escalationRate);
       set_Result_Nominal(nomRate);
