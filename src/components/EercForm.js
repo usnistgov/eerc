@@ -45,7 +45,6 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -398,18 +397,19 @@ export default function EercForm() {
     setLocaleTooltipOpen(false);
   };
 
-  const handlePecsChange = prop => event => {
-    let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$<neg>$<num>').replace(needlead0_re, '$<neg>0.').replace(empty_re, '0');
-    event.target.value = v;
-    setPecs({ ...pecs, [prop]: v });
-  };
-
   const handleSectorTooltip = bool => {
       setSectorTooltipOpen(bool);
   }
 
   const handleSectorChange = event => {
     setSector(event.target.value);
+    setSectorTooltipOpen(false);
+  };
+
+const handlePecsChange = prop => event => {
+    let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$<neg>$<num>').replace(needlead0_re, '$<neg>0.').replace(empty_re, '0');
+    event.target.value = v;
+    setPecs({ ...pecs, [prop]: v });
   };
 
   const handleStartdateChange = event => {
@@ -504,9 +504,9 @@ export default function EercForm() {
       let date_start = parseInt(startdate);
       let date_end = date_start + parseInt(duration) - 1; // modified by asr 6-5-11:  range of indexes to add in order to calculate C ends one year after the performance period end year
                             // so study period = (end year-start year)+1
-      //console.log("date_start: %s (%d)  date_end: %s (%d)  duration: %s (%d)", date_start, date_start, date_end, date_end, duration, duration);
+      console.log("date_start: %s (%d)  date_end: %s (%d)  duration: %s (%d)", date_start, date_start, date_end, date_end, duration, duration);
 
-      let region = stateToRegion(ZipToState[locale]) + " " + sector;
+      let region = stateToRegion(/*ZipToState[locale]*/ locale) + " " + sector;
       let baseyearC = null;
       let baseyearNG = null;
       let baseyearE = null;
@@ -577,7 +577,7 @@ export default function EercForm() {
       }
       if ( EW>0 ) {                       // electricity
         if (hasE) {
-          calculateCarbonPrice(CO2Factors[ZipToState[locale]], carbonE, true, baseyearE);
+          calculateCarbonPrice(CO2Factors[/*ZipToState[locale]*/ locale], carbonE, true, baseyearE);
           addPrices(pricesE, carbonE, carbonprice);
           let index_start = date_start - baseyearE + 1;
           let index_end = index_start + duration - 1;
@@ -721,6 +721,7 @@ export default function EercForm() {
               <FormControl>
                 <InputLabel id="location-label" shrink>Location</InputLabel>
                 <Select
+                  native
                   labelId="location-label"
                   margin="dense"
                   value={locale}
@@ -731,10 +732,11 @@ export default function EercForm() {
                   onOpen={() => {handleLocaleTooltip(false)}}
                 >
                   {/* filter the 2-letter states from CO2Factors keys */}
+                  <option key="none" aria-label="None" value="" />
                   {[...new Set(Object.keys(CO2Factors).filter(s => s.length === 2))].sort().map((option) => (
-                    <MenuItem key={option} value={option}>
+                    <option key={option} value={option}>
                       {option}
-                    </MenuItem>
+                    </option>
                   ))}
                 </Select>
                 <FormHelperText>{CO2Factors.hasOwnProperty(locale)?"":"Select US state"}</FormHelperText>
@@ -754,6 +756,7 @@ export default function EercForm() {
               <FormControl>
                 <InputLabel id="sector-label" shrink>Sector</InputLabel>
                 <Select
+                  native
                   labelId="sector-label"
                   margin="dense"
                   value={sector}
@@ -763,7 +766,8 @@ export default function EercForm() {
                   onMouseLeave={() => {handleSectorTooltip(false)}}
                   onOpen={() => {handleSectorTooltip(false)}}
                 >
-                  {sectors.map(option => <MenuItem key={option} value={option}>{option}</MenuItem>)}
+                  <option key="none" aria-label="None" value="" />
+                  {sectors.map(option => <option key={option} value={option}>{option}</option>)}
                 </Select>
                 <FormHelperText>{sectors.includes(sector)?"":"Select sector"}</FormHelperText>
               </FormControl>
