@@ -661,38 +661,38 @@ const handlePecsChange = prop => event => {
     for (const et of energytypes) {
       if (pecs[et.slug] > 0) {
         pdf.setTextColor(0,0,0).setFontSize(14).text(`Percent from ${et.name}:`, lm+1, vc);
-        pdf.setTextColor(0,0,255).setFontSize(14).text(`${pecs[et.slug]}%`, lm+5, vc);
+        pdf.setTextColor(0,0,255).setFontSize(14).text(`${pecs[et.slug]}%`, lm+4, vc);
         vc += 0.2;
       }
     }
     vc += 0.2;
     pdf.setTextColor(0,0,0).setFontSize(14).text("Location:", lm+1, vc);
-    pdf.setTextColor(0,0,255).setFontSize(14).text(`${locale} (${stateToRegion(/*ZipToState[locale]*/ locale)})`, lm+5, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(`${locale} (${stateToRegion(/*ZipToState[locale]*/ locale)})`, lm+4, vc);
     vc += 0.25;
     pdf.setTextColor(0,0,0).setFontSize(14).text("Sector:", lm+1, vc);
-    pdf.setTextColor(0,0,255).setFontSize(14).text(sector, lm+5, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(sector, lm+4, vc);
     vc += 0.25;
     pdf.setTextColor(0,0,0).setFontSize(14).text("Contract Start:", lm+1, vc);
-    pdf.setTextColor(0,0,255).setFontSize(14).text(startdate.toString(), lm+5, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(startdate.toString(), lm+4, vc);
     vc += 0.25;
     pdf.setTextColor(0,0,0).setFontSize(14).text("Contract Duration:", lm+1, vc);
-    pdf.setTextColor(0,0,255).setFontSize(14).text(`${duration.toString()} years`, lm+5, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(`${duration.toString()} years`, lm+4, vc);
     vc += 0.25;
     pdf.setTextColor(0,0,0).setFontSize(14).text("Carbon Pricing Policy:", lm+1, vc);
-    pdf.setTextColor(0,0,255).setFontSize(14).text(carbonprice, lm+5, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(carbonprice, lm+4, vc);
     vc += 0.25;
     pdf.setTextColor(0,0,0).setFontSize(14).text("Annual Inflation Rate:", lm+1, vc);
-    pdf.setTextColor(0,0,255).setFontSize(14).text(`${parseFloat(inflationrate).toFixed(2)}%`, lm+5, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(`${parseFloat(inflationrate).toFixed(2)}%`, lm+4, vc);
     vc += 0.25;
 
     vc = 6.5;
     pdf.setTextColor(0,0,0).setFontSize(20).setFont('helvetica','bold').text("RESULTS:", lm+0.5, vc);
     vc += 0.75;
     pdf.setTextColor(0,0,0).setFontSize(16).text("Real Rate:", lm+1, vc);
-    pdf.setTextColor(64,0,255).setFontSize(16).text(`${isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(2)}%`, lm+5, vc);
+    pdf.setTextColor(64,0,255).setFontSize(16).text(`${isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(2)}%`, lm+4, vc);
     vc += 0.75;
     pdf.setTextColor(0,0,0).setFontSize(16).text("Nominal Rate:", lm+1, vc);
-    pdf.setTextColor(64,0,255).setFontSize(16).text(`${isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(2)}%`, lm+5, vc);
+    pdf.setTextColor(64,0,255).setFontSize(16).text(`${isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(2)}%`, lm+4, vc);
     pdf.output('dataurlnewwindow');
     /*
     ***** SWB: html2canvas has some severe limitations making it unusable so
