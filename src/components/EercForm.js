@@ -56,6 +56,10 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Alert from '@material-ui/lab/Alert';
 
+import { jsPDF } from 'jspdf';
+import Button from '@material-ui/core/Button';
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+
 ////////////////////////////////////////////////////////////////////////////////
 // A tooltip customized to for showing HTML content
 const HtmlTooltip = withStyles((theme) => ({
@@ -502,9 +506,9 @@ const handlePecsChange = prop => event => {
       let rateD = 0.0;
 
       let date_start = parseInt(startdate);
-      let date_end = date_start + parseInt(duration) - 1; // modified by asr 6-5-11:  range of indexes to add in order to calculate C ends one year after the performance period end year
+      //let date_end = date_start + parseInt(duration) - 1; // modified by asr 6-5-11:  range of indexes to add in order to calculate C ends one year after the performance period end year
                             // so study period = (end year-start year)+1
-      console.log("date_start: %s (%d)  date_end: %s (%d)  duration: %s (%d)", date_start, date_start, date_end, date_end, duration, duration);
+      //console.log("date_start: %s (%d)  date_end: %s (%d)  duration: %s (%d)", date_start, date_start, date_end, date_end, duration, duration);
 
       let region = stateToRegion(/*ZipToState[locale]*/ locale) + " " + sector;
       let baseyearC = null;
@@ -512,7 +516,6 @@ const handlePecsChange = prop => event => {
       let baseyearE = null;
       let baseyearR = null;
       let baseyearD = null;
-      let baseyear = null;
       let hasC = true;
       let hasNG = true;
       let hasE = true;
@@ -529,8 +532,6 @@ const handlePecsChange = prop => event => {
       //console.log("non-zero baseyears: %o", a);
       if ([...new Set(a)].length !== 1) { // use Set to remove duplicates from array
         w.push(`Data file may be corrupt: unable to determine a concensus base year for data!`);
-      } else {
-        baseyear = a[0];
       }
 
       //console.log("Region: %s", region);
@@ -640,6 +641,77 @@ const handlePecsChange = prop => event => {
       set_Warnings([]);
     }
   }, [ZipToState, CO2Factors, Encost, calculateCarbonPrice, locale, pecs, sector, startdate, duration, carbonprice, inflationrate]);
+
+  const handlePDF = (e) => {
+    //SWB const input = document.getElementById('PrintMe');
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      format: 'letter',
+      unit: 'in',
+      compress: true,
+    }).setProperties({title: "NIST Energy Escalation Rate Calculation"});
+    const lm = 1.0; // left margin in inches as per constructor options above
+    let vc = 1.5; // vertical cursor in inches
+    pdf.setTextColor(0,0,0).setFontSize(24).setFont('helvetica', 'bold').text("NIST Energy Escalation Rate Calculation", lm, vc);
+    pdf.setFont('helvetica', 'normal');
+    vc += 1;
+    pdf.setTextColor(0,0,0).setFontSize(20).text("Input Parameters:", lm+0.5, vc);
+    vc += 0.5;
+    pdf.setFontSize(16);
+    for (const et of energytypes) {
+      if (pecs[et.slug] > 0) {
+        pdf.setTextColor(0,0,0).setFontSize(14).text(`Percent from ${et.name}:`, lm+1, vc);
+        pdf.setTextColor(0,0,255).setFontSize(14).text(`${pecs[et.slug]}%`, lm+5, vc);
+        vc += 0.2;
+      }
+    }
+    vc += 0.2;
+    pdf.setTextColor(0,0,0).setFontSize(14).text("Location:", lm+1, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(`${locale} (${stateToRegion(/*ZipToState[locale]*/ locale)})`, lm+5, vc);
+    vc += 0.25;
+    pdf.setTextColor(0,0,0).setFontSize(14).text("Sector:", lm+1, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(sector, lm+5, vc);
+    vc += 0.25;
+    pdf.setTextColor(0,0,0).setFontSize(14).text("Contract Start:", lm+1, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(startdate.toString(), lm+5, vc);
+    vc += 0.25;
+    pdf.setTextColor(0,0,0).setFontSize(14).text("Contract Duration:", lm+1, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(`${duration.toString()} years`, lm+5, vc);
+    vc += 0.25;
+    pdf.setTextColor(0,0,0).setFontSize(14).text("Carbon Pricing Policy:", lm+1, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(carbonprice, lm+5, vc);
+    vc += 0.25;
+    pdf.setTextColor(0,0,0).setFontSize(14).text("Annual Inflation Rate:", lm+1, vc);
+    pdf.setTextColor(0,0,255).setFontSize(14).text(`${parseFloat(inflationrate).toFixed(2)}%`, lm+5, vc);
+    vc += 0.25;
+
+    vc = 6.5;
+    pdf.setTextColor(0,0,0).setFontSize(20).setFont('helvetica','bold').text("RESULTS:", lm+0.5, vc);
+    vc += 0.75;
+    pdf.setTextColor(0,0,0).setFontSize(16).text("Real Rate:", lm+1, vc);
+    pdf.setTextColor(64,0,255).setFontSize(16).text(`${isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(2)}%`, lm+5, vc);
+    vc += 0.75;
+    pdf.setTextColor(0,0,0).setFontSize(16).text("Nominal Rate:", lm+1, vc);
+    pdf.setTextColor(64,0,255).setFontSize(16).text(`${isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(2)}%`, lm+5, vc);
+    pdf.output('dataurlnewwindow');
+    /*
+    ***** SWB: html2canvas has some severe limitations making it unusable so
+    *****      we'll need to manually render the information in the PDF... ARG.
+    pdf.html(input, {
+      callback: function(doc) {
+        pdf.save("eerc-calc.pdf");
+      },
+      html2canvas: {
+        //windowWidth: 600,
+        //width: 600,
+        scale: 0.3,
+        imageTimeout: 60000,
+        useCORS: true,
+      },
+    });
+    */
+  };
+
 
   var dataset_msg = '';
   if (typeof CO2ePrices.startyear === 'undefined' || CO2ePrices.startyear === 'null') {
@@ -947,6 +1019,21 @@ const handlePecsChange = prop => event => {
                 value={isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(2)}
               />
             </HtmlTooltip>
+          </Grid>
+          <Grid item xs={12} data-html2canvas-ignore="true">
+            <div style={{
+              margin: 'auto',
+              width: 200,
+            }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                startIcon={<PictureAsPdfIcon />}
+                onClick={handlePDF}
+              >
+                Save to PDF
+              </Button>
+            </div>
           </Grid>
         </Grid>
       </fieldset>
