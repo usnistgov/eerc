@@ -651,13 +651,16 @@ const handlePecsChange = prop => event => {
       compress: true,
     }).setProperties({title: "NIST Energy Escalation Rate Calculation"});
     const lm = 1.0; // left margin in inches as per constructor options above
+    const center = 8.5 / 2;
+    const now = new Date();
     let vc = 1.5; // vertical cursor in inches
-    pdf.setTextColor(0,0,0).setFontSize(24).setFont('helvetica', 'bold').text("NIST Energy Escalation Rate Calculation", lm, vc);
-    pdf.setFont('helvetica', 'normal');
-    vc += 1;
-    pdf.setTextColor(0,0,0).setFontSize(20).text("Input Parameters:", lm+0.5, vc);
+    pdf.setTextColor(0,0,0).setFontSize(24).setFont('helvetica','bold').text("NIST Energy Escalation Rate Calculation", center, vc, 'center');
+    pdf.setTextColor(0,0,255).setFontSize(12).setFont('courier','normal').text("https://pages.nist.gov/eerc/", center, vc+0.3, 'center');
+    vc += 1.25;
+    pdf.setTextColor(0,0,0).setFontSize(20).setFont('helvetica','bold').text("Input Parameters:", lm+0.5, vc);
+    pdf.setFont('helvetica','normal');
     vc += 0.5;
-    pdf.setFontSize(16);
+
     for (const et of energytypes) {
       if (pecs[et.slug] > 0) {
         pdf.setTextColor(0,0,0).setFontSize(14).text(`Percent from ${et.name}:`, lm+1, vc);
@@ -683,16 +686,21 @@ const handlePecsChange = prop => event => {
     vc += 0.25;
     pdf.setTextColor(0,0,0).setFontSize(14).text("Annual Inflation Rate:", lm+1, vc);
     pdf.setTextColor(0,0,255).setFontSize(14).text(`${parseFloat(inflationrate).toFixed(2)}%`, lm+4, vc);
-    vc += 0.25;
-
-    vc = 6.5;
-    pdf.setTextColor(0,0,0).setFontSize(20).setFont('helvetica','bold').text("RESULTS:", lm+0.5, vc);
-    vc += 0.75;
+    vc += 1;
+    pdf.setTextColor(0,0,0).setFontSize(20).setFont('helvetica','bold').text("Results:", lm+0.5, vc);
+    vc += 0.4;
     pdf.setTextColor(0,0,0).setFontSize(16).text("Real Rate:", lm+1, vc);
-    pdf.setTextColor(64,0,255).setFontSize(16).text(`${isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(2)}%`, lm+4, vc);
-    vc += 0.75;
+    pdf.setTextColor(96,0,172).setFontSize(16).text(`${isNaN(result_real) ? "---" : parseFloat(result_real).toFixed(2)}%`, lm+4, vc);
+    vc += 0.4;
     pdf.setTextColor(0,0,0).setFontSize(16).text("Nominal Rate:", lm+1, vc);
-    pdf.setTextColor(64,0,255).setFontSize(16).text(`${isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(2)}%`, lm+4, vc);
+    pdf.setTextColor(96,0,172).setFontSize(16).text(`${isNaN(result_nominal) ? "---" : parseFloat(result_nominal).toFixed(2)}%`, lm+4, vc);
+    vc += 0.4;
+    pdf.setTextColor(0,0,0).setFontSize(16).text("Calculated on:", lm+1, vc);
+    pdf.setTextColor(0,0,0).setFontSize(12).setFont('helvetica','normal').text(now.toLocaleString(), lm+4, vc);
+    vc += 0.4;
+    pdf.setTextColor(0,0,0).setFontSize(16).setFont('helvetica','bold').text("Datafile version:", lm+1, vc);
+    pdf.setTextColor(0,0,0).setFontSize(14).setFont('helvetica','normal').text(CO2ePrices.startyear.toString(), lm+4, vc);
+
     pdf.output('dataurlnewwindow');
     /*
     ***** SWB: html2canvas has some severe limitations making it unusable so
