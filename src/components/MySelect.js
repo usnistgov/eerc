@@ -1,25 +1,12 @@
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 
 import PropTypes from 'prop-types';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import Tooltip from '@material-ui/core/Tooltip';
 
-////////////////////////////////////////////////////////////////////////////////
-// A tooltip customized to for showing HTML content
-const HtmlTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: '#f5f5f9',
-    color: 'rgba(0, 0, 0, 0.87)',
-    maxWidth: 280,
-    fontSize: theme.typography.pxToRem(12),
-    border: '1px solid #dadde9',
-  },
-}))(Tooltip);
-////////////////////////////////////////////////////////////////////////////////
+import HtmlTooltip from './HtmlTooltip';
 
 
 export default function MySelect(props) {

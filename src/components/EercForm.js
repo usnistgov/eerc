@@ -41,13 +41,12 @@
 //
 
 import React, { useEffect, useState, useReducer, useCallback } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormLabel from '@material-ui/core/FormLabel';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Alert from '@material-ui/lab/Alert';
@@ -56,19 +55,8 @@ import { jsPDF } from 'jspdf';
 import Button from '@material-ui/core/Button';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 
+import HtmlTooltip from './HtmlTooltip';
 import MySelect from './MySelect';
-
-////////////////////////////////////////////////////////////////////////////////
-// A tooltip customized to for showing HTML content
-const HtmlTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: '#f5f5f9',
-    color: 'rgba(0, 0, 0, 0.87)',
-    maxWidth: 280,
-    fontSize: theme.typography.pxToRem(12),
-    border: '1px solid #dadde9',
-  },
-}))(Tooltip);
 
 ////////////////////////////////////////////////////////////////////////////////
 const CO2ePricesURL = 'CO2ePrices.json';
@@ -518,7 +506,7 @@ export default function EercForm() {
       let a = [baseyearC, baseyearNG, baseyearE, baseyearR, baseyearD].filter(v => (v !== null));
       //console.log("non-zero baseyears: %o", a);
       if ([...new Set(a)].length !== 1) { // use Set to remove duplicates from array
-        w.push(`Data file may be corrupt: unable to determine a concensus base year for data!`);
+        w.push(`Data file may be corrupt: unable to determine a consensus base year for data!`);
       }
 
       //console.log("Region: %s", region);
