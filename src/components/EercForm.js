@@ -84,9 +84,13 @@ const nonnumeric_re = /[^\d\.]/g;
 // eslint-disable-next-line
 const nonpercent_re = /[^\d\.\-]/g;
 
+/*
+ * SWB: Changed startdates computation to be based on data file contents; see below
+ *
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
 const numYears = 3;
+ */
 
 const energytypes = [
   { slug: "coal", name: "Coal" },
@@ -98,11 +102,13 @@ const energytypes = [
 
 const sectors = ["Commercial", "Industrial"];
 
+/*
 var startdates = [];
 for (let i = 1; i <= numYears; i++) {
   //let year = currentYear + i;
   startdates[i] = currentYear + i;  //year.toString();
 }
+*/
 
 const zero_carbon_price_policy = '__zero__';
 const carbonprices = { 'Medium': 'Default', 'Low': 'Low', 'High': 'High', 'No carbon price': zero_carbon_price_policy};
@@ -354,7 +360,18 @@ export default function EercForm() {
   const [CO2FutureEmissions, setCO2FutureEmissions] = useState({});
   const [Encost, updateEncost] = useReducer(encostReducer, {});
   const [ZipToState, setZipToState] = useState({});
+  const [startdates, setStartdates] = useState([]);
   //const [valid, setValid] = useState(false);
+
+  if (CO2ePrices.startyear) {
+    if (startdates.length === 0 || CO2ePrices.startyear !== startdates[0]) {
+      let a = [];
+      for (let i = 0; i < (CO2ePrices.endyear - CO2ePrices.startyear - max_duration - 1); i++) {
+        a.push(parseInt(CO2ePrices.startyear) + i);
+      }
+      setStartdates(a);
+    }
+  }
 
   let pecsTotal = parseFloat(pecs.coal) + parseFloat(pecs.distillateoil) + parseFloat(pecs.electricity) + parseFloat(pecs.naturalgas) + parseFloat(pecs.residual);
 
@@ -615,7 +632,7 @@ export default function EercForm() {
       set_Result_Nominal(NaN);
       set_Warnings([]);
     }
-  }, [ZipToState, CO2Factors, Encost, calculateCarbonPrice, locale, pecs, sector, startdate, duration, carbonprice, inflationrate]);
+  }, [ZipToState, CO2Factors, Encost, calculateCarbonPrice, locale, pecs, sector, startdate, startdates, duration, carbonprice, inflationrate]);
 
   const handlePDF = (e) => {
     //SWB const input = document.getElementById('PrintMe');
