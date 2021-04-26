@@ -43,12 +43,8 @@
 import React, { useEffect, useState, useReducer, useCallback } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -59,6 +55,8 @@ import Alert from '@material-ui/lab/Alert';
 import { jsPDF } from 'jspdf';
 import Button from '@material-ui/core/Button';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+
+import MySelect from './MySelect';
 
 ////////////////////////////////////////////////////////////////////////////////
 // A tooltip customized to for showing HTML content
@@ -112,14 +110,14 @@ const energytypes = [
 
 const sectors = ["Commercial", "Industrial"];
 
-var startdates = [ unselected ];
+var startdates = [];
 for (let i = 1; i <= numYears; i++) {
   //let year = currentYear + i;
   startdates[i] = currentYear + i;  //year.toString();
 }
 
 const zero_carbon_price_policy = '__zero__';
-const carbonprices = { '--': unselected, 'Medium': 'Default', 'Low': 'Low', 'High': 'High', 'No carbon price': zero_carbon_price_policy};
+const carbonprices = { 'Medium': 'Default', 'Low': 'Low', 'High': 'High', 'No carbon price': zero_carbon_price_policy};
 
 const min_duration = 10;
 const max_duration = 25;
@@ -140,8 +138,8 @@ const default_duration = min_duration;
 const default_inflationrate = "2.3";
 const default_locale = '';
 const default_sector = '';
-const default_startdate = unselected;
-const default_carbonprice = unselected;
+const default_startdate = '';
+const default_carbonprice = '';
 const default_result = NaN;
 
 const useStyles = makeStyles(theme => ({
@@ -246,7 +244,7 @@ const stateToRegion = state => {
 const addPrices = (prices, carbon, carbonprice) => {
   //console.log("entering addPrices: %o += %o", prices, carbon);
   // add EIA prices and carbon prices and store is prices array
-  if (carbonprice !== unselected) {  // default, low, or high carbon price
+  if (carbonprice !== '') {  // default, low, or high carbon price
     for(let i=0; i<yearsIn; i++) {
       prices[i] = prices[i] + carbon[i];
     }
@@ -362,8 +360,6 @@ export default function EercForm() {
   const [result_real, set_Result_Real] = useState(default_result);
   const [result_nominal, set_Result_Nominal] = useState(default_result);
   const [warnings, set_Warnings] = useState([]);
-  const [localeTooltipOpen, setLocaleTooltipOpen] = useState(false);
-  const [sectorTooltipOpen, setSectorTooltipOpen] = useState(false);
 
   const [CO2Factors, setCO2Factors] = useState({});
   const [CO2ePrices, setCO2ePrices] = useState({});
@@ -390,27 +386,17 @@ export default function EercForm() {
     loadDatafiles();
   }, []);
 
-  const handleLocaleTooltip = bool => {
-      setLocaleTooltipOpen(bool);
-  }
-
   const handleLocaleChange = event => {
     let v = event.target.value; //.replace(nonnumeric_re, '');
     //event.target.value = v;
     setLocale(v);
-    setLocaleTooltipOpen(false);
   };
-
-  const handleSectorTooltip = bool => {
-      setSectorTooltipOpen(bool);
-  }
 
   const handleSectorChange = event => {
     setSector(event.target.value);
-    setSectorTooltipOpen(false);
   };
 
-const handlePecsChange = prop => event => {
+  const handlePecsChange = prop => event => {
     let v = event.target.value.replace(nonnumeric_re, '').replace(clean_re, '$1').replace(trim0_re, '$<neg>$<num>').replace(needlead0_re, '$<neg>0.').replace(empty_re, '0');
     event.target.value = v;
     setPecs({ ...pecs, [prop]: v });
@@ -425,7 +411,8 @@ const handlePecsChange = prop => event => {
   };
 
   const handleCarbonpriceChange = event => {
-    setCarbonprice(event.target.value);
+    let k = event.target.value;
+    setCarbonprice(k);
   };
 
   const handleInflationrateChange = event => {
@@ -436,14 +423,14 @@ const handlePecsChange = prop => event => {
 
   const calculateCarbonPrice = useCallback((CO2Factor, cP, isElectricity, baseyear) => {
     //console.log("calculateCarbonPrice: isElec=%o baseyear=%d CO2Factor=%o cP=%o CO2ePrices[%s]=%o", isElectricity, baseyear, CO2Factor, cP, carbonprice, CO2ePrices[carbonprice]);
-    if (carbonprice !== unselected) {  // default, low, or high carbon price
-      if (carbonprice !== zero_carbon_price_policy) {
+    if (carbonprice !== '') {  // default, low, or high carbon price
+      if (carbonprices[carbonprice] !== zero_carbon_price_policy) {
         for (let i=0; i<yearsIn; i++) {
-          cP[i] = CO2ePrices[carbonprice][i + baseyear] * CO2Factor;
+          cP[i] = CO2ePrices[carbonprices[carbonprice]][i + baseyear] * CO2Factor;
         }  // steps 1 & 2 from Excel file
         if (isElectricity) {
           for (let i=0; i<yearsIn; i++) {
-            cP[i] = cP[i] * CO2FutureEmissions[carbonprice][i + baseyear];
+            cP[i] = cP[i] * CO2FutureEmissions[carbonprices[carbonprice]][i + baseyear];
           }
         }  // step 3
         for (let i=0; i<yearsIn; i++) {
@@ -469,9 +456,9 @@ const handlePecsChange = prop => event => {
         /* (ZipToState.hasOwnProperty(locale)) && */
         CO2Factors.hasOwnProperty(locale) &&
         sectors.includes(sector) &&
-        (startdate !== unselected) &&
+        (startdates.includes(parseInt(startdate))) &&
         (duration >= min_duration && duration <= max_duration) &&
-        (carbonprice !== unselected) &&
+        (carbonprice !== '' && Object.keys(carbonprices).includes(carbonprice)) &&
         (!isNaN(parseFloat(inflationrate)))
     );
     if (v) {
@@ -551,7 +538,7 @@ const handlePecsChange = prop => event => {
       if ( CW>0 ) {                        // coal
         if (hasC) {
           calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
-          addPrices(pricesC, carbonC, carbonprice);
+          addPrices(pricesC, carbonC, carbonprices[carbonprice]);
           let index_start = date_start - baseyearC + 1;
           let index_end = index_start + duration - 1;
           cC  = calculateC(index_start, index_end, pricesC);
@@ -565,7 +552,7 @@ const handlePecsChange = prop => event => {
       if ( NGW>0 ) {                       // natural gas
         if (hasNG) {
           calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearNG);
-          addPrices(pricesNG, carbonNG, carbonprice);
+          addPrices(pricesNG, carbonNG, carbonprices[carbonprice]);
           let index_start = date_start - baseyearNG + 1;
           let index_end = index_start + duration - 1;
           cNG = calculateC(index_start, index_end, pricesNG);
@@ -579,7 +566,7 @@ const handlePecsChange = prop => event => {
       if ( EW>0 ) {                       // electricity
         if (hasE) {
           calculateCarbonPrice(CO2Factors[/*ZipToState[locale]*/ locale], carbonE, true, baseyearE);
-          addPrices(pricesE, carbonE, carbonprice);
+          addPrices(pricesE, carbonE, carbonprices[carbonprice]);
           let index_start = date_start - baseyearE + 1;
           let index_end = index_start + duration - 1;
           cE  = calculateC(index_start, index_end, pricesE);
@@ -593,7 +580,7 @@ const handlePecsChange = prop => event => {
       if ( RW>0 ) {                       // residual oil
         if (hasR) {
           calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearR);
-          addPrices(pricesR, carbonR, carbonprice);
+          addPrices(pricesR, carbonR, carbonprices[carbonprice]);
           let index_start = date_start - baseyearR + 1;
           let index_end = index_start + duration - 1;
           cR  = calculateC(index_start, index_end, pricesR);
@@ -607,7 +594,7 @@ const handlePecsChange = prop => event => {
       if ( DW>0 ) {                       // distillate oil
         if (hasD) {
           calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearD);
-          addPrices(pricesD, carbonD, carbonprice);
+          addPrices(pricesD, carbonD, carbonprices[carbonprice]);
           let index_start = date_start - baseyearD + 1;
           let index_end = index_start + duration - 1;
           cD  = calculateC(index_start, index_end, pricesD);
@@ -732,6 +719,9 @@ const handlePecsChange = prop => event => {
     return <Alert key={`alert${i}`} severity="warning">{m}</Alert>;
   });
 
+  // we need to filter out just the 2-letter state names from CO2Factors
+  const localeOptions = [...new Set(Object.keys(CO2Factors).filter(s => s.length === 2))].sort();
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
       {dataset_msg}
@@ -778,80 +768,37 @@ const handlePecsChange = prop => event => {
         <FormLabel component="legend">&nbsp;Fuel Rate Information&nbsp;</FormLabel>
         <Grid container alignItems="flex-start" justify="center" spacing={1}>
           <Grid item xs={6} sm={3}>
-            <HtmlTooltip
-              arrow
-              title={
-                <React.Fragment>
-                  {"Selecting the ZIP code in which the project is located is needed to select the associated energy price escalation rates (by Census Region) and CO2 pricing and emission rates (currently by State)."}
-                </React.Fragment>
-              }
-              open={localeTooltipOpen}
-            >
-              {/* <TextField
-                label="Location"
-                margin="dense"
-                value={locale}
-                onChange={handleLocaleChange}
-                error={!(ZipToState.hasOwnProperty(locale))}
-                helperText={ZipToState.hasOwnProperty(locale)?"":"Enter US ZIP code"}
-                InputProps={{
-                  endAdornment: <InputAdornment position="end"> ({ZipToState[locale]})</InputAdornment>
-                }}
-              /> */}
-              <FormControl>
-                <InputLabel id="location-label" shrink>Location</InputLabel>
-                <Select
-                  native
-                  labelId="location-label"
-                  margin="dense"
-                  value={locale}
-                  onChange={handleLocaleChange}
-                  error={!(CO2Factors.hasOwnProperty(locale))}
-                  onMouseEnter={() => {handleLocaleTooltip(true)}}
-                  onMouseLeave={() => {handleLocaleTooltip(false)}}
-                  onOpen={() => {handleLocaleTooltip(false)}}
-                >
-                  {/* filter the 2-letter states from CO2Factors keys */}
-                  <option key="none" aria-label="None" value="" />
-                  {[...new Set(Object.keys(CO2Factors).filter(s => s.length === 2))].sort().map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </Select>
-                <FormHelperText>{CO2Factors.hasOwnProperty(locale)?"":"Select US state"}</FormHelperText>
-              </FormControl>
-            </HtmlTooltip>
+            {/* <TextField
+              label="Location"
+              margin="dense"
+              value={locale}
+              onChange={handleLocaleChange}
+              error={!(ZipToState.hasOwnProperty(locale))}
+              helperText={ZipToState.hasOwnProperty(locale)?"":"Enter US ZIP code"}
+              InputProps={{
+                endAdornment: <InputAdornment position="end"> ({ZipToState[locale]})</InputAdornment>
+              }}
+            /> */}
+            <MySelect
+              name="Location"
+              options={localeOptions}
+              helperText="Select US state"
+              value={locale}
+              handleChange={handleLocaleChange}
+              isError={() => (!(CO2Factors.hasOwnProperty(locale)))}
+              tooltip=<React.Fragment>Selecting the ZIP code in which the project is located is needed to select the associated energy price escalation rates (by Census Region) and CO2 pricing and emission rates (currently by State).</React.Fragment>
+            />
           </Grid>
           <Grid item xs={6} sm={3}>
-            <HtmlTooltip
-              arrow
-              title={
-                <React.Fragment>
-                  {"Selection of commercial sector or industrial sector determines the escalation rate schedule applied to the energy cost calculation."}
-                </React.Fragment>
-              }
-              open={sectorTooltipOpen}
-            >
-              <FormControl>
-                <InputLabel id="sector-label" shrink>Sector</InputLabel>
-                <Select
-                  native
-                  labelId="sector-label"
-                  margin="dense"
-                  value={sector}
-                  onChange={handleSectorChange}
-                  error={!sectors.includes(sector)}
-                  onMouseEnter={() => {handleSectorTooltip(true)}}
-                  onMouseLeave={() => {handleSectorTooltip(false)}}
-                  onOpen={() => {handleSectorTooltip(false)}}
-                >
-                  <option key="none" aria-label="None" value="" />
-                  {sectors.map(option => <option key={option} value={option}>{option}</option>)}
-                </Select>
-                <FormHelperText>{sectors.includes(sector)?"":"Select sector"}</FormHelperText>
-              </FormControl>
-            </HtmlTooltip>
+            <MySelect
+              name="Sector"
+              options={sectors.sort()}
+              helperText="Select Sector"
+              value={sector}
+              handleChange={handleSectorChange}
+              isError={() => (!(sectors.includes(sector)))}
+              tooltip=<React.Fragment>Selection of commercial sector or industrial sector determines the escalation rate schedule applied to the energy cost calculation.</React.Fragment>
+            />
           </Grid>
         </Grid>
       </fieldset><br />
@@ -859,32 +806,15 @@ const handlePecsChange = prop => event => {
         <FormLabel component="legend">&nbsp;Contract Term&nbsp;</FormLabel>
         <Grid container alignItems="baseline" justify="center" spacing={6}>
           <Grid item xs={6} sm={3}>
-            <HtmlTooltip
-              arrow
-              title={
-                <React.Fragment>
-                  {"Date (year) when energy savings start to accrue, which is usually after project acceptance at the beginning of performance period."}
-                </React.Fragment>
-              }
-            >
-              <TextField
-                label="Start Date"
-                margin="dense"
-                id="select-startdate"
-                select
-                value={startdate}
-                SelectProps={{ native: true }}
-                onChange={handleStartdateChange}
-                error={startdate===unselected}
-                helperText={startdate===unselected?"Select start date":""}
-              >
-                {startdates.map((option, index) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </TextField>
-            </HtmlTooltip>
+            <MySelect
+              name="Start Date"
+              options={startdates}
+              helperText="Select start date"
+              value={startdate}
+              handleChange={handleStartdateChange}
+              isError={() => (!(startdates.includes(parseInt(startdate))))}
+              tooltip=<React.Fragment>Date (year) when energy savings start to accrue, which is usually after project acceptance at the beginning of performance period.</React.Fragment>
+            />
           </Grid>
           <Grid item xs={6} sm={3}>
             <HtmlTooltip
@@ -919,9 +849,14 @@ const handlePecsChange = prop => event => {
         <FormLabel component="legend">&nbsp;Carbon Pricing Policy&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={12}>
-            <HtmlTooltip
-              arrow
-              title={
+            <MySelect
+              name="Carbon Price"
+              options={Object.keys(carbonprices)}
+              helperText="Select policy"
+              value={carbonprice}
+              handleChange={handleCarbonpriceChange}
+              isError={() => ((!(Object.keys(carbonprices).includes(carbonprice))) || carbonprice === '')}
+              tooltip={
                 <React.Fragment>
                   {"Determines the carbon pricing scenario to assume:"}
                   <ul>
@@ -932,26 +867,7 @@ const handlePecsChange = prop => event => {
                   </ul>
                 </React.Fragment>
               }
-            >
-              <FormControl border={1} component="fieldset" className={classes.formControl}>
-                <TextField
-                  margin="dense"
-                  id="select-carbonprice"
-                  select
-                  value={carbonprice}
-                  SelectProps={{ native: true }}
-                  onChange={handleCarbonpriceChange}
-                  error={carbonprice===unselected}
-                  helperText={carbonprice===unselected?"Select policy":""}
-                >
-                  {Object.keys(carbonprices).map((k, index) => (
-                    <option key={k} value={carbonprices[k]}>
-                      {k}
-                    </option>
-                  ))}
-                </TextField>
-              </FormControl>
-            </HtmlTooltip>
+            />
           </Grid>
         </Grid>
       </fieldset><br />
