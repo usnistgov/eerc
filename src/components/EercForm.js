@@ -637,6 +637,8 @@ export default function EercForm() {
     }
   }, [ZipToState, CO2Factors, Encost, calculateCarbonPrice, locale, pecs, sector, startdate, startdates, duration, carbonprice, inflationrate]);
 
+  // handle the PDF button by generating a PDF to display in the browser.
+  // Modern browsers seem to handle displaying and allow for downloading.
   const handlePDF = (e) => {
     //SWB const input = document.getElementById('PrintMe');
     const pdf = new jsPDF({
@@ -698,23 +700,6 @@ export default function EercForm() {
     pdf.setTextColor(0,0,0).setFontSize(14).setFont('helvetica','normal').text(CO2ePrices.startyear.toString(), lm+4, vc);
 
     pdf.output('dataurlnewwindow');
-
-    /*
-    ***** SWB: html2canvas has some severe limitations making it unusable so
-    *****      we'll need to manually render the information in the PDF... ARG.
-    pdf.html(input, {
-      callback: function(doc) {
-        pdf.save("eerc-calc.pdf");
-      },
-      html2canvas: {
-        //windowWidth: 600,
-        //width: 600,
-        scale: 0.3,
-        imageTimeout: 60000,
-        useCORS: true,
-      },
-    });
-    */
   };
 
 
@@ -964,6 +949,7 @@ export default function EercForm() {
                 color="secondary"
                 startIcon={<PictureAsPdfIcon />}
                 onClick={handlePDF}
+                disabled={isNaN(result_real) || isNaN(result_nominal)}
               >
                 Save to PDF
               </Button>
