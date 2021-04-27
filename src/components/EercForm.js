@@ -781,7 +781,7 @@ export default function EercForm() {
               value={locale}
               handleChange={handleLocaleChange}
               isError={() => (!(CO2Factors.hasOwnProperty(locale)))}
-              tooltip=<React.Fragment>Selecting the ZIP code in which the project is located is needed to select the associated energy price escalation rates (by Census Region) and CO2 pricing and emission rates (currently by State).</React.Fragment>
+              tooltip=<React.Fragment>Selecting the state in which the project is located is needed to select the associated energy price escalation rates (by Census Region) and CO2 pricing and emission rates (currently by State).</React.Fragment>
             />
           </Grid>
           <Grid item xs={6} sm={3}>
