@@ -246,7 +246,7 @@ const addPrices = (prices, carbon, carbonprice) => {
       prices[i] = prices[i] + carbon[i];
     }
   }
-  //console.log("exiting addPrices with prices=%o", prices);
+  console.log("exiting addPrices with prices=%o", prices);
 }
 
 const calculateC = (start, end, prices) => {  // added by asr 8-14-09; modified by asr 6-5-11
@@ -256,7 +256,7 @@ const calculateC = (start, end, prices) => {  // added by asr 8-14-09; modified 
   for ( let i = start; i <= end; i++) {
     C += prices[i]/prices[0];
   }   // calculate index and add to C
-  //console.log("exiting calculateC %f", C);
+  console.log("exiting calculateC %f", C);
   return C;
 }
 
@@ -264,7 +264,7 @@ const compareStartEnd = (start, end, prices) => {  // added by asr 8-14-09; chan
   // this method reports if start date's index < end date's index
   //console.log("compareStartEnd: %d %d %o", start, end, prices);
   let r = (prices[start] < prices[end]);
-  //console.log("compareStartEnd returns %s", r);
+  console.log("compareStartEnd returns %s", r);
   return r;
 }
 
