@@ -271,7 +271,7 @@ const compareStartEnd = (start, end, prices) => {  // added by asr 8-14-09; chan
 const solveForAnnualAverageRate = (computedC, compareYearIndex, duration) => {  // added by asr 8-15-09; modified by asr 6-5-11 to use start date's index < end date's index and
   // used modified UCA formula
   // using modified UCA formula, this method iteratively solves for the annual average rate (real)
-  //console.log("entering solveForAnnualAverageRate: computedC=%f cmpYrIdx=%s duration=%d", computedC, compareYearIndex, duration);
+  console.log("entering solveForAnnualAverageRate: computedC=%f cmpYrIdx=%s duration=%d", computedC, compareYearIndex, duration);
   let eAvg = 0.0;
   let previousEAvg = 0.0;
   let estC = 0.0;
@@ -289,13 +289,13 @@ const solveForAnnualAverageRate = (computedC, compareYearIndex, duration) => {  
     // account for possibility of negative eAvg results
     eAvg = -0.01;
   }
-  //console.log("Initial eAvg=%f", eAvg);
+  console.log("Initial eAvg=%f", eAvg);
   // 11-6-11 asr now using modified UCA formula; when first making this change in June 2011, I only updated the formula in the while loop, I forgot it here
   //	previous UCA formula:   estC = ((Math.pow((1 + eAvg), Contract))-1)/eAvg;  // estimated C
   estC = ((Math.pow((1 + eAvg), (duration+1))  - (1+eAvg))) /eAvg;  // estimated C
-  //console.log("initial estC=%f", estC);
+  console.log("initial estC=%f", estC);
   diff = (estC - computedC);
-  //console.log("initial diff=%f", diff);
+  console.log("initial diff=%f", diff);
   diffNeg = (diff < 0);                 // is the difference between estimated C and computed C negative?
 
   // set bump value
@@ -313,7 +313,7 @@ const solveForAnnualAverageRate = (computedC, compareYearIndex, duration) => {  
       bump = .25;
     }
   }
-  //console.log("bump=%f", bump);
+  console.log("bump=%f", bump);
 
   while (!signChanged) {                // repeat until difference changes sign
     // move values to "previous" variables
@@ -327,15 +327,15 @@ const solveForAnnualAverageRate = (computedC, compareYearIndex, duration) => {  
     estC = ((Math.pow((1 + eAvg), (duration+1))  - (1+eAvg))) /eAvg;  // estimated C
     diff = (estC - computedC);           // difference from actual C
     diffNeg = (diff < 0);                // is difference negative?
-    //console.log("Iterate: eAvg=%f ; previousEAvg=%f ; diff=%f ; previousDiff=%f", eAvg, previousEAvg, diff, previousDiff);
+    console.log("Iterate: eAvg=%f ; previousEAvg=%f ; diff=%f ; previousDiff=%f", eAvg, previousEAvg, diff, previousDiff);
 
     signChanged = (diffNeg !== previousDiffNeg);  // difference changed sign?
   }
-  //console.log("Final: eAvg=%f ; previousEAvg=%f ; diff=%f ; previousDiff=%f", eAvg, previousEAvg, diff, previousDiff);
+  console.log("Final: eAvg=%f ; previousEAvg=%f ; diff=%f ; previousDiff=%f", eAvg, previousEAvg, diff, previousDiff);
 
   // when difference changes sign, interpolate for a close approximation to eAvg; this is the annual average rate (real)
   let r = (eAvg + (Math.abs(diff)/(Math.abs(previousDiff)+Math.abs(diff))) * (previousEAvg - eAvg));
-  //console.log("solveForAnnualAverageRate returns %f", r);
+  console.log("solveForAnnualAverageRate returns %f", r);
   return r;
 }
 
