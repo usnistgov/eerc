@@ -454,7 +454,7 @@ export default function EercForm() {
       }
     }
     //console.log("exiting calculateCarbonPrice");
-  }, [carbonprice, CO2ePrices, CO2FutureEmissions]);
+  }, [carbonprice, CO2ePrices, CO2FutureEmissions, locale]);
 
   // This is an attempt to avoid delayed updates because of state change queuing by
   // calling validate every time one of the state variables changes
