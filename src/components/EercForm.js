@@ -245,7 +245,7 @@ const addPrices = (prices, carbon, carbonprice) => {
   //console.log("entering addPrices: %o += %o", prices, carbon);
   // add EIA prices and carbon prices and store is prices array
   if (carbonprice !== '') {  // default, low, or high carbon price
-    for(let i=0; i<yearsIn; i++) {
+    for(let i=1; i<yearsIn; i++) {
       prices[i] = prices[i] + carbon[i];
     }
   }
