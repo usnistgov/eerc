@@ -114,8 +114,11 @@ for (let i = 1; i <= numYears; i++) {
 }
 */
 
+// Carbon price name to json key mapping table
+// key: the UI human readable name
+// value: the lookup key to use in the json database, or __zero__ is a special case used by the code
 const zero_carbon_price_policy = '__zero__';
-const carbonprices = { 'Medium': 'Default', 'Low': 'Low', 'High': 'High', 'No carbon price': zero_carbon_price_policy};
+const carbonprices = { 'SCC 3% DR (Average)': '3% DR (Average)', 'SCC 5% DR (Average)': '5% DR (Average)', 'SCC 3% DR (95th percentile)': '3% DR (95th percentile)', 'No carbon price': zero_carbon_price_policy};
 
 const min_duration = 10;
 const max_duration = 25;
@@ -386,7 +389,7 @@ export default function EercForm() {
     setCO2FutureEmissions(await (await fetch(CO2FutureEmissionsURL)).json());
     updateEncost(await (await fetch(EncostURL)).json());
     setZipToState(await (await fetch(ZipToStateURL)).json());
-    // SWB: validation inline here doesn't work; the value isn't yet set in this render?
+    // validation inline here doesn't work; the value isn't yet set in this render
   }
 
   // This asynchronously loads the data files on page load
@@ -431,6 +434,8 @@ export default function EercForm() {
 
   const calculateCarbonPrice = useCallback((CO2Factor, cP, isElectricity, baseyear) => {
     //console.log("calculateCarbonPrice: isElec=%o baseyear=%d CO2Factor=%o cP=%o CO2ePrices[%s]=%o", isElectricity, baseyear, CO2Factor, cP, carbonprice, CO2ePrices[carbonprice]);
+    //console.log("calculateCarbonPrice: CO2FutureEmissions[%s] = %o", locale, CO2FutureEmissions[locale]);
+    //console.log("calculateCarbonPrice: CO2FutureEmissions[%s][%s] = %o", locale, baseyear, CO2FutureEmissions[locale][baseyear]);
     if (carbonprice !== '') {  // default, low, or high carbon price
       if (carbonprices[carbonprice] !== zero_carbon_price_policy) {
         for (let i=0; i<yearsIn; i++) {
@@ -438,7 +443,9 @@ export default function EercForm() {
         }  // steps 1 & 2 from Excel file
         if (isElectricity) {
           for (let i=0; i<yearsIn; i++) {
-            cP[i] = cP[i] * CO2FutureEmissions[carbonprices[carbonprice]][i + baseyear];
+            //SWB 2022: change from index by CPP and year to index by state and year
+            //SWB 2022 cP[i] = cP[i] * CO2FutureEmissions[carbonprices[carbonprice]][i + baseyear];
+            cP[i] = cP[i] * CO2FutureEmissions[locale][i + baseyear];
           }
         }  // step 3
         for (let i=0; i<yearsIn; i++) {
@@ -679,7 +686,7 @@ export default function EercForm() {
     pdf.setTextColor(0,0,0).setFontSize(14).text("Contract Duration:", lm+1, vc);
     pdf.setTextColor(0,0,255).setFontSize(14).text(`${duration.toString()} years`, lm+4, vc);
     vc += 0.25;
-    pdf.setTextColor(0,0,0).setFontSize(14).text("Carbon Pricing Policy:", lm+1, vc);
+    pdf.setTextColor(0,0,0).setFontSize(14).text("Social Cost of GHG Assumptions:", lm+1, vc);
     pdf.setTextColor(0,0,255).setFontSize(14).text(carbonprice, lm+4, vc);
     vc += 0.25;
     pdf.setTextColor(0,0,0).setFontSize(14).text("Annual Inflation Rate:", lm+1, vc);
@@ -841,24 +848,24 @@ export default function EercForm() {
         </Grid>
       </fieldset><br />
       <fieldset>
-        <FormLabel component="legend">&nbsp;Carbon Pricing Policy&nbsp;</FormLabel>
+        <FormLabel component="legend">&nbsp;Social Cost of GHG Assumptions&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={12}>
             <MySelect
-              name="Carbon Price"
+              name="SCC"
               options={Object.keys(carbonprices)}
-              helperText="Select policy"
+              helperText="Select SCC Projection"
               value={carbonprice}
               handleChange={handleCarbonpriceChange}
               isError={() => ((!(Object.keys(carbonprices).includes(carbonprice))) || carbonprice === '')}
               tooltip={
                 <React.Fragment>
-                  {"Determines the carbon pricing scenario to assume:"}
+                  {"Determines the social cost of GHG emissions projection to use from the Interagency Working Group on Social Cost of Greenhouse Gasses Interim Estimates under Executive Order 13990. The scenarios are based on the assumed discount rate and projection percentile:"}
                   <ul>
                   <li><em>{"No Carbon Price"}</em> {"assumes that no carbon policy is enacted (status quo)"}</li>
-                  <li><em>{"Medium"}</em> {"assumes carbon prices based on implementation from recent climate change bill (American Clean Energy and Security Act of 2009: H.R. 2454) is enacted"}</li>
-                  <li><em>{"Low"}</em> {"assumes a carbon policy is implemented that is less restrictive than the Medium policy option on offsets and low carbon energy sources"}</li>
-                  <li><em>{"High"}</em> {"assumes significant restrictions relative to the Medium policy option on offsets and low carbon energy sources"}</li>
+                  <li><em>{"SCC 3% DR (Average)"}</em> {"= average social cost of GHG assuming a 3 % real discount rate. Best match to DOE and OMB real discount rates."}</li>
+                  <li><em>{"SCC 5% DR (Average)"}</em> {"= average social cost of GHG assuming a 5 % real discount rate"}</li>
+                  <li><em>{"SCC 3% DR (95th Percentile)"}</em> {"= 95th Percentile social cost of GHG assuming a 3 % real discount rate"}</li>
                   </ul>
                 </React.Fragment>
               }

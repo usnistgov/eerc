@@ -60,6 +60,7 @@ const save_file = (fn, o) => {
   duration = 0;
   section = null;
   file = null;
+  co2 = {};
 };
 
 rl.on('line', function (line) {
@@ -69,7 +70,6 @@ rl.on('line', function (line) {
     if (l === "CO2Factors" || l === "CO2ePrices" || l === "CO2FutureEmissions") {
       if (file !== null) {
         save_file(file, co2);
-        co2 = {}
       }
       file = l;
     } else if (file === "CO2Factors") {
@@ -79,7 +79,7 @@ rl.on('line', function (line) {
         console.log("Output file may be corrupt!");
       }
       co2[a[0]] = parseFloat(a[1]);
-    } else if (file === "CO2ePrices" || file == "CO2FutureEmissions") {
+    } else if (file === "CO2ePrices" || file === "CO2FutureEmissions") {
       if (duration <= 0) {
         let a = l.split(/\s*-\s*/);
         startyear = parseInt(a[0]);
@@ -117,6 +117,9 @@ rl.on('line', function (line) {
           section = null;
         }
       }
+    } else {
+      console.log("ERROR: %s: unrecognized section name - input file corrupt! Aborting.", file);
+      process.exit(1);
     }
   }
 }).on('close', function() {
