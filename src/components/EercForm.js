@@ -243,9 +243,9 @@ const stateToRegion = state => {
 
 const addPrices = (prices, carbon, carbonprice) => {
   //console.log("entering addPrices: %o += %o", prices, carbon);
-  // add EIA prices and carbon prices and store is prices array
-  if (carbonprice !== '') {  // default, low, or high carbon price
-    for(let i=1; i<yearsIn; i++) {
+  // add EIA prices and carbon prices and store in prices array
+  if (carbonprice !== zero_carbon_price_policy) {
+    for(let i=0; i<yearsIn; i++) {
       prices[i] = prices[i] + carbon[i];
     }
   }
@@ -483,7 +483,7 @@ export default function EercForm() {
       let escalationRate = NaN;
       let nomRate = NaN;
       // prices used to calculate rate (EIA data plus carbon)
-      let pricesC = new Array(yearsIn);   // TODO: I thinj this is supposed to be Encost data?
+      let pricesC = new Array(yearsIn);   // TODO: I think this is supposed to be Encost data?
       let pricesNG = new Array(yearsIn);
       let pricesE = new Array(yearsIn);
       let pricesR = new Array(yearsIn);
@@ -550,6 +550,12 @@ export default function EercForm() {
         try { pricesD[i] =  Encost[region]["Distillate Oil"][i + baseyearD]; } catch(e) { pricesD[i] = 1; };
       }
       let uses_missing_data = false;
+      // SWB: NOTES FOR THE FOLLOWING CALCULATIONS:
+      // - carbonX and pricesX are both zero-indexed arrays of size yearsIn
+      // - The range of indexes to add in order to calculate C begins one year after the performance period starts
+      // - The range of indexes to add in order to calculate C ends one year after the performance period end year
+      //   study period = (end year-start year)+1
+
       if ( CW>0 ) {                        // coal
         if (hasC) {
           calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
