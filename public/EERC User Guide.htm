@@ -1,7 +1,7 @@
 <html>
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
 <meta name=Generator content="Microsoft Word 15 (filtered)">
 <title>Software Requirements Specification (SRS) Template</title>
 <style>
@@ -9,7 +9,7 @@
  /* Font Definitions */
  @font-face
 	{font-family:"Tms Rmn";
-	panose-1:2 2 6 3 4 5 5 2 3 4;}
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
 @font-face
 	{font-family:Wingdings;
 	panose-1:5 0 0 0 0 0 0 0 0 0;}
@@ -18,14 +18,13 @@
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
 	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:0in;
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:0in;
-	margin-bottom:.0001pt;
 	font-size:12.0pt;
 	font-family:"Times New Roman",serif;
 	color:black;}
@@ -34,7 +33,6 @@ h1
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:0in;
-	margin-bottom:.0001pt;
 	font-size:14.0pt;
 	font-family:"Times New Roman",serif;
 	color:black;
@@ -44,7 +42,6 @@ h2
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:9.35pt;
-	margin-bottom:.0001pt;
 	font-size:13.0pt;
 	font-family:"Times New Roman",serif;
 	color:black;
@@ -55,7 +52,6 @@ p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:.5in;
-	margin-bottom:.0001pt;
 	font-size:12.0pt;
 	font-family:"Times New Roman",serif;
 	color:black;}
@@ -64,7 +60,6 @@ p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphC
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:.5in;
-	margin-bottom:.0001pt;
 	font-size:12.0pt;
 	font-family:"Times New Roman",serif;
 	color:black;}
@@ -73,7 +68,6 @@ p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagrap
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:.5in;
-	margin-bottom:.0001pt;
 	font-size:12.0pt;
 	font-family:"Times New Roman",serif;
 	color:black;}
@@ -82,7 +76,6 @@ p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxS
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:.5in;
-	margin-bottom:.0001pt;
 	font-size:12.0pt;
 	font-family:"Times New Roman",serif;
 	color:black;}
@@ -93,7 +86,6 @@ p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxS
  @page WordSection1
 	{size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;}
-  @page HtmlPage
 div.WordSection1
 	{page:WordSection1;}
  /* List Definitions */
@@ -104,18 +96,11 @@ ul
 -->
 </style>
 
-<!-- SWB: Added NIST stuff -->
-<link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript" defer="defer"></script>
-<script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
-<script async type="text/javascript" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NIST&subagency=github&pua=UA-66610693-1&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c"></script>
-<!-- SWB: end of NIST stuff -->
-
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72">
+<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
 
-<div class=WordSection1 style="margin: 0 30 20 50;">
+<div class=WordSection1>
 
 <p class=MsoNormal align=center style='text-align:center'><a name="_Hlk1053996"><b>&nbsp;</b></a></p>
 
@@ -148,46 +133,42 @@ amounts over the performance period as do the underlying energy price projection
 <p class=MsoNormal>To assist federal agencies in considering a range of energy
 price scenarios, escalation rates may be computed based on: (1) the annual
 energy price forecasts of the EIA, which do not account for potential carbon
-pricing, and (2) EIA projections adjusted by NIST for three levels of potential
-carbon pricing. This range of rates may be considered by federal agencies for
-use as energy price escalation rates for contract payments, when the payments
-are based on projected annual energy cost savings.</p>
+pricing, and (2) EIA projections adjusted by NIST for three levels of estimated
+social cost of carbon (SCC). This range of rates may be considered by federal
+agencies for use as energy price escalation rates for contract payments, when
+the payments are based on projected annual energy cost savings.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal>The EIA projections adjusted by NIST for potential carbon
-pricing are based on three carbon policy scenarios. Default Pricing stems from
-a carbon policy scenario which does not restrict the type of capacity that
-electric utilities may install to meet carbon emissions targets. The default
-scenario assumes that all countries, including developing countries, will begin
-to restrict carbon emissions over the next 40 years. Low Pricing assumes that
-developing countries do not take any action over the next 40 years to restrict
-carbon emissions, which decreases the demand for carbon reductions and allows
-polluters in the U.S. to purchase carbon offsets from other countries at a
-lower cost. High Pricing assumes that carbon offsets are not allowed, and
-nuclear and biomass capacity construction is restricted. Both assumptions limit
-some of the least expensive options available to decrease carbon emissions,
-causing carbon prices to increase.</p>
+<p class=MsoNormal>The EIA projections adjusted by NIST for estimated SCC potential
+carbon pricing are based on three social cost of GHG emissions projections
+provided in the Interagency Working Group on Social Cost of Greenhouse Gases
+Interim Estimates under Executive Order 13990 (adjusted to 2022 dollars). The
+scenarios assume different discount rates and projection percentile that
+provide a range of values that can be used for sensitivity analysis. Note that
+this approach was implemented in the 2022 release, replacing the previous
+methodology that used carbon pricing projections based on proposed carbon
+cap-and-trade legislation from 2009. </p>
 
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>The prior (executeable) user interface is shown below. The
 user provides the fuel type, fuel rate, study period, carbon pricing scenario,
-and inflation rate. Default values are provided for carbon pricing scenario (no
-carbon price) and inflation rate (based on annual supplement value). The
-discount rate is fixed based on the Annual Supplement. The output is a real
-escalation rate and nominal escalation rate values.</p>
+and inflation rate. Default values are provided for projected SCC scenarios (SCC
+of zero) and inflation rate (based on annual supplement value). The discount
+rate is fixed based on the Annual Supplement. The output is a real escalation
+rate and nominal escalation rate values.</p>
 
-<p class=MsoNormal><img width=202 height=370 id="Picture 8"
-src="EERC%20User%20Guide_files/image001.png" alt=EERC></p>
+<p class=MsoNormal><img width=152 height=278 id="Picture 2"
+src="EERC%20User%20Guide.fld/image001.png"></p>
 
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>This is the flow diagram for the EERC workflow including the
 required data.</p>
 
-<p class=MsoNormal><i><img width=600 height=433
-src="EERC%20User%20Guide_files/image002.png"></i></p>
+<p class=MsoNormal><img width=436 height=302 id="Picture 1"
+src="EERC%20User%20Guide.fld/image002.png"></p>
 
 <p class=MsoNormal>&nbsp;</p>
 
@@ -199,12 +180,12 @@ style='font-size:12.0pt'>3.1 Inputs and Outputs</span></a></h2>
 <p class=MsoNormal>EERC prompts the user for information on the share of cost
 savings attributable to each fuel type, project location, industry sector, and
 the beginning date and duration of the performance period. It also prompts the
-user to select one of several carbon pricing scenarios--No Carbon Pricing,
-Default Pricing, Low Pricing, or High Pricing--then retrieves the relevant
-energy price forecasts and computes the average escalation rate, as described
-above. Since the performance period start date could begin later than the base
-date, the calculated average rate includes the price escalation for the
-intervening year(s).</p>
+user to select one of several estimated SCC scenarios -- No SCC, 3 % DR Average,
+3 % DR 95<sup>th</sup> Percentile, and 5 % DR Average -- then retrieves the
+relevant energy price forecasts and computes the average escalation rate, as
+described above. Since the performance period start date could begin later than
+the base date, the calculated average rate includes the price escalation for
+the intervening year(s).</p>
 
 <p class=MsoNormal>The calculated average escalation rate is reported in both
 real (excluding inflation) and nominal (including inflation) terms. The energy
@@ -253,11 +234,11 @@ artificially low in years when the 3.0 % floor applies. </p>
 </ul>
 
 <p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
 </span></span><i>User must select a start date year</i></p>
 
 <p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
 </span></span><i>Options are limited to the next 3 years</i></p>
 
 <ul type=disc>
@@ -267,58 +248,57 @@ style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Tim
 </ul>
 
 <p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
 </span></span><i>User must make a selection for the duration</i></p>
 
 <p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
 </span></span><i>The duration is limited between 10 years and 25 years</i></p>
 
 <p class=MsoNormal style='margin-right:0in'><b>Carbon Pricing Policy:</b><br>
 Selection of one of the following carbon pricing scenarios:</p>
 
 <ol style='margin-top:0in' start=1 type=1>
- <li class=MsoNormal style='margin-right:0in'>Carbon price of zero</li>
+ <li class=MsoNormal style='margin-right:0in'>No SCC</li>
  <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in'>Assumes that no carbon policy is
-      enacted</li>
+  <li class=MsoNormal style='margin-right:0in'>Assumes that SCC is zero</li>
   <li class=MsoNormal style='margin-right:0in'>Uses annual energy price
       forecasts of the Energy Information Administration, which do not account
-      for potential carbon pricing</li>
+      for estimated SCC</li>
  </ul>
- <li class=MsoNormal style='margin-right:0in'>Low carbon prices</li>
+ <li class=MsoNormal style='margin-right:0in'>3 % DR Average</li>
  <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in'>Assumes that developing
-      countries do not restrict electricity emissions</li>
-  <li class=MsoNormal style='margin-right:0in'>Deflates prices because more and
-      cheaper offsets are available for U.S.polluter purchase</li>
-  <li class=MsoNormal style='margin-right:0in'>Assumes that all states decrease
-      electricity emissions at the national average rate for this policy option</li>
+  <li class=MsoNormal style='margin-right:0in'>Average social cost of GHG
+      assuming a 3 % discount rate</li>
+  <li class=MsoNormal style='margin-right:0in'>Represents the assumptions that
+      best align with the DOE and OMB discount rates</li>
  </ul>
- <li class=MsoNormal style='margin-right:0in'>Default carbon prices</li>
+ <li class=MsoNormal style='margin-right:0in'>3 % 95th Percentile</li>
  <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in'>Assumes the most recent climate
-      change bill (<i>American Clean Energy and Security Act of 2009: H.R.
-      2454)&nbsp;</i>is enacted as is with no restrictions on offsets or generating
-      capacity installation</li>
-  <li class=MsoNormal style='margin-right:0in'>Assumes that all states decrease
-      electricity emissions at the national average rate for this policy option</li>
- </ul>
- <li class=MsoNormal style='margin-right:0in'>High carbon prices</li>
- <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in'>Assumes significant restrictions
-      on cheap carbon reduction options</li>
-  <ul style='margin-top:0in' type=square>
-   <li class=MsoNormal style='margin-right:0in'>No new nuclear and biomass
-       power</li>
-   <li class=MsoNormal style='margin-right:0in'>No offsets</li>
-  </ul>
-  <li class=MsoNormal style='margin-right:0in'>Requires more expensive carbon
-      reduction options and drives up carbon prices</li>
-  <li class=MsoNormal style='margin-right:0in'>Assumes that all states decrease
-      electricity emissions at the national average rate for this policy option</li>
+  <li class=MsoNormal style='margin-right:0in'>95th percentile social cost of
+      GHG assuming a 3 % discount rate</li>
+  <li class=MsoNormal style='margin-right:0in'>Represents the highest 5% of
+      projected values</li>
  </ul>
 </ol>
+
+<p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
+0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Higher SCC values than 3 % DR Average</p>
+
+<ol style='margin-top:0in' start=4 type=1>
+ <li class=MsoNormal style='margin-right:0in'>5 % DR Average</li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='margin-right:0in'>Average social cost of GHG
+      assuming a 5 % discount rate</li>
+ </ul>
+</ol>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Lower SCC values 3 % DR Average</p>
 
 <p class=MsoNormal style='margin-right:0in'><b>&nbsp;</b></p>
 
@@ -343,8 +323,8 @@ inflation rate may be edited.</p>
 
 <p class=MsoNormal style='margin-right:0in'><b>&nbsp;</b></p>
 
-<p class=MsoNormal style='margin-right:0in'><b>Output - Annual Energy
-Escalation Rates:</b></p>
+<p class=MsoNormal style='margin-right:0in'><b>Output - Annual Energy Escalation
+Rates:</b></p>
 
 <ul type=disc>
  <li class=MsoNormal style='margin-right:0in'><i>Real and Nominal Escalation
@@ -360,7 +340,7 @@ inflation, the calculator uses the following relationship:</p>
 
 <p class=MsoNormal><span
 style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'><img
-width=290 height=22 src="EERC%20User%20Guide_files/image003.png"></span></p>
+width=218 height=17 src="EERC%20User%20Guide.fld/image003.png"></span></p>
 
 <p class=MsoNormal>The calculated average annual escalation rate, <i>e<sub>avg</sub></i>,
 when applied to the base-year energy costs or savings of ESPC or UESC projects,
@@ -392,7 +372,7 @@ year(s).</p>
 
 <p class=MsoNormal><span
 style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'><img
-width=582 height=38 src="EERC%20User%20Guide_files/image004.png"></span></p>
+width=437 height=28 src="EERC%20User%20Guide.fld/image004.png"></span></p>
 
 <p class=MsoNormal>where</p>
 
@@ -414,7 +394,7 @@ annual cost, A:</p>
 
 <p class=MsoNormal><span
 style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'><img
-width=254 height=52 src="EERC%20User%20Guide_files/image005.png"></span></p>
+width=191 height=39 src="EERC%20User%20Guide.fld/image005.png"></span></p>
 
 <p class=MsoNormal>where <i>e<sub>avg</sub></i> is the average annual
 escalation rate</p>
@@ -429,28 +409,29 @@ performance period of <i>n</i> years duration:</p>
 
 <p class=MsoNormal><span
 style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'><img
-width=624 height=71 src="EERC%20User%20Guide_files/image006.png"></span></p>
+width=468 height=53 src="EERC%20User%20Guide.fld/image006.png"></span></p>
 
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>The cost of carbon is calculated using the emissions per
-unit of fuel type, the carbon price projections, and the carbon emissions
-factor to calculate a price per unit of fuel. Then its added into the projected
-energy prices before the escalation rate is calculated.</p>
+unit of fuel type, the SCC projections, and the carbon emissions factor to
+calculate a price per unit of fuel. Then its added into the projected energy
+prices before the escalation rate is calculated.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal>Take the baseline CO2 emissions rate and create the
-emissions rate for each year for a given carbon scenario by multiplying it by
-the emission factor (fraction of baseline emissions rate by year). This value
-is then multiplied by the carbon price for the carbon scenario by year. This
-provides the carbon price per unit of electricity.</p>
+<p class=MsoNormal>For electricity, take the baseline CO<sub>2</sub>e emissions
+rate for a state and create the emissions rate for each year by multiplying it
+by the emission factor for that state (fraction of baseline emissions rate by
+year). This value is then multiplied by the SCC from the projected SCC scenario
+by year. This provides the carbon price per unit of electricity.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal>The CO2 emissions rates for other fuels (distillate oil,
-residual oil, nat gas, LPG, and coal). These rates do not change by year.
-Therefore, the emissions per unit are constant over time.</p>
+<p class=MsoNormal>The CO<sub>2</sub>e emissions rates for other fuels
+(distillate oil, residual oil, nat gas, LPG, and coal) based on EPA’s Emissions
+Hub. These rates do not change by year. Therefore, the emissions per unit are
+constant over time.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
@@ -469,63 +450,48 @@ appropriated adjusted for the carbon scenario.</p>
 <p class=MsoNormal style='margin-right:0in'>The data tables include </p>
 
 <p class=MsoListParagraphCxSpFirst style='margin-right:0in;text-indent:-.25in'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the
-Encost file that includes the EIA energy price projections for each fuel type
-over time</p>
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>the Encost
+file that includes the EIA energy price projections for each fuel type over
+time</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
 margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
 </span></span>This file is provided by EIA and then NIST manipulates it to
 create the annual supplement data</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-right:0in;text-indent:-.25in'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2
-Price file that includes the projected prices for CO2 emissions</p>
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2 Price
+file that includes the projected prices for CO<sub>2</sub>e emissions</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
 margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span>Provided by AEO by scenario and year</p>
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Provided by scenario and year</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-right:0in;text-indent:-.25in'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2
-Future Emissions file that includes the projected emissions rate factors for
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2 Future
+Emissions file that includes the projected emissions rate factors for
 electricity generation over time</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
 margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span>Fraction of Current Year's Emissions Rate</p>
-
-<p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span>Indifferent to initial baseline CO2 factors</p>
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Fraction of Current Year’s Emissions Rate by state</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-right:0in;text-indent:-.25in'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2
 Factors file that includes the baseline emissions rates for electricity and
 other fuel types</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
 margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span>Electricity emission rates are provided by AEO by zip code</p>
-
-<p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:1.5in;margin-bottom:.0001pt;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span>This is a change from the old version of EERC, which is by state</p>
-
-<p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:1.5in;margin-bottom:.0001pt;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span>ZIP Code is matched to balancing authority emissions rates</p>
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Electricity emission rates are provided by state</p>
 
 <p class=MsoListParagraphCxSpLast style='margin-top:0in;margin-right:0in;
 margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
 </span></span>Other fuel types are assumed to be constant using a national
 average rate</p>
 
