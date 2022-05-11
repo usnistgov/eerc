@@ -10,7 +10,7 @@ import HtmlTooltip from './HtmlTooltip';
 
 
 export default function MySelect(props) {
-  const { name, options, helperText, value, handleChange, isError, tooltip, } = props;
+  const { name, options, helperText, value, handleChange, isError, tooltip, minwidth, } = props;
 
   const labelId = `${name}-label`;
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -26,10 +26,11 @@ export default function MySelect(props) {
 
   return (
     <HtmlTooltip arrow title={tooltip} open={tooltipOpen}>
-      <FormControl>
+      <FormControl style={{minWidth: minwidth}}>
         <InputLabel id={labelId} shrink>{name}</InputLabel>
         <Select
           native
+          style={{minWidth: minwidth}}
           labelId={labelId}
           margin="dense"
           value={value}
@@ -65,4 +66,9 @@ MySelect.propTypes = {
   handleChange: PropTypes.func.isRequired,
   isError:      PropTypes.func.isRequired,
   tooltip:      PropTypes.element.isRequired,
+  minwidth:     PropTypes.number,
+};
+
+MySelect.defaultProps = {
+  minwidth:     120,
 };

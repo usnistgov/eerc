@@ -856,8 +856,9 @@ export default function EercForm() {
       <fieldset>
         <FormLabel component="legend">&nbsp;Social Cost of GHG Assumptions&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
-          <Grid item xs={12}>
+          <Grid item xs={6} sm={3}>
             <MySelect
+              minwidth={240}
               name="SCC"
               options={Object.keys(carbonprices)}
               helperText="Select SCC Projection"
