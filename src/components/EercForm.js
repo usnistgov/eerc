@@ -241,11 +241,11 @@ const stateToRegion = state => {
   }
 };
 
-const addPrices = (prices, carbon, carbonprice) => {
+const addPrices = (prices, carbon, carbonprice, index_start) => {
   //console.log("entering addPrices: %o += %o", prices, carbon);
   // add EIA prices and carbon prices and store in prices array
   if (carbonprice !== zero_carbon_price_policy) {
-    for(let i=0; i<yearsIn; i++) {
+    for(let i=(index_start+1); i<yearsIn; i++) {
       prices[i] = prices[i] + carbon[i];
     }
   }
@@ -558,10 +558,10 @@ export default function EercForm() {
 
       if ( CW>0 ) {                        // coal
         if (hasC) {
-          calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
-          addPrices(pricesC, carbonC, carbonprices[carbonprice]);
           let index_start = date_start - baseyearC + 1;
           let index_end = index_start + duration - 1;
+          calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
+          addPrices(pricesC, carbonC, carbonprices[carbonprice], index_start);
           cC  = calculateC(index_start, index_end, pricesC);
           compareIndicesC = compareStartEnd(index_start, index_end, pricesC);
           rateC = solveForAnnualAverageRate(cC, compareIndicesC, duration);
@@ -572,10 +572,10 @@ export default function EercForm() {
       }
       if ( NGW>0 ) {                       // natural gas
         if (hasNG) {
-          calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearNG);
-          addPrices(pricesNG, carbonNG, carbonprices[carbonprice]);
           let index_start = date_start - baseyearNG + 1;
           let index_end = index_start + duration - 1;
+          calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearNG);
+          addPrices(pricesNG, carbonNG, carbonprices[carbonprice], index_start);
           cNG = calculateC(index_start, index_end, pricesNG);
           compareIndicesNG = compareStartEnd(index_start, index_end, pricesNG);
           rateNG = solveForAnnualAverageRate(cNG, compareIndicesNG, duration);
@@ -586,10 +586,10 @@ export default function EercForm() {
       }
       if ( EW>0 ) {                       // electricity
         if (hasE) {
-          calculateCarbonPrice(CO2Factors[/*ZipToState[locale]*/ locale], carbonE, true, baseyearE);
-          addPrices(pricesE, carbonE, carbonprices[carbonprice]);
           let index_start = date_start - baseyearE + 1;
           let index_end = index_start + duration - 1;
+          calculateCarbonPrice(CO2Factors[/*ZipToState[locale]*/ locale], carbonE, true, baseyearE);
+          addPrices(pricesE, carbonE, carbonprices[carbonprice], index_start);
           cE  = calculateC(index_start, index_end, pricesE);
           compareIndicesE = compareStartEnd(index_start, index_end, pricesE);
           rateE = solveForAnnualAverageRate(cE, compareIndicesE, duration);
@@ -600,10 +600,10 @@ export default function EercForm() {
       }
       if ( RW>0 ) {                       // residual oil
         if (hasR) {
-          calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearR);
-          addPrices(pricesR, carbonR, carbonprices[carbonprice]);
           let index_start = date_start - baseyearR + 1;
           let index_end = index_start + duration - 1;
+          calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearR);
+          addPrices(pricesR, carbonR, carbonprices[carbonprice], index_start);
           cR  = calculateC(index_start, index_end, pricesR);
           compareIndicesR = compareStartEnd(index_start, index_end, pricesR);
           rateR = solveForAnnualAverageRate(cR, compareIndicesR, duration);
@@ -614,10 +614,10 @@ export default function EercForm() {
       }
       if ( DW>0 ) {                       // distillate oil
         if (hasD) {
-          calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearD);
-          addPrices(pricesD, carbonD, carbonprices[carbonprice]);
           let index_start = date_start - baseyearD + 1;
           let index_end = index_start + duration - 1;
+          calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearD);
+          addPrices(pricesD, carbonD, carbonprices[carbonprice], index_start);
           cD  = calculateC(index_start, index_end, pricesD);
           compareIndicesD = compareStartEnd(index_start, index_end, pricesD);
           rateD = solveForAnnualAverageRate(cD, compareIndicesD, duration);
