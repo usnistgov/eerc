@@ -65,7 +65,7 @@ const CO2FutureEmissionsURL = 'CO2FutureEmissions.json';
 const EncostURL = 'Encost.json';
 const ZipToStateURL = 'zipcodetostate.json';
 const yearsIn = 31;  // number of years being read in
-const carbonConvert = 0.912130;    // factor used to convert results from 2019$/GJ to 2012$/Mbtu; see Step 4 in EERC Calculations Excel file
+const carbonConvert = 0.974817;    // factor used to convert results from $/GJ to $/MMbtu; see Step 4 in EERC Calculations Excel file
 
 ////////////////////////////////////////////////////////////////////////////////
 
