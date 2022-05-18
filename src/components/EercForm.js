@@ -118,7 +118,12 @@ for (let i = 1; i <= numYears; i++) {
 // key: the UI human readable name
 // value: the lookup key to use in the json database, or __zero__ is a special case used by the code
 const zero_carbon_price_policy = '__zero__';
-const carbonprices = { 'SCC 3% DR (Average)': '3% DR (Average)', 'SCC 5% DR (Average)': '5% DR (Average)', 'SCC 3% DR (95th percentile)': '3% DR (95th percentile)', 'No carbon price': zero_carbon_price_policy};
+const carbonprices = {
+  'Low - $14 in 2022': '5% DR (Average)',
+  'Medium - $51 in 2022': '3% DR (Average)',
+  'High - $125 in 2022': '3% DR (95th percentile)',
+  'No carbon price': zero_carbon_price_policy
+};
 
 const min_duration = 10;
 const max_duration = 25;
@@ -745,7 +750,7 @@ export default function EercForm() {
                 arrow
                 title={
                   <React.Fragment>
-                    {"Percentage of energy cost savings in dollars that is attributable to " + energy.name + " used in the project. This input is used to weight the escalation rate."}
+                    {"Percentage of energy cost savings in dollars that is attributable to " + energy.name.toLowerCase() + " used in the project. This input is used to weight the escalation rate."}
                   </React.Fragment>
                 }
               >
@@ -794,7 +799,7 @@ export default function EercForm() {
               value={locale}
               handleChange={handleLocaleChange}
               isError={() => (!(CO2Factors.hasOwnProperty(locale)))}
-              tooltip=<React.Fragment>Selecting the state in which the project is located is needed to select the associated energy price escalation rates (by Census Region) and CO2 pricing and emission rates (currently by State).</React.Fragment>
+              tooltip=<React.Fragment>Selecting the state in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by state).</React.Fragment>
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -821,7 +826,7 @@ export default function EercForm() {
               value={startdate}
               handleChange={handleStartdateChange}
               isError={() => (!(startdates.includes(parseInt(startdate))))}
-              tooltip=<React.Fragment>Date (year) when energy savings start to accrue, which is usually after project acceptance at the beginning of performance period.</React.Fragment>
+              tooltip=<React.Fragment>{"Year of contract award/signing"}</React.Fragment>
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -829,7 +834,7 @@ export default function EercForm() {
               arrow
               title={
                 <React.Fragment>
-                  {"Number of years of the performance period for which the average escalation rate will be calculated."}
+                  {"Number of years of the contract term"}
                 </React.Fragment>
               }
             >
@@ -854,7 +859,7 @@ export default function EercForm() {
         </Grid>
       </fieldset><br />
       <fieldset>
-        <FormLabel component="legend">&nbsp;Social Cost of GHG Assumptions&nbsp;</FormLabel>
+        <FormLabel component="legend">&nbsp;Social Cost of Carbon Assumptions&nbsp;</FormLabel>
         <Grid container alignItems="center" justify="center" direction="row">
           <Grid item xs={6} sm={3}>
             <MySelect
@@ -867,12 +872,12 @@ export default function EercForm() {
               isError={() => ((!(Object.keys(carbonprices).includes(carbonprice))) || carbonprice === '')}
               tooltip={
                 <React.Fragment>
-                  {"Determines the social cost of GHG emissions projection to use from the Interagency Working Group on Social Cost of Greenhouse Gasses Interim Estimates under Executive Order 13990. The scenarios are based on the assumed discount rate and projection percentile:"}
+                  {"Determines the social cost of GHG emissions projection to use from the Interagency Working Group on Social Cost of Greenhouse Gasses Interim Estimates under Executive Order 13990. The scenarios are based on the assumed discount rate (DR) and projection percentile:"}
                   <ul>
                   <li><em>{"No Carbon Price"}</em> {"assumes that no carbon policy is enacted (status quo)"}</li>
-                  <li><em>{"SCC 3% DR (Average)"}</em> {"= average social cost of GHG assuming a 3 % real discount rate. Best match to DOE and OMB real discount rates."}</li>
-                  <li><em>{"SCC 5% DR (Average)"}</em> {"= average social cost of GHG assuming a 5 % real discount rate"}</li>
-                  <li><em>{"SCC 3% DR (95th Percentile)"}</em> {"= 95th Percentile social cost of GHG assuming a 3 % real discount rate"}</li>
+                  <li><em>{"Low - $14 in 2022 - 5% DR (average)"}</em> {"= average social cost of GHG assuming a 5% real discount rate"}</li>
+                  <li><em>{"Medium - $51 in 2022 - 3% DR (average)"}</em> {"= average social cost of GHG assuming a 3% real discount rate. Best match to DOE and OMB real discount rates."}</li>
+                  <li><em>{"High - $125 in 2022 - 3% DR (95th percentile)"}</em> {"= 95th Percentile social cost of GHG assuming a 3% real discount rate"}</li>
                   </ul>
                 </React.Fragment>
               }
@@ -888,7 +893,7 @@ export default function EercForm() {
               arrow
               title={
                 <React.Fragment>
-                  {"The general rate of inflation for the nominal discount rate calculation. The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using the method described in 10 CFR 436 without consideration of the 3.0 % floor for the real discount rate."}
+                  {"The general rate of inflation for the nominal discount rate calculation. The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using data from CEA and the method described in 10 CFR 436 without consideration of the 3.0 % floor for the real discount rate."}
                 </React.Fragment>
               }
             >
