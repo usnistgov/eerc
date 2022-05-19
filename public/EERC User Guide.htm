@@ -102,14 +102,8 @@ ul
 
 <div class=WordSection1>
 
-<p class=MsoNormal align=center style='text-align:center'><a name="_Hlk1053996"><b>&nbsp;</b></a></p>
-
-<p class=MsoNormal align=center style='text-align:center'><b>&nbsp;</b></p>
-
-<p class=MsoNormal align=center style='text-align:center'><b>&nbsp;</b></p>
-
-<p class=MsoNormal align=center style='text-align:center'><b>Energy Escalation
-Rate Calculator (EERC)</b></p>
+<p class=MsoNormal align=center style='text-align:center'><a name="_Hlk1053996"><b>Energy
+Escalation Rate Calculator (EERC)</b></a></p>
 
 <p class=MsoNormal align=center style='text-align:center'><b>User Guide</b></p>
 
@@ -122,78 +116,79 @@ style='font-size:12.0pt'> </span></h1>
 
 <p class=MsoNormal>EERC computes an average rate of escalation for a specified
 time period, which can be used as an escalation rate for contract payments in
-ESPCs and UESCs. While the underlying energy price projections vary from year
-to year, for calculating contract payments the EERC-calculated uniform average
-rate is preferable. The rate is stated in real (excluding inflation) and
-nominal (including inflation) terms and weighted by the share of each of the
-energy types used in the project. When applied to the base-year energy costs or
-savings of ESPC or UESC projects, it results in approximately the same total
-amounts over the performance period as do the underlying energy price projections.</p>
-
-<p class=MsoNormal>To assist federal agencies in considering a range of energy
-price scenarios, escalation rates may be computed based on: (1) the annual
-energy price forecasts of the EIA, which do not account for potential carbon
-pricing, and (2) EIA projections adjusted by NIST for three levels of estimated
-social cost of carbon (SCC). This range of rates may be considered by federal
-agencies for use as energy price escalation rates for contract payments, when
-the payments are based on projected annual energy cost savings.</p>
+ESPCs and UESCs. These escalation rates are based on energy price projections
+from the Department of Energy’s Energy Information Administration (EIA). While
+the underlying energy price projections vary from year to year, for calculating
+contract payments the single EERC-calculated uniform average rate is
+preferable. The rate is stated in real (excluding inflation) and nominal
+(including inflation) terms and weighted by the share of each of the energy
+types used in the project. Alternatively, an escalation rate for each energy
+type can be computed separately.  </p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal>The EIA projections adjusted by NIST for estimated SCC potential
-carbon pricing are based on three social cost of GHG emissions projections
-provided in the Interagency Working Group on Social Cost of Greenhouse Gases
-Interim Estimates under Executive Order 13990 (adjusted to 2022 dollars). The
-scenarios assume different discount rates and projection percentile that
-provide a range of values that can be used for sensitivity analysis. Note that
-this approach was implemented in the 2022 release, replacing the previous
-methodology that used carbon pricing projections based on proposed carbon
-cap-and-trade legislation from 2009. </p>
+<p class=MsoNormal>To assist federal agencies (and others) in considering a
+range of energy price and policy scenarios, escalation rates may be adjusted by
+NIST for three levels of estimated social cost of carbon (SCC). </p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal>The prior (executeable) user interface is shown below. The
-user provides the fuel type, fuel rate, study period, carbon pricing scenario,
-and inflation rate. Default values are provided for projected SCC scenarios (SCC
-of zero) and inflation rate (based on annual supplement value). The discount
-rate is fixed based on the Annual Supplement. The output is a real escalation
-rate and nominal escalation rate values.</p>
+<p class=MsoNormal>The EIA projections adjusted by NIST for carbon pricing are
+based on three SCC projections provided in the Interagency Working Group on
+Social Cost of Greenhouse Gases Interim Estimates, which were developed
+pursuant to Executive Order 13990. Those estimates are adjusted by NIST to 2022
+dollars. The scenarios assume different discount rates and projection
+percentile,  providing a range of values that can be used for sensitivity
+analysis. Note that this approach was implemented in the 2022 release,
+replacing the previous methodology that used carbon pricing projections based
+on proposed carbon cap-and-trade legislation from 2009. </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The prior (executeable) user interface is shown below (left).
+The user provides the fuel type, fuel rate, study period, carbon pricing
+scenario, and inflation rate. Default values are provided for projected SCC
+scenarios (SCC of zero) and inflation rate (based on annual supplement value). The
+discount rate is fixed based on the Annual Supplement. The output is a real
+escalation rate and nominal escalation rate values. The flow diagram for the
+EERC workflow including the required data is shown below (right).</p>
+
+<p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal><img width=152 height=278 id="Picture 2"
-src="EERC%20User%20Guide.fld/image001.png"></p>
+src="EERC%20User%20Guide.fld/image001.png">                                 <img
+width=404 height=281 id="Picture 3" src="EERC%20User%20Guide.fld/image002.png"></p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal>This is the flow diagram for the EERC workflow including the
-required data.</p>
-
-<p class=MsoNormal><img width=436 height=302 id="Picture 1"
-src="EERC%20User%20Guide.fld/image002.png"></p>
-
 <p class=MsoNormal>&nbsp;</p>
 
-<h2 style='page-break-after:avoid'><a name="_Toc21606436"><span
-style='font-size:12.0pt'>3.1 Inputs and Outputs</span></a></h2>
+<h2 style='margin-left:0in;page-break-after:avoid'><a name="_Toc21606436"><span
+style='font-size:12.0pt'>Inputs and Outputs</span></a></h2>
 
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>EERC prompts the user for information on the share of cost
-savings attributable to each fuel type, project location, industry sector, and
-the beginning date and duration of the performance period. It also prompts the
-user to select one of several estimated SCC scenarios -- No SCC, 3 % DR Average,
-3 % DR 95<sup>th</sup> Percentile, and 5 % DR Average -- then retrieves the
-relevant energy price forecasts and computes the average escalation rate, as
-described above. Since the performance period start date could begin later than
-the base date, the calculated average rate includes the price escalation for
-the intervening year(s).</p>
+savings attributable to each fuel type, the project location, industry sector,
+and beginning date and duration of the project term. It also prompts the user
+to select one of several estimated SCC scenarios -- no SCC, low, medium, or high
+-- then retrieves the relevant energy price forecasts and computes the average
+escalation rate, as described above. Since the performance period generally begins
+a year or more later than the contract award date, the calculated average rate
+includes the price escalation for the intervening year(s). Escalation is
+assumed to take place during this period.</p>
+
+<p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>The calculated average escalation rate is reported in both
 real (excluding inflation) and nominal (including inflation) terms. The energy
 price projections for all scenarios exclude inflation and thus generate real
 rates. The default inflation rate used in the EERC is the long-term inflation
-rate calculated annually by DOE/FEMP using the method described in 10 CFR 436,
-but without consideration of the 3.0 % floor for the real discount rate. The
-default inflation rate does not account for the discount rate floor to
+rate calculated annually by DOE/FEMP using the average annual inflation
+estimates for the next 10 years from the White House Council of Economic
+Advisors (CEA) Analytical Perspectives and the methodology described in 10 CFR
+436, but without consideration of the 3.0 % floor for the real discount rate.
+The default inflation rate does not account for the discount rate floor to
 accommodate the need for market-based projections of future energy prices in
 contract negotiations. Otherwise, the default inflation rate would be
 artificially low in years when the 3.0 % floor applies. </p>
@@ -217,7 +212,7 @@ artificially low in years when the 3.0 % floor applies. </p>
 <ul type=disc>
  <li class=MsoNormal style='margin-right:0in'><i>Location</i>: Selection of the
      state in which the project is located allows the program to select the
-     energy price escalation rates for the corresponding Census Region.</li>
+     energy price escalation rates for the corresponding census region.</li>
  <li class=MsoNormal style='margin-right:0in'><i>Sector</i>: Selection of
      commercial or industrial sector determines the type of utility rate
      schedule applied to the energy cost calculation.</li>
@@ -225,12 +220,11 @@ artificially low in years when the 3.0 % floor applies. </p>
      both inputs</i></li>
 </ul>
 
-<p class=MsoNormal style='margin-right:0in'><b>Performance Period:</b></p>
+<p class=MsoNormal style='margin-right:0in'><b>Contract Term:</b></p>
 
 <ul type=disc>
- <li class=MsoNormal style='margin-right:0in'><i>Start Date</i>: Date when
-     energy savings start to accrue, which is usually after project acceptance
-     at the beginning of performance period.</li>
+ <li class=MsoNormal style='margin-right:0in'><i>Start Date</i>: Year of
+     contract award/signing.</li>
 </ul>
 
 <p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
@@ -242,9 +236,8 @@ style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Tim
 </span></span><i>Options are limited to the next 3 years</i></p>
 
 <ul type=disc>
- <li class=MsoNormal style='margin-right:0in'><i>Duration</i>: Number of years
-     of the performance period for which the average escalation rate will be
-     calculated.</li>
+ <li class=MsoNormal style='margin-right:0in'><i>Years Duration</i>: Number of
+     years of the contract term.</li>
 </ul>
 
 <p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
@@ -255,64 +248,75 @@ style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Tim
 style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
 </span></span><i>The duration is limited between 10 years and 25 years</i></p>
 
-<p class=MsoNormal style='margin-right:0in'><b>Carbon Pricing Policy:</b><br>
+<p class=MsoNormal style='margin-right:0in'><b>Social Cost of Carbon (SCC)
+Assumptions:</b><br>
 Selection of one of the following carbon pricing scenarios:</p>
 
 <ol style='margin-top:0in' start=1 type=1>
- <li class=MsoNormal style='margin-right:0in'>No SCC</li>
+ <li class=MsoNormal style='margin-right:0in'>No SCC - $0 </li>
  <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in'>Assumes that SCC is zero</li>
+  <li class=MsoNormal style='margin-right:0in'>Assumes that SCC is zero for the
+      entire contract term</li>
   <li class=MsoNormal style='margin-right:0in'>Uses annual energy price
       forecasts of the Energy Information Administration, which do not account
       for estimated SCC</li>
  </ul>
- <li class=MsoNormal style='margin-right:0in'>3 % DR Average</li>
+ <li class=MsoNormal style='margin-right:0in'>Low - $14 in 2022</li>
  <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in'>Average social cost of GHG
-      assuming a 3 % discount rate</li>
-  <li class=MsoNormal style='margin-right:0in'>Represents the assumptions that
-      best align with the DOE and OMB discount rates</li>
- </ul>
- <li class=MsoNormal style='margin-right:0in'>3 % 95th Percentile</li>
- <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in'>95th percentile social cost of
-      GHG assuming a 3 % discount rate</li>
-  <li class=MsoNormal style='margin-right:0in'>Represents the highest 5% of
-      projected values</li>
- </ul>
-</ol>
-
-<p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
-0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
-style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
-</span></span>Higher SCC values than 3 % DR Average</p>
-
-<ol style='margin-top:0in' start=4 type=1>
- <li class=MsoNormal style='margin-right:0in'>5 % DR Average</li>
- <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in'>Average social cost of GHG
-      assuming a 5 % discount rate</li>
+  <li class=MsoNormal style='margin-right:0in'>Average SCC assuming a 5 %
+      discount rate (i.e., <span style='color:#201F1E;background:white'>5 % DR
+      (and average assumption of estimated carbon damages))</span></li>
+  <li class=MsoNormal style='margin-right:0in'><span style='color:#201F1E;
+      background:white'>SCC starts at $14 in 2022 and increases over time</span></li>
  </ul>
 </ol>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
 style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
-</span></span>Lower SCC values 3 % DR Average</p>
+</span></span>Lower SCC values than with a 3 % DR because future values have a
+lower present value than in the Medium case</p>
+
+<ol style='margin-top:0in' start=3 type=1>
+ <li class=MsoNormal style='margin-right:0in'>Medium - $51 in 2022</li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='margin-right:0in'>Average SCC assuming a 3 %
+      discount rate  (i.e., <span style='color:#201F1E;background:white'>3 % DR
+      (and average assumption of estimated carbon damages))</span></li>
+  <li class=MsoNormal style='margin-right:0in'><span style='color:#201F1E;
+      background:white'>SCC starts at $51 in 2022 and increases over time</span></li>
+  <li class=MsoNormal style='margin-right:0in'>Represents the assumptions that
+      best align with the DOE and OMB discount rates</li>
+ </ul>
+ <li class=MsoNormal style='margin-right:0in'>High - $125 in 2022</li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='margin-right:0in'>95th percentile SCC assuming a 3
+      % discount rate  (i.e., <span style='color:#201F1E;background:white'>3 %
+      DR (95<sup>th</sup> percentile of estimated carbon damages))</span></li>
+  <li class=MsoNormal style='margin-right:0in'><span style='color:#201F1E;
+      background:white'>SCC starts at $125 in 2022 and increases over time</span></li>
+ </ul>
+</ol>
+
+<p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
+0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Higher SCC values than with 3 % DR average because the estimated
+damages are greater (95<sup>th</sup> percentile) than in the Medium case (50<sup>th</sup>
+percentile)</p>
 
 <p class=MsoNormal style='margin-right:0in'><b>&nbsp;</b></p>
 
-<p class=MsoNormal style='margin-right:0in'><b><i>Annual Inflation Rate</i></b><b>:</b>
-</p>
+<p class=MsoNormal style='margin-right:0in'><b>Annual Inflation Rate:</b> </p>
 
 <p class=MsoNormal style='margin-right:0in'>The default rate of inflation is
-the long-term inflation rate calculated annually by DOE/FEMP using the method
-described in 10 CFR 436, but without consideration of the 3.0 % floor for the
-real discount rate. The default inflation rate does not account for the
-discount rate floor to accommodate the need for market-based projections of
-future energy prices in contract negotiations. Otherwise, the default inflation
-rate would be artificially low in years when the 3.0 % floor applies. The
-inflation rate may be edited.</p>
+the long-term inflation rate calculated annually by DOE/FEMP using CEA data and
+the method described in 10 CFR 436, but without consideration of the 3.0 %
+floor for the real discount rate. The default inflation rate does not account
+for the discount rate floor to accommodate the need for market-based
+projections of future energy prices in contract negotiations. Otherwise, the
+default inflation rate would be artificially low in years when the 3.0&nbsp;%
+floor applies. The inflation rate may be edited.</p>
 
 <ul style='margin-top:0in' type=disc>
  <li class=MsoNormal style='margin-right:0in'><i>The tool makes all the
@@ -323,8 +327,8 @@ inflation rate may be edited.</p>
 
 <p class=MsoNormal style='margin-right:0in'><b>&nbsp;</b></p>
 
-<p class=MsoNormal style='margin-right:0in'><b>Output - Annual Energy Escalation
-Rates:</b></p>
+<p class=MsoNormal style='margin-right:0in'><b>Output - Annual Energy
+Escalation Rates:</b></p>
 
 <ul type=disc>
  <li class=MsoNormal style='margin-right:0in'><i>Real and Nominal Escalation
@@ -338,9 +342,8 @@ Rates:</b></p>
 <p class=MsoNormal>To calculate the nominal escalation rate, which includes
 inflation, the calculator uses the following relationship:</p>
 
-<p class=MsoNormal><span
-style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'><img
-width=218 height=17 src="EERC%20User%20Guide.fld/image003.png"></span></p>
+<p class=MsoNormal><img width=468 height=17 id="Picture 12"
+src="EERC%20User%20Guide.fld/image003.png"></p>
 
 <p class=MsoNormal>The calculated average annual escalation rate, <i>e<sub>avg</sub></i>,
 when applied to the base-year energy costs or savings of ESPC or UESC projects,
@@ -351,28 +354,26 @@ average escalation rate according to the proportions stated by the user.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal>To compute an average annual escalation rate, base-year
-energy costs are escalated from year to year at rates projected by EIA, or at
-EIA rates adjusted by NIST for carbon pricing, to arrive at the total energy
-cost over a given performance period. The escalation rates, e, are projected by
-Census Region, energy type, and industrial sector and vary from year to year.
-The formula used EERC prompts the user for information on the share of cost
-savings attributable to each fuel type, project location, industry sector, and
-the beginning date and duration of the performance period. It also prompts the
-user to select one of several carbon pricing scenarios--No Carbon Pricing,
-Default Pricing, Low Pricing, or High Pricing--then retrieves the relevant
-energy price forecasts and computes the average escalation rate, as described
-above. Since the performance period begins later than the base date, the
-calculated average rate includes the price escalation for the intervening
-year(s).</p>
+<p class=MsoNormal>To compute an average annual escalation rate, base-year (i.e.,
+award year) energy costs are escalated from year to year at rates projected by
+EIA, or at EIA rates adjusted by NIST for carbon pricing, to arrive at the
+total energy cost over a given performance period. The escalation rates, e, are
+projected by census region, energy type, and industrial sector and vary from
+year to year. The formula used EERC prompts the user for information on the
+share of cost savings attributable to each fuel type, project location,
+industry sector, and the beginning date and duration of the performance period.
+It also prompts the user to select one of several carbon pricing scenarios -- no
+carbon pricing, low, medium, or high --then retrieves the relevant energy price
+forecasts and computes the average escalation rate, as described above. Since
+the performance period begins later than the base date, the calculated average
+rate includes the price escalation for the intervening year(s).</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>to calculate total energy costs is:</p>
 
-<p class=MsoNormal><span
-style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'><img
-width=437 height=28 src="EERC%20User%20Guide.fld/image004.png"></span></p>
+<p class=MsoNormal><img width=468 height=28 id="Picture 10"
+src="EERC%20User%20Guide.fld/image004.png"></p>
 
 <p class=MsoNormal>where</p>
 
@@ -392,12 +393,13 @@ varies from year to year over the performance period</p>
 study period, the series can be simplified to a factor applied to the base-year
 annual cost, A:</p>
 
-<p class=MsoNormal><span
-style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'><img
-width=191 height=39 src="EERC%20User%20Guide.fld/image005.png"></span></p>
+<p class=MsoNormal><img width=468 height=39 id="Content Placeholder 6"
+src="EERC%20User%20Guide.fld/image005.png"></p>
 
 <p class=MsoNormal>where <i>e<sub>avg</sub></i> is the average annual
 escalation rate</p>
+
+<p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>Since a uniform escalation rate is needed to compute the
 contract payments in ESPC and UESC projects, the EERC uses this equation to
@@ -407,38 +409,53 @@ rate. The relationship between the factor calculated in the equation and the
 variable escalation rates in the series can be expressed as follows for a
 performance period of <i>n</i> years duration:</p>
 
-<p class=MsoNormal><span
-style='font-size:12.0pt;font-family:"Times New Roman",serif;color:black'><img
-width=468 height=53 src="EERC%20User%20Guide.fld/image006.png"></span></p>
+<p class=MsoNormal><img width=468 height=53 id="Picture 4"
+src="EERC%20User%20Guide.fld/image006.png"></p>
 
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>The cost of carbon is calculated using the emissions per
 unit of fuel type, the SCC projections, and the carbon emissions factor to
-calculate a price per unit of fuel. Then its added into the projected energy
-prices before the escalation rate is calculated.</p>
+calculate a price per unit of fuel. Then its added into the projected energy prices
+before the escalation rate is calculated.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>For electricity, take the baseline CO<sub>2</sub>e emissions
 rate for a state and create the emissions rate for each year by multiplying it
-by the emission factor for that state (fraction of baseline emissions rate by
-year). This value is then multiplied by the SCC from the projected SCC scenario
-by year. This provides the carbon price per unit of electricity.</p>
+by the emission factor for that state (fraction of baseline emissions rate by year).
+This value is then multiplied by the SCC from the projected SCC scenario by
+year. This provides the carbon price per unit of electricity.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>The CO<sub>2</sub>e emissions rates for other fuels
-(distillate oil, residual oil, nat gas, LPG, and coal) based on EPA’s Emissions
-Hub. These rates do not change by year. Therefore, the emissions per unit are
-constant over time.</p>
+(distillate oil, residual oil, nat gas, LPG, and coal) are based on EPA’s relevant
+emissions hub. These rates do not change by year. Therefore, the emissions per
+unit are constant over time.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>The energy price is adjusted by the cost of carbon per unit
-of fuel (i.e., assumes a 100% pass through to the retail price). This is added
+of fuel (assuming a 100% pass-through to the retail price). This is added
 before the escalation rates are calculated so that the escalation rates are
-appropriated adjusted for the carbon scenario.</p>
+appropriated adjusted for the carbon scenario. </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The purpose of including the carbon cost is to adjust future
+energy prices to incorporate the social cost of carbon. Current energy prices have
+not internalized any of these external costs. Therefore, it is not appropriate
+to add the price of carbon to the base year energy prices. Instead, the
+addition of carbon to energy prices initially occurs for every year after the
+base year, similar to what would happen to energy prices if legislation were to
+require energy producers to pay the estimated social cost of carbon on their production
+starting at the end of the base year. Alternatively, you could think of it as a
+federal agency deciding to start including the social cost of carbon into the costs
+considered for future energy consumption. The exceptions are California and the
+12 northeastern states that are part of the Regional Greenhouse Gas Initiative
+(RGGI), which each have a carbon market with average carbon prices of
+approximately $29 and $13, respectively, at release of this document.</p>
 
 <h2 style='margin-left:0in'><a name="_Toc21606438"><span style='font-size:12.0pt'><span
  style='text-decoration:none'>&nbsp;</span></span></a></h2>
