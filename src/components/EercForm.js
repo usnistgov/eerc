@@ -146,7 +146,7 @@ const default_inflationrate = "2.3";
 const default_locale = '';
 const default_sector = '';
 const default_startdate = '';
-const default_carbonprice = 'No carbon price'
+const default_carbonprice = zero_carbon_price_key;
 const default_result = NaN;
 
 const useStyles = makeStyles(theme => ({
