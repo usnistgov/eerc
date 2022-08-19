@@ -429,6 +429,7 @@ export default function EercForm() {
 
   const handleCarbonpriceChange = event => {
     let k = event.target.value;
+    console.log("Set carbonprice to %s", k);
     setCarbonprice(k);
   };
 
