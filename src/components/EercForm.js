@@ -119,11 +119,13 @@ for (let i = 1; i <= numYears; i++) {
 // value: the lookup key to use in the json database, or __zero__ is a special case used by the code
 const zero_carbon_price_policy = '__zero__';
 const zero_carbon_price_key = 'No carbon price';
+// NOTE: carbonprices is used to map the desired text to be displayed for
+// each policy to the strings actually used in the datafiles.
 const carbonprices = {
   'Low - $14 in 2022': '5% DR (Average)',
   'Medium - $51 in 2022': '3% DR (Average)',
   'High - $125 in 2022': '3% DR (95th percentile)',
-  zero_carbon_price_key: zero_carbon_price_policy
+  [zero_carbon_price_key]: zero_carbon_price_policy
 };
 
 const min_duration = 10;
@@ -798,6 +800,7 @@ export default function EercForm() {
               name="Location"
               options={localeOptions}
               helperText="Select US state"
+              defaultValue={default_locale}
               value={locale}
               handleChange={handleLocaleChange}
               isError={() => (!(CO2Factors.hasOwnProperty(locale)))}
@@ -809,6 +812,7 @@ export default function EercForm() {
               name="Sector"
               options={sectors.sort()}
               helperText="Select Sector"
+              defaultValue={default_sector}
               value={sector}
               handleChange={handleSectorChange}
               isError={() => (!(sectors.includes(sector)))}
@@ -825,6 +829,7 @@ export default function EercForm() {
               name="Start Date"
               options={startdates}
               helperText="Select start date"
+              defaultValue={default_startdate}
               value={startdate}
               handleChange={handleStartdateChange}
               isError={() => (!(startdates.includes(parseInt(startdate))))}
@@ -868,8 +873,10 @@ export default function EercForm() {
               minwidth={240}
               name="SCC"
               options={Object.keys(carbonprices)}
+              addempty={false}
               helperText="Select SCC Projection"
               value={carbonprice}
+              defaultValue={default_carbonprice}
               handleChange={handleCarbonpriceChange}
               isError={() => ((!(Object.keys(carbonprices).includes(carbonprice))) || carbonprice === '')}
               tooltip={

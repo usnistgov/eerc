@@ -10,7 +10,7 @@ import HtmlTooltip from './HtmlTooltip';
 
 
 export default function MySelect(props) {
-  const { name, options, helperText, value, handleChange, isError, tooltip, minwidth, } = props;
+  const { name, options, helperText, value, handleChange, isError, tooltip, minwidth, addempty, } = props;
 
   const labelId = `${name}-label`;
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -29,7 +29,6 @@ export default function MySelect(props) {
       <FormControl style={{minWidth: minwidth}}>
         <InputLabel id={labelId} shrink>{name}</InputLabel>
         <Select
-          native
           style={{minWidth: minwidth}}
           labelId={labelId}
           margin="dense"
@@ -41,7 +40,7 @@ export default function MySelect(props) {
           onOpen={() => {handleTooltip(false)}}
         >
           {/* filter the 2-letter states from CO2Factors keys */}
-          <option key="none" aria-label="None" value="" />
+          {addempty ? <option key="none" aria-label="None" value="" /> : ""}
           {
             options.map((option) => {
               return (
@@ -67,8 +66,10 @@ MySelect.propTypes = {
   isError:      PropTypes.func.isRequired,
   tooltip:      PropTypes.element.isRequired,
   minwidth:     PropTypes.number,
+  addempty:     PropTypes.bool,
 };
 
 MySelect.defaultProps = {
   minwidth:     120,
+  addempty:     true,
 };
