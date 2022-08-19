@@ -118,11 +118,12 @@ for (let i = 1; i <= numYears; i++) {
 // key: the UI human readable name
 // value: the lookup key to use in the json database, or __zero__ is a special case used by the code
 const zero_carbon_price_policy = '__zero__';
+const zero_carbon_price_key = 'No carbon price';
 const carbonprices = {
   'Low - $14 in 2022': '5% DR (Average)',
   'Medium - $51 in 2022': '3% DR (Average)',
   'High - $125 in 2022': '3% DR (95th percentile)',
-  'No carbon price': zero_carbon_price_policy
+  zero_carbon_price_key: zero_carbon_price_policy
 };
 
 const min_duration = 10;
@@ -145,7 +146,7 @@ const default_inflationrate = "2.3";
 const default_locale = '';
 const default_sector = '';
 const default_startdate = '';
-const default_carbonprice = zero_carbon_price_policy;
+const default_carbonprice = 'No carbon price'
 const default_result = NaN;
 
 const useStyles = makeStyles(theme => ({
