@@ -29,6 +29,7 @@ export default function MySelect(props) {
       <FormControl style={{minWidth: minwidth}}>
         <InputLabel id={labelId} shrink>{name}</InputLabel>
         <Select
+          native
           style={{minWidth: minwidth}}
           labelId={labelId}
           margin="dense"

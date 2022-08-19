@@ -747,7 +747,7 @@ export default function EercForm() {
       </Typography>
       <fieldset className={classes.formControl}>
         <FormLabel component="legend">&nbsp;Percent of Energy Cost Savings&nbsp;</FormLabel>
-        <Grid container alignItems="flex-start" justify="center" spacing={3}>
+        <Grid container alignItems="flex-start" justifyContent="center" spacing={3}>
           {energytypes.map((energy, index) => (
             <Grid item xs={4} sm={2} key={'grid'+index}>
               <HtmlTooltip
@@ -783,7 +783,7 @@ export default function EercForm() {
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Fuel Rate Information&nbsp;</FormLabel>
-        <Grid container alignItems="flex-start" justify="center" spacing={1}>
+        <Grid container alignItems="flex-start" justifyContent="center" spacing={1}>
           <Grid item xs={6} sm={3}>
             {/* <TextField
               label="Location"
@@ -823,7 +823,7 @@ export default function EercForm() {
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Contract Term&nbsp;</FormLabel>
-        <Grid container alignItems="baseline" justify="center" spacing={6}>
+        <Grid container alignItems="baseline" justifyContent="center" spacing={6}>
           <Grid item xs={6} sm={3}>
             <MySelect
               name="Start Date"
@@ -867,7 +867,7 @@ export default function EercForm() {
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Social Cost of Carbon Assumptions&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" direction="row">
+        <Grid container alignItems="center" justifyContent="center" direction="row">
           <Grid item xs={6} sm={3}>
             <MySelect
               minwidth={240}
@@ -896,7 +896,7 @@ export default function EercForm() {
       </fieldset><br />
       <fieldset>
         <FormLabel component="legend">&nbsp;Annual Inflation Rate&nbsp;</FormLabel>
-        <Grid container alignItems="center" justify="center" spacing={1}>
+        <Grid container alignItems="center" justifyContent="center" spacing={1}>
           <Grid item xs={12}>
             <HtmlTooltip
               arrow
@@ -920,7 +920,7 @@ export default function EercForm() {
       <fieldset style={{ border: "6px groove", borderColor: "black" }}>
         <FormLabel component="legend">&nbsp;Annual Energy Escalation Rate&nbsp;</FormLabel>
         <FormLabel component="legend">RESULTS</FormLabel><br />
-        <Grid container alignItems="center" justify="center" spacing={3} style={{backgroundColor:"lightgrey"}}>
+        <Grid container alignItems="center" justifyContent="center" spacing={3} style={{backgroundColor:"lightgrey"}}>
           <Grid item xs={12} sm={6}>
             <HtmlTooltip
               arrow
