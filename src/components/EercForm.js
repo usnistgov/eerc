@@ -41,19 +41,20 @@
 //
 
 import React, { useEffect, useState, useReducer, useCallback } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormLabel from '@material-ui/core/FormLabel';
-import Grid from '@material-ui/core/Grid';
-import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Alert from '@material-ui/lab/Alert';
+import { makeStyles } from '@mui/styles';
+//import { createTheme, ThemeProvider } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormLabel from '@mui/material/FormLabel';
+import Grid from '@mui/material/Grid';
+import Slider from '@mui/material/Slider';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import Alert from '@mui/material/Alert';
 
 import { jsPDF } from 'jspdf';
-import Button from '@material-ui/core/Button';
-import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+import Button from '@mui/material/Button';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 import HtmlTooltip from './HtmlTooltip';
 import MySelect from './MySelect';
@@ -151,6 +152,7 @@ const default_startdate = '';
 const default_carbonprice = zero_carbon_price_key;
 const default_result = NaN;
 
+//const theme = createTheme();
 const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
@@ -271,6 +273,10 @@ const calculateC = (start, end, prices) => {  // added by asr 8-14-09; modified 
   return C;
 }
 
+/*****
+SWB 2023/01/20: this is no longer needed; we now use a (computedC - duration >= 0)
+value computed inside solveForAnnualAverageRate
+
 const compareStartEnd = (start, end, prices) => {  // added by asr 8-14-09; changed 6-5-11, instead of testing for terminal index >= 1, now testing if start date's index < end year's index
   // this method reports if start date's index < end date's index
   //console.log("compareStartEnd: %d %d %o", start, end, prices);
@@ -278,11 +284,18 @@ const compareStartEnd = (start, end, prices) => {  // added by asr 8-14-09; chan
   console.log("compareStartEnd returns %s", r);
   return r;
 }
+*****/
 
-const solveForAnnualAverageRate = (computedC, compareYearIndex, duration) => {  // added by asr 8-15-09; modified by asr 6-5-11 to use start date's index < end date's index and
+const solveForAnnualAverageRate = (computedC, duration) => {  // added by asr 8-15-09; modified by asr 6-5-11 to use start date's index < end date's index and
   // used modified UCA formula
   // using modified UCA formula, this method iteratively solves for the annual average rate (real)
+
+  // SWB 2023/01/20: compareYearIndex used to be a parameter that was the result
+  // of compareStartEnd but has been superceded by the new calculation below.
+  // This variable should be renamed now.
+  let compareYearIndex = (computedC - duration >= 0);
   console.log("entering solveForAnnualAverageRate: computedC=%f cmpYrIdx=%s duration=%d", computedC, compareYearIndex, duration);
+
   let eAvg = 0.0;
   let previousEAvg = 0.0;
   let estC = 0.0;
@@ -292,6 +305,7 @@ const solveForAnnualAverageRate = (computedC, compareYearIndex, duration) => {  
   let previousDiffNeg = false;
   let signChanged = false;
   let bump = 0.0;
+
 
   if (compareYearIndex) {
     eAvg = 0.02;     // 1st guess
@@ -504,11 +518,11 @@ export default function EercForm() {
       let cR = 0;
       let cD = 0;
       // changed by asr 6-5-11; is start date's index < end date's index?
-      let compareIndicesC = false;
-      let compareIndicesNG = false;
-      let compareIndicesE = false;
-      let compareIndicesR = false;
-      let compareIndicesD = false;
+      //let compareIndicesC = false;
+      //let compareIndicesNG = false;
+      //let compareIndicesE = false;
+      //let compareIndicesR = false;
+      //let compareIndicesD = false;
 
       let rateC = 0.0;
       let rateNG = 0.0;
@@ -572,8 +586,8 @@ export default function EercForm() {
           calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearC);
           addPrices(pricesC, carbonC, carbonprices[carbonprice], index_start);
           cC  = calculateC(index_start, index_end, pricesC);
-          compareIndicesC = compareStartEnd(index_start, index_end, pricesC);
-          rateC = solveForAnnualAverageRate(cC, compareIndicesC, duration);
+          //compareIndicesC = compareStartEnd(index_start, index_end, pricesC);
+          rateC = solveForAnnualAverageRate(cC, duration);
         } else {
           w.push(`Coal data is not available for the ${region} region`);
           uses_missing_data = true;
@@ -586,8 +600,8 @@ export default function EercForm() {
           calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearNG);
           addPrices(pricesNG, carbonNG, carbonprices[carbonprice], index_start);
           cNG = calculateC(index_start, index_end, pricesNG);
-          compareIndicesNG = compareStartEnd(index_start, index_end, pricesNG);
-          rateNG = solveForAnnualAverageRate(cNG, compareIndicesNG, duration);
+          //compareIndicesNG = compareStartEnd(index_start, index_end, pricesNG);
+          rateNG = solveForAnnualAverageRate(cNG, duration);
         } else {
           w.push(`Natural Gas data is not available for the ${region} region`);
           uses_missing_data = true;
@@ -600,8 +614,8 @@ export default function EercForm() {
           calculateCarbonPrice(CO2Factors[/*ZipToState[locale]*/ locale], carbonE, true, baseyearE);
           addPrices(pricesE, carbonE, carbonprices[carbonprice], index_start);
           cE  = calculateC(index_start, index_end, pricesE);
-          compareIndicesE = compareStartEnd(index_start, index_end, pricesE);
-          rateE = solveForAnnualAverageRate(cE, compareIndicesE, duration);
+          //compareIndicesE = compareStartEnd(index_start, index_end, pricesE);
+          rateE = solveForAnnualAverageRate(cE, duration);
         } else {
           w.push(`Electricity data is not available for the ${region} region`);
           uses_missing_data = true;
@@ -614,8 +628,8 @@ export default function EercForm() {
           calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearR);
           addPrices(pricesR, carbonR, carbonprices[carbonprice], index_start);
           cR  = calculateC(index_start, index_end, pricesR);
-          compareIndicesR = compareStartEnd(index_start, index_end, pricesR);
-          rateR = solveForAnnualAverageRate(cR, compareIndicesR, duration);
+          //compareIndicesR = compareStartEnd(index_start, index_end, pricesR);
+          rateR = solveForAnnualAverageRate(cR, duration);
         } else {
           w.push(`Residual Oil data is not available for the ${region} region`);
           uses_missing_data = true;
@@ -628,8 +642,8 @@ export default function EercForm() {
           calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearD);
           addPrices(pricesD, carbonD, carbonprices[carbonprice], index_start);
           cD  = calculateC(index_start, index_end, pricesD);
-          compareIndicesD = compareStartEnd(index_start, index_end, pricesD);
-          rateD = solveForAnnualAverageRate(cD, compareIndicesD, duration);
+          //compareIndicesD = compareStartEnd(index_start, index_end, pricesD);
+          rateD = solveForAnnualAverageRate(cD, duration);
         } else {
           w.push(`Distillate Oil data is not available for the ${region} region`);
           uses_missing_data = true;
@@ -758,11 +772,16 @@ export default function EercForm() {
                   </React.Fragment>
                 }
               >
-                <TextField key={energy.name} className={classes.percent} label={energy.name} value={pecs[energy.slug]} margin="dense"
+                <TextField
+                  variant="standard"
+                  key={energy.name}
+                  className={classes.percent}
+                  label={energy.name}
+                  value={pecs[energy.slug]}
+                  margin="dense"
                   InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
                   inputProps={{ maxLength: 5, style: { textAlign: 'right' } }}
-                  onChange={handlePecsChange(energy.slug)}
-                />
+                  onChange={handlePecsChange(energy.slug)} />
               </HtmlTooltip>
             </Grid>
           ))}
@@ -906,12 +925,13 @@ export default function EercForm() {
                 </React.Fragment>
               }
             >
-              <TextField value={inflationrate}
+              <TextField
+                variant="standard"
+                value={inflationrate}
                 className={classes.percent}
                 InputProps={{ endAdornment: <InputAdornment  position="end">%</InputAdornment> }}
                 inputProps={{ maxLength: 5, style: { textAlign: 'right' } }}
-                onChange={handleInflationrateChange}
-              />
+                onChange={handleInflationrateChange} />
             </HtmlTooltip>
           </Grid>
         </Grid>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 
 import HtmlTooltip from './HtmlTooltip';
 
@@ -26,9 +26,10 @@ export default function MySelect(props) {
 
   return (
     <HtmlTooltip arrow title={tooltip} open={tooltipOpen}>
-      <FormControl style={{minWidth: minwidth}}>
+      <FormControl variant="standard" style={{minWidth: minwidth}}>
         <InputLabel id={labelId} shrink>{name}</InputLabel>
         <Select
+          variant="standard"
           native
           style={{minWidth: minwidth}}
           labelId={labelId}
@@ -38,8 +39,7 @@ export default function MySelect(props) {
           error={isError()}
           onMouseEnter={() => {handleTooltip(true)}}
           onMouseLeave={() => {handleTooltip(false)}}
-          onOpen={() => {handleTooltip(false)}}
-        >
+          onOpen={() => {handleTooltip(false)}}>
           {/* filter the 2-letter states from CO2Factors keys */}
           {addempty ? <option key="none" aria-label="None" value="" /> : ""}
           {
