@@ -290,11 +290,9 @@ const solveForAnnualAverageRate = (computedC, duration) => {  // added by asr 8-
   // used modified UCA formula
   // using modified UCA formula, this method iteratively solves for the annual average rate (real)
 
-  // SWB 2023/01/20: compareYearIndex used to be a parameter that was the result
-  // of compareStartEnd but has been superceded by the new calculation below.
-  // This variable should be renamed now.
-  let compareYearIndex = (computedC - duration >= 0);
-  console.log("entering solveForAnnualAverageRate: computedC=%f cmpYrIdx=%s duration=%d", computedC, compareYearIndex, duration);
+  // SWB 2023/01/20: positiveEAvg supercedes old compareYearIndex (from compareStartEnd)
+  let positiveEAvg = (computedC - duration >= 0);
+  console.log("entering solveForAnnualAverageRate: computedC=%f positiveEAvg=%s duration=%d", computedC, positiveEAvg, duration);
 
   let eAvg = 0.0;
   let previousEAvg = 0.0;
@@ -307,7 +305,7 @@ const solveForAnnualAverageRate = (computedC, duration) => {  // added by asr 8-
   let bump = 0.0;
 
 
-  if (compareYearIndex) {
+  if (positiveEAvg) {
     eAvg = 0.02;     // 1st guess
   } else {
     // if start date's index > end year's index, need different initial setting for eAvg to
@@ -326,13 +324,13 @@ const solveForAnnualAverageRate = (computedC, duration) => {  // added by asr 8-
   // set bump value
   // if start date's index > end date's index, need different initial setting for Iteration Bump
   if (diffNeg) {                        // the difference from actual C is negative
-    if (compareYearIndex) {
+    if (positiveEAvg) {
       bump = .25;
     } else {
       bump = -.25;
     }
   } else {                              // the difference from actual C is positive
-    if (compareYearIndex) {
+    if (positiveEAvg) {
       bump = -.25;
     } else {
       bump = .25;
