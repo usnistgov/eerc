@@ -123,9 +123,9 @@ const zero_carbon_price_key = 'No carbon price';
 // NOTE: carbonprices is used to map the desired text to be displayed for
 // each policy to the strings actually used in the datafiles.
 const carbonprices = {
-  'Low - $14 in 2022': '5% DR (Average)',
-  'Medium - $51 in 2022': '3% DR (Average)',
-  'High - $125 in 2022': '3% DR (95th percentile)',
+  'Low - $18 in 2023': '5% DR (Average)',
+  'Medium - $61 in 2023': '3% DR (Average)',
+  'High - $183 in 2023': '3% DR (95th percentile)',
   [zero_carbon_price_key]: zero_carbon_price_policy
 };
 
@@ -901,9 +901,9 @@ export default function EercForm() {
                   {"Determines the social cost of GHG emissions projection to use from the Interagency Working Group on Social Cost of Greenhouse Gasses Interim Estimates under Executive Order 13990. The scenarios are based on the assumed discount rate (DR) and projection percentile:"}
                   <ul>
                   <li><em>{"No Carbon Price"}</em> {"assumes that no carbon policy is enacted (status quo)"}</li>
-                  <li><em>{"Low - $14 in 2022 - 5% DR (average)"}</em> {"= average social cost of GHG assuming a 5% real discount rate"}</li>
-                  <li><em>{"Medium - $51 in 2022 - 3% DR (average)"}</em> {"= average social cost of GHG assuming a 3% real discount rate. Best match to DOE and OMB real discount rates."}</li>
-                  <li><em>{"High - $125 in 2022 - 3% DR (95th percentile)"}</em> {"= 95th Percentile social cost of GHG assuming a 3% real discount rate"}</li>
+                  <li><em>{"Low - $18 in 2023 - 5% DR (average)"}</em> {"= average social cost of GHG assuming a 5% real discount rate"}</li>
+                  <li><em>{"Medium - $61 in 2023 - 3% DR (average)"}</em> {"= average social cost of GHG assuming a 3% real discount rate. Best match to DOE and OMB real discount rates."}</li>
+                  <li><em>{"High - $183 in 2023 - 3% DR (95th percentile)"}</em> {"= 95th Percentile social cost of GHG assuming a 3% real discount rate"}</li>
                   </ul>
                 </React.Fragment>
               }
