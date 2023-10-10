@@ -1,0 +1,525 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<title>Software Requirements Specification (SRS) Template</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Tms Rmn";
+	panose-1:2 2 6 3 4 5 5 2 3 4;}
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:.5in;
+	margin-bottom:0in;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+h1
+	{margin-top:12.0pt;
+	margin-right:.5in;
+	margin-bottom:0in;
+	margin-left:0in;
+	font-size:14.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;
+	font-weight:bold;}
+h2
+	{margin-top:6.0pt;
+	margin-right:.5in;
+	margin-bottom:0in;
+	margin-left:9.35pt;
+	font-size:13.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;
+	font-weight:bold;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:.5in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0in;
+	margin-right:.5in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0in;
+	margin-right:.5in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0in;
+	margin-right:.5in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+.MsoChpDefault
+	{font-size:10.0pt;
+	font-family:"Tms Rmn",serif;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal align=center style='text-align:center'><a name="_Hlk1053996"><b>Energy
+Escalation Rate Calculator (EERC)</b></a></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b>User Guide</b></p>
+
+<p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+
+<h1><a name="_Toc21606435"><span style='font-size:12.0pt'>Summary</span></a><span
+style='font-size:12.0pt'> </span></h1>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>EERC computes an average rate of escalation for a specified
+time period, which can be used as an escalation rate for contract payments in
+ESPCs and UESCs. These escalation rates are based on energy price projections
+from the Department of Energy’s Energy Information Administration (EIA). While
+the underlying energy price projections vary from year to year, for calculating
+contract payments the single EERC-calculated uniform average rate is
+preferable. The rate is stated in real (excluding inflation) and nominal
+(including inflation) terms and weighted by the share of each of the energy
+types used in the project. Alternatively, an escalation rate for each energy
+type can be computed separately.  </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>To assist federal agencies (and others) in considering a
+range of energy price and policy scenarios, escalation rates may be adjusted by
+NIST for three levels of estimated social cost of carbon (SCC). </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The EIA projections adjusted by NIST for carbon pricing are
+based on three SCC projections provided in the Interagency Working Group on
+Social Cost of Greenhouse Gases Interim Estimates, which were developed
+pursuant to Executive Order 13990. Those estimates are adjusted by NIST to 2023
+dollars. The scenarios assume different discount rates and projection
+percentile,  providing a range of values that can be used for sensitivity
+analysis. Note that this approach was implemented in the 2023 release,
+replacing the previous methodology that used carbon pricing projections based
+on proposed carbon cap-and-trade legislation from 2009. </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The prior (executeable) user interface is shown below (left).
+The user provides the fuel type, fuel rate, study period, carbon pricing
+scenario, and inflation rate. Default values are provided for projected SCC
+scenarios (SCC of zero) and inflation rate (based on annual supplement value). The
+discount rate is fixed based on the Annual Supplement. The output is a real
+escalation rate and nominal escalation rate values. The flow diagram for the
+EERC workflow including the required data is shown below (right).</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><img width=202 height=371 id="Picture 2"
+src="EERC%20User%20Guide.fld/image001.png">                                  <img
+width=539 height=374 id="Picture 3"
+src="EERC%20User%20Guide.fld/image002.png"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h2 style='margin-left:0in;page-break-after:avoid'><a name="_Toc21606436"><span
+style='font-size:12.0pt'>Inputs and Outputs</span></a></h2>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>EERC prompts the user for information on the share of cost
+savings attributable to each fuel type, the project location, industry sector,
+and beginning date and duration of the project term. It also prompts the user
+to select one of several estimated SCC scenarios -- no SCC, low, medium, or high
+-- then retrieves the relevant energy price forecasts and computes the average
+escalation rate, as described above. Since the performance period generally begins
+a year or more later than the contract award date, the calculated average rate
+includes the price escalation for the intervening year(s). Escalation is
+assumed to take place during this period.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The calculated average escalation rate is reported in both
+real (excluding inflation) and nominal (including inflation) terms. The energy
+price projections for all scenarios exclude inflation and thus generate real
+rates. The default inflation rate used in the EERC is the long-term inflation
+rate calculated annually by DOE/FEMP using the average annual inflation estimates
+for the next 10 years from the White House Council of Economic Advisors (CEA)
+Analytical Perspectives and the methodology described in 10 CFR 436, but
+without consideration of the 3.0 % floor for the real discount rate. The
+default inflation rate does not account for the discount rate floor to
+accommodate the need for market-based projections of future energy prices in
+contract negotiations. Otherwise, the default inflation rate would be
+artificially low in years when the 3.0 % floor applies. </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal style='margin-right:0in;page-break-after:avoid'><b>Inputs</b></p>
+
+<p class=MsoNormal style='margin-right:0in'><b>Percent of Energy Cost Savings</b>:</p>
+
+<ul type=disc>
+ <li class=MsoNormal style='margin-right:0in'>Percentage of energy cost savings
+     in dollars that is attributable to one or more of the fuel types used in
+     the project. This input is used to weight the escalation rate.</li>
+ <li class=MsoNormal style='margin-right:0in'>Default values are zeros</li>
+ <li class=MsoNormal style='margin-right:0in'>Inputted values must sum to 100%</li>
+</ul>
+
+<p class=MsoNormal style='margin-right:0in'><b>Fuel Rate Information:</b></p>
+
+<ul type=disc>
+ <li class=MsoNormal style='margin-right:0in'><i>Location</i>: Selection of the
+     state in which the project is located allows the program to select the
+     energy price escalation rates for the corresponding census region.</li>
+ <li class=MsoNormal style='margin-right:0in'><i>Sector</i>: Selection of
+     commercial or industrial sector determines the type of utility rate
+     schedule applied to the energy cost calculation.</li>
+ <li class=MsoNormal style='margin-right:0in'><i>User must make a selection of
+     both inputs</i></li>
+</ul>
+
+<p class=MsoNormal style='margin-right:0in'><b>Contract Term:</b></p>
+
+<ul type=disc>
+ <li class=MsoNormal style='margin-right:0in'><i>Start Date</i>: Year of
+     contract award/signing.</li>
+</ul>
+
+<p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span><i>User must select a start date year</i></p>
+
+<p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span><i>Options are limited to the next 3 years</i></p>
+
+<ul type=disc>
+ <li class=MsoNormal style='margin-right:0in'><i>Years Duration</i>: Number of
+     years of the contract term.</li>
+</ul>
+
+<p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span><i>User must make a selection for the duration</i></p>
+
+<p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span><i>The duration is limited between 10 years and 25 years</i></p>
+
+<p class=MsoNormal style='margin-right:0in'><b>Social Cost of Carbon (SCC)
+Assumptions:</b><br>
+Selection of one of the following carbon pricing scenarios:</p>
+
+<ol style='margin-top:0in' start=1 type=1>
+ <li class=MsoNormal style='margin-right:0in'>No SCC - $0 </li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='margin-right:0in'>Assumes that SCC is zero for the
+      entire contract term</li>
+  <li class=MsoNormal style='margin-right:0in'>Uses annual energy price
+      forecasts of the Energy Information Administration, which do not account
+      for estimated SCC</li>
+ </ul>
+ <li class=MsoNormal style='margin-right:0in'>Low - $18 in 2023</li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='margin-right:0in'>Average SCC assuming a 5 %
+      discount rate (i.e., <span style='color:#201F1E;background:white'>5 % DR
+      (and average assumption of estimated carbon damages))</span></li>
+  <li class=MsoNormal style='margin-right:0in'><span style='color:#201F1E;
+      background:white'>SCC starts at $18 in 2023 and increases over time</span></li>
+ </ul>
+</ol>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Lower SCC values than with a 3 % DR because future values have a
+lower present value than in the Medium case</p>
+
+<ol style='margin-top:0in' start=3 type=1>
+ <li class=MsoNormal style='margin-right:0in'>Medium - $61 in 2023</li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='margin-right:0in'>Average SCC assuming a 3 %
+      discount rate  (i.e., <span style='color:#201F1E;background:white'>3 % DR
+      (and average assumption of estimated carbon damages))</span></li>
+  <li class=MsoNormal style='margin-right:0in'><span style='color:#201F1E;
+      background:white'>SCC starts at $61 in 2023 and increases over time</span></li>
+  <li class=MsoNormal style='margin-right:0in'>Represents the assumptions that
+      best align with the DOE and OMB discount rates</li>
+ </ul>
+ <li class=MsoNormal style='margin-right:0in'>High - $183 in 2023</li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='margin-right:0in'>95th percentile SCC assuming a 3
+      % discount rate  (i.e., <span style='color:#201F1E;background:white'>3 %
+      DR (95<sup>th</sup> percentile of estimated carbon damages))</span></li>
+  <li class=MsoNormal style='margin-right:0in'><span style='color:#201F1E;
+      background:white'>SCC starts at $183 in 2023 and increases over time</span></li>
+ </ul>
+</ol>
+
+<p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
+0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Higher SCC values than with 3 % DR average because the estimated
+damages are greater (95<sup>th</sup> percentile) than in the Medium case (50<sup>th</sup>
+percentile)</p>
+
+<p class=MsoNormal style='margin-right:0in'><b>&nbsp;</b></p>
+
+<p class=MsoNormal style='margin-right:0in'><b>Annual Inflation Rate:</b> </p>
+
+<p class=MsoNormal style='margin-right:0in'>The default rate of inflation is
+the long-term inflation rate calculated annually by DOE/FEMP using CEA data and
+the method described in 10 CFR 436, but without consideration of the 3.0 %
+floor for the real discount rate. The default inflation rate does not account
+for the discount rate floor to accommodate the need for market-based
+projections of future energy prices in contract negotiations. Otherwise, the
+default inflation rate would be artificially low in years when the 3.0&nbsp;%
+floor applies. The inflation rate may be edited.</p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='margin-right:0in'><i>The tool makes all the
+     calculations using the default inflation rate</i></li>
+ <li class=MsoNormal style='margin-right:0in'><i>If the user decides to change
+     the inflation rate, the calculations should be re-created.</i></li>
+</ul>
+
+<p class=MsoNormal style='margin-right:0in'><b>&nbsp;</b></p>
+
+<p class=MsoNormal style='margin-right:0in'><b>Output - Annual Energy
+Escalation Rates:</b></p>
+
+<ul type=disc>
+ <li class=MsoNormal style='margin-right:0in'><i>Real and Nominal Escalation
+     Rates</i>: The output of the program is the calculated average escalation
+     rate, stated both in real terms (excluding the rate of inflation) and in
+     nominal terms (including the rate of inflation).</li>
+</ul>
+
+<h2 style='margin-left:0in'><a name="_Toc21606437"><span style='font-size:12.0pt'>Functions</span></a></h2>
+
+<p class=MsoNormal>To calculate the nominal escalation rate, which includes inflation,
+the calculator uses the following relationship:</p>
+
+<p class=MsoNormal><img width=624 height=22 id="Picture 12"
+src="EERC%20User%20Guide.fld/image003.png"></p>
+
+<p class=MsoNormal>The calculated average annual escalation rate, <i>e<sub>avg</sub></i>,
+when applied to the base-year energy costs or savings of ESPC or UESC projects,
+results in approximately the same undiscounted total amounts over the
+performance period as do the EIA-projected, or adjusted EIA-projected, variable
+rates. If more than one fuel is used in the project, the EERC weights the
+average escalation rate according to the proportions stated by the user.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>To compute an average annual escalation rate, base-year (i.e.,
+award year) energy costs are escalated from year to year at rates projected by
+EIA, or at EIA rates adjusted by NIST for carbon pricing, to arrive at the
+total energy cost over a given performance period. The escalation rates, e, are
+projected by census region, energy type, and industrial sector and vary from
+year to year. The formula used EERC prompts the user for information on the
+share of cost savings attributable to each fuel type, project location, industry
+sector, and the beginning date and duration of the performance period. It also
+prompts the user to select one of several carbon pricing scenarios -- no carbon
+pricing, low, medium, or high --then retrieves the relevant energy price
+forecasts and computes the average escalation rate, as described above. Since
+the performance period begins later than the base date, the calculated average
+rate includes the price escalation for the intervening year(s).</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>to calculate total energy costs is:</p>
+
+<p class=MsoNormal><img width=624 height=38 id="Picture 10"
+src="EERC%20User%20Guide.fld/image004.png"></p>
+
+<p class=MsoNormal>where</p>
+
+<p class=MsoNormal><i>C</i> is the undiscounted total of future energy costs
+over the performance period</p>
+
+<p class=MsoNormal><i>A</i> is the base-year annual cost</p>
+
+<p class=MsoNormal><i>e<sub>i</sub></i> is the annual escalation rate, which
+varies from year to year over the performance period</p>
+
+<p class=MsoNormal><i>n</i> is the number of years in the performance period</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>When the escalation rate is the same in each year of the
+study period, the series can be simplified to a factor applied to the base-year
+annual cost, A:</p>
+
+<p class=MsoNormal><img width=624 height=52 id="Content Placeholder 6"
+src="EERC%20User%20Guide.fld/image005.png"></p>
+
+<p class=MsoNormal>where <i>e<sub>avg</sub></i> is the average annual
+escalation rate</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Since a uniform escalation rate is needed to compute the
+contract payments in ESPC and UESC projects, the EERC uses this equation to
+approximate <i>C</i>, as calculated with EIA rates or adjusted EIA rates, and
+iteratively solves for <i>e<sub>avg</sub></i>, the average annual escalation
+rate. The relationship between the factor calculated in the equation and the
+variable escalation rates in the series can be expressed as follows for a
+performance period of <i>n</i> years duration:</p>
+
+<p class=MsoNormal><img width=624 height=71 id="Picture 4"
+src="EERC%20User%20Guide.fld/image006.png"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The cost of carbon is calculated using the emissions per
+unit of fuel type, the SCC projections, and the carbon emissions factor to
+calculate a price per unit of fuel. Then its added into the projected energy
+prices before the escalation rate is calculated.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>For electricity, take the baseline CO<sub>2</sub>e emissions
+rate for a state and create the emissions rate for each year by multiplying it
+by the emission factor for that state (fraction of baseline emissions rate by
+year). This value is then multiplied by the SCC from the projected SCC scenario
+by year. This provides the carbon price per unit of electricity.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The CO<sub>2</sub>e emissions rates for other fuels
+(distillate oil, residual oil, nat gas, LPG, and coal) are based on EPA’s relevant
+emissions hub. These rates do not change by year. Therefore, the emissions per
+unit are constant over time.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The energy price is adjusted by the cost of carbon per unit
+of fuel (assuming a 100% pass-through to the retail price). This is added
+before the escalation rates are calculated so that the escalation rates are
+appropriated adjusted for the carbon scenario. </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The purpose of including the carbon cost is to adjust future
+energy prices to incorporate the social cost of carbon. Current energy prices have
+not internalized any of these external costs. Therefore, it is not appropriate
+to add the price of carbon to the base year energy prices. Instead, the
+addition of carbon to energy prices initially occurs for every year after the
+base year, similar to what would happen to energy prices if legislation were to
+require energy producers to pay the estimated social cost of carbon on their
+production starting at the end of the base year. Alternatively, you could think
+of it as a federal agency deciding to start including the social cost of carbon
+into the costs considered for future energy consumption. The exceptions are
+California and the 12 northeastern states that are part of the Regional
+Greenhouse Gas Initiative (RGGI), which each have a carbon market with average
+carbon prices of approximately $34 and $14 at the most recent auctions,
+respectively, at release of this document.</p>
+
+<h2 style='margin-left:0in'><a name="_Toc21606438"><span style='font-size:12.0pt'><span
+ style='text-decoration:none'>&nbsp;</span></span></a></h2>
+
+<h2 style='margin-left:0in'><span style='font-size:12.0pt'>Data Tables</span></h2>
+
+<p class=MsoNormal style='margin-right:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-right:0in'>The data tables include </p>
+
+<p class=MsoListParagraphCxSpFirst style='margin-right:0in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>the
+Encost file that includes the EIA energy price projections for each fuel type
+over time</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
+margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>This file is provided by EIA and then NIST manipulates it to
+create the annual supplement data</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:0in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2
+Price file that includes the projected prices for CO<sub>2</sub>e emissions</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
+margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Provided by scenario and year</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:0in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2
+Future Emissions file that includes the projected emissions rate factors for
+electricity generation over time</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
+margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Fraction of Current Year’s Emissions Rate by state</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:0in;text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2
+Factors file that includes the baseline emissions rates for electricity and
+other fuel types</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
+margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Electricity emission rates are provided by state</p>
+
+<p class=MsoListParagraphCxSpLast style='margin-top:0in;margin-right:0in;
+margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
+</span></span>Other fuel types are assumed to be constant using a national
+average rate</p>
+
+<p class=MsoNormal style='margin-right:0in'>These data tables are called on by
+the code, will stay constant over time in term of format, but the data is
+updated annually.</p>
+
+</div>
+
+</body>
+
+</html>
