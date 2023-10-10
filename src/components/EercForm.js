@@ -938,7 +938,7 @@ export default function EercForm() {
       <fieldset style={{ border: "6px groove", borderColor: "black" }}>
         <FormLabel component="legend">&nbsp;Annual Energy Escalation Rate&nbsp;</FormLabel>
         <FormLabel component="legend">RESULTS</FormLabel><br />
-        <Grid container alignItems="center" justifyContent="center" spacing={3} style={{backgroundColor:"lightgrey"}}>
+        <Grid container alignItems="center" justifyContent="center" style={{backgroundColor:"lightgrey"}}>
           <Grid item xs={12} sm={6}>
             <HtmlTooltip
               arrow
