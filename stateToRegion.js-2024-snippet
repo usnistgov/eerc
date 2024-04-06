@@ -1,0 +1,28 @@
+const stateToRegion = state => {
+  switch(state) {
+    //case unselected:
+    case "":
+    case null:
+      return("undefined");
+    case "ME": case "NH": case "VT": case "MA": case "RI": case "CT":
+      return("NewEngland");
+	case "NY": case "NJ": case "PA":
+      return("MidAtlantic");  
+    case "DE": case "MD": case "DC": case "VA": case "WV": case "NC": case "SC": case "GA": case "FL":
+      return("SouthAtlantic");
+	case "KY": case "TN": case "AL": case "MS": 
+      return("EastSouthCentral");  
+	case "AR": case "LA": case "OK": case "TX":
+      return("WestSouthCentral");
+    case "OH": case "MI": case "IN": case "WI": case "IL":
+      return("EastNorthCentral");
+	case "MO": case "IA": case "MN": case "ND": case "SD": case "NE": case "KS":
+      return("EastNorthCentral");  
+	case "CA": case "OR": case "WA": case "HI": case "AK":
+      return("Pacific");  
+    default:
+      return("Mountain");
+	  
+	  
+  }
+};

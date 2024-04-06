@@ -123,9 +123,9 @@ const zero_carbon_price_key = 'No carbon price';
 // NOTE: carbonprices is used to map the desired text to be displayed for
 // each policy to the strings actually used in the datafiles.
 const carbonprices = {
-  'Low - $18 in 2023': '5% DR (Average)',
-  'Medium - $61 in 2023': '3% DR (Average)',
-  'High - $183 in 2023': '3% DR (95th percentile)',
+  'Low - $20 in 2024': '5% DR (Average)',
+  'Medium - $66 in 2024': '3% DR (Average)',
+  'High - $198 in 2024': '3% DR (95th percentile)',
   [zero_carbon_price_key]: zero_carbon_price_policy
 };
 
@@ -234,11 +234,11 @@ function encostReducer(state, updateArg) {
 // state values as parameters...
 //
 
+/******
 const stateToRegion = state => {
   switch(state) {
     //case unselected:
-    case "":
-    case null:
+    case "": case null:
       return("undefined");
     case "ME": case "NH": case "VT": case "MA": case "RI": case "CT": case "NY": case "NJ": case "PA":
       return("NorthEast");
@@ -248,6 +248,32 @@ const stateToRegion = state => {
       return("MidWest");
     default:
       return("West");
+  }
+};
+*******/
+const stateToRegion = state => {
+  switch(state) {
+    //case unselected:
+    case "": case null:
+      return("undefined");
+    case "ME": case "NH": case "VT": case "MA": case "RI": case "CT":
+      return("NewEngland");
+    case "NY": case "NJ": case "PA":
+      return("MidAtlantic");
+    case "DE": case "MD": case "DC": case "VA": case "WV": case "NC": case "SC": case "GA": case "FL":
+      return("SouthAtlantic");
+    case "KY": case "TN": case "AL": case "MS":
+      return("EastSouthCentral");
+    case "AR": case "LA": case "OK": case "TX":
+      return("WestSouthCentral");
+    case "OH": case "MI": case "IN": case "WI": case "IL":
+      return("EastNorthCentral");
+    case "MO": case "IA": case "MN": case "ND": case "SD": case "NE": case "KS":
+      return("EastNorthCentral");
+    case "CA": case "OR": case "WA": case "HI": case "AK":
+      return("Pacific");
+    default:
+      return("Mountain");
   }
 };
 
@@ -901,9 +927,9 @@ export default function EercForm() {
                   {"Determines the social cost of GHG emissions projection to use from the Interagency Working Group on Social Cost of Greenhouse Gasses Interim Estimates under Executive Order 13990. The scenarios are based on the assumed discount rate (DR) and projection percentile:"}
                   <ul>
                   <li><em>{"No Carbon Price"}</em> {"assumes that no carbon policy is enacted (status quo)"}</li>
-                  <li><em>{"Low - $18 in 2023 - 5% DR (average)"}</em> {"= average social cost of GHG assuming a 5% real discount rate"}</li>
-                  <li><em>{"Medium - $61 in 2023 - 3% DR (average)"}</em> {"= average social cost of GHG assuming a 3% real discount rate. Best match to DOE and OMB real discount rates."}</li>
-                  <li><em>{"High - $183 in 2023 - 3% DR (95th percentile)"}</em> {"= 95th Percentile social cost of GHG assuming a 3% real discount rate"}</li>
+                  <li><em>{"Low - $20 in 2024 - 5% DR (average)"}</em> {"= average social cost of GHG assuming a 5% real discount rate"}</li>
+                  <li><em>{"Medium - $66 in 2024 - 3% DR (average)"}</em> {"= average social cost of GHG assuming a 3% real discount rate. Best match to DOE and OMB real discount rates."}</li>
+                  <li><em>{"High - $198 in 2024 - 3% DR (95th percentile)"}</em> {"= 95th Percentile social cost of GHG assuming a 3% real discount rate"}</li>
                   </ul>
                 </React.Fragment>
               }
