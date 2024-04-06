@@ -1,3401 +1,520 @@
-<html xmlns:v="urn:schemas-microsoft-com:vml"
-xmlns:o="urn:schemas-microsoft-com:office:office"
-xmlns:w="urn:schemas-microsoft-com:office:word"
-xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-xmlns="http://www.w3.org/TR/REC-html40">
+<html>
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=ProgId content=Word.Document>
-<meta name=Generator content="Microsoft Word 15">
-<meta name=Originator content="Microsoft Word 15">
-<link rel=File-List href="EERC%20User%20Guide%20-%202024_files/filelist.xml">
-<link rel=Edit-Time-Data
-href="EERC%20User%20Guide%20-%202024_files/editdata.mso">
-<!--[if !mso]>
-<style>
-v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style>
-<![endif]-->
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
 <title>Software Requirements Specification (SRS) Template</title>
-<!--[if gte mso 9]><xml>
- <o:DocumentProperties>
-  <o:Author>user</o:Author>
-  <o:LastAuthor>Kneifel, Joshua D. (Fed)</o:LastAuthor>
-  <o:Revision>2</o:Revision>
-  <o:TotalTime>17</o:TotalTime>
-  <o:LastPrinted>2019-08-20T19:20:00Z</o:LastPrinted>
-  <o:Created>2024-02-26T16:46:00Z</o:Created>
-  <o:LastSaved>2024-02-26T16:46:00Z</o:LastSaved>
-  <o:Pages>7</o:Pages>
-  <o:Words>1823</o:Words>
-  <o:Characters>10393</o:Characters>
-  <o:Company>TeraQuest Metrics, Inc.</o:Company>
-  <o:Lines>86</o:Lines>
-  <o:Paragraphs>24</o:Paragraphs>
-  <o:CharactersWithSpaces>12192</o:CharactersWithSpaces>
-  <o:Version>16.00</o:Version>
- </o:DocumentProperties>
- <o:OfficeDocumentSettings>
-  <o:RelyOnVML/>
-  <o:AllowPNG/>
- </o:OfficeDocumentSettings>
-</xml><![endif]-->
-<link rel=dataStoreItem href="EERC%20User%20Guide%20-%202024_files/item0001.xml"
-target="EERC%20User%20Guide%20-%202024_files/props002.xml">
-<link rel=themeData href="EERC%20User%20Guide%20-%202024_files/themedata.thmx">
-<link rel=colorSchemeMapping
-href="EERC%20User%20Guide%20-%202024_files/colorschememapping.xml">
-<!--[if gte mso 9]><xml>
- <w:WordDocument>
-  <w:PrintFractionalCharacterWidth/>
-  <w:HideSpellingErrors/>
-  <w:HideGrammaticalErrors/>
-  <w:SpellingState>Clean</w:SpellingState>
-  <w:GrammarState>Clean</w:GrammarState>
-  <w:TrackMoves>false</w:TrackMoves>
-  <w:TrackFormatting/>
-  <w:HyphenationZone>0</w:HyphenationZone>
-  <w:DoNotHyphenateCaps/>
-  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
-  <w:DisplayVerticalDrawingGridEvery>0</w:DisplayVerticalDrawingGridEvery>
-  <w:UseMarginsForDrawingGridOrigin/>
-  <w:ValidateAgainstSchemas/>
-  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
-  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
-  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
-  <w:DoNotPromoteQF/>
-  <w:LidThemeOther>EN-US</w:LidThemeOther>
-  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
-  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
-  <w:DoNotShadeFormData/>
-  <w:Compatibility>
-   <w:BreakWrappedTables/>
-   <w:SnapToGridInCell/>
-   <w:WrapTextWithPunct/>
-   <w:UseAsianBreakRules/>
-   <w:DontGrowAutofit/>
-   <w:SplitPgBreakAndParaMark/>
-   <w:EnableOpenTypeKerning/>
-   <w:DontFlipMirrorIndents/>
-   <w:OverrideTableStyleHps/>
-  </w:Compatibility>
-  <m:mathPr>
-   <m:mathFont m:val="Cambria Math"/>
-   <m:brkBin m:val="before"/>
-   <m:brkBinSub m:val="&#45;-"/>
-   <m:smallFrac m:val="off"/>
-   <m:dispDef/>
-   <m:lMargin m:val="0"/>
-   <m:rMargin m:val="0"/>
-   <m:defJc m:val="centerGroup"/>
-   <m:wrapIndent m:val="1440"/>
-   <m:intLim m:val="subSup"/>
-   <m:naryLim m:val="undOvr"/>
-  </m:mathPr></w:WordDocument>
-</xml><![endif]--><!--[if gte mso 9]><xml>
- <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
-  DefSemiHidden="false" DefQFormat="false" DefPriority="99"
-  LatentStyleCount="376">
-  <w:LsdException Locked="false" Priority="0" QFormat="true" Name="Normal"/>
-  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 1"/>
-  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 2"/>
-  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 3"/>
-  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 4"/>
-  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 5"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 6"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 7"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 8"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 9"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 6"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 7"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 8"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 9"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 1"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 2"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 3"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 4"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 5"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 6"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 7"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 8"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 9"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Normal Indent"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="footnote text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="annotation text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="header"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="footer"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index heading"/>
-  <w:LsdException Locked="false" Priority="35" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="caption"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="table of figures"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="envelope address"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="envelope return"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="footnote reference"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="annotation reference"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="line number"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="page number"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="endnote reference"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="endnote text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="table of authorities"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="macro"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="toa heading"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Bullet"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Number"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Bullet 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Bullet 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Bullet 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Bullet 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Number 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Number 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Number 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Number 5"/>
-  <w:LsdException Locked="false" Priority="10" QFormat="true" Name="Title"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Closing"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Signature"/>
-  <w:LsdException Locked="false" Priority="1" SemiHidden="true"
-   UnhideWhenUsed="true" Name="Default Paragraph Font"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text Indent"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Continue"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Continue 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Continue 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Continue 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Continue 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Message Header"/>
-  <w:LsdException Locked="false" Priority="11" QFormat="true" Name="Subtitle"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Salutation"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Date"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text First Indent"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text First Indent 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Note Heading"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text Indent 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text Indent 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Block Text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Hyperlink"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="FollowedHyperlink"/>
-  <w:LsdException Locked="false" Priority="22" QFormat="true" Name="Strong"/>
-  <w:LsdException Locked="false" Priority="20" QFormat="true" Name="Emphasis"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Document Map"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Plain Text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="E-mail Signature"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Top of Form"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Bottom of Form"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Normal (Web)"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Acronym"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Address"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Cite"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Code"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Definition"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Keyboard"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Preformatted"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Sample"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Typewriter"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Variable"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Normal Table"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="annotation subject"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="No List"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Outline List 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Outline List 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Outline List 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Simple 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Simple 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Simple 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Classic 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Classic 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Classic 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Classic 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Colorful 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Colorful 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Colorful 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Columns 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Columns 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Columns 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Columns 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Columns 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 6"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 7"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 8"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 6"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 7"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 8"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table 3D effects 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table 3D effects 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table 3D effects 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Contemporary"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Elegant"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Professional"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Subtle 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Subtle 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Web 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Web 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Web 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Balloon Text"/>
-  <w:LsdException Locked="false" Priority="59" Name="Table Grid"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Theme"/>
-  <w:LsdException Locked="false" SemiHidden="true" Name="Placeholder Text"/>
-  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" Name="Revision"/>
-  <w:LsdException Locked="false" Priority="34" QFormat="true"
-   Name="List Paragraph"/>
-  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
-  <w:LsdException Locked="false" Priority="30" QFormat="true"
-   Name="Intense Quote"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
-  <w:LsdException Locked="false" Priority="19" QFormat="true"
-   Name="Subtle Emphasis"/>
-  <w:LsdException Locked="false" Priority="21" QFormat="true"
-   Name="Intense Emphasis"/>
-  <w:LsdException Locked="false" Priority="31" QFormat="true"
-   Name="Subtle Reference"/>
-  <w:LsdException Locked="false" Priority="32" QFormat="true"
-   Name="Intense Reference"/>
-  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
-  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
-   UnhideWhenUsed="true" Name="Bibliography"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
-  <w:LsdException Locked="false" Priority="41" Name="Plain Table 1"/>
-  <w:LsdException Locked="false" Priority="42" Name="Plain Table 2"/>
-  <w:LsdException Locked="false" Priority="43" Name="Plain Table 3"/>
-  <w:LsdException Locked="false" Priority="44" Name="Plain Table 4"/>
-  <w:LsdException Locked="false" Priority="45" Name="Plain Table 5"/>
-  <w:LsdException Locked="false" Priority="40" Name="Grid Table Light"/>
-  <w:LsdException Locked="false" Priority="46" Name="Grid Table 1 Light"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark"/>
-  <w:LsdException Locked="false" Priority="51" Name="Grid Table 6 Colorful"/>
-  <w:LsdException Locked="false" Priority="52" Name="Grid Table 7 Colorful"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 1"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 1"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 1"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 1"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 1"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 1"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 2"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 2"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 2"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 2"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 2"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 2"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 3"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 3"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 3"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 3"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 3"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 3"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 4"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 4"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 4"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 4"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 4"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 4"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 5"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 5"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 5"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 5"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 5"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 5"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 6"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 6"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 6"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 6"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 6"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 6"/>
-  <w:LsdException Locked="false" Priority="46" Name="List Table 1 Light"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark"/>
-  <w:LsdException Locked="false" Priority="51" Name="List Table 6 Colorful"/>
-  <w:LsdException Locked="false" Priority="52" Name="List Table 7 Colorful"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 1"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 1"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 1"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 1"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 1"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 1"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 2"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 2"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 2"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 2"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 2"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 2"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 3"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 3"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 3"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 3"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 3"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 3"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 4"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 4"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 4"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 4"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 4"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 4"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 5"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 5"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 5"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 5"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 5"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 5"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 6"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 6"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 6"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 6"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 6"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 6"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Mention"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Smart Hyperlink"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Hashtag"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Unresolved Mention"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Smart Link"/>
- </w:LatentStyles>
-</xml><![endif]-->
 <style>
 <!--
  /* Font Definitions */
  @font-face
 	{font-family:"Tms Rmn";
-	panose-1:2 2 6 3 4 5 5 2 3 4;
-	mso-font-charset:0;
-	mso-generic-font-family:roman;
-	mso-font-format:other;
-	mso-font-pitch:variable;
-	mso-font-signature:3 0 0 0 1 0;}
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
 @font-face
 	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;
-	mso-font-charset:2;
-	mso-generic-font-family:auto;
-	mso-font-pitch:variable;
-	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
 @font-face
 	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;
-	mso-font-charset:0;
-	mso-generic-font-family:roman;
-	mso-font-pitch:variable;
-	mso-font-signature:3 0 0 0 1 0;}
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
 	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;
-	mso-font-charset:0;
-	mso-generic-font-family:swiss;
-	mso-font-pitch:variable;
-	mso-font-signature:-469750017 -1073683329 9 0 511 0;}
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-parent:"";
-	margin-top:0in;
+	{margin-top:0in;
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:0in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
 	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
 	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
 	color:black;}
 h1
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-next:Normal;
-	margin-top:12.0pt;
+	{margin-top:12.0pt;
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:0in;
-	mso-pagination:widow-orphan;
-	mso-outline-level:1;
-	tab-stops:.3in .5in 4.0in;
 	font-size:14.0pt;
-	mso-bidi-font-size:10.0pt;
 	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
 	color:black;
-	mso-font-kerning:0pt;
-	font-weight:bold;
-	mso-bidi-font-weight:normal;}
+	font-weight:bold;}
 h2
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-parent:"Heading 1";
-	mso-style-next:Normal;
-	margin-top:6.0pt;
+	{margin-top:6.0pt;
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:9.35pt;
-	mso-pagination:widow-orphan;
-	mso-outline-level:2;
-	tab-stops:.3in .5in 4.0in;
 	font-size:13.0pt;
-	mso-bidi-font-size:10.0pt;
 	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
 	color:black;
 	font-weight:bold;
-	mso-bidi-font-weight:normal;
-	text-decoration:underline;
-	text-underline:single;}
-h3
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-parent:"Heading 2";
-	mso-style-next:Normal;
-	margin-top:6.0pt;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:18.7pt;
-	mso-pagination:widow-orphan;
-	mso-outline-level:3;
-	tab-stops:.3in .5in 4.0in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;
-	font-weight:bold;
-	mso-bidi-font-weight:normal;
-	text-decoration:underline;
-	text-underline:single;}
-h4
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-parent:"Heading 3";
-	mso-style-next:Normal;
-	margin-top:6.0pt;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:28.1pt;
-	mso-pagination:widow-orphan;
-	mso-outline-level:4;
-	tab-stops:.3in .5in 4.0in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;
-	font-weight:bold;
-	mso-bidi-font-weight:normal;
-	text-decoration:underline;
-	text-underline:single;}
-h5
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-parent:"Heading 4";
-	mso-style-next:Normal;
-	margin-top:6.0pt;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:37.45pt;
-	mso-pagination:widow-orphan;
-	mso-outline-level:5;
-	tab-stops:.3in .5in 4.0in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;
-	font-weight:bold;
-	mso-bidi-font-weight:normal;
-	text-decoration:underline;
-	text-underline:single;}
-p.MsoIndex1, li.MsoIndex1, div.MsoIndex1
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoIndex2, li.MsoIndex2, div.MsoIndex2
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:.25in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoIndex3, li.MsoIndex3, div.MsoIndex3
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoToc1, li.MsoToc1, div.MsoToc1
-	{mso-style-priority:39;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:12.0pt;
-	margin-right:.5in;
-	margin-bottom:6.0pt;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	tab-stops:right 6.5in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;
-	font-weight:bold;
-	mso-bidi-font-weight:normal;}
-p.MsoToc2, li.MsoToc2, div.MsoToc2
-	{mso-style-priority:39;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:6.0pt;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:12.0pt;
-	mso-pagination:widow-orphan;
-	tab-stops:right 6.5in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;
-	font-style:italic;
-	mso-bidi-font-style:normal;}
-p.MsoToc3, li.MsoToc3, div.MsoToc3
-	{mso-style-priority:39;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:24.0pt;
-	mso-pagination:widow-orphan;
-	tab-stops:right 6.5in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoToc4, li.MsoToc4, div.MsoToc4
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	mso-pagination:widow-orphan;
-	tab-stops:right 6.5in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoToc5, li.MsoToc5, div.MsoToc5
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:48.0pt;
-	mso-pagination:widow-orphan;
-	tab-stops:right 6.5in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoToc6, li.MsoToc6, div.MsoToc6
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:60.0pt;
-	mso-pagination:widow-orphan;
-	tab-stops:right 6.5in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoToc7, li.MsoToc7, div.MsoToc7
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:1.0in;
-	mso-pagination:widow-orphan;
-	tab-stops:right 6.5in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoToc8, li.MsoToc8, div.MsoToc8
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:84.0pt;
-	mso-pagination:widow-orphan;
-	tab-stops:right 6.5in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoToc9, li.MsoToc9, div.MsoToc9
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:96.0pt;
-	mso-pagination:widow-orphan;
-	tab-stops:right 6.5in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoCommentText, li.MsoCommentText, div.MsoCommentText
-	{mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-link:"Comment Text Char";
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoHeader, li.MsoHeader, div.MsoHeader
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in center 3.0in left 4.0in right 6.0in;
-	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoFooter, li.MsoFooter, div.MsoFooter
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in center 3.0in left 4.0in right 6.0in;
-	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.MsoIndexHeading, li.MsoIndexHeading, div.MsoIndexHeading
-	{mso-style-noshow:yes;
-	mso-style-unhide:no;
-	mso-style-next:"Index 1";
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-span.MsoCommentReference
-	{mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-ansi-font-size:8.0pt;
-	mso-bidi-font-size:8.0pt;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;
-	text-underline:single;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-noshow:yes;
-	mso-style-priority:99;
-	color:#954F72;
-	mso-themecolor:followedhyperlink;
-	text-decoration:underline;
-	text-underline:single;}
-p
-	{mso-style-priority:99;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	mso-fareast-theme-font:minor-fareast;}
-p.MsoCommentSubject, li.MsoCommentSubject, div.MsoCommentSubject
-	{mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-parent:"Comment Text";
-	mso-style-link:"Comment Subject Char";
-	mso-style-next:"Comment Text";
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;
-	font-weight:bold;}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-link:"Balloon Text Char";
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:9.0pt;
-	font-family:"Segoe UI",sans-serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
+	text-decoration:underline;}
 p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	mso-style-unhide:no;
-	mso-style-qformat:yes;
-	margin-top:0in;
+	{margin-top:0in;
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:.5in;
-	mso-add-space:auto;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
 	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
 	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
 	color:black;}
 p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
-	{mso-style-priority:34;
-	mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-type:export-only;
-	margin-top:0in;
+	{margin-top:0in;
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:.5in;
-	mso-add-space:auto;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
 	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
 	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
 	color:black;}
 p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
-	{mso-style-priority:34;
-	mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-type:export-only;
-	margin-top:0in;
+	{margin-top:0in;
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:.5in;
-	mso-add-space:auto;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
 	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
 	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
 	color:black;}
 p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
-	{mso-style-priority:34;
-	mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-type:export-only;
-	margin-top:0in;
+	{margin-top:0in;
 	margin-right:.5in;
 	margin-bottom:0in;
 	margin-left:.5in;
-	mso-add-space:auto;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
 	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
 	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
 	color:black;}
-p.NormalIndent1, li.NormalIndent1, div.NormalIndent1
-	{mso-style-name:"Normal Indent1";
-	mso-style-unhide:no;
-	mso-style-next:Normal;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.lev2, li.lev2, div.lev2
-	{mso-style-name:lev2;
-	mso-style-unhide:no;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:5.0pt;
-	margin-left:.25in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;
-	font-weight:bold;
-	mso-bidi-font-weight:normal;
-	text-decoration:underline;
-	text-underline:single;}
-p.lev1, li.lev1, div.lev1
-	{mso-style-name:lev1;
-	mso-style-unhide:no;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:15.0pt;
-	margin-left:0in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:14.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;
-	font-weight:bold;
-	mso-bidi-font-weight:normal;}
-p.lev3, li.lev3, div.lev3
-	{mso-style-name:lev3;
-	mso-style-unhide:no;
-	mso-style-parent:"Heading 4";
-	margin-top:2.0pt;
-	margin-right:.5in;
-	margin-bottom:5.0pt;
-	margin-left:1.0in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;
-	font-weight:bold;
-	mso-bidi-font-weight:normal;
-	text-decoration:underline;
-	text-underline:single;}
-p.level2bullet, li.level2bullet, div.level2bullet
-	{mso-style-name:"level 2 bullet";
-	mso-style-unhide:no;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:.4in;
-	text-indent:-.2in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 4.0in;
-	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-p.level2bullet0, li.level2bullet0, div.level2bullet0
-	{mso-style-name:"level 2 bullet";
-	mso-style-unhide:no;
-	margin-top:0in;
-	margin-right:.5in;
-	margin-bottom:0in;
-	margin-left:.4in;
-	text-indent:-.2in;
-	mso-pagination:widow-orphan;
-	tab-stops:.5in 63.0pt 4.0in 297.0pt 315.0pt;
-	font-size:12.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	color:black;}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-unhide:no;
-	mso-style-locked:yes;
-	mso-style-link:"Balloon Text";
-	mso-ansi-font-size:9.0pt;
-	mso-bidi-font-size:9.0pt;
-	font-family:"Segoe UI",sans-serif;
-	mso-ascii-font-family:"Segoe UI";
-	mso-hansi-font-family:"Segoe UI";
-	mso-bidi-font-family:"Segoe UI";
-	color:black;}
-span.CommentTextChar
-	{mso-style-name:"Comment Text Char";
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-unhide:no;
-	mso-style-locked:yes;
-	mso-style-link:"Comment Text";
-	font-family:"Times New Roman",serif;
-	mso-ascii-font-family:"Times New Roman";
-	mso-hansi-font-family:"Times New Roman";
-	color:black;}
-span.CommentSubjectChar
-	{mso-style-name:"Comment Subject Char";
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-unhide:no;
-	mso-style-locked:yes;
-	mso-style-parent:"Comment Text Char";
-	mso-style-link:"Comment Subject";
-	font-family:"Times New Roman",serif;
-	mso-ascii-font-family:"Times New Roman";
-	mso-hansi-font-family:"Times New Roman";
-	color:black;
-	font-weight:bold;}
-span.UnresolvedMention1
-	{mso-style-name:"Unresolved Mention1";
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	color:#605E5C;
-	background:#E1DFDD;}
-span.SpellE
-	{mso-style-name:"";
-	mso-spl-e:yes;}
-span.GramE
-	{mso-style-name:"";
-	mso-gram-e:yes;}
 .MsoChpDefault
-	{mso-style-type:export-only;
-	mso-default-props:yes;
-	font-size:10.0pt;
-	mso-ansi-font-size:10.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Tms Rmn",serif;
-	mso-ascii-font-family:"Tms Rmn";
-	mso-hansi-font-family:"Tms Rmn";}
+	{font-size:10.0pt;}
  /* Page Definitions */
- @page
-	{mso-footnote-separator:url("EERC%20User%20Guide%20-%202024_files/header.htm") fs;
-	mso-footnote-continuation-separator:url("EERC%20User%20Guide%20-%202024_files/header.htm") fcs;
-	mso-endnote-separator:url("EERC%20User%20Guide%20-%202024_files/header.htm") es;
-	mso-endnote-continuation-separator:url("EERC%20User%20Guide%20-%202024_files/header.htm") ecs;}
-@page WordSection1
+ @page WordSection1
 	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;
-	mso-header-margin:.5in;
-	mso-footer-margin:.5in;
-	mso-header:url("EERC%20User%20Guide%20-%202024_files/header.htm") h1;
-	mso-footer:url("EERC%20User%20Guide%20-%202024_files/header.htm") f1;
-	mso-paper-source:0;}
+	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
 	{page:WordSection1;}
  /* List Definitions */
- @list l0
-	{mso-list-id:-2;
-	mso-list-type:simple;
-	mso-list-template-ids:-1;}
-@list l0:level1
-	{mso-level-start-at:0;
-	mso-level-text:*;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:0in;
-	text-indent:0in;}
-@list l1
-	{mso-list-id:50159086;
-	mso-list-type:hybrid;
-	mso-list-template-ids:493626750 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l1:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l1:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l1:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l1:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l2
-	{mso-list-id:87510493;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1884310044 -1779770862 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l2:level1
-	{mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l2:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;}
-@list l2:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:1.25in;
-	text-indent:-9.0pt;}
-@list l2:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.75in;
-	text-indent:-.25in;}
-@list l2:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;}
-@list l2:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:2.75in;
-	text-indent:-9.0pt;}
-@list l2:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.25in;
-	text-indent:-.25in;}
-@list l2:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;}
-@list l2:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:4.25in;
-	text-indent:-9.0pt;}
-@list l3
-	{mso-list-id:167790642;
-	mso-list-template-ids:282387196;}
-@list l3:level1
-	{mso-level-start-at:4;
-	mso-level-tab-stop:.25in;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l3:level2
-	{mso-level-start-at:3;
-	mso-level-legal-format:yes;
-	mso-level-text:"%1\.%2";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:28.85pt;
-	text-indent:-19.5pt;}
-@list l3:level3
-	{mso-level-legal-format:yes;
-	mso-level-text:"%1\.%2\.%3";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:54.7pt;
-	text-indent:-.5in;}
-@list l3:level4
-	{mso-level-legal-format:yes;
-	mso-level-text:"%1\.%2\.%3\.%4";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:64.05pt;
-	text-indent:-.5in;}
-@list l3:level5
-	{mso-level-legal-format:yes;
-	mso-level-text:"%1\.%2\.%3\.%4\.%5";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:91.4pt;
-	text-indent:-.75in;}
-@list l3:level6
-	{mso-level-legal-format:yes;
-	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:118.75pt;
-	text-indent:-1.0in;}
-@list l3:level7
-	{mso-level-legal-format:yes;
-	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:128.1pt;
-	text-indent:-1.0in;}
-@list l3:level8
-	{mso-level-legal-format:yes;
-	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:155.45pt;
-	text-indent:-1.25in;}
-@list l3:level9
-	{mso-level-legal-format:yes;
-	mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:164.8pt;
-	text-indent:-1.25in;}
-@list l4
-	{mso-list-id:189076375;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1525604224 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l4:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l4:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l4:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l4:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l5
-	{mso-list-id:333805243;
-	mso-list-template-ids:-1945048022;}
-@list l5:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:"Courier New";
-	mso-bidi-font-family:"Times New Roman";}
-@list l5:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l5:level4
-	{mso-level-text:"\(%4\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l6
-	{mso-list-id:450898980;
-	mso-list-template-ids:754191418;}
-@list l6:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l6:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:"Courier New";
-	mso-bidi-font-family:"Times New Roman";}
-@list l6:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l6:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l6:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l6:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l6:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l6:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l6:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l7
-	{mso-list-id:492992118;
-	mso-list-type:hybrid;
-	mso-list-template-ids:546884164 1684958070 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l7:level1
-	{mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l7:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l7:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l7:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l8
-	{mso-list-id:597836927;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-247710300 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l8:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l8:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l8:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.25in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l8:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.75in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l8:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l8:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.75in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l8:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.25in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l8:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l8:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:4.25in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l9
-	{mso-list-id:599485440;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1076945344 951512190 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l9:level1
-	{mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l9:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;}
-@list l9:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:1.25in;
-	text-indent:-9.0pt;}
-@list l9:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.75in;
-	text-indent:-.25in;}
-@list l9:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;}
-@list l9:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:2.75in;
-	text-indent:-9.0pt;}
-@list l9:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.25in;
-	text-indent:-.25in;}
-@list l9:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;}
-@list l9:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:4.25in;
-	text-indent:-9.0pt;}
-@list l10
-	{mso-list-id:691761276;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1000391420 252867756 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l10:level1
-	{mso-level-start-at:14;
-	mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l10:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l10:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l10:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l10:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l10:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l10:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l10:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l10:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l11
-	{mso-list-id:905188959;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-462499044 -1888858444 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l11:level1
-	{mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l11:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l11:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l11:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l11:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l11:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l11:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l11:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l11:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l12
-	{mso-list-id:996037331;
-	mso-list-type:hybrid;
-	mso-list-template-ids:2028763962 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-@list l12:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l12:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l12:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.25in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l12:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.75in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l12:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l12:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.75in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l12:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.25in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l12:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l12:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:4.25in;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l13
-	{mso-list-id:1050417687;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1189657938 -868826060 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l13:level1
-	{mso-level-start-at:7;
-	mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l13:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l13:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l13:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l13:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l13:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l13:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l13:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l13:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l14
-	{mso-list-id:1065254032;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1076945344 951512190 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l14:level1
-	{mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l14:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;}
-@list l14:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:1.25in;
-	text-indent:-9.0pt;}
-@list l14:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.75in;
-	text-indent:-.25in;}
-@list l14:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;}
-@list l14:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:2.75in;
-	text-indent:-9.0pt;}
-@list l14:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.25in;
-	text-indent:-.25in;}
-@list l14:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;}
-@list l14:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:4.25in;
-	text-indent:-9.0pt;}
-@list l15
-	{mso-list-id:1083140987;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-374676132 2008568178 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l15:level1
-	{mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l15:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l15:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l15:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l15:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l15:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l15:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l15:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l15:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l16
-	{mso-list-id:1084374244;
-	mso-list-type:simple;
-	mso-list-template-ids:2146716306;}
-@list l16:level1
-	{mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	mso-level-legacy:yes;
-	mso-level-legacy-indent:.25in;
-	mso-level-legacy-space:0in;
-	margin-left:.45in;
-	text-indent:-.25in;}
-@list l17
-	{mso-list-id:1150292106;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1419137796 964566214 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l17:level1
-	{mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l17:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;}
-@list l17:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:1.25in;
-	text-indent:-9.0pt;}
-@list l17:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.75in;
-	text-indent:-.25in;}
-@list l17:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;}
-@list l17:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:2.75in;
-	text-indent:-9.0pt;}
-@list l17:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.25in;
-	text-indent:-.25in;}
-@list l17:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;}
-@list l17:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:4.25in;
-	text-indent:-9.0pt;}
-@list l18
-	{mso-list-id:1177040153;
-	mso-list-template-ids:1520447168;}
-@list l18:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l18:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:"Courier New";
-	mso-bidi-font-family:"Times New Roman";}
-@list l18:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l18:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l18:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l18:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l18:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l18:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l18:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l19
-	{mso-list-id:1509521846;
-	mso-list-type:hybrid;
-	mso-list-template-ids:647103202 -1269767346 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l19:level1
-	{mso-level-start-at:8;
-	mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l19:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l19:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l19:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l19:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l19:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l19:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l19:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l19:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l20
-	{mso-list-id:1642614662;
-	mso-list-template-ids:-1945048022;}
-@list l20:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:"Courier New";
-	mso-bidi-font-family:"Times New Roman";}
-@list l20:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l20:level4
-	{mso-level-text:"\(%4\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l21
-	{mso-list-id:1651859850;
-	mso-list-template-ids:-2010736254;}
-@list l21:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l21:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:"Courier New";
-	mso-bidi-font-family:"Times New Roman";}
-@list l21:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l21:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l21:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l21:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l21:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l21:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l21:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l22
-	{mso-list-id:1875314336;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-252275816 67698709 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l22:level1
-	{mso-level-number-format:alpha-upper;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.25in;
-	text-indent:-.25in;}
-@list l22:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;}
-@list l22:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:1.25in;
-	text-indent:-9.0pt;}
-@list l22:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.75in;
-	text-indent:-.25in;}
-@list l22:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;}
-@list l22:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:2.75in;
-	text-indent:-9.0pt;}
-@list l22:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.25in;
-	text-indent:-.25in;}
-@list l22:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;}
-@list l22:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:4.25in;
-	text-indent:-9.0pt;}
-@list l23
-	{mso-list-id:1907379276;
-	mso-list-type:hybrid;
-	mso-list-template-ids:2075941922 -684719040 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l23:level1
-	{mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l23:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l23:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l23:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l23:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l23:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l23:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l23:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l23:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l24
-	{mso-list-id:1975792175;
-	mso-list-type:simple;
-	mso-list-template-ids:2146716306;}
-@list l24:level1
-	{mso-level-text:"\(%1\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	mso-level-legacy:yes;
-	mso-level-legacy-indent:.25in;
-	mso-level-legacy-space:0in;
-	margin-left:31.5pt;
-	text-indent:-.25in;}
-@list l25
-	{mso-list-id:1991708048;
-	mso-list-template-ids:47895480;}
-@list l25:level1
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Symbol;}
-@list l25:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:1.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:"Courier New";
-	mso-bidi-font-family:"Times New Roman";}
-@list l25:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:1.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l25:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:2.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l25:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:2.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l25:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:3.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l25:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:3.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l25:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:4.0in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l25:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:4.5in;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	mso-ansi-font-size:10.0pt;
-	font-family:Wingdings;}
-@list l26
-	{mso-list-id:2104493278;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-1004263776 67698713 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-@list l26:level1
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;}
-@list l26:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.25in;
-	text-indent:-.25in;}
-@list l26:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:1.75in;
-	text-indent:-9.0pt;}
-@list l26:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;}
-@list l26:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.75in;
-	text-indent:-.25in;}
-@list l26:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:3.25in;
-	text-indent:-9.0pt;}
-@list l26:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;}
-@list l26:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:4.25in;
-	text-indent:-.25in;}
-@list l26:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:4.75in;
-	text-indent:-9.0pt;}
-@list l0:level1 lfo3
-	{mso-level-start-at:1;
-	mso-level-number-format:bullet;
-	mso-level-numbering:continue;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	mso-level-legacy:yes;
-	mso-level-legacy-indent:.25in;
-	mso-level-legacy-space:0in;
-	margin-left:.75in;
-	text-indent:-.25in;
-	font-family:Symbol;}
-ol
+ ol
 	{margin-bottom:0in;}
 ul
 	{margin-bottom:0in;}
 -->
 </style>
-<!--[if gte mso 10]>
-<style>
- /* Style Definitions */
- table.MsoNormalTable
-	{mso-style-name:"Table Normal";
-	mso-tstyle-rowband-size:0;
-	mso-tstyle-colband-size:0;
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-parent:"";
-	mso-padding-alt:0in 5.4pt 0in 5.4pt;
-	mso-para-margin:0in;
-	mso-pagination:widow-orphan;
-	font-size:10.0pt;
-	font-family:"Tms Rmn",serif;}
-table.MsoTableGrid
-	{mso-style-name:"Table Grid";
-	mso-tstyle-rowband-size:0;
-	mso-tstyle-colband-size:0;
-	mso-style-priority:59;
-	mso-style-unhide:no;
-	border:solid windowtext 1.0pt;
-	mso-border-alt:solid windowtext .5pt;
-	mso-padding-alt:0in 5.4pt 0in 5.4pt;
-	mso-border-insideh:.5pt solid windowtext;
-	mso-border-insidev:.5pt solid windowtext;
-	mso-para-margin:0in;
-	mso-pagination:widow-orphan;
-	font-size:10.0pt;
-	font-family:"Tms Rmn",serif;}
-</style>
-<![endif]--><!--[if gte mso 9]><xml>
- <o:shapedefaults v:ext="edit" spidmax="2050"/>
-</xml><![endif]--><!--[if gte mso 9]><xml>
- <o:shapelayout v:ext="edit">
-  <o:idmap v:ext="edit" data="2"/>
- </o:shapelayout></xml><![endif]-->
+
 </head>
 
-<body lang=EN-US link=blue vlink="#954F72" style='tab-interval:.5in;word-wrap:
-break-word'>
+<body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
 
 <div class=WordSection1>
 
-<p class=MsoNormal align=center style='text-align:center;tab-stops:.5in 76.0pt 297.0pt 315.0pt'><a
-name="_Hlk1053996"><b><span style='mso-bidi-font-size:12.0pt'>Energy Escalation
-Rate Calculator (EERC)</span></b></a><b><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></b></p>
+<p class=MsoNormal align=center style='text-align:center'><a name="_Hlk1053996"><b>Energy
+Escalation Rate Calculator (EERC)</b></a></p>
 
-<p class=MsoNormal align=center style='text-align:center;tab-stops:.5in 76.0pt 297.0pt 315.0pt'><b><span
-style='mso-bidi-font-size:12.0pt'>User Guide<o:p></o:p></span></b></p>
+<p class=MsoNormal align=center style='text-align:center'><b>User Guide</b></p>
 
-<p class=MsoNormal align=center style='text-align:center;tab-stops:.5in 76.0pt 297.0pt 315.0pt'><span
-style='mso-bidi-font-size:12.0pt;mso-bidi-font-weight:bold'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
 
 <h1><a name="_Toc21606435"><span style='font-size:12.0pt'>Summary</span></a><span
-style='font-size:12.0pt'> <o:p></o:p></span></h1>
+style='font-size:12.0pt'> </span></h1>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>EERC computes an
-average rate of escalation for a specified <span class=GramE>time period</span>,
-which can be used as an escalation rate for contract payments in ESPCs and
-UESCs. These escalation rates are based on energy price projections from the
-Department of Energy’s Energy Information Administration (EIA). While the
-underlying energy price projections vary from year to year, for calculating
+<p class=MsoNormal>EERC computes an average rate of escalation for a specified
+time period, which can be used as an escalation rate for contract payments in
+ESPCs and UESCs. These escalation rates are based on energy price projections
+from the Department of Energyâ€™s Energy Information Administration (EIA). While
+the underlying energy price projections vary from year to year, for calculating
 contract payments the single EERC-calculated uniform average rate is
 preferable. The rate is stated in real (excluding inflation) and nominal
 (including inflation) terms and weighted by the share of each of the energy
 types used in the project. Alternatively, an escalation rate for each energy
-type can be computed separately.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+type can be computed separately.Â  </p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>To assist federal
-agencies (and others) in considering a range of energy price and policy
-scenarios, escalation rates may be adjusted by NIST for three levels of estimated
-social cost of carbon (SCC). <o:p></o:p></span></p>
+<p class=MsoNormal>To assist federal agencies (and others) in considering a
+range of energy price and policy scenarios, escalation rates may be adjusted by
+NIST for three levels of estimated social cost of carbon (SCC). </p>
 
-<p class=MsoNormal style='tab-stops:.5in 76.0pt'><span style='mso-bidi-font-size:
-12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal style='tab-stops:.5in 76.0pt'><span style='mso-bidi-font-size:
-12.0pt'>The EIA projections adjusted by NIST for carbon pricing are based on
-three SCC projections provided in the Interagency Working Group on Social Cost
-of Greenhouse Gases Interim Estimates, which were developed pursuant to
-Executive Order 13990. Those estimates are adjusted by NIST to 2024 dollars. The
-scenarios assume different discount rates and projection percentile, providing a
-range of values that can be used for sensitivity analysis. Note that this
-approach was implemented in the 2023 release, replacing the previous
-methodology that used carbon pricing projections based on proposed carbon
-cap-and-trade legislation from 2009. <o:p></o:p></span></p>
+<p class=MsoNormal>The EIA projections adjusted by NIST for carbon pricing are
+based on three SCC projections provided in the Interagency Working Group on
+Social Cost of Greenhouse Gases Interim Estimates, which were developed
+pursuant to Executive Order 13990. Those estimates are adjusted by NIST to 2024
+dollars. The scenarios assume different discount rates and projection
+percentile, providing a range of values that can be used for sensitivity
+analysis. Note that this approach was implemented in the 2023 release,
+replacing the previous methodology that used carbon pricing projections based
+on proposed carbon cap-and-trade legislation from 2009. </p>
 
-<p class=MsoNormal style='tab-stops:.5in 76.0pt'><span style='mso-bidi-font-size:
-12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal style='tab-stops:.5in 76.0pt'><span style='mso-bidi-font-size:
-12.0pt'>The prior (<span class=SpellE>executeable</span>) user interface is
-shown below (left). The user provides the fuel type, fuel rate, study period,
-carbon pricing scenario, and inflation rate. Default values are provided for projected
-SCC scenarios (SCC of zero) and inflation rate (based on annual supplement
-value). The discount rate is fixed based on the Annual Supplement. The output
-is a real escalation rate and nominal escalation rate values. The flow diagram
-for the EERC workflow including the required data is shown below (right).<o:p></o:p></span></p>
+<p class=MsoNormal>The prior (executeable) user interface is shown below (left).
+The user provides the fuel type, fuel rate, study period, carbon pricing
+scenario, and inflation rate. Default values are provided for projected SCC
+scenarios (SCC of zero) and inflation rate (based on annual supplement value). The
+discount rate is fixed based on the Annual Supplement. The output is a real
+escalation rate and nominal escalation rate values. The flow diagram for the
+EERC workflow including the required data is shown below (right).</p>
 
-<p class=MsoNormal style='tab-stops:.5in 76.0pt'><span style='mso-bidi-font-size:
-12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal style='tab-stops:.5in 76.0pt'><span style='mso-bidi-font-size:
-12.0pt;mso-no-proof:yes'><v:shapetype id="_x0000_t75" coordsize="21600,21600"
- o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
- stroked="f">
- <v:stroke joinstyle="miter"/>
- <v:formulas>
-  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
-  <v:f eqn="sum @0 1 0"/>
-  <v:f eqn="sum 0 0 @1"/>
-  <v:f eqn="prod @2 1 2"/>
-  <v:f eqn="prod @3 21600 pixelWidth"/>
-  <v:f eqn="prod @3 21600 pixelHeight"/>
-  <v:f eqn="sum @0 0 1"/>
-  <v:f eqn="prod @6 1 2"/>
-  <v:f eqn="prod @7 21600 pixelWidth"/>
-  <v:f eqn="sum @8 21600 0"/>
-  <v:f eqn="prod @7 21600 pixelHeight"/>
-  <v:f eqn="sum @10 21600 0"/>
- </v:formulas>
- <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
- <o:lock v:ext="edit" aspectratio="t"/>
-</v:shapetype><v:shape id="Picture_x0020_2" o:spid="_x0000_i1030" type="#_x0000_t75"
- style='width:151.5pt;height:278.25pt;visibility:visible;mso-wrap-style:square'>
- <v:imagedata src="EERC%20User%20Guide%20-%202024_files/image001.png" o:title=""/>
-</v:shape></span><span style='mso-bidi-font-size:12.0pt'><span
-style='mso-tab-count:2'>                      </span><span style='mso-tab-count:
-1'>            </span></span><span style='mso-no-proof:yes'><v:shape id="Picture_x0020_3"
- o:spid="_x0000_i1029" type="#_x0000_t75" style='width:404.25pt;height:280.5pt;
- visibility:visible;mso-wrap-style:square'>
- <v:imagedata src="EERC%20User%20Guide%20-%202024_files/image002.emz" o:title=""/>
-</v:shape></span><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+<p class=MsoNormal><img width=152 height=278 id="Picture 2"
+src="EERC%20User%20Guide.fld/image001.png">Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  <img
+width=404 height=281 id="Picture 3" src="EERC%20User%20Guide.fld/image002.png"></p>
 
-<p class=MsoNormal style='tab-stops:.5in 76.0pt'><span style='mso-bidi-font-size:
-12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal style='tab-stops:.5in 76.0pt'><span style='mso-bidi-font-size:
-12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
 <h2 style='margin-left:0in;page-break-after:avoid'><a name="_Toc21606436"><span
-style='font-size:12.0pt'>Inputs and Outputs</span></a><span style='font-size:
-12.0pt'><o:p></o:p></span></h2>
+style='font-size:12.0pt'>Inputs and Outputs</span></a></h2>
 
-<p class=MsoNormal style='tab-stops:.5in 76.0pt'><span style='mso-bidi-font-size:
-12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>EERC prompts the
-user for information on the share of cost savings attributable to each fuel
-type, the project location, industry sector, and beginning date and duration of
-the project term. It also prompts the user to select one of several estimated SCC
-scenarios -- no SCC, low, medium, or high -- then retrieves the relevant energy
-price forecasts and computes the average escalation rate, as described above.
-Since the performance period generally begins a year or more later than the contract
-award date, the calculated average rate includes the price escalation for the
-intervening year(s). Escalation is assumed to take place during this period.<o:p></o:p></span></p>
+<p class=MsoNormal>EERC prompts the user for information on the share of cost
+savings attributable to each fuel type, the project location, industry sector,
+and beginning date and duration of the project term. It also prompts the user
+to select one of several estimated SCC scenarios -- no SCC, low, medium, or high
+-- then retrieves the relevant energy price forecasts and computes the average
+escalation rate, as described above. Since the performance period generally begins
+a year or more later than the contract award date, the calculated average rate
+includes the price escalation for the intervening year(s). Escalation is
+assumed to take place during this period.</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>The calculated
-average escalation rate is reported in both real (excluding inflation) and
-nominal (including inflation) terms. The energy price projections for all
-scenarios exclude inflation and thus generate real rates. The default inflation
-rate used in the EERC is the long-term inflation rate calculated annually by
-DOE/FEMP using the average annual inflation estimates for the next 10 years
-from the White House Council of Economic Advisors (CEA) Analytical Perspectives
-and the methodology described in 10 CFR 436, but without consideration of the
-3.0 % floor for the real discount rate. The default inflation rate does not
-account for the discount rate floor to accommodate the need for market-based
-projections of future energy prices in contract negotiations. Otherwise, the
-default inflation rate would be artificially low in years when the 3.0 % floor
-applies. <o:p></o:p></span></p>
+<p class=MsoNormal>The calculated average escalation rate is reported in both
+real (excluding inflation) and nominal (including inflation) terms. The energy
+price projections for all scenarios exclude inflation and thus generate real
+rates. The default inflation rate used in the EERC is the long-term inflation
+rate calculated annually by DOE/FEMP using the average annual inflation
+estimates for the next 10 years from the White House Council of Economic
+Advisors (CEA) Analytical Perspectives and the methodology described in 10 CFR
+436, but without consideration of the 3.0 % floor for the real discount rate.
+The default inflation rate does not account for the discount rate floor to
+accommodate the need for market-based projections of future energy prices in
+contract negotiations. Otherwise, the default inflation rate would be
+artificially low in years when the 3.0 % floor applies. </p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;mso-margin-bottom-alt:
-auto;page-break-after:avoid;tab-stops:.5in'><b><span style='mso-bidi-font-size:
-12.0pt'>Inputs</span></b><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in;page-break-after:avoid'><b>Inputs</b></p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;tab-stops:
-.5in'><b><span style='mso-bidi-font-size:12.0pt'>Percent of Energy Cost Savings</span></b><span
-style='mso-bidi-font-size:12.0pt'>:<o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in'><b>Percent of Energy Cost Savings</b>:</p>
 
 <ul type=disc>
- <li class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;
-     mso-list:l25 level1 lfo21;tab-stops:list .5in'><span style='mso-bidi-font-size:
-     12.0pt'>Percentage of energy cost savings in dollars that is attributable
-     to one or more of the fuel types used in the project. This input is used
-     to weight the escalation rate.<o:p></o:p></span></li>
- <li class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;
-     mso-list:l25 level1 lfo21;tab-stops:list .5in'><span style='mso-bidi-font-size:
-     12.0pt'>Default values are zeros<o:p></o:p></span></li>
- <li class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;
-     mso-list:l25 level1 lfo21;tab-stops:list .5in'><span style='mso-bidi-font-size:
-     12.0pt'>Inputted values must sum to 100%<o:p></o:p></span></li>
+ <li class=MsoNormal style='margin-right:0in'>Percentage of energy cost savings
+     in dollars that is attributable to one or more of the fuel types used in
+     the project. This input is used to weight the escalation rate.</li>
+ <li class=MsoNormal style='margin-right:0in'>Default values are zeros</li>
+ <li class=MsoNormal style='margin-right:0in'>Inputted values must sum to 100%</li>
 </ul>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;tab-stops:
-.5in'><b><span style='mso-bidi-font-size:12.0pt'>Fuel Rate Information:</span></b><span
-style='mso-bidi-font-size:12.0pt;color:windowtext'><o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in'><b>Fuel Rate Information:</b></p>
 
 <ul type=disc>
- <li class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;
-     mso-list:l21 level1 lfo22;tab-stops:list .5in'><i><span style='mso-bidi-font-size:
-     12.0pt'>Location</span></i><span style='mso-bidi-font-size:12.0pt'>:
-     Selection of the state in which the project is located allows the program
-     to select the energy price escalation rates for the corresponding census region.<o:p></o:p></span></li>
- <li class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;
-     mso-list:l21 level1 lfo22;tab-stops:list .5in'><i><span style='mso-bidi-font-size:
-     12.0pt'>Sector</span></i><span style='mso-bidi-font-size:12.0pt'>:
-     Selection of commercial or industrial sector determines the type of
-     utility rate schedule applied to the energy cost calculation.<o:p></o:p></span></li>
- <li class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;
-     mso-list:l21 level1 lfo22;tab-stops:list .5in'><i><span style='mso-bidi-font-size:
-     12.0pt'>User must make a selection of both <span class=GramE>inputs</span></span></i><span
-     style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></li>
+ <li class=MsoNormal style='margin-right:0in'><i>Location</i>: Selection of the
+     state in which the project is located allows the program to select the
+     energy price escalation rates for the corresponding census region.</li>
+ <li class=MsoNormal style='margin-right:0in'><i>Sector</i>: Selection of
+     commercial or industrial sector determines the type of utility rate
+     schedule applied to the energy cost calculation.</li>
+ <li class=MsoNormal style='margin-right:0in'><i>User must make a selection of
+     both inputs</i></li>
 </ul>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;tab-stops:
-.5in'><b><span style='mso-bidi-font-size:12.0pt'>Contract Term:</span></b><span
-style='mso-bidi-font-size:12.0pt;color:windowtext'><o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in'><b>Contract Term:</b></p>
 
 <ul type=disc>
- <li class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;
-     mso-list:l18 level1 lfo23;tab-stops:list .5in'><i><span style='mso-bidi-font-size:
-     12.0pt'>Start Date</span></i><span style='mso-bidi-font-size:12.0pt'>: Year
-     of contract award/signing.<o:p></o:p></span></li>
+ <li class=MsoNormal style='margin-right:0in'><i>Start Date</i>: Year of
+     contract award/signing.</li>
 </ul>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;margin-left:
-1.0in;text-indent:-.25in;mso-list:l18 level2 lfo23;tab-stops:.5in list 1.0in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><i><span
-style='mso-bidi-font-size:12.0pt'>User must select a start date year</span></i><span
-style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><i>User must select a start date year</i></p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;margin-left:
-1.0in;text-indent:-.25in;mso-list:l18 level2 lfo23;tab-stops:.5in list 1.0in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><i><span
-style='mso-bidi-font-size:12.0pt'>Options are limited to the next 3 years</span></i><span
-style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><i>Options are limited to the next 3 years</i></p>
 
 <ul type=disc>
- <li class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;
-     mso-list:l18 level1 lfo23;tab-stops:list .5in'><i><span style='mso-bidi-font-size:
-     12.0pt'>Years Duration</span></i><span style='mso-bidi-font-size:12.0pt'>:
-     Number of years of the contract term.<o:p></o:p></span></li>
+ <li class=MsoNormal style='margin-right:0in'><i>Years Duration</i>: Number of
+     years of the contract term.</li>
 </ul>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;margin-left:
-1.0in;text-indent:-.25in;mso-list:l18 level2 lfo23;tab-stops:.5in list 1.0in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><i><span
-style='mso-bidi-font-size:12.0pt'>User must make a selection for the <span
-class=GramE>duration</span></span></i><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><i>User must make a selection for the duration</i></p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;margin-left:
-1.0in;text-indent:-.25in;mso-list:l18 level2 lfo23;tab-stops:.5in list 1.0in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
-mso-fareast-font-family:"Courier New";mso-bidi-font-weight:bold'><span
-style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><i><span style='mso-bidi-font-size:12.0pt'>The
-duration is limited between 10 years and 25 years</span></i><b><span
-style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></b></p>
+<p class=MsoNormal style='margin-right:0in;margin-left:1.0in;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><i>The duration is limited between 10 years and 25 years</i></p>
 
-<p class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;tab-stops:
-.5in'><b><span style='mso-bidi-font-size:12.0pt'>Social Cost of Carbon (SCC)
-Assumptions:</span></b><span style='mso-bidi-font-size:12.0pt'><br>
-Selection of one of the following carbon pricing scenarios:</span><span
-style='mso-bidi-font-size:12.0pt;color:windowtext'><o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in'><b>Social Cost of Carbon (SCC)
+Assumptions:</b><br>
+Selection of one of the following carbon pricing scenarios:</p>
 
 <ol style='margin-top:0in' start=1 type=1>
- <li class=MsoNormal style='margin-right:0in;mso-list:l20 level1 lfo24;
-     tab-stops:list .5in'><span style='mso-bidi-font-size:12.0pt'>No SCC - $0 <o:p></o:p></span></li>
+ <li class=MsoNormal style='margin-right:0in'>No SCC - $0 </li>
  <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in;mso-list:l20 level2 lfo24;
-      tab-stops:list 1.0in'><span style='mso-bidi-font-size:12.0pt'>Assumes
-      that SCC is zero for the entire contract term<o:p></o:p></span></li>
-  <li class=MsoNormal style='margin-right:0in;mso-list:l20 level2 lfo24;
-      tab-stops:list 1.0in'><span style='mso-bidi-font-size:12.0pt'>Uses annual
-      energy price forecasts of the Energy Information Administration, which do
-      not account for estimated SCC<o:p></o:p></span></li>
+  <li class=MsoNormal style='margin-right:0in'>Assumes that SCC is zero for the
+      entire contract term</li>
+  <li class=MsoNormal style='margin-right:0in'>Uses annual energy price
+      forecasts of the Energy Information Administration, which do not account
+      for estimated SCC</li>
  </ul>
- <li class=MsoNormal style='margin-right:0in;mso-list:l20 level1 lfo24;
-     tab-stops:list .5in'><span style='mso-bidi-font-size:12.0pt'>Low - $20 in
-     2024<o:p></o:p></span></li>
+ <li class=MsoNormal style='margin-right:0in'>Low - $20 in 2024</li>
  <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in;mso-list:l20 level2 lfo24;
-      tab-stops:list 1.0in'><span style='mso-bidi-font-size:12.0pt'>Average SCC
-      assuming a 5 % discount rate (i.e., </span><span style='mso-bidi-font-size:
-      12.0pt;color:#201F1E;background:white'>5 % DR (and average assumption of
-      estimated carbon damages))</span><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></li>
-  <li class=MsoNormal style='margin-right:0in;mso-list:l20 level2 lfo24;
-      tab-stops:list 1.0in'><span style='mso-bidi-font-size:12.0pt;color:#201F1E;
-      background:white'>SCC starts at $20 in 2024 and increases over <span
-      class=GramE>time</span></span><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></li>
+  <li class=MsoNormal style='margin-right:0in'>Average SCC assuming a 5 %
+      discount rate (i.e., <span style='color:#201F1E;background:white'>5 % DR
+      (and average assumption of estimated carbon damages))</span></li>
+  <li class=MsoNormal style='margin-right:0in'><span style='color:#201F1E;
+      background:white'>SCC starts at $20 in 2024 and increases over time</span></li>
  </ul>
 </ol>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in;mso-list:l20 level2 lfo24;
-tab-stops:.5in list 1.0in'><![if !supportLists]><span style='font-size:10.0pt;
-mso-bidi-font-size:12.0pt;font-family:"Courier New";mso-fareast-font-family:
-"Courier New"'><span style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span style='mso-bidi-font-size:12.0pt'>Lower SCC
-values than with a 3 % DR because future values have a lower present value than
-in the Medium <span class=GramE>case</span><o:p></o:p></span></p>
+margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Lower SCC values than with a 3 % DR because future values have a
+lower present value than in the Medium case</p>
 
 <ol style='margin-top:0in' start=3 type=1>
- <li class=MsoNormal style='margin-right:0in;mso-list:l20 level1 lfo24;
-     tab-stops:list .5in'><span style='mso-bidi-font-size:12.0pt'>Medium - $66
-     in 2024<o:p></o:p></span></li>
+ <li class=MsoNormal style='margin-right:0in'>Medium - $66 in 2024</li>
  <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in;mso-list:l20 level2 lfo24;
-      tab-stops:list 1.0in'><span style='mso-bidi-font-size:12.0pt'>Average SCC
-      assuming a 3 % discount <span class=GramE>rate<span
-      style='mso-spacerun:yes'>  </span>(</span>i.e., </span><span
-      style='mso-bidi-font-size:12.0pt;color:#201F1E;background:white'>3 % DR (and
-      average assumption of estimated carbon damages))</span><span
-      style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></li>
-  <li class=MsoNormal style='margin-right:0in;mso-list:l20 level2 lfo24;
-      tab-stops:list 1.0in'><span style='mso-bidi-font-size:12.0pt;color:#201F1E;
-      background:white'>SCC starts at $66 in 2024 and increases over <span
-      class=GramE>time</span></span><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></li>
-  <li class=MsoNormal style='margin-right:0in;mso-list:l20 level2 lfo24;
-      tab-stops:list 1.0in'><span style='mso-bidi-font-size:12.0pt'>Represents
-      the assumptions that best align with the DOE and OMB discount rates<o:p></o:p></span></li>
+  <li class=MsoNormal style='margin-right:0in'>Average SCC assuming a 3 %
+      discount rateÂ  (i.e., <span style='color:#201F1E;background:white'>3 % DR
+      (and average assumption of estimated carbon damages))</span></li>
+  <li class=MsoNormal style='margin-right:0in'><span style='color:#201F1E;
+      background:white'>SCC starts at $66 in 2024 and increases over time</span></li>
+  <li class=MsoNormal style='margin-right:0in'>Represents the assumptions that
+      best align with the DOE and OMB discount rates</li>
  </ul>
- <li class=MsoNormal style='margin-right:0in;mso-list:l20 level1 lfo24;
-     tab-stops:list .5in'><span style='mso-bidi-font-size:12.0pt'>High - $198
-     in 2024<o:p></o:p></span></li>
+ <li class=MsoNormal style='margin-right:0in'>High - $198 in 2024</li>
  <ul style='margin-top:0in' type=circle>
-  <li class=MsoNormal style='margin-right:0in;mso-list:l20 level2 lfo24;
-      tab-stops:list 1.0in'><span style='mso-bidi-font-size:12.0pt'>95th
-      percentile SCC assuming a 3 % discount <span class=GramE>rate<span
-      style='mso-spacerun:yes'>  </span>(</span>i.e., </span><span
-      style='mso-bidi-font-size:12.0pt;color:#201F1E;background:white'>3 % DR (95<sup>th</sup>
-      percentile of estimated carbon damages))</span><span style='mso-bidi-font-size:
-      12.0pt'><o:p></o:p></span></li>
-  <li class=MsoNormal style='margin-right:0in;mso-list:l20 level2 lfo24;
-      tab-stops:list 1.0in'><span style='mso-bidi-font-size:12.0pt;color:#201F1E;
-      background:white'>SCC starts at $198 in 2024 and increases over <span
-      class=GramE>time</span></span><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></li>
+  <li class=MsoNormal style='margin-right:0in'>95th percentile SCC assuming a 3
+      % discount rateÂ  (i.e., <span style='color:#201F1E;background:white'>3 %
+      DR (95<sup>th</sup> percentile of estimated carbon damages))</span></li>
+  <li class=MsoNormal style='margin-right:0in'><span style='color:#201F1E;
+      background:white'>SCC starts at $198 in 2024 and increases over time</span></li>
  </ul>
 </ol>
 
 <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:
-0in;margin-left:1.0in;margin-bottom:.0001pt;mso-add-space:auto;text-indent:
--.25in;mso-list:l20 level2 lfo24;tab-stops:list 1.0in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-bidi-font-size:12.0pt'>Higher SCC values than with 3 % DR average because
-the estimated damages are greater (95<sup>th</sup> percentile) than in the <span
-class=GramE>Medium</span> case (50<sup>th</sup> percentile)<o:p></o:p></span></p>
+0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Higher SCC values than with 3 % DR average because the estimated
+damages are greater (95<sup>th</sup> percentile) than in the Medium case (50<sup>th</sup>
+percentile)</p>
 
-<p class=MsoNormal style='margin-right:0in;tab-stops:.5in'><b><span
-style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></b></p>
+<p class=MsoNormal style='margin-right:0in'><b>&nbsp;</b></p>
 
-<p class=MsoNormal style='margin-right:0in;tab-stops:.5in'><b><span
-style='mso-bidi-font-size:12.0pt'>Annual Inflation Rate:</span></b><span
-style='mso-bidi-font-size:12.0pt'> <o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in'><b>Annual Inflation Rate:</b> </p>
 
-<p class=MsoNormal style='margin-right:0in;tab-stops:.5in'><span
-style='mso-bidi-font-size:12.0pt'>The default rate of inflation is the
-long-term inflation rate calculated annually by DOE/FEMP using CEA data and the
-method described in 10 CFR 436, but without consideration of the 3.0 % floor
-for the real discount rate. The default inflation rate does not account for the
-discount rate floor to accommodate the need for market-based projections of
-future energy prices in contract negotiations. Otherwise, the default inflation
-rate would be artificially low in years when the 3.0&nbsp;% floor applies. The
-inflation rate may be edited.<o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in'>The default rate of inflation is
+the long-term inflation rate calculated annually by DOE/FEMP using CEA data and
+the method described in 10 CFR 436, but without consideration of the 3.0 %
+floor for the real discount rate. The default inflation rate does not account
+for the discount rate floor to accommodate the need for market-based
+projections of future energy prices in contract negotiations. Otherwise, the
+default inflation rate would be artificially low in years when the 3.0&nbsp;%
+floor applies. The inflation rate may be edited.</p>
 
 <ul style='margin-top:0in' type=disc>
- <li class=MsoNormal style='margin-right:0in;mso-list:l6 level1 lfo25;
-     tab-stops:list .5in'><i><span style='mso-bidi-font-size:12.0pt'>The tool
-     makes all the calculations using the default inflation rate</span></i><span
-     style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></li>
- <li class=MsoNormal style='margin-right:0in;mso-list:l6 level1 lfo25;
-     tab-stops:list .5in'><i><span style='mso-bidi-font-size:12.0pt'>If the
-     user decides to change the inflation rate, the calculations should be
-     re-created.</span></i><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></li>
+ <li class=MsoNormal style='margin-right:0in'><i>The tool makes all the
+     calculations using the default inflation rate</i></li>
+ <li class=MsoNormal style='margin-right:0in'><i>If the user decides to change
+     the inflation rate, the calculations should be re-created.</i></li>
 </ul>
 
-<p class=MsoNormal style='margin-right:0in;tab-stops:.5in'><b><span
-style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></b></p>
+<p class=MsoNormal style='margin-right:0in'><b>&nbsp;</b></p>
 
-<p class=MsoNormal style='margin-right:0in;tab-stops:.5in'><b><span
-style='mso-bidi-font-size:12.0pt'>Output - Annual Energy Escalation Rates:</span></b><span
-style='mso-bidi-font-size:12.0pt;color:windowtext'><o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in'><b>Output - Annual Energy
+Escalation Rates:</b></p>
 
 <ul type=disc>
- <li class=MsoNormal style='mso-margin-top-alt:auto;margin-right:0in;
-     mso-margin-bottom-alt:auto;mso-list:l6 level1 lfo25;tab-stops:list .5in'><i><span
-     style='mso-bidi-font-size:12.0pt'>Real and Nominal Escalation Rates</span></i><span
-     style='mso-bidi-font-size:12.0pt'>: The output of the program is the
-     calculated average escalation rate, stated both in real terms (excluding
-     the rate of inflation) and in nominal terms (including the rate of
-     inflation).<o:p></o:p></span></li>
+ <li class=MsoNormal style='margin-right:0in'><i>Real and Nominal Escalation
+     Rates</i>: The output of the program is the calculated average escalation
+     rate, stated both in real terms (excluding the rate of inflation) and in
+     nominal terms (including the rate of inflation).</li>
 </ul>
 
-<h2 style='margin-left:0in'><a name="_Toc21606437"><span style='font-size:12.0pt'>Functions</span></a><span
-style='font-size:12.0pt'><o:p></o:p></span></h2>
+<h2 style='margin-left:0in'><a name="_Toc21606437"><span style='font-size:12.0pt'>Functions</span></a></h2>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>To calculate the
-nominal escalation rate, which includes inflation, the calculator uses the
-following relationship:<o:p></o:p></span></p>
+<p class=MsoNormal>To calculate the nominal escalation rate, which includes
+inflation, the calculator uses the following relationship:</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt;mso-no-proof:yes'><v:shape
- id="Picture_x0020_12" o:spid="_x0000_i1028" type="#_x0000_t75" style='width:468pt;
- height:16.5pt;visibility:visible;mso-wrap-style:square'>
- <v:imagedata src="EERC%20User%20Guide%20-%202024_files/image003.emz" o:title=""/>
-</v:shape></span><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+<p class=MsoNormal><img width=468 height=17 id="Picture 12"
+src="EERC%20User%20Guide.fld/image003.png"></p>
 
-<p class=MsoNormal style='tab-stops:.5in 76.0pt'><span style='mso-bidi-font-size:
-12.0pt'>The calculated average annual escalation rate, <span class=SpellE><i
-style='mso-bidi-font-style:normal'>e<sub>avg</sub></i></span>, when applied to
-the base-year energy costs or savings of ESPC or UESC projects, results in
-approximately the same undiscounted total amounts over the performance period
-as do the EIA-projected, or adjusted EIA-projected, variable rates. If more
-than one fuel is used in the project, the EERC weights the average escalation
-rate according to the proportions stated by the user.<o:p></o:p></span></p>
+<p class=MsoNormal>The calculated average annual escalation rate, <i>e<sub>avg</sub></i>,
+when applied to the base-year energy costs or savings of ESPC or UESC projects,
+results in approximately the same undiscounted total amounts over the
+performance period as do the EIA-projected, or adjusted EIA-projected, variable
+rates. If more than one fuel is used in the project, the EERC weights the
+average escalation rate according to the proportions stated by the user.</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>To compute an
-average annual escalation rate, base-year (i.e., award year) energy costs are
-escalated from year to year at rates projected by EIA, or at EIA rates adjusted
-by NIST for carbon pricing, to arrive at the total energy cost over a given
-performance period. The escalation rates, e, are projected by census region,
-energy type, and industrial sector and vary from year to year. The formula used
-EERC prompts the user for information on the share of cost savings attributable
-to each fuel type, project location, industry sector, and the beginning date
-and duration of the performance period. It also prompts the user to select one
-of several carbon pricing scenarios -- no carbon pricing, low, medium, or high --then
-retrieves the relevant energy price forecasts and computes the average
-escalation rate, as described above. Since the performance period begins later
-than the base date, the calculated average rate includes the price escalation
-for the intervening year(s).<o:p></o:p></span></p>
+<p class=MsoNormal>To compute an average annual escalation rate, base-year (i.e.,
+award year) energy costs are escalated from year to year at rates projected by
+EIA, or at EIA rates adjusted by NIST for carbon pricing, to arrive at the
+total energy cost over a given performance period. The escalation rates, e, are
+projected by census region, energy type, and industrial sector and vary from
+year to year. The formula used EERC prompts the user for information on the
+share of cost savings attributable to each fuel type, project location,
+industry sector, and the beginning date and duration of the performance period.
+It also prompts the user to select one of several carbon pricing scenarios -- no
+carbon pricing, low, medium, or high --then retrieves the relevant energy price
+forecasts and computes the average escalation rate, as described above. Since
+the performance period begins later than the base date, the calculated average
+rate includes the price escalation for the intervening year(s).</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>to calculate total
-energy costs is:<o:p></o:p></span></p>
+<p class=MsoNormal>to calculate total energy costs is:</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt;mso-no-proof:yes'><v:shape
- id="Picture_x0020_10" o:spid="_x0000_i1027" type="#_x0000_t75" style='width:468pt;
- height:28.5pt;visibility:visible;mso-wrap-style:square'>
- <v:imagedata src="EERC%20User%20Guide%20-%202024_files/image004.emz" o:title=""/>
-</v:shape></span><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+<p class=MsoNormal><img width=468 height=28 id="Picture 10"
+src="EERC%20User%20Guide.fld/image004.png"></p>
 
-<p class=MsoNormal><span class=GramE><span style='mso-bidi-font-size:12.0pt'>where</span></span><span
-style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+<p class=MsoNormal>where</p>
 
-<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
-style='mso-bidi-font-size:12.0pt'>C</span></i><span style='mso-bidi-font-size:
-12.0pt'> is the undiscounted total of future energy costs over the performance
-period<o:p></o:p></span></p>
+<p class=MsoNormal><i>C</i> is the undiscounted total of future energy costs
+over the performance period</p>
 
-<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
-style='mso-bidi-font-size:12.0pt'>A</span></i><span style='mso-bidi-font-size:
-12.0pt'> is the base-year annual cost<o:p></o:p></span></p>
+<p class=MsoNormal><i>A</i> is the base-year annual cost</p>
 
-<p class=MsoNormal><span class=SpellE><i style='mso-bidi-font-style:normal'><span
-style='mso-bidi-font-size:12.0pt'>e<sub>i</sub></span></i></span><span
-style='mso-bidi-font-size:12.0pt'> is the annual escalation rate, which varies
-from year to year over the performance period<o:p></o:p></span></p>
+<p class=MsoNormal><i>e<sub>i</sub></i> is the annual escalation rate, which
+varies from year to year over the performance period</p>
 
-<p class=MsoNormal><i style='mso-bidi-font-style:normal'><span
-style='mso-bidi-font-size:12.0pt'>n</span></i><span style='mso-bidi-font-size:
-12.0pt'> is the number of years in the performance period<o:p></o:p></span></p>
+<p class=MsoNormal><i>n</i> is the number of years in the performance period</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>When the escalation
-rate is the same in each year of the study period, the series can be simplified
-to a factor applied to the base-year annual cost, A:<o:p></o:p></span></p>
+<p class=MsoNormal>When the escalation rate is the same in each year of the
+study period, the series can be simplified to a factor applied to the base-year
+annual cost, A:</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt;mso-no-proof:yes'><v:shape
- id="Content_x0020_Placeholder_x0020_6" o:spid="_x0000_i1026" type="#_x0000_t75"
- style='width:468pt;height:39pt;visibility:visible;mso-wrap-style:square'>
- <v:imagedata src="EERC%20User%20Guide%20-%202024_files/image005.emz" o:title=""/>
- <o:lock v:ext="edit" grouping="t"/>
-</v:shape></span><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+<p class=MsoNormal><img width=468 height=39 id="Content Placeholder 6"
+src="EERC%20User%20Guide.fld/image005.png"></p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>where <span
-class=SpellE><i style='mso-bidi-font-style:normal'>e<sub>avg</sub></i></span>
-is the average annual escalation rate<o:p></o:p></span></p>
+<p class=MsoNormal>where <i>e<sub>avg</sub></i> is the average annual
+escalation rate</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>Since a uniform
-escalation rate is needed to compute the contract payments in ESPC and UESC
-projects, the EERC uses this equation to approximate <i style='mso-bidi-font-style:
-normal'>C</i>, as calculated with EIA rates or adjusted EIA rates, and
-iteratively solves for <span class=SpellE><i style='mso-bidi-font-style:normal'>e<sub>avg</sub></i></span>,
-the average annual escalation rate. The relationship between the factor
-calculated in the equation and the variable escalation rates in the series can
-be expressed as follows for a performance period of <i style='mso-bidi-font-style:
-normal'>n</i> years duration:<o:p></o:p></span></p>
+<p class=MsoNormal>Since a uniform escalation rate is needed to compute the
+contract payments in ESPC and UESC projects, the EERC uses this equation to
+approximate <i>C</i>, as calculated with EIA rates or adjusted EIA rates, and
+iteratively solves for <i>e<sub>avg</sub></i>, the average annual escalation
+rate. The relationship between the factor calculated in the equation and the
+variable escalation rates in the series can be expressed as follows for a
+performance period of <i>n</i> years duration:</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt;mso-no-proof:yes'><v:shape
- id="Picture_x0020_4" o:spid="_x0000_i1025" type="#_x0000_t75" style='width:468pt;
- height:53.25pt;visibility:visible;mso-wrap-style:square'>
- <v:imagedata src="EERC%20User%20Guide%20-%202024_files/image006.emz" o:title=""/>
-</v:shape></span><span style='mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+<p class=MsoNormal><img width=468 height=53 id="Picture 4"
+src="EERC%20User%20Guide.fld/image006.png"></p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>The cost of carbon
-is calculated using the emissions per unit of fuel type, the SCC projections,
-and the carbon emissions factor to calculate a price per unit of fuel. Then <span
-class=GramE>its</span> added into the projected energy prices before the
-escalation rate is calculated.<o:p></o:p></span></p>
+<p class=MsoNormal>The cost of carbon is calculated using the emissions per
+unit of fuel type, the SCC projections, and the carbon emissions factor to
+calculate a price per unit of fuel. Then its added into the projected energy
+prices before the escalation rate is calculated.</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>For electricity, take
-the baseline CO<sub>2</sub>e emissions rate for a state and create the
-emissions rate for each year by multiplying it by the emission factor for that
-state (fraction of baseline emissions rate by year). This value is then
-multiplied by the SCC from the projected SCC scenario by year. This provides
-the carbon price per unit of electricity.<o:p></o:p></span></p>
+<p class=MsoNormal>For electricity, take the baseline CO<sub>2</sub>e emissions
+rate for a state and create the emissions rate for each year by multiplying it
+by the emission factor for that state (fraction of baseline emissions rate by
+year). This value is then multiplied by the SCC from the projected SCC scenario
+by year. This provides the carbon price per unit of electricity.</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>The CO<sub>2</sub>e
-emissions rates for other fuels (distillate oil, residual oil, <span
-class=SpellE>nat</span> gas, LPG, and coal) are based on EPA’s relevant emissions
-hub. These rates do not change by year. Therefore, the emissions per unit are
-constant over time.<o:p></o:p></span></p>
+<p class=MsoNormal>The CO<sub>2</sub>e emissions rates for other fuels
+(distillate oil, residual oil, nat gas, LPG, and coal) are based on EPAâ€™s relevant
+emissions hub. These rates do not change by year. Therefore, the emissions per
+unit are constant over time.</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>The energy price is
-adjusted by the cost of carbon per unit of fuel (assuming a 100% pass-through
-to the retail price). This is added before the escalation rates are calculated
-so that the escalation rates are appropriated adjusted for the carbon scenario.
-<o:p></o:p></span></p>
+<p class=MsoNormal>The energy price is adjusted by the cost of carbon per unit
+of fuel (assuming a 100% pass-through to the retail price). This is added
+before the escalation rates are calculated so that the escalation rates are
+appropriated adjusted for the carbon scenario. </p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><span style='mso-bidi-font-size:12.0pt'>The purpose of
-including the carbon cost is to adjust future energy prices to incorporate the
-social cost of carbon. Current energy prices have not internalized any of these
-external costs. Therefore, it is not appropriate to add the price of carbon to the
-base year energy prices. Instead, the addition of carbon to energy prices
-initially occurs for every year after the base year, <span class=GramE>similar
-to</span> what would happen to energy prices if legislation were to require energy
-producers to pay the estimated social cost of carbon on their production
-starting at the end of the base year. Alternatively, you could think of it as a
-federal agency deciding to start including the social cost of carbon into the costs
-considered for future energy consumption. The exceptions are California and the
-12 northeastern states that are part of the Regional Greenhouse Gas Initiative
-(RGGI), which each have a carbon market with average carbon prices of
-approximately $42 and $15 at the most recent auctions, respectively, at release
-of this document.<o:p></o:p></span></p>
+<p class=MsoNormal>The purpose of including the carbon cost is to adjust future
+energy prices to incorporate the social cost of carbon. Current energy prices have
+not internalized any of these external costs. Therefore, it is not appropriate
+to add the price of carbon to the base year energy prices. Instead, the
+addition of carbon to energy prices initially occurs for every year after the
+base year, similar to what would happen to energy prices if legislation were to
+require energy producers to pay the estimated social cost of carbon on their
+production starting at the end of the base year. Alternatively, you could think
+of it as a federal agency deciding to start including the social cost of carbon
+into the costs considered for future energy consumption. The exceptions are
+California and the 12 northeastern states that are part of the Regional
+Greenhouse Gas Initiative (RGGI), which each have a carbon market with average
+carbon prices of approximately $42 and $15 at the most recent auctions,
+respectively, at release of this document.</p>
 
-<h2 style='margin-left:0in'><a name="_Toc21606438"><span style='font-size:12.0pt'><o:p><span
- style='text-decoration:none'>&nbsp;</span></o:p></span></a></h2>
+<h2 style='margin-left:0in'><a name="_Toc21606438"><span style='font-size:12.0pt'><span
+ style='text-decoration:none'>&nbsp;</span></span></a></h2>
 
-<h2 style='margin-left:0in'><span style='mso-bookmark:_Toc21606438'><span
-style='font-size:12.0pt'>Data Tables</span></span><span style='font-size:12.0pt'><o:p></o:p></span></h2>
+<h2 style='margin-left:0in'><span style='font-size:12.0pt'>Data Tables</span></h2>
 
-<p class=MsoNormal style='margin-right:0in;tab-stops:.5in'><span
-style='mso-bidi-font-size:12.0pt'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal style='margin-right:0in'>&nbsp;</p>
 
-<p class=MsoNormal style='margin-right:0in;tab-stops:.5in'><span
-style='mso-bidi-font-size:12.0pt'>The data tables include <o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in'>The data tables include </p>
 
-<p class=MsoListParagraphCxSpFirst style='margin-right:0in;mso-add-space:auto;
-text-indent:-.25in;mso-list:l5 level1 lfo26;tab-stops:.5in'><![if !supportLists]><span
-style='mso-bidi-font-size:12.0pt'><span style='mso-list:Ignore'>1.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-bidi-font-size:12.0pt'>the <span class=SpellE>Encost</span> file
-that includes the EIA energy price projections for each fuel type over time<o:p></o:p></span></p>
+<p class=MsoListParagraphCxSpFirst style='margin-right:0in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>the Encost
+file that includes the EIA energy price projections for each fuel type over
+time</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;mso-add-space:auto;
-text-indent:-.25in;mso-list:l5 level2 lfo26;tab-stops:list 1.0in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-bidi-font-size:12.0pt'>This file is provided by EIA and then NIST
-manipulates it to create the annual supplement data<o:p></o:p></span></p>
+margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>This file is provided by EIA and then NIST manipulates it to
+create the annual supplement data</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-right:0in;mso-add-space:auto;
-text-indent:-.25in;mso-list:l5 level1 lfo26;tab-stops:.5in'><![if !supportLists]><span
-style='mso-bidi-font-size:12.0pt'><span style='mso-list:Ignore'>2.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-bidi-font-size:12.0pt'>CO2 Price file that includes the projected
-prices for CO<sub>2</sub>e emissions<o:p></o:p></span></p>
+<p class=MsoListParagraphCxSpMiddle style='margin-right:0in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2 Price
+file that includes the projected prices for CO<sub>2</sub>e emissions</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;mso-add-space:auto;
-text-indent:-.25in;mso-list:l5 level2 lfo26;tab-stops:list 1.0in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-bidi-font-size:12.0pt'>Provided by scenario and year<o:p></o:p></span></p>
+margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Provided by scenario and year</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-right:0in;mso-add-space:auto;
-text-indent:-.25in;mso-list:l5 level1 lfo26;tab-stops:.5in'><![if !supportLists]><span
-style='mso-bidi-font-size:12.0pt'><span style='mso-list:Ignore'>3.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-bidi-font-size:12.0pt'>CO2 Future Emissions file that includes the projected
-emissions rate factors for electricity generation over time<o:p></o:p></span></p>
+<p class=MsoListParagraphCxSpMiddle style='margin-right:0in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2 Future
+Emissions file that includes the projected emissions rate factors for
+electricity generation over time</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;mso-add-space:auto;
-text-indent:-.25in;mso-list:l5 level2 lfo26;tab-stops:list 1.0in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-bidi-font-size:12.0pt'>Fraction of Current Year’s Emissions Rate by
-state<o:p></o:p></span></p>
+margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Fraction of Current Yearâ€™s Emissions Rate by state</p>
 
-<p class=MsoListParagraphCxSpMiddle style='margin-right:0in;mso-add-space:auto;
-text-indent:-.25in;mso-list:l5 level1 lfo26;tab-stops:.5in'><![if !supportLists]><span
-style='mso-bidi-font-size:12.0pt'><span style='mso-list:Ignore'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-bidi-font-size:12.0pt'>CO2 Factors file that includes the baseline emissions
-rates for electricity and other fuel types<o:p></o:p></span></p>
+<p class=MsoListParagraphCxSpMiddle style='margin-right:0in;text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span>CO2
+Factors file that includes the baseline emissions rates for electricity and
+other fuel types</p>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;mso-add-space:auto;
-text-indent:-.25in;mso-list:l5 level2 lfo26;tab-stops:list 1.0in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-bidi-font-size:12.0pt'>Electricity emission rates are provided by state<o:p></o:p></span></p>
+margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Electricity emission rates are provided by state</p>
 
 <p class=MsoListParagraphCxSpLast style='margin-top:0in;margin-right:0in;
-margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;mso-add-space:auto;
-text-indent:-.25in;mso-list:l5 level2 lfo26;tab-stops:list 1.0in'><![if !supportLists]><span
-style='font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
-style='mso-bidi-font-size:12.0pt'>Other fuel types are assumed to be constant
-using a national average rate<o:p></o:p></span></p>
+margin-bottom:0in;margin-left:1.0in;margin-bottom:.0001pt;text-indent:-.25in'><span
+style='font-size:10.0pt;font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Other fuel types are assumed to be constant using a national
+average rate</p>
 
-<p class=MsoNormal style='margin-right:0in;tab-stops:.5in'><span
-style='mso-bidi-font-size:12.0pt'>These data tables are called on by the code,
-will stay constant over time in term of format, but the data is updated
-annually.<o:p></o:p></span></p>
+<p class=MsoNormal style='margin-right:0in'>These data tables are called on by
+the code, will stay constant over time in term of format, but the data is
+updated annually.</p>
 
 </div>
 
