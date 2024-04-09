@@ -145,7 +145,7 @@ function slidervaluetext(value) {
   return `${value} years`;
 }
 const default_duration = min_duration;
-const default_inflationrate = "2.3";
+const default_inflationrate = "2.9";
 const default_locale = '';
 const default_sector = '';
 const default_startdate = '';
