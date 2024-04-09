@@ -1,6 +1,6 @@
 {
   "name": "eerc",
-  "version": "2.1.3-20231010",
+  "version": "2.2.1-20240409",
   "private": true,
   "homepage": ".",
   "dependencies": {
