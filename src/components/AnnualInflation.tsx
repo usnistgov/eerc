@@ -1,14 +1,11 @@
-import { InputNumber, Typography } from "antd";
-import React from "react";
-
-const { Title } = Typography;
+import { Space } from "antd";
+import NumberInput from "./NumberInput";
 
 function AnnualInflation() {
 	return (
-		<div>
-			<Title level={4}>Annual Inflation Rate</Title>
-			<InputNumber addonAfter={"%"} defaultValue={2} className="w-25" />
-		</div>
+		<Space className="flex justify-center py-5">
+			<NumberInput label="" addOn="%" />
+		</Space>
 	);
 }
 

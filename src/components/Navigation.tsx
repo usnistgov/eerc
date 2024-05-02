@@ -1,6 +1,5 @@
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
-import React from "react";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -66,9 +65,9 @@ const rightMenuItems: MenuItem[] = [
 
 function Navigation() {
 	return (
-		<div>
+		<div className="flex justify-between">
 			<Menu mode="horizontal" items={leftMenuItems} />
-			<Menu mode="horizontal" items={rightMenuItems} />
+			<Menu className="w-28" mode="horizontal" items={rightMenuItems} />
 		</div>
 	);
 }

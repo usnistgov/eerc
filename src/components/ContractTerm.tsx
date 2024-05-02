@@ -1,7 +1,5 @@
-import { InputNumber, Select, Typography } from "antd";
-import React from "react";
-
-const { Title } = Typography;
+import { Select, Space } from "antd";
+import NumberInput from "./NumberInput";
 
 function ContractTerm() {
 	const onChange = (value: string) => {
@@ -24,8 +22,7 @@ function ContractTerm() {
 	};
 
 	return (
-		<div>
-			<Title level={4}>Contract Term</Title>
+		<Space className="flex justify-center py-5">
 			<Select
 				showSearch
 				placeholder="Start Date"
@@ -35,8 +32,8 @@ function ContractTerm() {
 				filterOption={filterOption}
 				options={options(2024)}
 			/>
-			<InputNumber addonAfter={"years"} min={15} max={40} defaultValue={15} className="w-25" />
-		</div>
+			<NumberInput addOn="years" min={15} max={40} />
+		</Space>
 	);
 }
 
