@@ -12,8 +12,9 @@ function NumberInput(props: {
 	// InputNumberProps["onChange"];
 	// ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined;
 	status?: "error" | "warning" | undefined;
+	defaultValue?: number;
 }) {
-	const { label, addOn, min, max, readOnly, value, onChange, status } = props;
+	const { label, addOn, min, max, readOnly, value, onChange, status, defaultValue } = props;
 	return (
 		<Space>
 			<Title level={5}>{label}</Title>
@@ -26,6 +27,7 @@ function NumberInput(props: {
 				value={value}
 				onChange={onChange}
 				status={status}
+				defaultValue={defaultValue}
 			/>
 		</Space>
 	);
