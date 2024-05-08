@@ -28,7 +28,7 @@ function App() {
 					</Title>
 				</Space>
 				<Content>
-					<Divider>Date & Fuel Rate Information</Divider>
+					<Divider>Data & Fuel Rate Information</Divider>
 					<FuelRateInfo />
 					<Divider>Percent of Energy Cost Savings</Divider>
 					<EnergyCostSavings />

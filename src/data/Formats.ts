@@ -1,3 +1,10 @@
+export type DataFuelRateInfo = {
+	year: string;
+	sector: string;
+	state: string;
+	zipcode: string;
+};
+
 export type EnergySavings = {
 	coal: number;
 	oil: number;
