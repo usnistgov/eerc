@@ -1,9 +1,12 @@
 import { Select, Space } from "antd";
+import { useState } from "react";
+import { Contract } from "../data/Formats";
 import NumberInput from "./NumberInput";
 
 function ContractTerm() {
+	const [contract, setContract] = useState<Contract>({ startDate: "", term: 15 });
 	const onChange = (value: string) => {
-		console.log(`selected ${value}`);
+		setContract({ ...contract, startDate: value });
 	};
 
 	const onSearch = (value: string) => {
@@ -20,7 +23,7 @@ function ContractTerm() {
 			return { value: `${year}`, label: `${year}` };
 		});
 	};
-
+	console.log(contract);
 	return (
 		<Space className="flex justify-center py-5">
 			<Select
@@ -28,11 +31,11 @@ function ContractTerm() {
 				placeholder="Start Date"
 				optionFilterProp="children"
 				onChange={onChange}
-				onSearch={onSearch}
-				filterOption={filterOption}
+				// onSearch={onSearch}
+				// filterOption={filterOption}
 				options={options(2024)}
 			/>
-			<NumberInput addOn="years" min={15} max={40} />
+			<NumberInput addOn="years" min={15} max={40} onChange={(val) => setContract({ ...contract, term: val })} />
 		</Space>
 	);
 }

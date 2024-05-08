@@ -5,3 +5,8 @@ export type EnergySavings = {
 	gas: number;
 	residual: number;
 };
+
+export type Contract = {
+	startDate: string;
+	term: number;
+};
