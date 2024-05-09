@@ -23,6 +23,7 @@ function EnergyCostSavings() {
 					min={0}
 					max={100}
 					addOn="%"
+					title="Percentage of energy cost savings in dollars that is attributable to coal used in the project. This input is used to weight the escalation rate."
 					onChange={(value: number) => setEnergySavings({ ...energySavings, coal: value })}
 				/>
 				<NumberInput
@@ -30,6 +31,7 @@ function EnergyCostSavings() {
 					min={0}
 					max={100}
 					addOn="%"
+					title="Percentage of energy cost savings in dollars that is attributable to distillate oil used in the project. This input is used to weight the escalation rate."
 					onChange={(value: number) => setEnergySavings({ ...energySavings, oil: value })}
 				/>
 				<NumberInput
@@ -37,6 +39,7 @@ function EnergyCostSavings() {
 					min={0}
 					max={100}
 					addOn="%"
+					title="Percentage of energy cost savings in dollars that is attributable to electricity used in the project. This input is used to weight the escalation rate."
 					onChange={(value: number) => setEnergySavings({ ...energySavings, electricity: value })}
 				/>
 				<NumberInput
@@ -44,6 +47,7 @@ function EnergyCostSavings() {
 					min={0}
 					max={100}
 					addOn="%"
+					title="Percentage of energy cost savings in dollars that is attributable to natural gas used in the project. This input is used to weight the escalation rate."
 					onChange={(value: number) => setEnergySavings({ ...energySavings, gas: value })}
 				/>
 				<NumberInput
@@ -51,6 +55,7 @@ function EnergyCostSavings() {
 					min={0}
 					max={100}
 					addOn="%"
+					title="Percentage of energy cost savings in dollars that is attributable to residual used in the project. This input is used to weight the escalation rate."
 					onChange={(value: number) => setEnergySavings({ ...energySavings, residual: value })}
 				/>
 			</Space>

@@ -1,4 +1,4 @@
-import { InputNumber, Space, Typography } from "antd";
+import { InputNumber, Space, Tooltip, Typography } from "antd";
 const { Title } = Typography;
 
 function NumberInput(props: {
@@ -13,23 +13,26 @@ function NumberInput(props: {
 	// ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined;
 	status?: "error" | "warning" | undefined;
 	defaultValue?: number;
+	title?: string;
 }) {
-	const { label, addOn, min, max, readOnly, value, onChange, status, defaultValue } = props;
+	const { label, addOn, min, max, readOnly, value, onChange, status, defaultValue, title } = props;
 	return (
-		<Space>
-			<Title level={5}>{label}</Title>
-			<InputNumber
-				addonAfter={addOn}
-				min={min}
-				max={max}
-				readOnly={readOnly || false}
-				className="w-28"
-				value={value}
-				onChange={onChange}
-				status={status}
-				defaultValue={defaultValue}
-			/>
-		</Space>
+		<Tooltip title={title}>
+			<Space>
+				<Title level={5}>{label}</Title>
+				<InputNumber
+					addonAfter={addOn}
+					min={min}
+					max={max}
+					readOnly={readOnly || false}
+					className="w-28"
+					value={value}
+					onChange={onChange}
+					status={status}
+					defaultValue={defaultValue}
+				/>
+			</Space>
+		</Tooltip>
 	);
 }
 

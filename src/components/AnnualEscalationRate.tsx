@@ -6,8 +6,18 @@ function AnnualEscalationRate() {
 	return (
 		<Space direction="vertical" className="flex justify-center items-center">
 			<Space className="flex justify-around py-5">
-				<NumberInput addOn="%" label="Real" />
-				<NumberInput addOn="%" label="Nominal" />
+				<NumberInput
+					addOn="%"
+					label="Real"
+					title="The calculated average escalation rate in real terms (excluding the rate of inflation). Estimated using the energy prices for the sector, fuel mix, and location."
+					readOnly
+				/>
+				<NumberInput
+					addOn="%"
+					label="Nominal"
+					title="The calculated average escalation rate in nominal terms (including the rate of inflation). Calculated using the real escalation rate and input inflation rate."
+					readOnly
+				/>
 			</Space>
 			<Space className="flex justify-center py-5">
 				<Button

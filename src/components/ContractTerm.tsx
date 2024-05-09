@@ -1,4 +1,4 @@
-import { Select, Space } from "antd";
+import { Select, Space, Tooltip } from "antd";
 import { useState } from "react";
 import { Contract } from "../data/Formats";
 import NumberInput from "./NumberInput";
@@ -9,13 +9,13 @@ function ContractTerm() {
 		setContract({ ...contract, startDate: value });
 	};
 
-	const onSearch = (value: string) => {
-		console.log("search:", value);
-	};
+	// const onSearch = (value: string) => {
+	// 	console.log("search:", value);
+	// };
 
-	// Filter `option.label` match the user type `input`
-	const filterOption = (input: string, option?: { label: string; value: string }) =>
-		(option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+	// // Filter `option.label` match the user type `input`
+	// const filterOption = (input: string, option?: { label: string; value: string }) =>
+	// 	(option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
 	const options = (date: number) => {
 		return Array.from({ length: 4 }, (_, index: number) => {
@@ -26,16 +26,24 @@ function ContractTerm() {
 	console.log(contract);
 	return (
 		<Space className="flex justify-center py-5">
-			<Select
-				showSearch
-				placeholder="Start Date"
-				optionFilterProp="children"
-				onChange={onChange}
-				// onSearch={onSearch}
-				// filterOption={filterOption}
-				options={options(2024)}
+			<Tooltip title="Year of award contract/signing">
+				<Select
+					showSearch
+					placeholder="Start Date"
+					optionFilterProp="children"
+					onChange={onChange}
+					// onSearch={onSearch}
+					// filterOption={filterOption}
+					options={options(2024)}
+				/>
+			</Tooltip>
+			<NumberInput
+				addOn="years"
+				min={15}
+				max={40}
+				onChange={(val) => setContract({ ...contract, term: val })}
+				title="Number of years of the contract term"
 			/>
-			<NumberInput addOn="years" min={15} max={40} onChange={(val) => setContract({ ...contract, term: val })} />
 		</Space>
 	);
 }
