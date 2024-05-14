@@ -13,6 +13,7 @@ export type NumberInputProps = {
 	label?: string;
 	readOnly?: boolean;
 	title?: string;
+	status?: "" | "error" | "warning" | undefined;
 };
 
 export type NumberInput = {
@@ -37,13 +38,14 @@ export default function textInput(value$: Observable<number | undefined> = EMPTY
 			title,
 			label,
 			readOnly,
+			status,
 		}: PropsWithChildren & NumberInputProps) => {
 			return (
 				<Tooltip title={title}>
 					<Space className="flex justify-center">
 						<Title level={5}>{label}</Title>
 						<InputNumber
-							className={className + " w-24"}
+							className={"w-24 " + className}
 							addonAfter={addOn || "%"}
 							min={min}
 							max={max}
@@ -53,6 +55,7 @@ export default function textInput(value$: Observable<number | undefined> = EMPTY
 								if (value !== null) onChange(value);
 							}}
 							defaultValue={defaultValue}
+							status={status}
 						/>
 					</Space>
 				</Tooltip>

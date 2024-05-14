@@ -20,6 +20,7 @@ const [useOil, oil$] = bind(_form$.pipe(map((p) => p?.oil)));
 const [useElectricity, electricity$] = bind(_form$.pipe(map((p) => p?.electricty)));
 const [useGas, gas$] = bind(_form$.pipe(map((p) => p?.gas)));
 const [useResidual, residual$] = bind(_form$.pipe(map((p) => p?.residual)));
+const [useTotal, total$] = bind(_form$.pipe(map((p) => p?.total)));
 
 const [useContractStartDate, contractStartDateType$] = bind(_form$.pipe(map((p) => p?.contractStartDateType)));
 const [useContractTermDuration, contractTermDuration$] = bind(_form$.pipe(map((p) => p?.contractTermDuration)));
@@ -51,6 +52,8 @@ const Model = {
 	gas$,
 	useResidual,
 	residual$,
+	useTotal,
+	total$,
 	useContractStartDate,
 	contractStartDateType$,
 	useContractTermDuration,

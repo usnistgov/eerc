@@ -1,8 +1,9 @@
-import { Divider, Layout, Space, Typography } from "antd";
+import { Layout, Space, Typography } from "antd";
 
-import { SectorType, SocialCostType } from "../data/Formats";
+import { SectorType, SocialCostType, StateType, currentYear } from "../data/Formats";
 import { Model } from "../data/Model";
 import Disclaimer from "./Disclaimer";
+import DividerComp from "./Divider";
 import dropdown from "./Dropdown";
 import Navigation from "./Navigation";
 import inputNumber from "./NumberInput";
@@ -11,14 +12,11 @@ const { Content, Footer } = Layout;
 const { Title } = Typography;
 
 const { change$: dataYearChange$, component: DataYear } = dropdown(
-	Object.values(SocialCostType),
-	Model.socialCostCarbonType$,
+	Object.values({ current: currentYear, prev: currentYear - 1 }),
+	Model.dataYearType$,
 );
 const { change$: sectorChange$, component: Sector } = dropdown(Object.values(SectorType), Model.sectorType$);
-const { change$: stateChange$, component: State } = dropdown(
-	Object.values(SocialCostType),
-	Model.socialCostCarbonType$,
-);
+const { change$: stateChange$, component: State } = dropdown(Object.values(StateType), Model.socialCostCarbonType$);
 const { change$: zipcodeChange$, component: Zipcode } = dropdown(
 	Object.values(SocialCostType),
 	Model.socialCostCarbonType$,
@@ -29,10 +27,16 @@ const { onChange$: oilChange$, component: Oil } = inputNumber(Model.oil$);
 const { onChange$: electricityChange$, component: Electricity } = inputNumber(Model.electricity$);
 const { onChange$: gasChange$, component: Gas } = inputNumber(Model.gas$);
 const { onChange$: residualChange$, component: Residual } = inputNumber(Model.residual$);
+const { onChange$: totalChange$, component: Total } = inputNumber(Model.total$);
 
 const { change$: contractStartDateChange$, component: ContractStartDate } = dropdown(
-	Object.values(SocialCostType),
-	Model.socialCostCarbonType$,
+	Object.values({
+		current: currentYear,
+		current1: currentYear + 1,
+		current2: currentYear + 2,
+		current3: currentYear + 3,
+	}),
+	Model.contractStartDateType$,
 );
 
 const { onChange$: contractTermChange$, component: ContractTermDuration } = inputNumber(Model.contractTermDuration$);
@@ -62,6 +66,7 @@ export {
 	sectorChange$,
 	socialCostChange$,
 	stateChange$,
+	totalChange$,
 	zipcodeChange$,
 };
 
@@ -72,13 +77,13 @@ function Form() {
 			<Space direction="vertical" className="py-12 px-36 w-full">
 				<Space className="flex justify-center flex-col">
 					<Title level={2}>NIST Energy Escalation Rate Calculator</Title>
-					<Title level={5}>(Loaded 2024 dataset) </Title>
+					<Title level={5}>Data loaded through {currentYear}</Title>
 					<Title level={4}>
 						To use, complete all form fields. Computed results are shown immedately at the bottom of the page.
 					</Title>
 				</Space>
 				<Content>
-					<Divider>Data & Fuel Rate Information</Divider>
+					<DividerComp heading={"Data & Fuel Rate Information"} title="tooltip" />
 					<Space className="flex justify-center">
 						<DataYear placeholder="Year of Data" />
 						<Sector placeholder="Select Sector" />
@@ -86,30 +91,33 @@ function Form() {
 						<Zipcode placeholder="Select Zipcode" />
 					</Space>
 
-					<Divider>Percent of Energy Cost Savings</Divider>
+					<DividerComp heading={"Percent of Energy Cost Savings"} title="tooltip" />
 					<Space className="flex justify-center">
 						<Coal label="Coal" min={0} />
 						<Oil label="Oil" min={0} />
 						<Electricity label="Electricity" min={0} />
 						<Gas label="Gas" min={0} />
-						<Residual label="Resicual" min={0} />
+						<Residual label="Residual" min={0} />
+					</Space>
+					<Space className="flex justify-center mt-5">
+						<Total label="Total" min={0} status="error" />
 					</Space>
 
-					<Divider>Contract Term</Divider>
+					<DividerComp heading={"Contract Term"} title="tooltip" />
 					<Space className="flex justify-center">
 						<ContractStartDate placeholder="Start Date" />
-						<ContractTermDuration min={0} />
+						<ContractTermDuration min={0} addOn={"years"} className="w-28" />
 					</Space>
 
-					<Divider>Social Cost of Carbon Assumptions</Divider>
+					<DividerComp heading={"Social Cost of Carbon Assumptions"} title="tooltip" />
 					<Space className="flex justify-center">
 						<SocialCostCarbon placeholder="Select Social Cost of Carbon" />
 					</Space>
 
-					<Divider>Annual Inflation Rate</Divider>
+					<DividerComp heading={"Annual Inflation Rate"} title="tooltip" />
 					<AnnualInflationRate min={0} defaultValue={2.9} />
 
-					<Divider>Annual Energy Escalation Rate</Divider>
+					<DividerComp heading={"Annual Energy Escalation Rate"} title="tooltip" />
 					<Space className="flex justify-center">
 						<RealRate label="Real" readOnly />
 						<NominalRate label="Nominal" readOnly />
