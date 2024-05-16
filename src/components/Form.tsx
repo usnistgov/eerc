@@ -1,26 +1,24 @@
 import { Layout, Space, Typography } from "antd";
 
-import { SectorType, SocialCostType, StateType, currentYear } from "../data/Formats";
+import { useEffect, useState } from "react";
+import { Subject } from "rxjs";
+import {
+	ContractStartDateType,
+	DataYearType,
+	SectorType,
+	SocialCostType,
+	StateType,
+	currentYear,
+} from "../data/Formats";
 import { Model } from "../data/Model";
 import Disclaimer from "./Disclaimer";
 import DividerComp from "./Divider";
-import dropdown from "./Dropdown";
+import { Dropdown } from "./Dropdown";
 import Navigation from "./Navigation";
 import inputNumber from "./NumberInput";
 
 const { Content, Footer } = Layout;
 const { Title } = Typography;
-
-const { change$: dataYearChange$, component: DataYear } = dropdown(
-	Object.values({ current: currentYear, prev: currentYear - 1 }),
-	Model.dataYearType$,
-);
-const { change$: sectorChange$, component: Sector } = dropdown(Object.values(SectorType), Model.sectorType$);
-const { change$: stateChange$, component: State } = dropdown(Object.values(StateType), Model.socialCostCarbonType$);
-const { change$: zipcodeChange$, component: Zipcode } = dropdown(
-	Object.values(SocialCostType),
-	Model.socialCostCarbonType$,
-);
 
 const { onChange$: coalChange$, component: Coal } = inputNumber(Model.coal$);
 const { onChange$: oilChange$, component: Oil } = inputNumber(Model.oil$);
@@ -29,28 +27,20 @@ const { onChange$: gasChange$, component: Gas } = inputNumber(Model.gas$);
 const { onChange$: residualChange$, component: Residual } = inputNumber(Model.residual$);
 const { onChange$: totalChange$, component: Total } = inputNumber(Model.total$);
 
-const { change$: contractStartDateChange$, component: ContractStartDate } = dropdown(
-	Object.values({
-		current: currentYear,
-		current1: currentYear + 1,
-		current2: currentYear + 2,
-		current3: currentYear + 3,
-	}),
-	Model.contractStartDateType$,
-);
-
 const { onChange$: contractTermChange$, component: ContractTermDuration } = inputNumber(Model.contractTermDuration$);
-
-const { change$: socialCostChange$, component: SocialCostCarbon } = dropdown(
-	Object.values(SocialCostType),
-	Model.socialCostCarbonType$,
-);
 
 const { onChange$: inflationRateChange$, component: AnnualInflationRate } = inputNumber(Model.annualInflationRate$);
 
 const { onChange$: realRateChange$, component: RealRate } = inputNumber(Model.realRate$);
 const { onChange$: nominalRateChange$, component: NominalRate } = inputNumber(Model.nominalRate$);
 
+const dataYearChange$ = new Subject<typeof DataYearType>();
+const sectorChange$ = new Subject<SectorType>();
+const stateChange$ = new Subject<StateType>();
+const zipCodeChange$ = new Subject<SocialCostType>();
+
+const socialCostChange$ = new Subject<SocialCostType>();
+const contractStartDateChange$ = new Subject<typeof ContractStartDateType>();
 export {
 	coalChange$,
 	contractStartDateChange$,
@@ -67,10 +57,16 @@ export {
 	socialCostChange$,
 	stateChange$,
 	totalChange$,
-	zipcodeChange$,
+	zipCodeChange$,
 };
 
 function Form() {
+	const [sectorType, setSectorType] = useState<"Industrial" | "">("Industrial");
+	useEffect(() => {
+		sectorChange$.subscribe((sector) => {
+			setSectorType(sector === "Industrial" ? "Industrial" : "");
+		});
+	}, [sectorType]);
 	return (
 		<>
 			<Navigation />
@@ -85,15 +81,43 @@ function Form() {
 				<Content>
 					<DividerComp heading={"Data & Fuel Rate Information"} title="tooltip" />
 					<Space className="flex justify-center">
-						<DataYear placeholder="Year of Data" />
-						<Sector placeholder="Select Sector" />
-						<State placeholder="Select State" />
-						<Zipcode placeholder="Select Zipcode" />
+						<Dropdown
+							className={"w-64"}
+							options={Object.values(DataYearType)}
+							value$={dataYearChange$}
+							wire={dataYearChange$}
+							showSearch
+							placeholder="Year of Data"
+						/>
+						<Dropdown
+							className={"w-64"}
+							placeholder="Select Sector"
+							options={Object.values(SectorType)}
+							value$={sectorChange$}
+							wire={sectorChange$}
+							showSearch
+						/>
+						<Dropdown
+							className={"w-64"}
+							placeholder="Select State"
+							options={Object.values(StateType)}
+							value$={stateChange$}
+							wire={stateChange$}
+							showSearch
+						/>
+						<Dropdown
+							className={"w-64"}
+							placeholder="Select Zipcode"
+							options={Object.values(SocialCostType)}
+							value$={zipCodeChange$}
+							wire={zipCodeChange$}
+							showSearch
+						/>
 					</Space>
 
 					<DividerComp heading={"Percent of Energy Cost Savings"} title="tooltip" />
 					<Space className="flex justify-center">
-						<Coal label="Coal" min={0} />
+						{sectorType === "Industrial" ? <Coal label="Coal" min={0} /> : ""}
 						<Oil label="Oil" min={0} />
 						<Electricity label="Electricity" min={0} />
 						<Gas label="Gas" min={0} />
@@ -105,13 +129,27 @@ function Form() {
 
 					<DividerComp heading={"Contract Term"} title="tooltip" />
 					<Space className="flex justify-center">
-						<ContractStartDate placeholder="Start Date" />
+						<Dropdown
+							className={"w-64"}
+							placeholder="Start Date"
+							options={Object.values(ContractStartDateType)}
+							value$={contractStartDateChange$}
+							wire={contractStartDateChange$}
+							showSearch
+						/>
 						<ContractTermDuration min={0} addOn={"years"} className="w-28" />
 					</Space>
 
 					<DividerComp heading={"Social Cost of Carbon Assumptions"} title="tooltip" />
 					<Space className="flex justify-center">
-						<SocialCostCarbon placeholder="Select Social Cost of Carbon" />
+						<Dropdown
+							className={"w-64"}
+							placeholder="Select Social Cost of Carbon"
+							options={Object.values(SocialCostType)}
+							value$={socialCostChange$}
+							wire={socialCostChange$}
+							showSearch
+						/>
 					</Space>
 
 					<DividerComp heading={"Annual Inflation Rate"} title="tooltip" />

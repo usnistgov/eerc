@@ -1,14 +1,13 @@
 import { bind, shareLatest } from "@react-rxjs/core";
-import { NEVER, map, switchMap } from "rxjs";
-import { filter, startWith } from "rxjs/operators";
+import { selfDependent } from "@react-rxjs/utils";
+import { map } from "rxjs";
+import { Form } from "./Formats";
 
-export const currentForm$ = NEVER.pipe(startWith(1));
+const [_f$, connectForm] = selfDependent<Form>();
 
-currentForm$.subscribe(console.log);
+const _form$ = _f$.pipe(shareLatest());
 
-export const [useForm, form$] = bind(currentForm$, undefined);
-
-const _form$ = form$.pipe(shareLatest());
+export { _form$, connectForm };
 
 const [useDataYear, dataYearType$] = bind(_form$.pipe(map((p) => p?.dataYearType)));
 const [useSector, sectorType$] = bind(_form$.pipe(map((p) => p?.sectorType)));
@@ -32,7 +31,7 @@ const [useRealRate, realRate$] = bind(_form$.pipe(map((p) => p?.realRate)));
 const [usenominalRate, nominalRate$] = bind(_form$.pipe(map((p) => p?.nominalRate)));
 
 const Model = {
-	project$: _form$,
+	form$: _form$,
 
 	useDataYear,
 	dataYearType$,

@@ -18,7 +18,8 @@ import {
 	sectorChange$,
 	socialCostChange$,
 	stateChange$,
-	zipcodeChange$,
+	totalChange$,
+	zipCodeChange$,
 } from "../components/Form";
 import { SectorType, SocialCostType } from "./Formats";
 
@@ -27,12 +28,13 @@ const form$ = mergeWithKey({
 	dataYear: dataYearChange$,
 	sector: sectorChange$,
 	state: stateChange$,
-	zipcode: zipcodeChange$,
+	zipcode: zipCodeChange$,
 	oil: oilChange$,
 	coal: coalChange$,
 	electricity: electricityChange$,
 	gas: gasChange$,
 	residual: residualChange$,
+	total: totalChange$,
 	contractStartDate: contractStartDateChange$,
 	contractTerm: contractTermChange$,
 	socialCost: socialCostChange$,
@@ -42,17 +44,17 @@ const form$ = mergeWithKey({
 }).pipe(
 	scan(
 		(accumulator, operation) => {
-			accumulator[operation.type] = operation.payload as never;
+			switch (operation.type) {
+				default: {
+					accumulator[operation.type] = operation.payload as never;
+					break;
+				}
+			}
 			return accumulator;
-			// switch (operation.type) {
-			// 	default: {
-			// break;
-			// }
-			// }
 		},
 		{
 			dataYear: new Date().getFullYear(),
-			sector: SectorType.COMMERCIAL,
+			sector: SectorType.INDUSTRIAL,
 			state: "",
 			zipcode: "",
 			coal: 0,
@@ -60,6 +62,7 @@ const form$ = mergeWithKey({
 			electricity: 0,
 			gas: 0,
 			residual: 0,
+			total: 0,
 			contractStartDate: new Date().getFullYear(),
 			contractTerm: 15,
 			socialCost: SocialCostType.NONE,

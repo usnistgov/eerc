@@ -114,3 +114,15 @@ export enum StateType {
 }
 
 export const currentYear = 2024;
+
+export const DataYearType = {
+	PREVIOUS: currentYear - 1,
+	CURRENT: currentYear,
+};
+
+export const ContractStartDateType = {
+	CURRENT: currentYear,
+	CURRENT1: currentYear + 1,
+	CURRENT2: currentYear + 2,
+	CURRENT3: currentYear + 3,
+};
