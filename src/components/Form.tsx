@@ -10,34 +10,31 @@ import {
 	StateType,
 	currentYear,
 } from "../data/Formats";
-import { Model } from "../data/Model";
 import Disclaimer from "./Disclaimer";
 import DividerComp from "./Divider";
 import { Dropdown } from "./Dropdown";
 import Navigation from "./Navigation";
-import inputNumber from "./NumberInput";
+import NumberInput from "./NumberInput";
 
 const { Content, Footer } = Layout;
 const { Title } = Typography;
-
-const { onChange$: coalChange$, component: Coal } = inputNumber(Model.coal$);
-const { onChange$: oilChange$, component: Oil } = inputNumber(Model.oil$);
-const { onChange$: electricityChange$, component: Electricity } = inputNumber(Model.electricity$);
-const { onChange$: gasChange$, component: Gas } = inputNumber(Model.gas$);
-const { onChange$: residualChange$, component: Residual } = inputNumber(Model.residual$);
-const { onChange$: totalChange$, component: Total } = inputNumber(Model.total$);
-
-const { onChange$: contractTermChange$, component: ContractTermDuration } = inputNumber(Model.contractTermDuration$);
-
-const { onChange$: inflationRateChange$, component: AnnualInflationRate } = inputNumber(Model.annualInflationRate$);
-
-const { onChange$: realRateChange$, component: RealRate } = inputNumber(Model.realRate$);
-const { onChange$: nominalRateChange$, component: NominalRate } = inputNumber(Model.nominalRate$);
 
 const dataYearChange$ = new Subject<typeof DataYearType>();
 const sectorChange$ = new Subject<SectorType>();
 const stateChange$ = new Subject<StateType>();
 const zipCodeChange$ = new Subject<SocialCostType>();
+
+const coalChange$ = new Subject();
+const oilChange$ = new Subject();
+const electricityChange$ = new Subject();
+const gasChange$ = new Subject();
+const residualChange$ = new Subject();
+const totalChange$ = new Subject();
+
+const contractTermChange$ = new Subject();
+const inflationRateChange$ = new Subject();
+const realRateChange$ = new Subject();
+const nominalRateChange$ = new Subject();
 
 const socialCostChange$ = new Subject<SocialCostType>();
 const contractStartDateChange$ = new Subject<typeof ContractStartDateType>();
@@ -117,14 +114,14 @@ function Form() {
 
 					<DividerComp heading={"Percent of Energy Cost Savings"} title="tooltip" />
 					<Space className="flex justify-center">
-						{sectorType === "Industrial" ? <Coal label="Coal" min={0} /> : ""}
-						<Oil label="Oil" min={0} />
-						<Electricity label="Electricity" min={0} />
-						<Gas label="Gas" min={0} />
-						<Residual label="Residual" min={0} />
+						<NumberInput value$={coalChange$} wire={coalChange$} label="Coal" min={0} />
+						<NumberInput value$={oilChange$} wire={oilChange$} label="Oil" min={0} />
+						<NumberInput value$={electricityChange$} wire={electricityChange$} label="Electricity" min={0} />
+						<NumberInput value$={gasChange$} wire={gasChange$} label="Gas" min={0} />
+						<NumberInput value$={residualChange$} wire={residualChange$} label="Residual" min={0} />
 					</Space>
 					<Space className="flex justify-center mt-5">
-						<Total label="Total" min={0} status="error" />
+						<NumberInput value$={totalChange$} wire={totalChange$} label="Total" min={0} status="error" />
 					</Space>
 
 					<DividerComp heading={"Contract Term"} title="tooltip" />
@@ -137,7 +134,7 @@ function Form() {
 							wire={contractStartDateChange$}
 							showSearch
 						/>
-						<ContractTermDuration min={0} addOn={"years"} className="w-28" />
+						<NumberInput value$={contractTermChange$} wire={contractTermChange$} min={0} addOn={"years"} />
 					</Space>
 
 					<DividerComp heading={"Social Cost of Carbon Assumptions"} title="tooltip" />
@@ -153,12 +150,12 @@ function Form() {
 					</Space>
 
 					<DividerComp heading={"Annual Inflation Rate"} title="tooltip" />
-					<AnnualInflationRate min={0} defaultValue={2.9} />
+					<NumberInput value$={inflationRateChange$} wire={inflationRateChange$} min={0} defaultValue={2.9} />
 
 					<DividerComp heading={"Annual Energy Escalation Rate"} title="tooltip" />
 					<Space className="flex justify-center">
-						<RealRate label="Real" readOnly />
-						<NominalRate label="Nominal" readOnly />
+						<NumberInput value$={realRateChange$} wire={realRateChange$} label="Real" readOnly />
+						<NumberInput value$={nominalRateChange$} wire={nominalRateChange$} label="Nominal" readOnly />
 					</Space>
 				</Content>
 			</Space>

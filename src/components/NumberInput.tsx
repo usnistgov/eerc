@@ -1,10 +1,10 @@
 import { bind } from "@react-rxjs/core";
 import { createSignal } from "@react-rxjs/utils";
-import { InputNumber, Space, Tooltip, Typography } from "antd";
-import { PropsWithChildren } from "react";
-import { EMPTY, Observable } from "rxjs";
+import { InputNumber, Space, Tooltip, Typography, type InputNumberProps } from "antd";
+import { PropsWithChildren, useEffect, useMemo, type Key } from "react";
+import { Observable, type Subject } from "rxjs";
 
-export type NumberInputProps = {
+export type NumberInputProps<T extends Key> = {
 	className?: string;
 	min?: number;
 	max?: number;
@@ -14,52 +14,55 @@ export type NumberInputProps = {
 	readOnly?: boolean;
 	title?: string;
 	status?: "" | "error" | "warning" | undefined;
-};
-
-export type NumberInput = {
-	onChange$: Observable<number>;
-	component: React.FC<PropsWithChildren & NumberInputProps>;
+	value$: Observable<T>;
+	wire: Subject<T>;
 };
 
 const { Title } = Typography;
 
-export default function textInput(value$: Observable<number | undefined> = EMPTY): NumberInput {
-	const [onChange$, onChange] = createSignal<number>();
-	const [useValue] = bind(value$, undefined);
+export default function NumberInput<T extends Key>({
+	label,
+	value$,
+	wire,
+	title,
+	className,
+	addOn,
+	min,
+	max,
+	readOnly,
+	status,
+	defaultValue,
+	...inputProps
+}: PropsWithChildren<NumberInputProps<T>> & Omit<InputNumberProps, "onChange" | "value" | "options">) {
+	const { change$, change, useValue } = useMemo(() => {
+		const [change$, change] = createSignal<T>();
+		const [useValue] = bind(value$, undefined);
 
-	return {
-		onChange$,
-		component: ({
-			className,
-			min,
-			max,
-			defaultValue,
-			addOn,
-			title,
-			label,
-			readOnly,
-			status,
-		}: PropsWithChildren & NumberInputProps) => {
-			return (
-				<Tooltip title={title}>
-					<Space className="flex justify-center">
-						<Title level={5}>{label}</Title>
-						<InputNumber
-							className={"w-24 " + className}
-							addonAfter={addOn || "%"}
-							min={min}
-							max={max}
-							readOnly={readOnly || false}
-							value={useValue()}
-							onChange={(value) => {
-								if (value !== null) onChange(value);
-							}}
-							defaultValue={defaultValue}
-							status={status}
-						/>
-					</Space>
-				</Tooltip>
-			);
-		},
-	};
+		return { change$, change, useValue };
+	}, [value$]);
+
+	useEffect(() => {
+		const sub = change$.subscribe(wire);
+		return () => sub.unsubscribe();
+	}, [wire, change$]);
+
+	return (
+		<Tooltip title={title}>
+			<Space className="flex justify-center">
+				{label ? <Title level={5}>{label}</Title> : ""}
+				<InputNumber
+					{...inputProps}
+					className={"w-24 " + className}
+					addonAfter={addOn || "%"}
+					min={min}
+					max={max}
+					readOnly={readOnly || false}
+					value={useValue()}
+					onChange={(value) => change(value)}
+					defaultValue={defaultValue}
+					status={status}
+				/>
+			</Space>
+		</Tooltip>
+	);
 }
