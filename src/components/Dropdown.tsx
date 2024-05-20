@@ -1,6 +1,6 @@
 import { bind } from "@react-rxjs/core";
 import { createSignal } from "@react-rxjs/utils";
-import { Select, Typography, type SelectProps } from "antd";
+import { Select, Tooltip, type SelectProps } from "antd";
 import { PropsWithChildren, useEffect, useMemo, type Key } from "react";
 import { Observable, of, type Subject } from "rxjs";
 
@@ -26,20 +26,19 @@ type DropdownProps<T extends Key> = {
 	value$: Observable<T>;
 	wire: Subject<T>;
 	placeholder?: string;
+	tooltip?: string;
 };
-
-const { Title } = Typography;
 
 /**
  * Creates a dropdown component and its associated change stream.
  */
 
-export function Dropdown<T extends Key>({
-	label,
+export default function Dropdown<T extends Key>({
 	children,
 	options,
 	value$,
 	wire,
+	tooltip,
 	...selectProps
 }: PropsWithChildren<DropdownProps<T>> & Omit<SelectProps, "onChange" | "value" | "options">) {
 	const { change$, change, useValue, useOptions } = useMemo(() => {
@@ -56,24 +55,16 @@ export function Dropdown<T extends Key>({
 		return () => sub.unsubscribe();
 	}, [wire, change$]);
 
-	const select = (
-		<Select onChange={(value) => change(value)} value={useValue()} {...selectProps}>
-			{children}
-			{useOptions().map((option) => (
-				<Select.Option key={option} value={option}>
-					{option.toString()}
-				</Select.Option>
-			))}
-		</Select>
-	);
-
 	return (
-		(label !== undefined && (
-			<div>
-				<Title level={5}>{label}</Title>
-				{select}
-			</div>
-		)) ||
-		select
+		<Tooltip title={tooltip}>
+			<Select onChange={(value) => change(value)} value={useValue()} {...selectProps}>
+				{children}
+				{useOptions().map((option) => (
+					<Select.Option key={option} value={option}>
+						{option.toString()}
+					</Select.Option>
+				))}
+			</Select>
+		</Tooltip>
 	);
 }

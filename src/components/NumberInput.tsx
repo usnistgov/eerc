@@ -12,7 +12,7 @@ export type NumberInputProps<T extends Key> = {
 	addOn?: JSX.Element | string;
 	label?: string;
 	readOnly?: boolean;
-	title?: string;
+	tooltip?: string;
 	status?: "" | "error" | "warning" | undefined;
 	value$: Observable<T>;
 	wire: Subject<T>;
@@ -24,7 +24,7 @@ export default function NumberInput<T extends Key>({
 	label,
 	value$,
 	wire,
-	title,
+	tooltip,
 	className,
 	addOn,
 	min,
@@ -47,8 +47,8 @@ export default function NumberInput<T extends Key>({
 	}, [wire, change$]);
 
 	return (
-		<Tooltip title={title}>
-			<Space className="flex justify-center">
+		<Space className="flex justify-center">
+			<Tooltip title={tooltip}>
 				{label ? <Title level={5}>{label}</Title> : ""}
 				<InputNumber
 					{...inputProps}
@@ -62,7 +62,7 @@ export default function NumberInput<T extends Key>({
 					defaultValue={defaultValue}
 					status={status}
 				/>
-			</Space>
-		</Tooltip>
+			</Tooltip>
+		</Space>
 	);
 }
