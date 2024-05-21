@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   server:
-    image: docker.nist.gov:4567/purav.dipeshkumarparekh/eerc:latest
+    image: docker.nist.gov:4567/eldst/eerc
     hostname: eerc
     networks:
       - traefik_net
