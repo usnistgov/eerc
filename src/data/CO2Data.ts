@@ -1,3 +1,4 @@
+// matches to zipcode not state
 export const CO2Factors = {
 	AK: 128.637551,
 	AL: 116.4436196,
@@ -57,6 +58,9 @@ export const CO2Factors = {
 	Coal: 100.249,
 };
 
+// social cost of carbon table
+// not in same units as BLCC
+// $/ton to $/kg?
 export const CO2ePrices = {
 	startyear: 2024,
 	endyear: 2054,
@@ -162,6 +166,7 @@ export const CO2ePrices = {
 	},
 };
 
+// probably wont need this
 export const CO2FutureEmissions = {
 	startyear: 2024,
 	endyear: 2054,

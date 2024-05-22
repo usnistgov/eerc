@@ -1,3 +1,6 @@
+// energy cost = encost
+// energy prices tab/table from blcc
+
 export const encost = {
 	"NewEngland Residential": {
 		Electricity: {
