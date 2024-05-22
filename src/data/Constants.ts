@@ -1,4 +1,4 @@
-import * as CO2Factors from "../../public/CO2Factors.json";
+import { CO2Factors } from "./CO2Data";
 
 export const sccOptions = [
 	{ value: "none", label: "No carbon price" },

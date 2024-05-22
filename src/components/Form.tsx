@@ -10,34 +10,31 @@ import {
 	StateType,
 	currentYear,
 } from "../data/Formats";
-import { Model } from "../data/Model";
 import Disclaimer from "./Disclaimer";
 import DividerComp from "./Divider";
-import { Dropdown } from "./Dropdown";
+import Dropdown from "./Dropdown";
 import Navigation from "./Navigation";
-import inputNumber from "./NumberInput";
+import NumberInput from "./NumberInput";
 
 const { Content, Footer } = Layout;
 const { Title } = Typography;
-
-const { onChange$: coalChange$, component: Coal } = inputNumber(Model.coal$);
-const { onChange$: oilChange$, component: Oil } = inputNumber(Model.oil$);
-const { onChange$: electricityChange$, component: Electricity } = inputNumber(Model.electricity$);
-const { onChange$: gasChange$, component: Gas } = inputNumber(Model.gas$);
-const { onChange$: residualChange$, component: Residual } = inputNumber(Model.residual$);
-const { onChange$: totalChange$, component: Total } = inputNumber(Model.total$);
-
-const { onChange$: contractTermChange$, component: ContractTermDuration } = inputNumber(Model.contractTermDuration$);
-
-const { onChange$: inflationRateChange$, component: AnnualInflationRate } = inputNumber(Model.annualInflationRate$);
-
-const { onChange$: realRateChange$, component: RealRate } = inputNumber(Model.realRate$);
-const { onChange$: nominalRateChange$, component: NominalRate } = inputNumber(Model.nominalRate$);
 
 const dataYearChange$ = new Subject<typeof DataYearType>();
 const sectorChange$ = new Subject<SectorType>();
 const stateChange$ = new Subject<StateType>();
 const zipCodeChange$ = new Subject<SocialCostType>();
+
+const coalChange$ = new Subject();
+const oilChange$ = new Subject();
+const electricityChange$ = new Subject();
+const gasChange$ = new Subject();
+const residualChange$ = new Subject();
+const totalChange$ = new Subject();
+
+const contractTermChange$ = new Subject();
+const inflationRateChange$ = new Subject();
+const realRateChange$ = new Subject();
+const nominalRateChange$ = new Subject();
 
 const socialCostChange$ = new Subject<SocialCostType>();
 const contractStartDateChange$ = new Subject<typeof ContractStartDateType>();
@@ -61,10 +58,10 @@ export {
 };
 
 function Form() {
-	const [sectorType, setSectorType] = useState<"Industrial" | "">("Industrial");
+	const [sectorType, setSectorType] = useState<"Industrial" | "Commercial">("Industrial");
 	useEffect(() => {
 		sectorChange$.subscribe((sector) => {
-			setSectorType(sector === "Industrial" ? "Industrial" : "");
+			setSectorType(sector === "Industrial" ? "Industrial" : "Commercial");
 		});
 	}, [sectorType]);
 	return (
@@ -88,6 +85,7 @@ function Form() {
 							wire={dataYearChange$}
 							showSearch
 							placeholder="Year of Data"
+							tooltip="Year of data used to determine the escalation rate schedule applied to the energy cost calculation."
 						/>
 						<Dropdown
 							className={"w-64"}
@@ -96,6 +94,8 @@ function Form() {
 							value$={sectorChange$}
 							wire={sectorChange$}
 							showSearch
+							defaultValue={SectorType.INDUSTRIAL}
+							tooltip="Selection of commercial sector or industrial sector determines the escalation rate schedule applied to the energy cost calculation."
 						/>
 						<Dropdown
 							className={"w-64"}
@@ -104,6 +104,7 @@ function Form() {
 							value$={stateChange$}
 							wire={stateChange$}
 							showSearch
+							tooltip="Selecting the state in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by state)."
 						/>
 						<Dropdown
 							className={"w-64"}
@@ -112,19 +113,61 @@ function Form() {
 							value$={zipCodeChange$}
 							wire={zipCodeChange$}
 							showSearch
+							tooltip="Selecting the zipcode in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by zipcode)."
 						/>
 					</Space>
 
 					<DividerComp heading={"Percent of Energy Cost Savings"} title="tooltip" />
 					<Space className="flex justify-center">
-						{sectorType === "Industrial" ? <Coal label="Coal" min={0} /> : ""}
-						<Oil label="Oil" min={0} />
-						<Electricity label="Electricity" min={0} />
-						<Gas label="Gas" min={0} />
-						<Residual label="Residual" min={0} />
+						{sectorType === "Industrial" ? (
+							<NumberInput
+								value$={coalChange$}
+								wire={coalChange$}
+								label="Coal"
+								min={0}
+								tooltip="Percentage of energy cost savings in dollars that is attributable to coal used in the project. This input is used to weight the escalation rate."
+							/>
+						) : (
+							""
+						)}
+						<NumberInput
+							value$={oilChange$}
+							wire={oilChange$}
+							label="Oil"
+							min={0}
+							tooltip="Percentage of energy cost savings in dollars that is attributable to oil used in the project. This input is used to weight the escalation rate."
+						/>
+						<NumberInput
+							value$={electricityChange$}
+							wire={electricityChange$}
+							label="Electricity"
+							min={0}
+							tooltip="Percentage of energy cost savings in dollars that is attributable to electricity used in the project. This input is used to weight the escalation rate."
+						/>
+						<NumberInput
+							value$={gasChange$}
+							wire={gasChange$}
+							label="Gas"
+							min={0}
+							tooltip="Percentage of energy cost savings in dollars that is attributable to gas used in the project. This input is used to weight the escalation rate."
+						/>
+						<NumberInput
+							value$={residualChange$}
+							wire={residualChange$}
+							label="Residual"
+							min={0}
+							tooltip="Percentage of energy cost savings in dollars that is attributable to residual used in the project. This input is used to weight the escalation rate."
+						/>
 					</Space>
 					<Space className="flex justify-center mt-5">
-						<Total label="Total" min={0} status="error" />
+						<NumberInput
+							value$={totalChange$}
+							wire={totalChange$}
+							label="Total"
+							status="error"
+							readOnly
+							tooltip="Percentage of total energy cost savings in dollars. This input is used to weight the escalation rate."
+						/>
 					</Space>
 
 					<DividerComp heading={"Contract Term"} title="tooltip" />
@@ -136,8 +179,15 @@ function Form() {
 							value$={contractStartDateChange$}
 							wire={contractStartDateChange$}
 							showSearch
+							tooltip="Year of contract award/signing"
 						/>
-						<ContractTermDuration min={0} addOn={"years"} className="w-28" />
+						<NumberInput
+							value$={contractTermChange$}
+							wire={contractTermChange$}
+							min={0}
+							addOn={"years"}
+							tooltip="Number of years of the contract term"
+						/>
 					</Space>
 
 					<DividerComp heading={"Social Cost of Carbon Assumptions"} title="tooltip" />
@@ -149,16 +199,39 @@ function Form() {
 							value$={socialCostChange$}
 							wire={socialCostChange$}
 							showSearch
+							tooltip={`Determines the social cost of GHG emissions projection to use from the Interagency Working Group on Social Cost of Greenhouse Gasses Interim Estimates under Executive Order 13990. The scenarios are based on the assumed discount rate (DR) and projection percentile:
+							- No Carbon Price assumes that no carbon policy is enacted (status quo)
+							- Low - $20 in 2024 - 5% DR (average) = average social cost of GHG assuming a 5% real discount rate
+							- Medium - $66 in 2024 - 3% DR (average) = average social cost of GHG assuming a 3% real discount rate. Best match to DOE and OMB real discount rates.
+							- High - $198 in 2024 - 3% DR (95th percentile) = 95th Percentile social cost of GHG assuming a 3% real discount rate`}
 						/>
 					</Space>
 
 					<DividerComp heading={"Annual Inflation Rate"} title="tooltip" />
-					<AnnualInflationRate min={0} defaultValue={2.9} />
+					<NumberInput
+						value$={inflationRateChange$}
+						wire={inflationRateChange$}
+						min={0}
+						defaultValue={2.9}
+						tooltip="The general rate of inflation for the nominal discount rate calculation. The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using data from CEA and the method described in 10 CFR 436 without consideration of the 3.0 % floor for the real discount rate."
+					/>
 
 					<DividerComp heading={"Annual Energy Escalation Rate"} title="tooltip" />
 					<Space className="flex justify-center">
-						<RealRate label="Real" readOnly />
-						<NominalRate label="Nominal" readOnly />
+						<NumberInput
+							value$={realRateChange$}
+							wire={realRateChange$}
+							label="Real"
+							readOnly
+							tooltip="The calculated average escalation rate in real terms (excluding the rate of inflation). Estimated using the energy prices for the sector, fuel mix, and location."
+						/>
+						<NumberInput
+							value$={nominalRateChange$}
+							wire={nominalRateChange$}
+							label="Nominal"
+							readOnly
+							tooltip="The calculated average escalation rate in nominal terms (including the rate of inflation).  Calculated using the real escalation rate and input inflation rate."
+						/>
 					</Space>
 				</Content>
 			</Space>
