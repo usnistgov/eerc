@@ -1,4 +1,5 @@
-import { Layout, Space, Typography } from "antd";
+import { FilePdfOutlined } from "@ant-design/icons";
+import { Button, Layout, Space, Statistic, Typography } from "antd";
 
 import { bind } from "@react-rxjs/core";
 import { BehaviorSubject, Subject, combineLatest, map } from "rxjs";
@@ -254,9 +255,11 @@ function Form() {
 							tooltip="Year of contract award/signing"
 						/>
 						<NumberInput
+							className={"w-28"}
 							value$={contractTermChange$}
 							wire={contractTermChange$}
-							min={0}
+							min={10}
+							max={25}
 							addOn={"years"}
 							tooltip="Number of years of the contract term"
 						/>
@@ -289,21 +292,41 @@ function Form() {
 					/>
 
 					<DividerComp heading={"Annual Energy Escalation Rate"} title="tooltip" />
-					<Space className="flex justify-center">
-						<NumberInput
+					<Space className="flex flex-col justify-center">
+						<Space>
+							{/* <NumberInput
 							value$={realRateChange$}
 							wire={realRateChange$}
 							label="Real"
 							readOnly
 							tooltip="The calculated average escalation rate in real terms (excluding the rate of inflation). Estimated using the energy prices for the sector, fuel mix, and location."
-						/>
-						<NumberInput
+						/> */}
+							<Statistic
+								className="p-1 mr-2 rounded-md text-center ring-2 ring-black ring-offset-2 w-24"
+								title="Real Rate"
+								value={5}
+								suffix="%"
+							/>
+							<Statistic
+								className="p-1 ml-2 rounded-md text-center ring-2 ring-black ring-offset-2 w-24"
+								title="Nominal Rate"
+								value={5}
+								suffix="%"
+							/>
+							{/* <NumberInput
 							value$={nominalRateChange$}
 							wire={nominalRateChange$}
 							label="Nominal"
 							readOnly
 							tooltip="The calculated average escalation rate in nominal terms (including the rate of inflation).  Calculated using the real escalation rate and input inflation rate."
-						/>
+						/> */}
+						</Space>
+
+						<Space>
+							<Button className="mt-2" icon={<FilePdfOutlined />}>
+								Save to PDF
+							</Button>
+						</Space>
 					</Space>
 				</Content>
 			</Space>
