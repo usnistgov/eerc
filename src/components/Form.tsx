@@ -1,7 +1,7 @@
 import { Layout, Space, Typography } from "antd";
 
-import { useEffect, useState } from "react";
-import { Subject } from "rxjs";
+import { bind } from "@react-rxjs/core";
+import { BehaviorSubject, Subject, combineLatest, map } from "rxjs";
 import {
 	ContractStartDateType,
 	DataYearType,
@@ -10,6 +10,8 @@ import {
 	StateType,
 	currentYear,
 } from "../data/Formats";
+import stateZips from "../data/statetozip.json";
+
 import Disclaimer from "./Disclaimer";
 import DividerComp from "./Divider";
 import Dropdown from "./Dropdown";
@@ -20,24 +22,38 @@ const { Content, Footer } = Layout;
 const { Title } = Typography;
 
 const dataYearChange$ = new Subject<typeof DataYearType>();
-const sectorChange$ = new Subject<SectorType>();
-const stateChange$ = new Subject<StateType>();
-const zipCodeChange$ = new Subject<SocialCostType>();
+const [useDataYear] = bind(dataYearChange$, DataYearType.CURRENT);
 
-const coalChange$ = new Subject();
-const oilChange$ = new Subject();
-const electricityChange$ = new Subject();
-const gasChange$ = new Subject();
-const residualChange$ = new Subject();
+const sectorChange$ = new Subject<SectorType>();
+const [useSector, sector$] = bind(sectorChange$, SectorType.INDUSTRIAL);
+
+const stateChange$ = new Subject<StateType>();
+const [useSelectedState] = bind(stateChange$, StateType.State);
+
+const zipCodeChange$ = new Subject<SocialCostType>();
+const [useZipcode] = bind(zipCodeChange$);
+
+const coalChange$ = new BehaviorSubject(0);
+const oilChange$ = new BehaviorSubject(0);
+const electricityChange$ = new BehaviorSubject(0);
+const gasChange$ = new BehaviorSubject(0);
+const residualChange$ = new BehaviorSubject(0);
 const totalChange$ = new Subject();
 
 const contractTermChange$ = new Subject();
+const [useContractTerm] = bind(contractTermChange$);
+const contractStartDateChange$ = new Subject<typeof ContractStartDateType>();
+const [useContractStartDate] = bind(contractStartDateChange$);
+
 const inflationRateChange$ = new Subject();
+const [useInflationRate] = bind(inflationRateChange$);
+
 const realRateChange$ = new Subject();
 const nominalRateChange$ = new Subject();
 
 const socialCostChange$ = new Subject<SocialCostType>();
-const contractStartDateChange$ = new Subject<typeof ContractStartDateType>();
+const [useSocialCost] = bind(socialCostChange$);
+
 export {
 	coalChange$,
 	contractStartDateChange$,
@@ -57,13 +73,66 @@ export {
 	zipCodeChange$,
 };
 
+// const getSumArr = (sector$: Observable<SectorType>) => {
+// 	return sector$.pipe(
+// 		map((sector) => {
+// 			if (sector === SectorType.INDUSTRIAL) {
+// 				return [coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$];
+// 			} else {
+// 				return [oilChange$, electricityChange$, gasChange$, residualChange$];
+// 			}
+// 		}),
+// 	);
+// };
+
+const totalSum$ = combineLatest([coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$]).pipe(
+	map((arr) => arr.reduce((acc, sum) => acc + sum), 0),
+);
+
+const [useTotal, total$] = bind(totalSum$, 0);
+
 function Form() {
-	const [sectorType, setSectorType] = useState<"Industrial" | "Commercial">("Industrial");
-	useEffect(() => {
-		sectorChange$.subscribe((sector) => {
-			setSectorType(sector === "Industrial" ? "Industrial" : "Commercial");
-		});
-	}, [sectorType]);
+	// const calculateCarbonPrice = useCallback(
+	// 	(CO2Factor: number, cP: number[], isElectricity: boolean, baseyear: number) => {
+	// 		//console.log("calculateCarbonPrice: isElec=%o baseyear=%d CO2Factor=%o cP=%o CO2ePrices[%s]=%o", isElectricity, baseyear, CO2Factor, cP, carbonprice, CO2ePrices[carbonprice]);
+	// 		//console.log("calculateCarbonPrice: CO2FutureEmissions[%s] = %o", locale, CO2FutureEmissions[locale]);
+	// 		//console.log("calculateCarbonPrice: CO2FutureEmissions[%s][%s] = %o", locale, baseyear, CO2FutureEmissions[locale][baseyear]);
+	// 		// if (carbonprice !== "") {
+	// 		if (carbonprice !== SocialCostType.NONE) {
+	// 			// default, low, or high carbon price
+	// 			if (carbonprices[carbonprice] !== zero_carbon_price_policy) {
+	// 				for (let i = 0; i < yearsIn; i++) {
+	// 					cP[i] = CO2ePrices[carbonprices[carbonprice]][i + baseyear] * CO2Factor;
+	// 				} // steps 1 & 2 from Excel file
+	// 				if (isElectricity) {
+	// 					for (let i = 0; i < yearsIn; i++) {
+	// 						//SWB 2022: change from index by CPP and year to index by state and year
+	// 						//SWB 2022 cP[i] = cP[i] * CO2FutureEmissions[carbonprices[carbonprice]][i + baseyear];
+	// 						cP[i] = cP[i] * CO2FutureEmissions[locale][i + baseyear];
+	// 					}
+	// 				} // step 3
+	// 				for (let i = 0; i < yearsIn; i++) {
+	// 					cP[i] = cP[i] * carbonConvert;
+	// 				} // step 4
+	// 			}
+	// 		}
+	// 		//console.log("exiting calculateCarbonPrice");
+	// 	},
+	// 	[carbonprice, CO2ePrices, CO2FutureEmissions, locale],
+	// );
+
+	const getZipcodes = (selectedState: string) => {
+		if (selectedState !== "None Selected") {
+			const zips = stateZips[selectedState];
+			const zipOptions = zips.reduce((acc: number, curr: number) => {
+				acc[curr] = curr;
+				return acc;
+			}, {});
+			return zipOptions;
+		}
+		return {};
+	};
+
 	return (
 		<>
 			<Navigation />
@@ -81,6 +150,7 @@ function Form() {
 						<Dropdown
 							className={"w-64"}
 							options={Object.values(DataYearType)}
+							defaultValue={useDataYear()}
 							value$={dataYearChange$}
 							wire={dataYearChange$}
 							showSearch
@@ -101,6 +171,7 @@ function Form() {
 							className={"w-64"}
 							placeholder="Select State"
 							options={Object.values(StateType)}
+							defaultValue={StateType.State}
 							value$={stateChange$}
 							wire={stateChange$}
 							showSearch
@@ -109,17 +180,18 @@ function Form() {
 						<Dropdown
 							className={"w-64"}
 							placeholder="Select Zipcode"
-							options={Object.values(SocialCostType)}
+							options={Object.values(getZipcodes(useSelectedState()))}
 							value$={zipCodeChange$}
 							wire={zipCodeChange$}
 							showSearch
+							disabled={useSelectedState() === "None Selected" ? true : false}
 							tooltip="Selecting the zipcode in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by zipcode)."
 						/>
 					</Space>
 
 					<DividerComp heading={"Percent of Energy Cost Savings"} title="tooltip" />
 					<Space className="flex justify-center">
-						{sectorType === "Industrial" ? (
+						{useSector() === SectorType.INDUSTRIAL ? (
 							<NumberInput
 								value$={coalChange$}
 								wire={coalChange$}
@@ -159,15 +231,15 @@ function Form() {
 							tooltip="Percentage of energy cost savings in dollars that is attributable to residual used in the project. This input is used to weight the escalation rate."
 						/>
 					</Space>
-					<Space className="flex justify-center mt-5">
+					<Space className="flex flex-col justify-center mt-5">
 						<NumberInput
-							value$={totalChange$}
-							wire={totalChange$}
+							value$={total$}
 							label="Total"
-							status="error"
+							status={useTotal() !== 100 ? "error" : ""}
 							readOnly
 							tooltip="Percentage of total energy cost savings in dollars. This input is used to weight the escalation rate."
 						/>
+						{useTotal() !== 100 ? <p className="text-red-500">The total must equal 100.</p> : ""}
 					</Space>
 
 					<DividerComp heading={"Contract Term"} title="tooltip" />

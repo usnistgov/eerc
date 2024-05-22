@@ -47,6 +47,7 @@ export enum SectorType {
 }
 
 export enum StateType {
+	State = "None Selected",
 	AL = "AL",
 	AK = "AK",
 	AZ = "AZ",
