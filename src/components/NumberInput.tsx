@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import { bind } from "@react-rxjs/core";
 import { createSignal } from "@react-rxjs/utils";
 import { InputNumber, Space, Tooltip, Typography, type InputNumberProps } from "antd";
@@ -15,7 +17,7 @@ export type NumberInputProps<T extends Key> = {
 	tooltip?: string;
 	status?: "" | "error" | "warning" | undefined;
 	value$: Observable<T>;
-	wire: Subject<T>;
+	wire?: Subject<T>;
 };
 
 const { Title } = Typography;

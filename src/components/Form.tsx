@@ -2,7 +2,7 @@ import { FilePdfOutlined } from "@ant-design/icons";
 import { Button, Layout, Space, Statistic, Typography } from "antd";
 
 import { bind } from "@react-rxjs/core";
-import { BehaviorSubject, Subject, combineLatest, map } from "rxjs";
+import { BehaviorSubject, Subject, combineLatest, filter, map, of, switchMap } from "rxjs";
 import {
 	ContractStartDateType,
 	DataYearType,
@@ -13,6 +13,8 @@ import {
 } from "../data/Formats";
 import stateZips from "../data/statetozip.json";
 
+import { finalCalculations } from "../Calculations/Calculations";
+
 import Disclaimer from "./Disclaimer";
 import DividerComp from "./Divider";
 import Dropdown from "./Dropdown";
@@ -22,7 +24,7 @@ import NumberInput from "./NumberInput";
 const { Content, Footer } = Layout;
 const { Title } = Typography;
 
-const dataYearChange$ = new Subject<typeof DataYearType>();
+const dataYearChange$ = new Subject<number>();
 const [useDataYear] = bind(dataYearChange$, DataYearType.CURRENT);
 
 const sectorChange$ = new Subject<SectorType>();
@@ -44,10 +46,10 @@ const totalChange$ = new Subject();
 const contractTermChange$ = new Subject();
 const [useContractTerm] = bind(contractTermChange$);
 const contractStartDateChange$ = new Subject<typeof ContractStartDateType>();
-const [useContractStartDate] = bind(contractStartDateChange$);
+const [useContractStartDate] = bind(contractStartDateChange$, 2023);
 
 const inflationRateChange$ = new Subject();
-const [useInflationRate] = bind(inflationRateChange$);
+const [useInflationRate] = bind(inflationRateChange$, 0);
 
 const realRateChange$ = new Subject();
 const nominalRateChange$ = new Subject();
@@ -86,11 +88,50 @@ export {
 // 	);
 // };
 
+sectorChange$
+	.pipe(
+		filter((sector) => sector === SectorType.COMMERCIAL),
+		map(() => 0),
+	)
+	.subscribe(coalChange$);
+
 const totalSum$ = combineLatest([coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$]).pipe(
 	map((arr) => arr.reduce((acc, sum) => acc + sum), 0),
 );
 
+const results$ = combineLatest([
+	dataYearChange$,
+	sectorChange$,
+	stateChange$,
+	zipCodeChange$,
+	coalChange$,
+	oilChange$,
+	electricityChange$,
+	gasChange$,
+	residualChange$,
+	totalSum$,
+	contractStartDateChange$,
+	contractTermChange$,
+	socialCostChange$,
+	inflationRateChange$,
+]).pipe(map((inputs) => finalCalculations(inputs)));
+
+results$.subscribe(console.log);
+
+const stream$ = totalSum$.pipe(
+	switchMap((sum) => {
+		if (sum === 100) {
+			return results$;
+		} else {
+			return of("Fix");
+		}
+	}),
+);
+
+stream$.subscribe(console.log);
+
 const [useTotal, total$] = bind(totalSum$, 0);
+const [useResults, result$] = bind(results$);
 
 function Form() {
 	// const calculateCarbonPrice = useCallback(
@@ -133,6 +174,12 @@ function Form() {
 		}
 		return {};
 	};
+
+	// use combine latest and then pass it to finalcalculations
+
+	// useEffect(() => {
+	// 	if (totalEnergySavings === 100) finalCalculations();
+	// }, []);
 
 	return (
 		<>

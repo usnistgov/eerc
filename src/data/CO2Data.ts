@@ -65,7 +65,7 @@ export const CO2ePrices = {
 	startyear: 2024,
 	endyear: 2054,
 	duration: 30,
-	"3% DR (Average)": {
+	LOW: {
 		"2024": 0.066,
 		"2025": 0.067,
 		"2026": 0.068,
@@ -98,7 +98,7 @@ export const CO2ePrices = {
 		"2053": 0.106,
 		"2054": 0.107,
 	},
-	"5% DR (Average)": {
+	MEDIUM: {
 		"2024": 0.02,
 		"2025": 0.02,
 		"2026": 0.021,
@@ -131,7 +131,7 @@ export const CO2ePrices = {
 		"2053": 0.041,
 		"2054": 0.042,
 	},
-	"3% DR (95th percentile)": {
+	HIGH: {
 		"2024": 0.198,
 		"2025": 0.202,
 		"2026": 0.206,

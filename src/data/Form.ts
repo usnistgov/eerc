@@ -18,7 +18,7 @@ import {
 	sectorChange$,
 	socialCostChange$,
 	stateChange$,
-	totalChange$,
+	// totalChange$,
 	zipCodeChange$,
 } from "../components/Form";
 import { SectorType, SocialCostType } from "./Formats";
@@ -34,7 +34,7 @@ const form$ = mergeWithKey({
 	electricity: electricityChange$,
 	gas: gasChange$,
 	residual: residualChange$,
-	total: totalChange$,
+	// total: totalChange$,
 	contractStartDate: contractStartDateChange$,
 	contractTerm: contractTermChange$,
 	socialCost: socialCostChange$,
@@ -62,7 +62,7 @@ const form$ = mergeWithKey({
 			electricity: 0,
 			gas: 0,
 			residual: 0,
-			total: 0,
+			// total: 0,
 			contractStartDate: new Date().getFullYear(),
 			contractTerm: 15,
 			socialCost: SocialCostType.NONE,
