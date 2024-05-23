@@ -14,7 +14,7 @@ export const carbonE: number[] = new Array(yearsIn);
 export const carbonR: number[] = new Array(yearsIn);
 export const carbonD: number[] = new Array(yearsIn);
 
-export let pricesCarbon = new Array(yearsIn); // TODO: I think this is supposed to be Encost data?
+export let pricesCoal = new Array(yearsIn); // TODO: I think this is supposed to be Encost data?
 export let pricesGas = new Array(yearsIn);
 export let pricesElectricity = new Array(yearsIn);
 export let pricesResidual = new Array(yearsIn);

@@ -15,6 +15,7 @@ import stateZips from "../data/statetozip.json";
 
 import { finalCalculations } from "../Calculations/Calculations";
 
+import { useState } from "react";
 import Disclaimer from "./Disclaimer";
 import DividerComp from "./Divider";
 import Dropdown from "./Dropdown";
@@ -76,18 +77,6 @@ export {
 	zipCodeChange$,
 };
 
-// const getSumArr = (sector$: Observable<SectorType>) => {
-// 	return sector$.pipe(
-// 		map((sector) => {
-// 			if (sector === SectorType.INDUSTRIAL) {
-// 				return [coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$];
-// 			} else {
-// 				return [oilChange$, electricityChange$, gasChange$, residualChange$];
-// 			}
-// 		}),
-// 	);
-// };
-
 sectorChange$
 	.pipe(
 		filter((sector) => sector === SectorType.COMMERCIAL),
@@ -134,35 +123,8 @@ const [useTotal, total$] = bind(totalSum$, 0);
 const [useResults, result$] = bind(results$);
 
 function Form() {
-	// const calculateCarbonPrice = useCallback(
-	// 	(CO2Factor: number, cP: number[], isElectricity: boolean, baseyear: number) => {
-	// 		//console.log("calculateCarbonPrice: isElec=%o baseyear=%d CO2Factor=%o cP=%o CO2ePrices[%s]=%o", isElectricity, baseyear, CO2Factor, cP, carbonprice, CO2ePrices[carbonprice]);
-	// 		//console.log("calculateCarbonPrice: CO2FutureEmissions[%s] = %o", locale, CO2FutureEmissions[locale]);
-	// 		//console.log("calculateCarbonPrice: CO2FutureEmissions[%s][%s] = %o", locale, baseyear, CO2FutureEmissions[locale][baseyear]);
-	// 		// if (carbonprice !== "") {
-	// 		if (carbonprice !== SocialCostType.NONE) {
-	// 			// default, low, or high carbon price
-	// 			if (carbonprices[carbonprice] !== zero_carbon_price_policy) {
-	// 				for (let i = 0; i < yearsIn; i++) {
-	// 					cP[i] = CO2ePrices[carbonprices[carbonprice]][i + baseyear] * CO2Factor;
-	// 				} // steps 1 & 2 from Excel file
-	// 				if (isElectricity) {
-	// 					for (let i = 0; i < yearsIn; i++) {
-	// 						//SWB 2022: change from index by CPP and year to index by state and year
-	// 						//SWB 2022 cP[i] = cP[i] * CO2FutureEmissions[carbonprices[carbonprice]][i + baseyear];
-	// 						cP[i] = cP[i] * CO2FutureEmissions[locale][i + baseyear];
-	// 					}
-	// 				} // step 3
-	// 				for (let i = 0; i < yearsIn; i++) {
-	// 					cP[i] = cP[i] * carbonConvert;
-	// 				} // step 4
-	// 			}
-	// 		}
-	// 		//console.log("exiting calculateCarbonPrice");
-	// 	},
-	// 	[carbonprice, CO2ePrices, CO2FutureEmissions, locale],
-	// );
-
+	const [realRate, setRealRate] = useState(0);
+	const [nominalRate, setNominalRate] = useState(0);
 	const getZipcodes = (selectedState: string) => {
 		if (selectedState !== "None Selected") {
 			const zips = stateZips[selectedState];
@@ -175,11 +137,14 @@ function Form() {
 		return {};
 	};
 
-	// use combine latest and then pass it to finalcalculations
+	results$.subscribe(([escalationRate, nominalRate]) => {
+		const EscalationRate = escalationRate;
+		const NominalRate = nominalRate;
+		setNominalRate(nominalRate);
+		setRealRate(escalationRate);
 
-	// useEffect(() => {
-	// 	if (totalEnergySavings === 100) finalCalculations();
-	// }, []);
+		console.log("rates are", escalationRate, nominalRate);
+	});
 
 	return (
 		<>
@@ -341,32 +306,18 @@ function Form() {
 					<DividerComp heading={"Annual Energy Escalation Rate"} title="tooltip" />
 					<Space className="flex flex-col justify-center">
 						<Space>
-							{/* <NumberInput
-							value$={realRateChange$}
-							wire={realRateChange$}
-							label="Real"
-							readOnly
-							tooltip="The calculated average escalation rate in real terms (excluding the rate of inflation). Estimated using the energy prices for the sector, fuel mix, and location."
-						/> */}
 							<Statistic
 								className="p-1 mr-2 rounded-md text-center ring-2 ring-black ring-offset-2 w-24"
 								title="Real Rate"
-								value={5}
+								value={realRate.toFixed(2)}
 								suffix="%"
 							/>
 							<Statistic
 								className="p-1 ml-2 rounded-md text-center ring-2 ring-black ring-offset-2 w-24"
 								title="Nominal Rate"
-								value={5}
+								value={nominalRate.toFixed(2)}
 								suffix="%"
 							/>
-							{/* <NumberInput
-							value$={nominalRateChange$}
-							wire={nominalRateChange$}
-							label="Nominal"
-							readOnly
-							tooltip="The calculated average escalation rate in nominal terms (including the rate of inflation).  Calculated using the real escalation rate and input inflation rate."
-						/> */}
 						</Space>
 
 						<Space>
