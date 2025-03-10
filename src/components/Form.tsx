@@ -2,7 +2,7 @@ import { FilePdfOutlined } from "@ant-design/icons";
 import { Button, Layout, Space, Statistic, Typography } from "antd";
 
 import { bind } from "@react-rxjs/core";
-import { BehaviorSubject, Subject, combineLatest, filter, map, of, switchMap } from "rxjs";
+import { BehaviorSubject, Subject, combineLatest, filter, map, of, startWith, switchMap } from "rxjs";
 import {
 	ContractStartDateType,
 	DataYearType,
@@ -58,24 +58,24 @@ const nominalRateChange$ = new Subject();
 const socialCostChange$ = new Subject<SocialCostType>();
 const [useSocialCost] = bind(socialCostChange$);
 
-export {
-	coalChange$,
-	contractStartDateChange$,
-	contractTermChange$,
-	dataYearChange$,
-	electricityChange$,
-	gasChange$,
-	inflationRateChange$,
-	nominalRateChange$,
-	oilChange$,
-	realRateChange$,
-	residualChange$,
-	sectorChange$,
-	socialCostChange$,
-	stateChange$,
-	totalChange$,
-	zipCodeChange$,
-};
+// export {
+// 	coalChange$,
+// 	contractStartDateChange$,
+// 	contractTermChange$,
+// 	dataYearChange$,
+// 	electricityChange$,
+// 	gasChange$,
+// 	inflationRateChange$,
+// 	nominalRateChange$,
+// 	oilChange$,
+// 	realRateChange$,
+// 	residualChange$,
+// 	sectorChange$,
+// 	socialCostChange$,
+// 	stateChange$,
+// 	totalChange$,
+// 	zipCodeChange$,
+// };
 
 sectorChange$
 	.pipe(
@@ -84,26 +84,39 @@ sectorChange$
 	)
 	.subscribe(coalChange$);
 
-const totalSum$ = combineLatest([coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$]).pipe(
-	map((arr) => arr.reduce((acc, sum) => acc + sum), 0),
+// const totalSum$ = combineLatest([coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$]).pipe(
+// 	map((arr) => arr.reduce((acc, sum) => acc + sum), 0),
+// );
+
+const totalSum$ = combineLatest([
+	coalChange$.pipe(startWith(0)), // Default value for coal
+	oilChange$.pipe(startWith(0)), // Default value for oil
+	electricityChange$.pipe(startWith(0)), // Default value for electricity
+	gasChange$.pipe(startWith(0)), // Default value for gas
+	residualChange$.pipe(startWith(0)), // Default value for residual
+]).pipe(
+	map((arr) => arr.reduce((acc, sum) => acc + (sum || 0), 0)), // Ensure sum defaults to 0
 );
 
 const results$ = combineLatest([
-	dataYearChange$,
-	sectorChange$,
+	dataYearChange$.pipe(startWith(DataYearType.CURRENT)),
+	sectorChange$.pipe(startWith(SectorType.INDUSTRIAL)),
 	stateChange$,
 	zipCodeChange$,
-	coalChange$,
-	oilChange$,
-	electricityChange$,
-	gasChange$,
-	residualChange$,
+	coalChange$.pipe(startWith(0)),
+	oilChange$.pipe(startWith(0)),
+	electricityChange$.pipe(startWith(0)),
+	gasChange$.pipe(startWith(0)),
+	residualChange$.pipe(startWith(0)),
 	totalSum$,
-	contractStartDateChange$,
+	contractStartDateChange$.pipe(startWith(2024)),
 	contractTermChange$,
 	socialCostChange$,
-	inflationRateChange$,
-]).pipe(map((inputs) => finalCalculations(inputs)));
+	inflationRateChange$.pipe(startWith(2.9)),
+]).pipe(
+	filter(([, , , , , , , , , totalSum, , , ,]) => totalSum === 100), // Filter to only allow calculations when totalSum equals 100
+	map((inputs) => finalCalculations(inputs)),
+);
 
 results$.subscribe(console.log);
 
@@ -277,20 +290,23 @@ function Form() {
 						/>
 					</Space>
 
-					<DividerComp heading={"Social Cost of Carbon Assumptions"} title="tooltip" />
-					<Space className="flex justify-center">
-						<Dropdown
-							className={"w-64"}
-							placeholder="Select Social Cost of Carbon"
-							options={Object.values(SocialCostType)}
-							value$={socialCostChange$}
-							wire={socialCostChange$}
-							showSearch
-							tooltip={`Determines the social cost of GHG emissions projection to use from the Interagency Working Group on Social Cost of Greenhouse Gasses Interim Estimates under Executive Order 13990. The scenarios are based on the assumed discount rate (DR) and projection percentile:
+					<DividerComp
+						heading={"Carbon Market Rate Assumptions"}
+						title={`Determines the social cost of GHG emissions projection to use from the Interagency Working Group on Social Cost of Greenhouse Gasses Interim Estimates under Executive Order 13990. The scenarios are based on the assumed discount rate (DR) and projection percentile:
 							- No Carbon Price assumes that no carbon policy is enacted (status quo)
 							- Low - $20 in 2024 - 5% DR (average) = average social cost of GHG assuming a 5% real discount rate
 							- Medium - $66 in 2024 - 3% DR (average) = average social cost of GHG assuming a 3% real discount rate. Best match to DOE and OMB real discount rates.
 							- High - $198 in 2024 - 3% DR (95th percentile) = 95th Percentile social cost of GHG assuming a 3% real discount rate`}
+					/>
+					<Space className="flex justify-center">
+						<Dropdown
+							className={"w-64"}
+							placeholder="Select Carbon Market Rate"
+							options={Object.values(SocialCostType)}
+							value$={socialCostChange$}
+							wire={socialCostChange$}
+							showSearch
+							// tooltip={
 						/>
 					</Space>
 
