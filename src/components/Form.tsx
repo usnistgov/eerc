@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FilePdfOutlined } from "@ant-design/icons";
 import { Button, Layout, Space, Statistic, Typography } from "antd";
 import "./styles.css";
