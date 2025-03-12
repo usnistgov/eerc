@@ -34,7 +34,7 @@ const [useSector, sector$] = bind(sectorChange$, SectorType.INDUSTRIAL);
 const stateChange$ = new Subject<StateType>();
 const [useSelectedState] = bind(stateChange$, StateType.State);
 
-const zipCodeChange$ = new Subject<SocialCostType>();
+const zipCodeChange$ = new Subject<string>();
 const [useZipcode] = bind(zipCodeChange$);
 
 const coalChange$ = new BehaviorSubject(0);
@@ -98,6 +98,22 @@ const totalSum$ = combineLatest([
 	map((arr) => arr.reduce((acc, sum) => acc + (sum || 0), 0)), // Ensure sum defaults to 0
 );
 
+stateChange$
+	.pipe(
+		switchMap((selectedState: StateType) => {
+			if (selectedState !== StateType.State) {
+				// @ts-expect-error unable to resolve type
+				const zips: string[] = stateZips[selectedState];
+				const firstZip: string = zips.length > 0 ? zips[0] : "";
+				zipCodeChange$.next(firstZip);
+			} else {
+				zipCodeChange$.next(""); // Reset if no state is selected
+			}
+			return of(null); // Just to complete the observable
+		}),
+	)
+	.subscribe();
+
 const results$ = combineLatest([
 	dataYearChange$.pipe(startWith(DataYearType.CURRENT)),
 	sectorChange$.pipe(startWith(SectorType.INDUSTRIAL)),
@@ -138,17 +154,18 @@ const [useResults, result$] = bind(results$);
 function Form() {
 	const [realRate, setRealRate] = useState(0);
 	const [nominalRate, setNominalRate] = useState(0);
-	const getZipcodes = (selectedState: string) => {
-		if (selectedState !== "None Selected") {
-			const zips = stateZips[selectedState];
-			const zipOptions = zips.reduce((acc: number, curr: number) => {
-				acc[curr] = curr;
-				return acc;
-			}, {});
-			return zipOptions;
-		}
-		return {};
-	};
+
+	// const getZipcodes = (selectedState: string) => {
+	// 	if (selectedState !== "None Selected") {
+	// 		const zips = stateZips[selectedState];
+	// 		const zipOptions = zips.reduce((acc: number, curr: number) => {
+	// 			acc[curr] = curr;
+	// 			return acc;
+	// 		}, {});
+	// 		return zipOptions;
+	// 	}
+	// 	return {};
+	// };
 
 	results$.subscribe(([escalationRate, nominalRate]) => {
 		const EscalationRate = escalationRate;
@@ -203,16 +220,16 @@ function Form() {
 							showSearch
 							tooltip="Selecting the state in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by state)."
 						/>
-						<Dropdown
-							className={"w-64"}
-							placeholder="Select Zipcode"
-							options={Object.values(getZipcodes(useSelectedState()))}
-							value$={zipCodeChange$}
-							wire={zipCodeChange$}
-							showSearch
-							disabled={useSelectedState() === "None Selected" ? true : false}
-							tooltip="Selecting the zipcode in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by zipcode)."
-						/>
+						{/* <Dropdown
+						 	className={"w-64"}
+						 	placeholder="Select Zipcode"
+						 	options={Object.values(getZipcodes(useSelectedState()))}
+						 	value$={zipCodeChange$}
+						 	wire={zipCodeChange$}
+						 	showSearch
+						 	disabled={useSelectedState() === "None Selected" ? true : false}
+						 	tooltip="Selecting the zipcode in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by zipcode)."
+						 />*/}
 					</Space>
 
 					<DividerComp heading={"Percent of Energy Cost Savings"} title="tooltip" />
