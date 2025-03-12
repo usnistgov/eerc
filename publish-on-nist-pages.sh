@@ -4,7 +4,7 @@ TEMP_BRANCH=temp-split
 PAGES_BRANCH=nist-pages
 MASTER_REMOTE=origin
 PAGES_REMOTE=origin
-BUILD_DIR=build
+BUILD_DIR=dist
 opt_force=""
 
 if [ "$1" = "-f" ]; then
@@ -38,7 +38,7 @@ npm run build || die "'npm run build' failed"
 git checkout $opt_force -b $TEMP_BRANCH || die "Could not create branch $TEMP_BRANCH" # should bring over build directory
 git add -f $BUILD_DIR || die "Could not add $BUILD_DIR to $TEMP_BRANCH"
 git commit -m "irrelevant commit for $PAGES_BRANCH generation" || die "Could not commit to $TEMP_BRANCH"
-git subtree split --prefix build -b "$PAGES_BRANCH" || die "'git subtree split' failed"
+git subtree split --prefix dist -b "$PAGES_BRANCH" || die "'git subtree split' failed"
 git checkout master || die "'git checkout master' failed"
 git push -f "${PAGES_REMOTE}" "${PAGES_BRANCH}:${PAGES_BRANCH}" || die "'git push' failed"
 
