@@ -1,5 +1,6 @@
 import { FilePdfOutlined } from "@ant-design/icons";
 import { Button, Layout, Space, Statistic, Typography } from "antd";
+import "./styles.css";
 
 import { bind } from "@react-rxjs/core";
 import { BehaviorSubject, Subject, combineLatest, filter, map, of, startWith, switchMap } from "rxjs";
@@ -179,8 +180,8 @@ function Form() {
 	return (
 		<>
 			<Navigation />
-			<Space direction="vertical" className="py-12 px-36 w-full">
-				<Space className="flex justify-center flex-col">
+			<Space direction="vertical" className="py-12 px-36 w-full light-gray">
+				<Space className="flex justify-center flex-col blue header">
 					<Title level={2}>NIST Energy Escalation Rate Calculator</Title>
 					<Title level={5}>Data loaded through {currentYear}</Title>
 					<Title level={4}>
@@ -340,13 +341,13 @@ function Form() {
 					<Space className="flex flex-col justify-center">
 						<Space>
 							<Statistic
-								className="p-1 mr-2 rounded-md text-center ring-2 ring-black ring-offset-2 w-24"
+								className="p-1 mr-2 rounded-md text-center ring-offset-2 w-24 blue"
 								title="Real Rate"
 								value={realRate.toFixed(2)}
 								suffix="%"
 							/>
 							<Statistic
-								className="p-1 ml-2 rounded-md text-center ring-2 ring-black ring-offset-2 w-24"
+								className="p-1 mr-2 rounded-md text-center ring-offset-2 w-24 blue"
 								title="Nominal Rate"
 								value={nominalRate.toFixed(2)}
 								suffix="%"
@@ -354,14 +355,14 @@ function Form() {
 						</Space>
 
 						<Space>
-							<Button className="mt-2" icon={<FilePdfOutlined />}>
+							<Button className="mt-2 blue" icon={<FilePdfOutlined />}>
 								Save to PDF
 							</Button>
 						</Space>
 					</Space>
 				</Content>
 			</Space>
-			<Footer style={{ backgroundColor: "rgb(46, 46, 46)" }}>
+			<Footer className="footer">
 				<Disclaimer />
 			</Footer>
 		</>

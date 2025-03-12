@@ -1,0 +1,27 @@
+.light-gray {
+	background-color: rgb(250 250 250);
+}
+
+.blue,
+.ant-menu * {
+	background-color: #005fa3 !important;
+	color: #fff;
+}
+
+.header {
+	border-radius: 5px;
+	padding: 5px 0;
+}
+
+.header * {
+	color: #fff !important;
+}
+
+.ant-statistic-content,
+.ant-statistic-title {
+	color: #fff !important;
+}
+
+.footer {
+	background-color: rgb(46, 46, 46);
+}
