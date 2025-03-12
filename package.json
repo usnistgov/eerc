@@ -1,44 +1,37 @@
 {
   "name": "eerc",
-  "version": "2.2.1-20240409",
   "private": true,
-  "homepage": ".",
-  "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@mui/icons-material": "^5.11.0",
-    "@mui/lab": "^5.0.0-alpha",
-    "@mui/material": "^5.11.0",
-    "@mui/styles": "^5.11.0",
-    "jspdf": "^2.3.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  },
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "export PORT=3001 && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "@react-rxjs/core": "^0.10.7",
+    "@react-rxjs/utils": "^0.9.7",
+    "antd": "^5.16.5",
+    "docker": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@babel/plugin-transform-private-property-in-object": "^7.22.11",
-    "react-scripts": "^5.0.1",
-    "yargs": "^17.7.2"
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
   }
 }
