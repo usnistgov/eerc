@@ -1,9 +1,13 @@
 import { FilePdfOutlined } from "@ant-design/icons";
+import { pdf } from "@react-pdf/renderer";
 import { Button, Layout, Space, Statistic, Typography } from "antd";
+import { useSubscribe } from "../useSubscribe";
+import Pdf from "./Pdf";
 import "./styles.css";
 
 import { bind } from "@react-rxjs/core";
-import { BehaviorSubject, Subject, combineLatest, filter, map, of, startWith, switchMap } from "rxjs";
+// import { useSubscribe } from "hooks/UseSubscribe";
+import { BehaviorSubject, Subject, combineLatest, filter, map, of, startWith, switchMap, withLatestFrom } from "rxjs";
 import {
 	ContractStartDateType,
 	DataYearType,
@@ -16,7 +20,7 @@ import stateZips from "../data/statetozip.json";
 
 import { finalCalculations } from "../Calculations/Calculations";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Disclaimer from "./Disclaimer";
 import DividerComp from "./Divider";
 import Dropdown from "./Dropdown";
@@ -30,7 +34,7 @@ const dataYearChange$ = new Subject<number>();
 const [useDataYear] = bind(dataYearChange$, DataYearType.CURRENT);
 
 const sectorChange$ = new Subject<SectorType>();
-const [useSector, sector$] = bind(sectorChange$, SectorType.INDUSTRIAL);
+const [useSector] = bind(sectorChange$, SectorType.INDUSTRIAL);
 
 const stateChange$ = new Subject<StateType>();
 const [useSelectedState] = bind(stateChange$, StateType.State);
@@ -132,7 +136,10 @@ const results$ = combineLatest([
 	inflationRateChange$.pipe(startWith(2.9)),
 ]).pipe(
 	filter(([, , , , , , , , , totalSum, , , ,]) => totalSum === 100), // Filter to only allow calculations when totalSum equals 100
-	map((inputs) => finalCalculations(inputs)),
+	map((inputs) => {
+		console.log(inputs);
+		return finalCalculations(inputs);
+	}),
 );
 
 results$.subscribe(console.log);
@@ -151,6 +158,8 @@ stream$.subscribe(console.log);
 
 const [useTotal, total$] = bind(totalSum$, 0);
 const [useResults, result$] = bind(results$);
+
+const pdfClick$ = new Subject<void>();
 
 function Form() {
 	const [realRate, setRealRate] = useState(0);
@@ -176,6 +185,105 @@ function Form() {
 
 		console.log("rates are", escalationRate, nominalRate);
 	});
+
+	const generatePdf = useCallback(
+		(
+			_: undefined,
+			dataYear: string,
+			sector: string,
+			location: { state: string; zipcode: string },
+			sources: { coal: string; oil: string; electricity: string; gas: string; residual: string },
+			contract: { contractDate: string; contractTerm: string },
+			socialCost: string,
+			inflationRate: number,
+		) => {
+			console.log("pdf");
+			const blob = pdf(
+				<Pdf
+					dataYear={dataYear}
+					sector={sector}
+					location={location}
+					sources={sources}
+					contract={contract}
+					socialCost={socialCost}
+					inflationRate={inflationRate}
+				/>,
+			).toBlob();
+
+			blob.then((blob: Blob | MediaSource) => {
+				const url = window.URL.createObjectURL(blob);
+				const link = document.createElement("a");
+				link.href = url;
+				link.download = `EERC Report.pdf`;
+				link.click();
+			});
+		},
+		[realRateChange$],
+	);
+
+	useSubscribe(
+		pdfClick$.pipe(
+			withLatestFrom(
+				dataYearChange$,
+				sectorChange$,
+				stateChange$,
+				// zipCodeChange$,
+				coalChange$,
+				oilChange$,
+				electricityChange$,
+				gasChange$,
+				residualChange$,
+				contractStartDateChange$,
+				contractTermChange$,
+				socialCostChange$,
+				inflationRateChange$,
+			),
+		),
+		([
+			_,
+			dataYear,
+			sector,
+			state,
+			// zipcode,
+			coal,
+			oil,
+			electricity,
+			gas,
+			residual,
+			contractDate,
+			contractTerm,
+			socialCost,
+			inflationRate,
+		]) => {
+			console.log("clicked");
+			console.log("Data for PDF:", {
+				dataYear,
+				sector,
+				state,
+				// zipcode,
+				coal,
+				oil,
+				electricity,
+				gas,
+				residual,
+				contractDate,
+				contractTerm,
+				socialCost,
+				inflationRate,
+			});
+			generatePdf(
+				_,
+				dataYear,
+				sector,
+				{ state, zipcode: "100001" },
+				{ coal, oil, electricity, gas, residual },
+				{ contractDate, contractTerm },
+				socialCost,
+				inflationRate,
+			);
+		},
+		[realRateChange$],
+	);
 
 	return (
 		<>
@@ -355,7 +463,13 @@ function Form() {
 						</Space>
 
 						<Space>
-							<Button className="mt-2 blue" icon={<FilePdfOutlined />}>
+							<Button
+								className="mt-2 blue"
+								icon={<FilePdfOutlined />}
+								onClick={() => {
+									pdfClick$.next();
+								}}
+							>
 								Save to PDF
 							</Button>
 						</Space>
