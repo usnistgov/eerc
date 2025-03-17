@@ -201,6 +201,7 @@ function Form() {
 							showSearch
 							placeholder="Year of Data"
 							tooltip="Year of data used to determine the escalation rate schedule applied to the energy cost calculation."
+							label="Data Release Year"
 						/>
 						<Dropdown
 							className={"w-64"}
@@ -211,6 +212,7 @@ function Form() {
 							showSearch
 							defaultValue={SectorType.INDUSTRIAL}
 							tooltip="Selection of commercial sector or industrial sector determines the escalation rate schedule applied to the energy cost calculation."
+							label="Sector"
 						/>
 						<Dropdown
 							className={"w-64"}
@@ -221,6 +223,7 @@ function Form() {
 							wire={stateChange$}
 							showSearch
 							tooltip="Selecting the state in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by state)."
+							label="State"
 						/>
 						{/* <Dropdown
 						 	className={"w-64"}
@@ -231,6 +234,7 @@ function Form() {
 						 	showSearch
 						 	disabled={useSelectedState() === "None Selected" ? true : false}
 						 	tooltip="Selecting the zipcode in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by zipcode)."
+							label="Zipcode"
 						 />*/}
 					</Space>
 
@@ -282,6 +286,7 @@ function Form() {
 							label="Total"
 							status={useTotal() !== 100 ? "error" : ""}
 							readOnly
+							disabled
 							tooltip="Percentage of total energy cost savings in dollars. This input is used to weight the escalation rate."
 						/>
 						{useTotal() !== 100 ? <p className="text-red-500">The total must equal 100.</p> : ""}
@@ -297,6 +302,7 @@ function Form() {
 							wire={contractStartDateChange$}
 							showSearch
 							tooltip="Year of contract award/signing"
+							label="Contract Start Date"
 						/>
 						<NumberInput
 							className={"w-28"}
@@ -306,6 +312,7 @@ function Form() {
 							max={25}
 							addOn={"years"}
 							tooltip="Number of years of the contract term"
+							label="Duration"
 						/>
 					</Space>
 
@@ -357,7 +364,7 @@ function Form() {
 
 						<Space>
 							<Button className="mt-2 blue" icon={<FilePdfOutlined />}>
-								Save to PDF
+								Save Report (PDF)
 							</Button>
 						</Space>
 					</Space>
