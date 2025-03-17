@@ -60,7 +60,7 @@ export default function Dropdown<T extends Key>({
 
 	return (
 		<Tooltip title={tooltip}>
-			{label ? <Title level={5}>{label}</Title> : ""}
+			{label && <Title level={5}>{label}</Title>}
 			<Select onChange={(value) => change(value)} value={useValue()} {...selectProps}>
 				{children}
 				{useOptions().map((option) => (
