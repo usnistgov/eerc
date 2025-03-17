@@ -286,6 +286,7 @@ function Form() {
 							label="Total"
 							status={useTotal() !== 100 ? "error" : ""}
 							readOnly
+							disabled
 							tooltip="Percentage of total energy cost savings in dollars. This input is used to weight the escalation rate."
 						/>
 						{useTotal() !== 100 ? <p className="text-red-500">The total must equal 100.</p> : ""}
@@ -363,7 +364,7 @@ function Form() {
 
 						<Space>
 							<Button className="mt-2 blue" icon={<FilePdfOutlined />}>
-								Save to PDF
+								Save Report (PDF)
 							</Button>
 						</Space>
 					</Space>
