@@ -57,8 +57,9 @@ const [useInflationRate] = bind(inflationRateChange$, 0);
 const realRateChange$ = new Subject();
 const nominalRateChange$ = new Subject();
 
-const socialCostChange$ = new Subject<SocialCostType>();
-const [useSocialCost] = bind(socialCostChange$);
+// uncomment when scc is added back
+// const socialCostChange$ = new Subject<SocialCostType>();
+// const [useSocialCost] = bind(socialCostChange$);
 
 // export {
 // 	coalChange$,
@@ -129,10 +130,10 @@ const results$ = combineLatest([
 	totalSum$,
 	contractStartDateChange$.pipe(startWith(2024)),
 	contractTermChange$,
-	socialCostChange$,
+	// socialCostChange$, - uncomment when scc is added back
 	inflationRateChange$.pipe(startWith(2.9)),
 ]).pipe(
-	filter(([, , , , , , , , , totalSum, , , ,]) => totalSum === 100), // Filter to only allow calculations when totalSum equals 100
+	filter(([, , , , , , , , , totalSum, , ,]) => totalSum === 100), // Filter to only allow calculations when totalSum equals 100
 	map((inputs) => finalCalculations(inputs)),
 );
 
@@ -316,7 +317,8 @@ function Form() {
 						/>
 					</Space>
 
-					<DividerComp
+					{/* uncomment when scc is added back */}
+					{/* <DividerComp
 						heading={"Carbon Market Rate Assumptions"}
 						title={`Determines the social cost of GHG emissions projection to use from the Interagency Working Group on Social Cost of Greenhouse Gasses Interim Estimates under Executive Order 13990. The scenarios are based on the assumed discount rate (DR) and projection percentile:
 							- No Carbon Price assumes that no carbon policy is enacted (status quo)
@@ -334,7 +336,7 @@ function Form() {
 							showSearch
 							// tooltip={
 						/>
-					</Space>
+					</Space> */}
 
 					<DividerComp heading={"Annual Inflation Rate"} title="tooltip" />
 					<NumberInput

@@ -267,11 +267,11 @@ export const finalCalculations = (inputs) => {
 		total,
 		contractStart,
 		term,
-		socialCost,
+		// socialCost, - uncomment when scc is added back
 		inflation,
 	] = inputs;
 
-	const scc = getKeyByValue(SocialCostType, socialCost);
+	const scc = "NONE"; // getKeyByValue(SocialCostType, socialCost.NONE); - uncomment when scc is added back, will always be "NONE"
 	const region = `${stateToRegion(state)} ${sector}`;
 
 	let cC = 0;
