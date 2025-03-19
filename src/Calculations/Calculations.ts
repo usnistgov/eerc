@@ -2,7 +2,7 @@
 // @ts-nocheck
 // import { sccOptions } from "../data/Constants";
 
-import { SocialCostType } from "../data/Formats";
+import { SectorType, SocialCostType, StateType } from "../data/Formats";
 import {
 	carbonC,
 	carbonConvert,
@@ -10,11 +10,6 @@ import {
 	carbonE,
 	carbonNG,
 	carbonR,
-	hasCoal,
-	hasElectricity,
-	hasGas,
-	hasOil,
-	hasResidual,
 	pricesCoal,
 	pricesElectricity,
 	pricesGas,
@@ -254,6 +249,7 @@ const getKeyByValue = (obj, value) => {
 
 // base years for each fuel comes from encost data
 export const finalCalculations = (inputs) => {
+	console.log("final calc called");
 	const [
 		dataYear,
 		sector,
@@ -271,26 +267,63 @@ export const finalCalculations = (inputs) => {
 		inflation,
 	] = inputs;
 
+	console.log(inputs);
+
+	let escalationRate = 0;
+	let nomRate = 0;
+
+	if (total !== 100 || sector == SectorType.NONE || state == StateType.State) return [escalationRate, nomRate];
+
 	const scc = "NONE"; // getKeyByValue(SocialCostType, socialCost.NONE); - uncomment when scc is added back, will always be "NONE"
 	const region = `${stateToRegion(state)} ${sector}`;
 
+	let baseyearCarbon = null;
+	let baseyearGas = null;
+	let baseyearElectricity = null;
+	let baseyearResidual = null;
+	let baseyearOil = null;
+	let hasCoal = true;
+	let hasGas = true;
+	let hasElectricity = true;
+	let hasResidual = true;
+	let hasOil = true;
 	let cC = 0;
 	let cNG = 0;
 	let cE = 0;
 	let cR = 0;
 	let cD = 0;
-	let rateC = 0.0;
-	let rateNG = 0.0;
-	let rateE = 0.0;
-	let rateR = 0.0;
-	let rateD = 0.0;
+	let rateCarbon = 0.0;
+	let rateGas = 0.0;
+	let rateElectricity = 0.0;
+	let rateResidual = 0.0;
+	let rateOil = 0.0;
 
 	// calculate base year correctly
-	const baseyearCarbon = parseInt(Object.keys(Encost[region]["Coal"]).sort()[0]);
-	const baseyearGas = parseInt(Object.keys(Encost[region]["Natural Gas"]).sort()[0]);
-	const baseyearElectricity = parseInt(Object.keys(Encost[region]["Electricity"]).sort()[0]);
-	const baseyearResidual = parseInt(Object.keys(Encost[region]["Residual Oil"]).sort()[0]);
-	const baseyearOil = parseInt(Object.keys(Encost[region]["Distillate Oil"]).sort()[0]);
+	try {
+		baseyearCarbon = parseInt(Object.keys(Encost[region]["Coal"]).sort()[0]);
+	} catch (e) {
+		hasCoal = false;
+	}
+	try {
+		baseyearGas = parseInt(Object.keys(Encost[region]["Natural Gas"]).sort()[0]);
+	} catch (e) {
+		hasGas = false;
+	}
+	try {
+		baseyearElectricity = parseInt(Object.keys(Encost[region]["Electricity"]).sort()[0]);
+	} catch (e) {
+		hasElectricity = false;
+	}
+	try {
+		baseyearResidual = parseInt(Object.keys(Encost[region]["Residual Oil"]).sort()[0]);
+	} catch (e) {
+		hasResidual = false;
+	}
+	try {
+		baseyearOil = parseInt(Object.keys(Encost[region]["Distillate Oil"]).sort()[0]);
+	} catch (e) {
+		hasOil = false;
+	}
 
 	const warningsArr = [];
 	let uses_missing_data = false;
@@ -314,7 +347,7 @@ export const finalCalculations = (inputs) => {
 				addPrices(pricesCoal, carbonC, carbonprices[scc], index_start); // carbonprices is an object of socialCost
 				cC = calculateC(index_start, index_end, pricesCoal);
 				//compareIndicesC = compareStartEnd(index_start, index_end, pricesC);
-				rateC = solveForAnnualAverageRate(cC, term);
+				rateCarbon = solveForAnnualAverageRate(cC, term);
 			} else {
 				// w is an array of warnings to set
 				warningsArr.push(`Coal data is not available for the ${region} region`);
@@ -335,7 +368,7 @@ export const finalCalculations = (inputs) => {
 				addPrices(pricesGas, carbonNG, carbonprices[scc], index_start);
 				cNG = calculateC(index_start, index_end, pricesGas);
 				//compareIndicesNG = compareStartEnd(index_start, index_end, pricesNG);
-				rateNG = solveForAnnualAverageRate(cNG, term);
+				rateGas = solveForAnnualAverageRate(cNG, term);
 			} else {
 				warningsArr.push(`Natural Gas data is not available for the ${region} region`);
 				uses_missing_data = true;
@@ -356,8 +389,7 @@ export const finalCalculations = (inputs) => {
 				addPrices(pricesElectricity, carbonE, carbonprices[scc], index_start);
 				cE = calculateC(index_start, index_end, pricesElectricity);
 				//compareIndicesE = compareStartEnd(index_start, index_end, pricesE);
-				rateE = solveForAnnualAverageRate(cE, term);
-				console.log("energy", cE, rateE);
+				rateElectricity = solveForAnnualAverageRate(cE, term);
 			} else {
 				warningsArr.push(`Electricity data is not available for the ${region} region`);
 				uses_missing_data = true;
@@ -377,7 +409,7 @@ export const finalCalculations = (inputs) => {
 				addPrices(pricesResidual, carbonR, carbonprices[scc], index_start);
 				cR = calculateC(index_start, index_end, pricesResidual);
 				//compareIndicesR = compareStartEnd(index_start, index_end, pricesR);
-				rateR = solveForAnnualAverageRate(cR, term);
+				rateResidual = solveForAnnualAverageRate(cR, term);
 			} else {
 				warningsArr.push(`Residual Oil data is not available for the ${region} region`);
 				uses_missing_data = true;
@@ -397,7 +429,7 @@ export const finalCalculations = (inputs) => {
 				addPrices(pricesOil, carbonD, carbonprices[scc], index_start);
 				cD = calculateC(index_start, index_end, pricesOil);
 				//compareIndicesD = compareStartEnd(index_start, index_end, pricesD);
-				rateD = solveForAnnualAverageRate(cD, term);
+				rateOil = solveForAnnualAverageRate(cD, term);
 			} else {
 				warningsArr.push(`Distillate Oil data is not available for the ${region} region`);
 				uses_missing_data = true;
@@ -407,9 +439,17 @@ export const finalCalculations = (inputs) => {
 		console.error("error", error);
 	}
 
-	console.log("rateC=%f rateD=%f rateE=%f rateR=%f rateNG=%f", rateC, rateD, rateE, rateR, rateNG);
-	let escalationRate = coal * rateC + oil * rateD + electricity * rateE + residual * rateR + gas * rateNG; // blended rate
-	let nomRate = (1 + escalationRate / 100) * (1 + parseFloat(inflation) / 100) - 1;
+	console.log(
+		"rateC=%f rateD=%f rateE=%f rateR=%f rateNG=%f",
+		rateCarbon,
+		rateGas,
+		rateElectricity,
+		rateResidual,
+		rateOil,
+	);
+	escalationRate =
+		coal * rateCarbon + oil * rateOil + electricity * rateElectricity + residual * rateResidual + gas * rateGas; // blended rate
+	nomRate = (1 + escalationRate / 100) * (1 + parseFloat(inflation) / 100) - 1;
 	nomRate = nomRate * 100;
 
 	if (uses_missing_data) {

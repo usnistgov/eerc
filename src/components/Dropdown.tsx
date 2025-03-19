@@ -1,7 +1,7 @@
 import { bind } from "@react-rxjs/core";
 import { createSignal } from "@react-rxjs/utils";
 import { Select, Tooltip, Typography, type SelectProps } from "antd";
-import { PropsWithChildren, useEffect, useMemo, type Key } from "react";
+import React, { PropsWithChildren, useEffect, useMemo, type Key } from "react";
 import { Observable, of, type Subject } from "rxjs";
 
 const { Title } = Typography;
@@ -36,7 +36,6 @@ type DropdownProps<T extends Key> = {
  */
 
 export default function Dropdown<T extends Key>({
-	children,
 	options,
 	value$,
 	wire,
@@ -62,7 +61,6 @@ export default function Dropdown<T extends Key>({
 		<Tooltip title={tooltip}>
 			{label && <Title level={5}>{label}</Title>}
 			<Select onChange={(value) => change(value)} value={useValue()} {...selectProps}>
-				{children}
 				{useOptions().map((option) => (
 					<Select.Option key={option} value={option}>
 						{option.toString()}
