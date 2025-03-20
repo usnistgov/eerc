@@ -1,15 +1,13 @@
-// @ts-nocheck
 import { FilePdfOutlined } from "@ant-design/icons";
 import { Button, Layout, Space, Typography } from "antd";
 import "./styles.css";
 
-import { bind } from "@react-rxjs/core";
-import { BehaviorSubject, Subject, combineLatest, map, of, startWith, switchMap, tap } from "rxjs";
+import { BehaviorSubject, Subject, combineLatest, filter, map, of, startWith, switchMap, tap } from "rxjs";
 import {
 	ContractStartDateType,
 	DataYearType,
 	SectorType,
-	// SocialCostType,
+	// SocialCostType, - uncomment when scc is added back
 	StateType,
 	currentYear,
 } from "../data/Formats";
@@ -17,7 +15,7 @@ import stateZips from "../data/statetozip.json";
 
 import { finalCalculations } from "../Calculations/Calculations";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Coal } from "./Coal";
 import { CostSavingsTotal } from "./CostSavingsTotal";
 import Disclaimer from "./Disclaimer";
@@ -30,85 +28,38 @@ import RatesDisplay from "./RatesDisplay";
 const { Content, Footer } = Layout;
 const { Title } = Typography;
 
-const dataYearChange$ = new Subject<number>(DataYearType.CURRENT);
-// const [useDataYear] = bind(dataYearChange$, DataYearType.CURRENT);
-
+const dataYearChange$ = new BehaviorSubject<number>(DataYearType.CURRENT);
 const sectorChange$ = new Subject<SectorType>();
-const [useSector, sector$] = bind(sectorChange$, SectorType.NONE);
-
 const stateChange$ = new Subject<StateType>();
-// const [useSelectedState] = bind(stateChange$, StateType.State);
-
 const zipCodeChange$ = new Subject<string>();
-// const [useZipcode] = bind(zipCodeChange$);
 
 const coalChange$ = new BehaviorSubject(0);
-// const [useCoal] = bind(coalChange$);
 const oilChange$ = new BehaviorSubject(0);
-// const [useOil] = bind(oilChange$);
 const electricityChange$ = new BehaviorSubject(0);
-// const [useElectricity] = bind(electricityChange$);
 const gasChange$ = new BehaviorSubject(0);
-// const [useGas] = bind(gasChange$);
 const residualChange$ = new BehaviorSubject(0);
-// const [useResidual] = bind(residualChange$);
-// const totalChange$ = new BehaviorSubject(0);
 
-const contractTermChange$ = new Subject(10);
-// const [useContractTerm] = bind(contractTermChange$);
-const contractStartDateChange$ = new BehaviorSubject<typeof ContractStartDateType>(2024);
-// const [useContractStartDate] = bind(contractStartDateChange$, 2024);
+const contractTermChange$ = new BehaviorSubject<number>(10);
+const contractStartDateChange$ = new BehaviorSubject<number>(ContractStartDateType.CURRENT);
 
-// const socialCostChange$ = new Subject<SocialCostType>();
-// const [useSocialCost] = bind(socialCostChange$, SocialCostType.NONE);
+// const socialCostChange$ = new Subject<SocialCostType>(); - uncomment when scc is added back
 
 const inflationRateChange$ = new BehaviorSubject(2.9);
-// const [useInflationRate] = bind(inflationRateChange$, 2.9);
 
-const realRate$ = new Subject();
-const nominalRate$ = new Subject();
+const realRate$ = new Subject<number>();
+const nominalRate$ = new Subject<number>();
 
 // uncomment when scc is added back
 // const socialCostChange$ = new Subject<SocialCostType>();
-// const [useSocialCost] = bind(socialCostChange$);
 
-// export {
-// 	coalChange$,
-// 	contractStartDateChange$,
-// 	contractTermChange$,
-// 	dataYearChange$,
-// 	electricityChange$,
-// 	gasChange$,
-// 	inflationRateChange$,
-// 	nominalRateChange$,
-// 	oilChange$,
-// 	realRateChange$,
-// 	residualChange$,
-// 	sectorChange$,
-// 	socialCostChange$,
-// 	stateChange$,
-// 	totalChange$,
-// 	zipCodeChange$,
-// };
+sectorChange$
+	.pipe(
+		filter((sector) => sector === SectorType.COMMERCIAL),
+		map(() => 0),
+	)
+	.subscribe(coalChange$);
 
-// sectorChange$
-// 	.pipe(
-// 		filter((sector) => sector === SectorType.COMMERCIAL),
-// 		map(() => 0),
-// 	)
-// 	.subscribe(coalChange$);
-
-// const totalSum$ = combineLatest([coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$]).pipe(
-// 	map((arr) => arr.reduce((acc, sum) => acc + sum), 0),
-// );
-
-const totalSum$ = combineLatest([
-	coalChange$, // Default value for coal
-	oilChange$, // Default value for oil
-	electricityChange$, // Default value for electricity
-	gasChange$, // Default value for gas
-	residualChange$, // Default value for residual
-]).pipe(
+const totalSum$ = combineLatest([coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$]).pipe(
 	map((arr) => arr.reduce((acc, sum) => acc + (sum || 0), 0)), // Ensure sum defaults to 0
 );
 
@@ -154,13 +105,8 @@ const results$ = combineLatest([
 	map((inputs) => finalCalculations(inputs)),
 );
 
-// const [useTotal, total$] = bind(totalSum$, 0);
-// const [useResults, result$] = bind(results$);
-
 function Form() {
-	const [realRate, setRealRate] = useState(0);
-	const [nominalRate, setNominalRate] = useState(0);
-
+	// uncomment when zipcode selection is added
 	// const getZipcodes = (selectedState: string) => {
 	// 	if (selectedState !== "None Selected") {
 	// 		const zips = stateZips[selectedState];
@@ -232,7 +178,8 @@ function Form() {
 							tooltip="Selecting the state in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by state)."
 							label="State"
 						/>
-						{/* <Dropdown
+						{/* uncomment when zipcode selection is added
+							<Dropdown
 						 	className={"w-64"}
 						 	placeholder="Select Zipcode"
 						 	options={Object.values(getZipcodes(useSelectedState()))}
@@ -242,7 +189,7 @@ function Form() {
 						 	disabled={useSelectedState() === "None Selected" ? true : false}
 						 	tooltip="Selecting the zipcode in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by zipcode)."
 							label="Zipcode"
-						 />*/}
+						 	/>*/}
 					</Space>
 
 					<DividerComp heading={"Percent of Energy Cost Savings"} title="tooltip" />

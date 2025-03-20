@@ -2,22 +2,11 @@ import { InputNumber, Space, Tooltip, Typography } from "antd";
 import "./styles.css";
 
 import { useEffect, useState } from "react";
-import { combineLatest, Observable } from "rxjs";
+import { Observable } from "rxjs";
 
 const { Title } = Typography;
 
-// Define the props type
-interface EnergyPercentProps {
-	coal$: Observable<number>;
-	oil$: Observable<number>;
-	ele$: Observable<number>;
-	gas$: Observable<number>;
-	res$: Observable<number>;
-}
-
 interface CostSavingsTotalProps {
-	energyPercent: EnergyPercentProps;
-	onTotalChange: (total: number) => void;
 	totalSum$: Observable<number>;
 }
 

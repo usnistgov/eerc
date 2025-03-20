@@ -1,25 +1,10 @@
 import { bind } from "@react-rxjs/core";
 import { createSignal } from "@react-rxjs/utils";
 import { Select, Tooltip, Typography, type SelectProps } from "antd";
-import React, { PropsWithChildren, useEffect, useMemo, type Key } from "react";
+import { PropsWithChildren, useEffect, useMemo, type Key } from "react";
 import { Observable, of, type Subject } from "rxjs";
 
 const { Title } = Typography;
-
-// export type DropdownProps = {
-// 	className?: string;
-// 	disabled?: boolean;
-// 	placeholder?: string;
-// 	showSearch?: boolean;
-// 	value?: string;
-// 	label?: string;
-// };
-
-// export type Dropdown<T> = {
-// 	change$: Observable<T>;
-// 	selectSearch$: Observable<T>;
-// 	component: React.FC<PropsWithChildren & DropdownProps>;
-// };
 
 type DropdownProps<T extends Key> = {
 	className?: string;
