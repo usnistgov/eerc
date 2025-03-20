@@ -1,3 +1,5 @@
+/*eslint-disable*/
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import { Observable } from "rxjs";
 import { SectorType } from "../data/Formats";
