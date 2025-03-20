@@ -2,7 +2,7 @@ import { FilePdfOutlined } from "@ant-design/icons";
 import { Button, Layout, Space, Typography } from "antd";
 import "./styles.css";
 
-import { BehaviorSubject, Subject, combineLatest, filter, map, of, startWith, switchMap, tap } from "rxjs";
+import { BehaviorSubject, Subject, combineLatest, filter, map, mergeMap, of, startWith, switchMap, tap } from "rxjs";
 import {
 	ContractStartDateType,
 	DataYearType,
@@ -58,6 +58,20 @@ sectorChange$
 		map(() => 0),
 	)
 	.subscribe(coalChange$);
+
+dataYearChange$
+	.pipe(
+		mergeMap((dataYear) => {
+			if (dataYear === DataYearType.CURRENT) {
+				return [2.9];
+			} else if (dataYear === DataYearType.PREVIOUS) {
+				return [2.3];
+			} else {
+				return [2.9]; // defaults to 2.9
+			}
+		}),
+	)
+	.subscribe(inflationRateChange$);
 
 const totalSum$ = combineLatest([coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$]).pipe(
 	map((arr) => arr.reduce((acc, sum) => acc + (sum || 0), 0)), // Ensure sum defaults to 0
