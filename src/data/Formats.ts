@@ -42,6 +42,7 @@ export enum SocialCostType {
 }
 
 export enum SectorType {
+	NONE = "None Selected",
 	COMMERCIAL = "Commercial",
 	INDUSTRIAL = "Industrial",
 }

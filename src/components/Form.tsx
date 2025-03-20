@@ -1,15 +1,13 @@
-// @ts-nocheck
 import { FilePdfOutlined } from "@ant-design/icons";
-import { Button, Layout, Space, Statistic, Typography } from "antd";
+import { Button, Layout, Space, Typography } from "antd";
 import "./styles.css";
 
-import { bind } from "@react-rxjs/core";
-import { BehaviorSubject, Subject, combineLatest, filter, map, of, startWith, switchMap } from "rxjs";
+import { BehaviorSubject, Subject, combineLatest, filter, map, mergeMap, of, startWith, switchMap, tap } from "rxjs";
 import {
 	ContractStartDateType,
 	DataYearType,
 	SectorType,
-	SocialCostType,
+	// SocialCostType, - uncomment when scc is added back
 	StateType,
 	currentYear,
 } from "../data/Formats";
@@ -17,68 +15,42 @@ import stateZips from "../data/statetozip.json";
 
 import { finalCalculations } from "../Calculations/Calculations";
 
-import { useState } from "react";
+import { useEffect } from "react";
+import { Coal } from "./Coal";
+import { CostSavingsTotal } from "./CostSavingsTotal";
 import Disclaimer from "./Disclaimer";
 import DividerComp from "./Divider";
 import Dropdown from "./Dropdown";
 import Navigation from "./Navigation";
 import NumberInput from "./NumberInput";
+import RatesDisplay from "./RatesDisplay";
 
 const { Content, Footer } = Layout;
 const { Title } = Typography;
 
-const dataYearChange$ = new Subject<number>();
-const [useDataYear] = bind(dataYearChange$, DataYearType.CURRENT);
-
+const dataYearChange$ = new BehaviorSubject<number>(DataYearType.CURRENT);
 const sectorChange$ = new Subject<SectorType>();
-const [useSector, sector$] = bind(sectorChange$, SectorType.INDUSTRIAL);
-
 const stateChange$ = new Subject<StateType>();
-const [useSelectedState] = bind(stateChange$, StateType.State);
-
 const zipCodeChange$ = new Subject<string>();
-const [useZipcode] = bind(zipCodeChange$);
 
 const coalChange$ = new BehaviorSubject(0);
 const oilChange$ = new BehaviorSubject(0);
 const electricityChange$ = new BehaviorSubject(0);
 const gasChange$ = new BehaviorSubject(0);
 const residualChange$ = new BehaviorSubject(0);
-const totalChange$ = new Subject();
 
-const contractTermChange$ = new Subject();
-const [useContractTerm] = bind(contractTermChange$);
-const contractStartDateChange$ = new Subject<typeof ContractStartDateType>();
-const [useContractStartDate] = bind(contractStartDateChange$, 2023);
+const contractTermChange$ = new BehaviorSubject<number>(10);
+const contractStartDateChange$ = new BehaviorSubject<number>(ContractStartDateType.CURRENT);
 
-const inflationRateChange$ = new Subject();
-const [useInflationRate] = bind(inflationRateChange$, 0);
+// const socialCostChange$ = new Subject<SocialCostType>(); - uncomment when scc is added back
 
-const realRateChange$ = new Subject();
-const nominalRateChange$ = new Subject();
+const inflationRateChange$ = new BehaviorSubject(2.9);
+
+const realRate$ = new Subject<number>();
+const nominalRate$ = new Subject<number>();
 
 // uncomment when scc is added back
 // const socialCostChange$ = new Subject<SocialCostType>();
-// const [useSocialCost] = bind(socialCostChange$);
-
-// export {
-// 	coalChange$,
-// 	contractStartDateChange$,
-// 	contractTermChange$,
-// 	dataYearChange$,
-// 	electricityChange$,
-// 	gasChange$,
-// 	inflationRateChange$,
-// 	nominalRateChange$,
-// 	oilChange$,
-// 	realRateChange$,
-// 	residualChange$,
-// 	sectorChange$,
-// 	socialCostChange$,
-// 	stateChange$,
-// 	totalChange$,
-// 	zipCodeChange$,
-// };
 
 sectorChange$
 	.pipe(
@@ -87,17 +59,21 @@ sectorChange$
 	)
 	.subscribe(coalChange$);
 
-// const totalSum$ = combineLatest([coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$]).pipe(
-// 	map((arr) => arr.reduce((acc, sum) => acc + sum), 0),
-// );
+dataYearChange$
+	.pipe(
+		mergeMap((dataYear) => {
+			if (dataYear === DataYearType.CURRENT) {
+				return [2.9];
+			} else if (dataYear === DataYearType.PREVIOUS) {
+				return [2.3];
+			} else {
+				return [2.9]; // defaults to 2.9
+			}
+		}),
+	)
+	.subscribe(inflationRateChange$);
 
-const totalSum$ = combineLatest([
-	coalChange$.pipe(startWith(0)), // Default value for coal
-	oilChange$.pipe(startWith(0)), // Default value for oil
-	electricityChange$.pipe(startWith(0)), // Default value for electricity
-	gasChange$.pipe(startWith(0)), // Default value for gas
-	residualChange$.pipe(startWith(0)), // Default value for residual
-]).pipe(
+const totalSum$ = combineLatest([coalChange$, oilChange$, electricityChange$, gasChange$, residualChange$]).pipe(
 	map((arr) => arr.reduce((acc, sum) => acc + (sum || 0), 0)), // Ensure sum defaults to 0
 );
 
@@ -119,7 +95,7 @@ stateChange$
 
 const results$ = combineLatest([
 	dataYearChange$.pipe(startWith(DataYearType.CURRENT)),
-	sectorChange$.pipe(startWith(SectorType.INDUSTRIAL)),
+	sectorChange$,
 	stateChange$,
 	zipCodeChange$,
 	coalChange$.pipe(startWith(0)),
@@ -127,37 +103,24 @@ const results$ = combineLatest([
 	electricityChange$.pipe(startWith(0)),
 	gasChange$.pipe(startWith(0)),
 	residualChange$.pipe(startWith(0)),
-	totalSum$,
+	totalSum$.pipe(startWith(0)),
 	contractStartDateChange$.pipe(startWith(2024)),
-	contractTermChange$,
-	// socialCostChange$, - uncomment when scc is added back
-	inflationRateChange$.pipe(startWith(2.9)),
+	contractTermChange$.pipe(startWith(10)),
+	// socialCostChange$.pipe(startWith(SocialCostType.NONE)), - uncomment when scc is added back
+	inflationRateChange$,
 ]).pipe(
-	filter(([, , , , , , , , , totalSum, , ,]) => totalSum === 100), // Filter to only allow calculations when totalSum equals 100
+	tap((inputs) => {
+		console.log(inputs);
+		const totalSum = inputs[9]; // totalSum is the 10th element in the inputs array
+		if (totalSum !== 100) {
+			console.log("calculations not done");
+		}
+	}),
 	map((inputs) => finalCalculations(inputs)),
 );
 
-results$.subscribe(console.log);
-
-const stream$ = totalSum$.pipe(
-	switchMap((sum) => {
-		if (sum === 100) {
-			return results$;
-		} else {
-			return of("Fix");
-		}
-	}),
-);
-
-stream$.subscribe(console.log);
-
-const [useTotal, total$] = bind(totalSum$, 0);
-const [useResults, result$] = bind(results$);
-
 function Form() {
-	const [realRate, setRealRate] = useState(0);
-	const [nominalRate, setNominalRate] = useState(0);
-
+	// uncomment when zipcode selection is added
 	// const getZipcodes = (selectedState: string) => {
 	// 	if (selectedState !== "None Selected") {
 	// 		const zips = stateZips[selectedState];
@@ -170,14 +133,17 @@ function Form() {
 	// 	return {};
 	// };
 
-	results$.subscribe(([escalationRate, nominalRate]) => {
-		const EscalationRate = escalationRate;
-		const NominalRate = nominalRate;
-		setNominalRate(nominalRate);
-		setRealRate(escalationRate);
+	useEffect(() => {
+		const subscription = results$.subscribe(([realRate, nominalRate]) => {
+			realRate$.next(realRate); // Emit the real rate
+			nominalRate$.next(nominalRate); // Emit the nominal rate
+		});
 
-		console.log("rates are", escalationRate, nominalRate);
-	});
+		// Cleanup function to unsubscribe
+		return () => {
+			subscription.unsubscribe();
+		};
+	}, []);
 
 	return (
 		<>
@@ -196,10 +162,10 @@ function Form() {
 						<Dropdown
 							className={"w-64"}
 							options={Object.values(DataYearType)}
-							defaultValue={useDataYear()}
 							value$={dataYearChange$}
 							wire={dataYearChange$}
 							showSearch
+							defaultValue={DataYearType.CURRENT}
 							placeholder="Year of Data"
 							tooltip="Year of data used to determine the escalation rate schedule applied to the energy cost calculation."
 							label="Data Release Year"
@@ -211,7 +177,7 @@ function Form() {
 							value$={sectorChange$}
 							wire={sectorChange$}
 							showSearch
-							defaultValue={SectorType.INDUSTRIAL}
+							defaultValue={SectorType.NONE}
 							tooltip="Selection of commercial sector or industrial sector determines the escalation rate schedule applied to the energy cost calculation."
 							label="Sector"
 						/>
@@ -226,7 +192,8 @@ function Form() {
 							tooltip="Selecting the state in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by state)."
 							label="State"
 						/>
-						{/* <Dropdown
+						{/* uncomment when zipcode selection is added
+							<Dropdown
 						 	className={"w-64"}
 						 	placeholder="Select Zipcode"
 						 	options={Object.values(getZipcodes(useSelectedState()))}
@@ -236,22 +203,12 @@ function Form() {
 						 	disabled={useSelectedState() === "None Selected" ? true : false}
 						 	tooltip="Selecting the zipcode in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by zipcode)."
 							label="Zipcode"
-						 />*/}
+						 	/>*/}
 					</Space>
 
 					<DividerComp heading={"Percent of Energy Cost Savings"} title="tooltip" />
 					<Space className="flex justify-center">
-						{useSector() === SectorType.INDUSTRIAL ? (
-							<NumberInput
-								value$={coalChange$}
-								wire={coalChange$}
-								label="Coal"
-								min={0}
-								tooltip="Percentage of energy cost savings in dollars that is attributable to coal used in the project. This input is used to weight the escalation rate."
-							/>
-						) : (
-							""
-						)}
+						<Coal coal$={coalChange$} sector$={sectorChange$} />
 						<NumberInput
 							value$={oilChange$}
 							wire={oilChange$}
@@ -281,17 +238,7 @@ function Form() {
 							tooltip="Percentage of energy cost savings in dollars that is attributable to residual used in the project. This input is used to weight the escalation rate."
 						/>
 					</Space>
-					<Space className="flex flex-col justify-center mt-5">
-						<NumberInput
-							value$={total$}
-							label="Total"
-							status={useTotal() !== 100 ? "error" : ""}
-							readOnly
-							disabled
-							tooltip="Percentage of total energy cost savings in dollars. This input is used to weight the escalation rate."
-						/>
-						{useTotal() !== 100 ? <p className="text-red-500">The total must equal 100.</p> : ""}
-					</Space>
+					<CostSavingsTotal totalSum$={totalSum$} />
 
 					<DividerComp heading={"Contract Term"} title="tooltip" />
 					<Space className="flex justify-center">
@@ -314,6 +261,7 @@ function Form() {
 							addOn={"years"}
 							tooltip="Number of years of the contract term"
 							label="Duration"
+							defaultValue={10}
 						/>
 					</Space>
 
@@ -350,18 +298,8 @@ function Form() {
 					<DividerComp heading={"Annual Energy Escalation Rate"} title="tooltip" />
 					<Space className="flex flex-col justify-center">
 						<Space>
-							<Statistic
-								className="p-1 mr-2 rounded-md text-center ring-offset-2 w-24 blue"
-								title="Real Rate"
-								value={realRate.toFixed(2)}
-								suffix="%"
-							/>
-							<Statistic
-								className="p-1 mr-2 rounded-md text-center ring-offset-2 w-24 blue"
-								title="Nominal Rate"
-								value={nominalRate.toFixed(2)}
-								suffix="%"
-							/>
+							<RatesDisplay title="Real Rate" displayValue$={realRate$} />
+							<RatesDisplay title="Nominal Rate" displayValue$={nominalRate$} />
 						</Space>
 
 						<Space>

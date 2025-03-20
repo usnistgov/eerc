@@ -20,12 +20,6 @@ export let pricesElectricity = new Array(yearsIn);
 export let pricesResidual = new Array(yearsIn);
 export let pricesOil = new Array(yearsIn);
 
-export let hasCoal = true;
-export let hasGas = true;
-export let hasElectricity = true;
-export let hasResidual = true;
-export let hasOil = true;
-
 // let w = [];
 // try {
 // 	baseyearC = parseInt(Object.keys(Encost[region]["Coal"]).sort()[0]);

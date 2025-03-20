@@ -6,21 +6,6 @@ import { Observable, of, type Subject } from "rxjs";
 
 const { Title } = Typography;
 
-// export type DropdownProps = {
-// 	className?: string;
-// 	disabled?: boolean;
-// 	placeholder?: string;
-// 	showSearch?: boolean;
-// 	value?: string;
-// 	label?: string;
-// };
-
-// export type Dropdown<T> = {
-// 	change$: Observable<T>;
-// 	selectSearch$: Observable<T>;
-// 	component: React.FC<PropsWithChildren & DropdownProps>;
-// };
-
 type DropdownProps<T extends Key> = {
 	className?: string;
 	label?: string;
@@ -36,7 +21,6 @@ type DropdownProps<T extends Key> = {
  */
 
 export default function Dropdown<T extends Key>({
-	children,
 	options,
 	value$,
 	wire,
@@ -60,9 +44,8 @@ export default function Dropdown<T extends Key>({
 
 	return (
 		<Tooltip title={tooltip}>
-			{label ? <Title level={5}>{label}</Title> : ""}
+			{label && <Title level={5}>{label}</Title>}
 			<Select onChange={(value) => change(value)} value={useValue()} {...selectProps}>
-				{children}
 				{useOptions().map((option) => (
 					<Select.Option key={option} value={option}>
 						{option.toString()}
