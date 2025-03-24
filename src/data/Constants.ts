@@ -8,14 +8,9 @@ export const sccOptions = [
 ];
 
 export const sectors = [
-	{
-		value: "commercial",
-		label: "Commercial",
-	},
-	{
-		value: "industrial",
-		label: "Industrial",
-	},
+	{ value: "none", label: "None Selected" },
+	{ value: "commercial", label: "Commercial" },
+	{ value: "industrial", label: "Industrial" },
 ];
 
 export const states = [...new Set(Object.keys(CO2Factors).filter((s) => s.length === 2))]

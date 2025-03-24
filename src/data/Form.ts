@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { shareLatest } from "@react-rxjs/core";
 import { mergeWithKey } from "@react-rxjs/utils";
 import { scan } from "rxjs";

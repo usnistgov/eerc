@@ -42,19 +42,21 @@ export enum SocialCostType {
 }
 
 export enum SectorType {
+	NONE = "None Selected",
 	COMMERCIAL = "Commercial",
 	INDUSTRIAL = "Industrial",
 }
 
 export enum StateType {
 	State = "None Selected",
-	AL = "AL",
 	AK = "AK",
+	AL = "AL",
 	AZ = "AZ",
 	AR = "AR",
 	CA = "CA",
 	CO = "CO",
 	CT = "CT",
+	DC = "DC",
 	DE = "DE",
 	FL = "FL",
 	GA = "GA",
@@ -98,20 +100,20 @@ export enum StateType {
 	WV = "WV",
 	WI = "WI",
 	WY = "WY",
-	DC = "DC",
-	AS = "AS",
-	BI = "BI",
-	GU = "GU",
-	JI = "JI",
-	JA = "JA",
-	KR = "KR",
-	MW = "MW",
-	NI = "NI",
-	PI = "PI",
-	WK = "WK",
-	NO = "NO",
-	PR = "PR",
-	VI = "VI",
+	// AS = "AS",
+	// BI = "BI",
+	// GU = "GU",
+	// JI = "JI",
+	// JA = "JA",
+	// KR = "KR",
+	// MW = "MW",
+	// NI = "NI",
+	// PI = "PI",
+	// WK = "WK",
+	// NO = "NO",
+	// PR = "PR",
+	// VI = "VI",
+	// no data available for above states
 }
 
 export const currentYear = 2024;
