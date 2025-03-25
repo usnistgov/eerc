@@ -164,16 +164,22 @@ function Form() {
 
 	const generatePdf = useCallback(
 		(
-			_: undefined,
 			dataYear: string,
 			sector: string,
 			location: { state: string; zipcode: string },
 			sources: { coal: string; oil: string; electricity: string; gas: string; residual: string },
 			contract: { contractDate: string; contractTerm: string },
-			// socialCost: string,
 			inflationRate: number,
 		) => {
-			console.log("pdf");
+			console.log("Generating PDF...");
+			console.log("Data for PDF:", {
+				dataYear,
+				sector,
+				location,
+				sources,
+				contract,
+				inflationRate,
+			});
 			const blob = pdf(
 				<Pdf
 					dataYear={dataYear}
@@ -181,29 +187,29 @@ function Form() {
 					location={location}
 					sources={sources}
 					contract={contract}
-					// socialCost={socialCost}
 					inflationRate={inflationRate}
 				/>,
 			).toBlob();
 
-			blob.then((blob: Blob | MediaSource) => {
+			blob.then((blob: Blob) => {
 				const url = window.URL.createObjectURL(blob);
 				const link = document.createElement("a");
 				link.href = url;
 				link.download = `EERC Report.pdf`;
 				link.click();
+				// Clean up URL object
+				window.URL.revokeObjectURL(url);
 			});
 		},
 		[],
 	);
 
-	useSubscribe(
-		pdfClick$.pipe(
+	pdfClick$
+		.pipe(
 			withLatestFrom(
 				dataYearChange$,
 				sectorChange$,
 				stateChange$,
-				// zipCodeChange$,
 				coalChange$,
 				oilChange$,
 				electricityChange$,
@@ -211,32 +217,15 @@ function Form() {
 				residualChange$,
 				contractStartDateChange$,
 				contractTermChange$,
-				// socialCostChange$,
 				inflationRateChange$,
 			),
-		),
-		([
-			_,
-			dataYear,
-			sector,
-			state,
-			// zipcode,
-			coal,
-			oil,
-			electricity,
-			gas,
-			residual,
-			contractDate,
-			contractTerm,
-			// socialCost,
-			inflationRate,
-		]) => {
-			console.log("clicked");
-			console.log("Data for PDF:", {
+		)
+		.subscribe(
+			([
+				_,
 				dataYear,
 				sector,
 				state,
-				// zipcode,
 				coal,
 				oil,
 				electricity,
@@ -244,22 +233,38 @@ function Form() {
 				residual,
 				contractDate,
 				contractTerm,
-				// socialCost,
 				inflationRate,
-			});
-			generatePdf(
-				_,
-				dataYear,
-				sector,
-				{ state, zipcode: "100001" },
-				{ coal, oil, electricity, gas, residual },
-				{ contractDate, contractTerm },
-				// socialCost,
-				inflationRate,
-			);
-		},
-		[],
-	);
+			]) => {
+				console.log("PDF button clicked");
+				console.log("Data for PDF:", {
+					dataYear,
+					sector,
+					state,
+					coal,
+					oil,
+					electricity,
+					gas,
+					residual,
+					contractDate,
+					contractTerm,
+					inflationRate,
+				});
+
+				generatePdf(
+					dataYear,
+					sector,
+					{ state, zipcode: "100001" }, // Dummy zipcode
+					{ coal, oil, electricity, gas, residual },
+					{ contractDate, contractTerm },
+					inflationRate,
+				);
+			},
+		);
+
+	const handlePdfClick = () => {
+		console.log("clicked here");
+		pdfClick$.next(); // Trigger the PDF generation
+	};
 
 	return (
 		<>
@@ -419,13 +424,7 @@ function Form() {
 						</Space>
 
 						<Space>
-							<Button
-								className="mt-2 blue"
-								icon={<FilePdfOutlined />}
-								onClick={() => {
-									pdfClick$.next();
-								}}
-							>
+							<Button className="mt-2 blue" icon={<FilePdfOutlined />} onClick={handlePdfClick}>
 								Save Report (PDF)
 							</Button>
 						</Space>
