@@ -170,16 +170,8 @@ function Form() {
 			sources: { coal: string; oil: string; electricity: string; gas: string; residual: string },
 			contract: { contractDate: string; contractTerm: string },
 			inflationRate: number,
+			rates: { real: number; nominal: number },
 		) => {
-			console.log("Generating PDF...");
-			console.log("Data for PDF:", {
-				dataYear,
-				sector,
-				location,
-				sources,
-				contract,
-				inflationRate,
-			});
 			const blob = pdf(
 				<Pdf
 					dataYear={dataYear}
@@ -188,6 +180,7 @@ function Form() {
 					sources={sources}
 					contract={contract}
 					inflationRate={inflationRate}
+					rates={rates}
 				/>,
 			).toBlob();
 
@@ -210,6 +203,7 @@ function Form() {
 				dataYearChange$,
 				sectorChange$,
 				stateChange$,
+				zipCodeChange$,
 				coalChange$,
 				oilChange$,
 				electricityChange$,
@@ -218,6 +212,8 @@ function Form() {
 				contractStartDateChange$,
 				contractTermChange$,
 				inflationRateChange$,
+				realRate$,
+				nominalRate$,
 			),
 		)
 		.subscribe(
@@ -226,6 +222,7 @@ function Form() {
 				dataYear,
 				sector,
 				state,
+				zipcode,
 				coal,
 				oil,
 				electricity,
@@ -234,35 +231,22 @@ function Form() {
 				contractDate,
 				contractTerm,
 				inflationRate,
+				real,
+				nominal,
 			]) => {
-				console.log("PDF button clicked");
-				console.log("Data for PDF:", {
-					dataYear,
-					sector,
-					state,
-					coal,
-					oil,
-					electricity,
-					gas,
-					residual,
-					contractDate,
-					contractTerm,
-					inflationRate,
-				});
-
 				generatePdf(
 					dataYear,
 					sector,
-					{ state, zipcode: "100001" }, // Dummy zipcode
+					{ state, zipcode },
 					{ coal, oil, electricity, gas, residual },
 					{ contractDate, contractTerm },
 					inflationRate,
+					{ real, nominal },
 				);
 			},
 		);
 
 	const handlePdfClick = () => {
-		console.log("clicked here");
 		pdfClick$.next(); // Trigger the PDF generation
 	};
 
