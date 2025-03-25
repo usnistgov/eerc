@@ -1,8 +1,23 @@
+// @ts-nocheck
 import { FilePdfOutlined } from "@ant-design/icons";
+import { pdf } from "@react-pdf/renderer";
 import { Button, Layout, Space, Typography } from "antd";
+import Pdf from "./Pdf";
 import "./styles.css";
 
-import { BehaviorSubject, Subject, combineLatest, filter, map, mergeMap, of, startWith, switchMap, tap } from "rxjs";
+import {
+	BehaviorSubject,
+	Subject,
+	combineLatest,
+	filter,
+	map,
+	mergeMap,
+	of,
+	startWith,
+	switchMap,
+	tap,
+	withLatestFrom,
+} from "rxjs";
 import {
 	ContractStartDateType,
 	DataYearType,
@@ -15,7 +30,7 @@ import stateZips from "../data/statetozip.json";
 
 import { finalCalculations } from "../Calculations/Calculations";
 
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Coal } from "./Coal";
 import { CostSavingsTotal } from "./CostSavingsTotal";
 import Disclaimer from "./Disclaimer";
@@ -119,6 +134,8 @@ const results$ = combineLatest([
 	map((inputs) => finalCalculations(inputs)),
 );
 
+const pdfClick$ = new Subject<void>();
+
 function Form() {
 	// uncomment when zipcode selection is added
 	// const getZipcodes = (selectedState: string) => {
@@ -144,6 +161,94 @@ function Form() {
 			subscription.unsubscribe();
 		};
 	}, []);
+
+	const generatePdf = useCallback(
+		(
+			dataYear: string,
+			sector: string,
+			location: { state: string; zipcode: string },
+			sources: { coal: string; oil: string; electricity: string; gas: string; residual: string },
+			contract: { contractDate: string; contractTerm: string },
+			inflationRate: number,
+			rates: { real: number; nominal: number },
+		) => {
+			const blob = pdf(
+				<Pdf
+					dataYear={dataYear}
+					sector={sector}
+					location={location}
+					sources={sources}
+					contract={contract}
+					inflationRate={inflationRate}
+					rates={rates}
+				/>,
+			).toBlob();
+
+			blob.then((blob: Blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const link = document.createElement("a");
+				link.href = url;
+				link.download = `EERC Report.pdf`;
+				link.click();
+				// Clean up URL object
+				window.URL.revokeObjectURL(url);
+			});
+		},
+		[],
+	);
+
+	pdfClick$
+		.pipe(
+			withLatestFrom(
+				dataYearChange$,
+				sectorChange$,
+				stateChange$,
+				zipCodeChange$,
+				coalChange$,
+				oilChange$,
+				electricityChange$,
+				gasChange$,
+				residualChange$,
+				contractStartDateChange$,
+				contractTermChange$,
+				inflationRateChange$,
+				realRate$,
+				nominalRate$,
+			),
+		)
+		.subscribe(
+			([
+				_,
+				dataYear,
+				sector,
+				state,
+				zipcode,
+				coal,
+				oil,
+				electricity,
+				gas,
+				residual,
+				contractDate,
+				contractTerm,
+				inflationRate,
+				real,
+				nominal,
+			]) => {
+				generatePdf(
+					dataYear,
+					sector,
+					{ state, zipcode },
+					{ coal, oil, electricity, gas, residual },
+					{ contractDate, contractTerm },
+					inflationRate,
+					{ real, nominal },
+				);
+			},
+		);
+
+	const handlePdfClick = () => {
+		pdfClick$.next(); // Trigger the PDF generation
+	};
 
 	return (
 		<>
@@ -303,7 +408,7 @@ function Form() {
 						</Space>
 
 						<Space>
-							<Button className="mt-2 blue" icon={<FilePdfOutlined />}>
+							<Button className="mt-2 blue" icon={<FilePdfOutlined />} onClick={handlePdfClick}>
 								Save Report (PDF)
 							</Button>
 						</Space>
