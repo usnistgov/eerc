@@ -1,5 +1,5 @@
-import { FilePdfOutlined } from "@ant-design/icons";
-import { Button, Layout, Space, Typography } from "antd";
+import { FilePdfOutlined, RedoOutlined } from "@ant-design/icons";
+import { Button, Layout, Space, Tooltip, Typography } from "antd";
 import "./styles.css";
 
 import { BehaviorSubject, Subject, combineLatest, filter, map, mergeMap, of, startWith, switchMap, tap } from "rxjs";
@@ -10,6 +10,7 @@ import {
 	// SocialCostType, - uncomment when scc is added back
 	StateType,
 	currentYear,
+	inflationRates,
 } from "../data/Formats";
 import stateZips from "../data/statetozip.json";
 
@@ -62,13 +63,7 @@ sectorChange$
 dataYearChange$
 	.pipe(
 		mergeMap((dataYear) => {
-			if (dataYear === DataYearType.CURRENT) {
-				return [2.9];
-			} else if (dataYear === DataYearType.PREVIOUS) {
-				return [2.3];
-			} else {
-				return [2.9]; // defaults to 2.9
-			}
+			return [inflationRates[dataYear]];
 		}),
 	)
 	.subscribe(inflationRateChange$);
@@ -92,6 +87,10 @@ stateChange$
 		}),
 	)
 	.subscribe();
+
+const resetInflationRate = () => {
+	inflationRateChange$.next(inflationRates[dataYearChange$.getValue()]);
+};
 
 const results$ = combineLatest([
 	dataYearChange$.pipe(startWith(DataYearType.CURRENT)),
@@ -287,13 +286,20 @@ function Form() {
 					</Space> */}
 
 					<DividerComp heading={"Annual Inflation Rate"} title="tooltip" />
-					<NumberInput
-						value$={inflationRateChange$}
-						wire={inflationRateChange$}
-						min={0}
-						defaultValue={2.9}
-						tooltip="The general rate of inflation for the nominal discount rate calculation. The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using data from CEA and the method described in 10 CFR 436 without consideration of the 3.0 % floor for the real discount rate."
-					/>
+					<Space className="flex justify-center">
+						<NumberInput
+							value$={inflationRateChange$}
+							wire={inflationRateChange$}
+							min={0}
+							defaultValue={2.9}
+							tooltip="The general rate of inflation for the nominal discount rate calculation. The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using data from CEA and the method described in 10 CFR 436 without consideration of the 3.0 % floor for the real discount rate."
+						/>
+						<Tooltip title="Reset to default inflation rate">
+							<Button className="flex flex-col justify-center blue" onClick={resetInflationRate}>
+								<RedoOutlined />
+							</Button>
+						</Tooltip>
+					</Space>
 
 					<DividerComp heading={"Annual Energy Escalation Rate"} title="tooltip" />
 					<Space className="flex flex-col justify-center">

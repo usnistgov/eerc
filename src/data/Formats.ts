@@ -129,3 +129,9 @@ export const ContractStartDateType = {
 	CURRENT2: currentYear + 2,
 	CURRENT3: currentYear + 3,
 };
+
+export const inflationRates: { [key: string]: number } = {
+	"2023": 2.3,
+	"2024": 2.9,
+	// "2025": 2.5, // uncomment when data is available
+};
