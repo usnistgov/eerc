@@ -10,7 +10,7 @@ export type Form = {
 	residual: number;
 	contractStartDate: number;
 	contractTerm: number;
-	socialCost: SocialCostType;
+	socialCost: SocialCost;
 	inflationRate: number;
 };
 
@@ -34,12 +34,19 @@ export type Contract = {
 	term: number;
 };
 
-export enum SocialCostType {
+export enum SocialCost {
 	NONE = "No carbon price",
 	LOW = "Low - $20 in 2024",
 	MEDIUM = "Medium - $66 in 2024",
 	HIGH = "High - $198 in 2024",
 }
+
+export type SocialCostType = {
+	NONE: string;
+	LOW: string;
+	MEDIUM: string;
+	HIGH: string;
+};
 
 export enum SectorType {
 	NONE = "None Selected",
@@ -134,4 +141,34 @@ export const inflationRates: { [key: string]: number } = {
 	"2023": 2.3,
 	"2024": 2.9,
 	// "2025": 2.5, // uncomment when data is available
+};
+
+export type calculationInput = [
+	string, // Sector
+	string, // State
+	number, // Zip
+	number, // Coal
+	number, // Oil
+	number, // Electricity
+	number, // Gas
+	number, // Residual
+	number, // Total
+	number, // Contract Start Year
+	number, // Term
+	number, // Inflation
+];
+
+export type EnergySource = {
+	[key: string]: number;
+};
+
+export type EncostType = {
+	[region: string]: {
+		Coal?: EnergySource;
+		Electricity: EnergySource;
+		"Distillate Oil": EnergySource;
+		"Natural Gas": EnergySource;
+		LPG?: EnergySource;
+		"Residual Oil"?: EnergySource;
+	};
 };

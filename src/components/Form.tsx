@@ -22,7 +22,7 @@ import {
 	ContractStartDateType,
 	DataYearType,
 	SectorType,
-	// SocialCostType, - uncomment when scc is added back
+	// SocialCost, - uncomment when scc is added back
 	StateType,
 	currentYear,
 	inflationRates,
@@ -58,7 +58,7 @@ const residualChange$ = new BehaviorSubject(0);
 const contractTermChange$ = new BehaviorSubject<number>(10);
 const contractStartDateChange$ = new BehaviorSubject<number>(ContractStartDateType.CURRENT);
 
-// const socialCostChange$ = new Subject<SocialCostType>(); - uncomment when scc is added back
+// const socialCostChange$ = new Subject<SocialCost>(); - uncomment when scc is added back
 
 const inflationRateChange$ = new BehaviorSubject(2.9);
 
@@ -66,7 +66,7 @@ const realRate$ = new Subject<number>();
 const nominalRate$ = new Subject<number>();
 
 // uncomment when scc is added back
-// const socialCostChange$ = new Subject<SocialCostType>();
+// const socialCostChange$ = new Subject<SocialCost>();
 
 sectorChange$
 	.pipe(
@@ -108,7 +108,6 @@ const resetInflationRate = () => {
 };
 
 const results$ = combineLatest([
-	dataYearChange$.pipe(startWith(DataYearType.CURRENT)),
 	sectorChange$,
 	stateChange$,
 	zipCodeChange$,
@@ -120,12 +119,12 @@ const results$ = combineLatest([
 	totalSum$.pipe(startWith(0)),
 	contractStartDateChange$.pipe(startWith(2024)),
 	contractTermChange$.pipe(startWith(10)),
-	// socialCostChange$.pipe(startWith(SocialCostType.NONE)), - uncomment when scc is added back
+	// socialCostChange$.pipe(startWith(SocialCost.NONE)), - uncomment when scc is added back
 	inflationRateChange$,
 ]).pipe(
 	tap((inputs) => {
 		console.log(inputs);
-		const totalSum = inputs[9]; // totalSum is the 10th element in the inputs array
+		const totalSum = inputs[8]; // totalSum is the 10th element in the inputs array
 		if (totalSum !== 100) {
 			console.log("calculations not done");
 		}
@@ -382,7 +381,7 @@ function Form() {
 						<Dropdown
 							className={"w-64"}
 							placeholder="Select Carbon Market Rate"
-							options={Object.values(SocialCostType)}
+							options={Object.values(SocialCost)}
 							value$={socialCostChange$}
 							wire={socialCostChange$}
 							showSearch
