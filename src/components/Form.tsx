@@ -396,6 +396,7 @@ function Form() {
 							wire={inflationRateChange$}
 							min={0}
 							defaultValue={2.9}
+							step={0.1}
 							tooltip="The general rate of inflation for the nominal discount rate calculation. The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using data from CEA and the method described in 10 CFR 436 without consideration of the 3.0 % floor for the real discount rate."
 						/>
 						<Tooltip title="Reset to default inflation rate">

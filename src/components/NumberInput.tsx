@@ -34,6 +34,7 @@ export default function NumberInput<T extends Key>({
 	readOnly,
 	status,
 	defaultValue,
+	step,
 	...inputProps
 }: PropsWithChildren<NumberInputProps<T>> & Omit<InputNumberProps, "onChange" | "value" | "options">) {
 	const { change$, change, useValue } = useMemo(() => {
@@ -63,6 +64,7 @@ export default function NumberInput<T extends Key>({
 					onChange={(value) => change(value)}
 					defaultValue={defaultValue}
 					status={status}
+					step={step || 1}
 				/>
 			</Tooltip>
 		</Space>
