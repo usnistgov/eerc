@@ -68,7 +68,7 @@ export const stateToRegion = (state: string) => {
 		case "SD":
 		case "NE":
 		case "KS":
-			return "EastNorthCentral";
+			return "WestNorthCentral";
 		case "CA":
 		case "OR":
 		case "WA":
