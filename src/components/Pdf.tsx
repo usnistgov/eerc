@@ -9,7 +9,7 @@ import Title from "./pdf-components/Title";
 const Pdf = (props: {
 	dataYear: number;
 	sector: string;
-	location: { state: string; zipcode: string };
+	location: { state: string; zipcode: string; region: string };
 	sources: { coal: number; oil: number; electricity: number; gas: number; residual: number };
 	contract: { contractDate: number; contractTerm: number };
 	// socialCost: string;
@@ -37,7 +37,7 @@ const Pdf = (props: {
 					<View style={{ marginLeft: 75 }}>
 						<DisplayField styles={{ ...styles.key, marginTop: 5 }} label={"Data Release Year"} value={dataYear} />
 						<DisplayField styles={styles.key} label="Sector" value={sector} />
-						<DisplayField styles={styles.key} label="State" value={location.state} />
+						<DisplayField styles={styles.key} label="State" value={`${location.state} (${location.region})`} />
 						{/* uncomment when zipcode selection is added */}
 						{/* <br />
 						{location.zipcode ? (

@@ -27,7 +27,7 @@ import {
 } from "../data/Formats";
 import stateZips from "../data/statetozip.json";
 
-import { finalCalculations } from "../Calculations/Calculations";
+import { finalCalculations, stateToRegion } from "../Calculations/Calculations";
 
 import { useCallback, useEffect } from "react";
 import { Coal } from "./Coal";
@@ -45,7 +45,7 @@ const { Title } = Typography;
 
 const dataYearChange$ = new BehaviorSubject<number>(DataYearType.CURRENT);
 const sectorChange$ = new Subject<SectorType>();
-const stateChange$ = new Subject<StateType>();
+const stateChange$ = new BehaviorSubject<StateType>(StateType.State);
 const zipCodeChange$ = new Subject<string>();
 
 const coalChange$ = new BehaviorSubject(0);
@@ -101,6 +101,8 @@ stateChange$
 		}),
 	)
 	.subscribe();
+
+const region: string = `${stateToRegion(stateChange$.getValue())}`;
 
 const resetInflationRate = () => {
 	inflationRateChange$.next(inflationRates[dataYearChange$.getValue()]);
@@ -163,7 +165,7 @@ function Form() {
 		(
 			dataYear: number,
 			sector: string,
-			location: { state: string; zipcode: string },
+			location: { state: string; zipcode: string; region: string },
 			sources: { coal: number; oil: number; electricity: number; gas: number; residual: number },
 			contract: { contractDate: number; contractTerm: number },
 			inflationRate: number,
@@ -234,7 +236,7 @@ function Form() {
 				generatePdf(
 					dataYear,
 					sector,
-					{ state, zipcode },
+					{ state, zipcode, region },
 					{ coal, oil, electricity, gas, residual },
 					{ contractDate, contractTerm },
 					inflationRate,
