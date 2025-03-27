@@ -1,4 +1,4 @@
-import { FilePdfOutlined, RedoOutlined } from "@ant-design/icons";
+import { RedoOutlined } from "@ant-design/icons";
 import { pdf } from "@react-pdf/renderer";
 import { Button, Layout, Space, Tooltip, Typography } from "antd";
 import Pdf from "./Pdf";
@@ -38,6 +38,7 @@ import Dropdown from "./Dropdown";
 import Navigation from "./Navigation";
 import NumberInput from "./NumberInput";
 import RatesDisplay from "./RatesDisplay";
+import { SaveReportButton } from "./SaveReportButton";
 
 const { Content, Footer } = Layout;
 const { Title } = Typography;
@@ -426,12 +427,7 @@ function Form() {
 							<RatesDisplay title="Real Rate" displayValue$={realRate$} />
 							<RatesDisplay title="Nominal Rate" displayValue$={nominalRate$} />
 						</Space>
-
-						<Space>
-							<Button className="mt-2 blue" icon={<FilePdfOutlined />} onClick={handlePdfClick}>
-								Save Report (PDF)
-							</Button>
-						</Space>
+						<SaveReportButton realRate$={realRate$} onClick={handlePdfClick} />
 					</Space>
 				</Content>
 			</Space>
