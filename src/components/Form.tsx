@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FilePdfOutlined, RedoOutlined } from "@ant-design/icons";
 import { pdf } from "@react-pdf/renderer";
 import { Button, Layout, Space, Tooltip, Typography } from "antd";
@@ -22,9 +21,8 @@ import {
 	ContractStartDateType,
 	DataYearType,
 	SectorType,
-	// SocialCostType, - uncomment when scc is added back
+	// SocialCost, - uncomment when scc is added back
 	StateType,
-	currentYear,
 	inflationRates,
 } from "../data/Formats";
 import stateZips from "../data/statetozip.json";
@@ -58,7 +56,7 @@ const residualChange$ = new BehaviorSubject(0);
 const contractTermChange$ = new BehaviorSubject<number>(10);
 const contractStartDateChange$ = new BehaviorSubject<number>(ContractStartDateType.CURRENT);
 
-// const socialCostChange$ = new Subject<SocialCostType>(); - uncomment when scc is added back
+// const socialCostChange$ = new Subject<SocialCost>(); - uncomment when scc is added back
 
 const inflationRateChange$ = new BehaviorSubject(2.9);
 
@@ -66,7 +64,7 @@ const realRate$ = new Subject<number>();
 const nominalRate$ = new Subject<number>();
 
 // uncomment when scc is added back
-// const socialCostChange$ = new Subject<SocialCostType>();
+// const socialCostChange$ = new Subject<SocialCost>();
 
 sectorChange$
 	.pipe(
@@ -108,7 +106,6 @@ const resetInflationRate = () => {
 };
 
 const results$ = combineLatest([
-	dataYearChange$.pipe(startWith(DataYearType.CURRENT)),
 	sectorChange$,
 	stateChange$,
 	zipCodeChange$,
@@ -120,12 +117,12 @@ const results$ = combineLatest([
 	totalSum$.pipe(startWith(0)),
 	contractStartDateChange$.pipe(startWith(2024)),
 	contractTermChange$.pipe(startWith(10)),
-	// socialCostChange$.pipe(startWith(SocialCostType.NONE)), - uncomment when scc is added back
+	// socialCostChange$.pipe(startWith(SocialCost.NONE)), - uncomment when scc is added back
 	inflationRateChange$,
 ]).pipe(
 	tap((inputs) => {
 		console.log(inputs);
-		const totalSum = inputs[9]; // totalSum is the 10th element in the inputs array
+		const totalSum = inputs[8]; // totalSum is the 10th element in the inputs array
 		if (totalSum !== 100) {
 			console.log("calculations not done");
 		}
@@ -163,11 +160,11 @@ function Form() {
 
 	const generatePdf = useCallback(
 		(
-			dataYear: string,
+			dataYear: number,
 			sector: string,
 			location: { state: string; zipcode: string },
-			sources: { coal: string; oil: string; electricity: string; gas: string; residual: string },
-			contract: { contractDate: string; contractTerm: string },
+			sources: { coal: number; oil: number; electricity: number; gas: number; residual: number },
+			contract: { contractDate: number; contractTerm: number },
 			inflationRate: number,
 			rates: { real: number; nominal: number },
 		) => {
@@ -217,7 +214,7 @@ function Form() {
 		)
 		.subscribe(
 			([
-				_,
+				,
 				dataYear,
 				sector,
 				state,
@@ -253,18 +250,21 @@ function Form() {
 		<>
 			<Navigation />
 			<Space direction="vertical" className="py-12 px-36 w-full light-gray">
-				<Space className="flex justify-center flex-col blue header">
+				<Space className="flex justify-center flex-col blue header text-center">
 					<Title level={2}>NIST Energy Escalation Rate Calculator</Title>
-					<Title level={5}>Data loaded through {currentYear}</Title>
 					<Title level={4}>
-						To use, complete all form fields. Computed results are shown immedately at the bottom of the page.
+						To use, complete all form fields. <br />
+						Computed results are shown immedately at the bottom of the page.
 					</Title>
 				</Space>
 				<Content>
-					<DividerComp heading={"Data & Fuel Rate Information"} title="tooltip" />
+					<DividerComp
+						heading={"Data & Fuel Rate Information"}
+						title="User must provide the Data Release Year (year of Annual Supplement data), Sector (customer type), and State (location)."
+					/>
 					<Space className="flex justify-center">
 						<Dropdown
-							className={"w-64"}
+							className={"w-44"}
 							options={Object.values(DataYearType)}
 							value$={dataYearChange$}
 							wire={dataYearChange$}
@@ -275,7 +275,7 @@ function Form() {
 							label="Data Release Year"
 						/>
 						<Dropdown
-							className={"w-64"}
+							className={"w-44"}
 							placeholder="Select Sector"
 							options={Object.values(SectorType)}
 							value$={sectorChange$}
@@ -286,14 +286,14 @@ function Form() {
 							label="Sector"
 						/>
 						<Dropdown
-							className={"w-64"}
+							className={"w-44"}
 							placeholder="Select State"
 							options={Object.values(StateType)}
 							defaultValue={StateType.State}
 							value$={stateChange$}
 							wire={stateChange$}
 							showSearch
-							tooltip="Selecting the state in which the project is located is needed to select the associated energy price escalation rates (by census region) and CO2 pricing and emission rates (currently by state)."
+							tooltip="Selecting the state in which the project is located is needed to select the associated energy price escalation rates (by census division)."
 							label="State"
 						/>
 						{/* uncomment when zipcode selection is added
@@ -310,41 +310,47 @@ function Form() {
 						 	/>*/}
 					</Space>
 
-					<DividerComp heading={"Percent of Energy Cost Savings"} title="tooltip" />
+					<DividerComp
+						heading={"Percent of Energy Cost Savings"}
+						title="Percentage of energy cost savings in dollars that is attributable to one or more of the fuel types used in the project. These inputs are used to weight the escalation rate."
+					/>
 					<Space className="flex justify-center">
 						<Coal coal$={coalChange$} sector$={sectorChange$} />
 						<NumberInput
 							value$={oilChange$}
 							wire={oilChange$}
-							label="Oil"
+							label="Fuel Oil"
 							min={0}
-							tooltip="Percentage of energy cost savings in dollars that is attributable to oil used in the project. This input is used to weight the escalation rate."
+							tooltip="Percentage of energy cost savings in dollars that is attributable to fuel oil."
 						/>
 						<NumberInput
 							value$={electricityChange$}
 							wire={electricityChange$}
 							label="Electricity"
 							min={0}
-							tooltip="Percentage of energy cost savings in dollars that is attributable to electricity used in the project. This input is used to weight the escalation rate."
+							tooltip="Percentage of energy cost savings in dollars that is attributable to electricity."
 						/>
 						<NumberInput
 							value$={gasChange$}
 							wire={gasChange$}
-							label="Gas"
+							label="Natural Gas"
 							min={0}
-							tooltip="Percentage of energy cost savings in dollars that is attributable to gas used in the project. This input is used to weight the escalation rate."
+							tooltip="Percentage of energy cost savings in dollars that is attributable to natural gas."
 						/>
 						<NumberInput
 							value$={residualChange$}
 							wire={residualChange$}
 							label="Residual"
 							min={0}
-							tooltip="Percentage of energy cost savings in dollars that is attributable to residual used in the project. This input is used to weight the escalation rate."
+							tooltip="Percentage of energy cost savings in dollars that is attributable to residual."
 						/>
 					</Space>
 					<CostSavingsTotal totalSum$={totalSum$} />
 
-					<DividerComp heading={"Contract Term"} title="tooltip" />
+					<DividerComp
+						heading={"Contract Term"}
+						title="Contract terms include (1) Year of contract award or signing and (2) Number of years of the contract term"
+					/>
 					<Space className="flex justify-center">
 						<Dropdown
 							className={"w-64"}
@@ -355,6 +361,7 @@ function Form() {
 							showSearch
 							tooltip="Year of contract award/signing"
 							label="Contract Start Date"
+							tooltipPlacement="left"
 						/>
 						<NumberInput
 							className={"w-28"}
@@ -364,6 +371,7 @@ function Form() {
 							max={25}
 							addOn={"years"}
 							tooltip="Number of years of the contract term"
+							tooltipPlacement="right"
 							label="Duration"
 							defaultValue={10}
 						/>
@@ -382,7 +390,7 @@ function Form() {
 						<Dropdown
 							className={"w-64"}
 							placeholder="Select Carbon Market Rate"
-							options={Object.values(SocialCostType)}
+							options={Object.values(SocialCost)}
 							value$={socialCostChange$}
 							wire={socialCostChange$}
 							showSearch
@@ -390,23 +398,29 @@ function Form() {
 						/>
 					</Space> */}
 
-					<DividerComp heading={"Annual Inflation Rate"} title="tooltip" />
+					<DividerComp
+						heading={"Annual Inflation Rate"}
+						title="The general rate of inflation for the nominal discount rate calculation. The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using data from CEA and the method described in 10 CFR 436 without consideration of the 3.0 % floor for the real discount rate."
+					/>
 					<Space className="flex justify-center">
 						<NumberInput
 							value$={inflationRateChange$}
 							wire={inflationRateChange$}
 							min={0}
 							defaultValue={2.9}
-							tooltip="The general rate of inflation for the nominal discount rate calculation. The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using data from CEA and the method described in 10 CFR 436 without consideration of the 3.0 % floor for the real discount rate."
+							step={0.1}
 						/>
-						<Tooltip title="Reset to default inflation rate">
+						<Tooltip placement="right" title="Reset to default inflation rate">
 							<Button className="flex flex-col justify-center blue" onClick={resetInflationRate}>
 								<RedoOutlined />
 							</Button>
 						</Tooltip>
 					</Space>
 
-					<DividerComp heading={"Annual Energy Escalation Rate"} title="tooltip" />
+					<DividerComp
+						heading={"Annual Energy Escalation Rate"}
+						title="The calculated average escalation rate, stated both in real terms (excluding the rate of inflation) and in nominal terms (including the rate of inflation)."
+					/>
 					<Space className="flex flex-col justify-center">
 						<Space>
 							<RatesDisplay title="Real Rate" displayValue$={realRate$} />

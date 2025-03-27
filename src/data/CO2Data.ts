@@ -61,7 +61,15 @@ export const CO2Factors = {
 // social cost of carbon table
 // not in same units as BLCC
 // $/ton to $/kg?
-export const CO2ePrices = {
+export const CO2ePrices: {
+	startyear: number;
+	endyear: number;
+	duration: number;
+	NONE: { [key: string]: number }; // Corrected index signature
+	LOW: { [key: string]: number };
+	MEDIUM: { [key: string]: number };
+	HIGH: { [key: string]: number };
+} = {
 	startyear: 2024,
 	endyear: 2054,
 	duration: 30,

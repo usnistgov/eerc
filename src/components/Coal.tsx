@@ -23,7 +23,7 @@ export const Coal: React.FC<{
 					wire={coal$}
 					label="Coal"
 					min={0}
-					tooltip="Percentage of energy cost savings in dollars that is attributable to coal used in the project. This input is used to weight the escalation rate."
+					tooltip="Percentage of energy cost savings in dollars that is attributable to coal."
 				/>
 			) : (
 				""

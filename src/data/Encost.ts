@@ -1,7 +1,9 @@
 // energy cost = encost
 // energy prices tab/table from blcc
 
-export const encost = {
+import { EncostType } from "./Formats";
+
+export const encost: EncostType = {
 	"NewEngland Residential": {
 		Electricity: {
 			"2024": 65.94,
