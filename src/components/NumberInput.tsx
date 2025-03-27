@@ -1,5 +1,3 @@
-/* eslint-disable */
-// @ts-nocheck
 import { bind } from "@react-rxjs/core";
 import { createSignal } from "@react-rxjs/utils";
 import { InputNumber, Space, Tooltip, Typography, type InputNumberProps } from "antd";
@@ -16,13 +14,15 @@ export type NumberInputProps<T extends Key> = {
 	readOnly?: boolean;
 	tooltip?: string;
 	status?: "" | "error" | "warning" | undefined;
-	value$: Observable<T>;
+	value$: Observable<number>;
 	wire?: Subject<T>;
+	step?: number;
+	tooltipPlacement?: "top" | "bottom" | "left" | "right";
 };
 
 const { Title } = Typography;
 
-export default function NumberInput<T extends Key>({
+export default function NumberInput<T extends number>({
 	label,
 	value$,
 	wire,
@@ -35,6 +35,7 @@ export default function NumberInput<T extends Key>({
 	status,
 	defaultValue,
 	step,
+	tooltipPlacement,
 	...inputProps
 }: PropsWithChildren<NumberInputProps<T>> & Omit<InputNumberProps, "onChange" | "value" | "options">) {
 	const { change$, change, useValue } = useMemo(() => {
@@ -51,7 +52,7 @@ export default function NumberInput<T extends Key>({
 
 	return (
 		<Space className="flex justify-center">
-			<Tooltip title={tooltip}>
+			<Tooltip placement={tooltipPlacement || "top"} title={tooltip}>
 				{label ? <Title level={5}>{label}</Title> : ""}
 				<InputNumber
 					{...inputProps}
@@ -61,7 +62,7 @@ export default function NumberInput<T extends Key>({
 					max={max}
 					readOnly={readOnly || false}
 					value={useValue()}
-					onChange={(value) => change(value)}
+					onChange={(value) => change(value as T)}
 					defaultValue={defaultValue}
 					status={status}
 					step={step || 1}

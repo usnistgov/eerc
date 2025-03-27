@@ -14,6 +14,7 @@ type DropdownProps<T extends Key> = {
 	wire: Subject<T>;
 	placeholder?: string;
 	tooltip?: string;
+	tooltipPlacement?: "top" | "bottom" | "left" | "right";
 };
 
 /**
@@ -25,6 +26,7 @@ export default function Dropdown<T extends Key>({
 	value$,
 	wire,
 	tooltip,
+	tooltipPlacement,
 	label,
 	...selectProps
 }: PropsWithChildren<DropdownProps<T>> & Omit<SelectProps, "onChange" | "value" | "options">) {
@@ -43,7 +45,7 @@ export default function Dropdown<T extends Key>({
 	}, [wire, change$]);
 
 	return (
-		<Tooltip title={tooltip}>
+		<Tooltip placement={tooltipPlacement} title={tooltip}>
 			{label && <Title level={5}>{label}</Title>}
 			<Select onChange={(value) => change(value)} value={useValue()} {...selectProps}>
 				{useOptions().map((option) => (
