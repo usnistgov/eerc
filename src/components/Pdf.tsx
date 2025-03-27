@@ -7,11 +7,11 @@ import { styles } from "./pdf-components/pdfStyles";
 import Title from "./pdf-components/Title";
 
 const Pdf = (props: {
-	dataYear: string;
+	dataYear: number;
 	sector: string;
 	location: { state: string; zipcode: string };
-	sources: { coal: string; oil: string; electricity: string; gas: string; residual: string };
-	contract: { contractDate: string; contractTerm: string };
+	sources: { coal: number; oil: number; electricity: number; gas: number; residual: number };
+	contract: { contractDate: number; contractTerm: number };
 	// socialCost: string;
 	inflationRate: number;
 	rates: { real: number; nominal: number };

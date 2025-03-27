@@ -146,7 +146,7 @@ export const inflationRates: { [key: string]: number } = {
 export type calculationInput = [
 	string, // Sector
 	string, // State
-	number, // Zip
+	string, // Zip
 	number, // Coal
 	number, // Oil
 	number, // Electricity

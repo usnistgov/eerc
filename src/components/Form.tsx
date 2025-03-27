@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FilePdfOutlined, RedoOutlined } from "@ant-design/icons";
 import { pdf } from "@react-pdf/renderer";
 import { Button, Layout, Space, Tooltip, Typography } from "antd";
@@ -24,7 +23,6 @@ import {
 	SectorType,
 	// SocialCost, - uncomment when scc is added back
 	StateType,
-	currentYear,
 	inflationRates,
 } from "../data/Formats";
 import stateZips from "../data/statetozip.json";
@@ -162,11 +160,11 @@ function Form() {
 
 	const generatePdf = useCallback(
 		(
-			dataYear: string,
+			dataYear: number,
 			sector: string,
 			location: { state: string; zipcode: string },
-			sources: { coal: string; oil: string; electricity: string; gas: string; residual: string },
-			contract: { contractDate: string; contractTerm: string },
+			sources: { coal: number; oil: number; electricity: number; gas: number; residual: number },
+			contract: { contractDate: number; contractTerm: number },
 			inflationRate: number,
 			rates: { real: number; nominal: number },
 		) => {
@@ -216,7 +214,7 @@ function Form() {
 		)
 		.subscribe(
 			([
-				_,
+				,
 				dataYear,
 				sector,
 				state,

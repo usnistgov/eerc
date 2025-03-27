@@ -1,7 +1,7 @@
 import { calculationInput, EncostType, SectorType, SocialCost, SocialCostType, StateType } from "../data/Formats";
 import {
 	carbonC,
-	carbonConvert,
+	// carbonConvert,
 	carbonD,
 	carbonE,
 	carbonNG,
@@ -14,7 +14,7 @@ import {
 	yearsIn,
 } from "./CalculationConstants";
 
-import { CO2ePrices, CO2Factors, CO2FutureEmissions } from "../data/CO2Data";
+// import { CO2ePrices, CO2Factors, CO2FutureEmissions } from "../data/CO2Data";
 // import { sccOptions } from "../data/Constants";
 import { encost as Encost } from "../data/Encost";
 
@@ -193,34 +193,35 @@ export const solveForAnnualAverageRate = (computedC: number, duration: number) =
 	return r;
 };
 
-const calculateCarbonPrice = (
-	CO2Factor: number,
-	cP: number[],
-	isElectricity: boolean,
-	baseyear: number,
-	socialCost: string,
-	state: string,
-) => {
-	// PP 2025: replaced carbonprice with socialCost as variable name
-	if (socialCost !== SocialCost.NONE) {
-		// default, low, or high carbon price
-		if (socialCost !== SocialCost.NONE) {
-			for (let i = 0; i < yearsIn; i++) {
-				cP[i] = CO2ePrices[socialCost][i + baseyear] * CO2Factor;
-			} // steps 1 & 2 from Excel file
-			if (isElectricity) {
-				for (let i = 0; i < yearsIn; i++) {
-					//SWB 2022: change from index by CPP and year to index by state and year
-					//SWB 2022 cP[i] = cP[i] * CO2FutureEmissions[carbonprices[carbonprice]][i + baseyear];
-					cP[i] = cP[i] * CO2FutureEmissions[state][i + baseyear];
-				}
-			} // step 3
-			for (let i = 0; i < yearsIn; i++) {
-				cP[i] = cP[i] * carbonConvert;
-			} // step 4
-		}
-	}
-};
+// PP 2025: this function is not used as the socialcost is always set to "NONE". uncomment when scc is added back
+// const calculateCarbonPrice = (
+// 	CO2Factor: number,
+// 	cP: number[],
+// 	isElectricity: boolean,
+// 	baseyear: number,
+// 	socialCost: string,
+// 	state: string,
+// ) => {
+// 	// PP 2025: replaced carbonprice with socialCost as variable name
+// 	if (socialCost !== SocialCost.NONE) {
+// 		// default, low, or high carbon price
+// 		if (socialCost !== SocialCost.NONE) {
+// 			for (let i = 0; i < yearsIn; i++) {
+// 				cP[i] = CO2ePrices[socialCost][i + baseyear] * CO2Factor;
+// 			} // steps 1 & 2 from Excel file
+// 			if (isElectricity) {
+// 				for (let i = 0; i < yearsIn; i++) {
+// 					//SWB 2022: change from index by CPP and year to index by state and year
+// 					//SWB 2022 cP[i] = cP[i] * CO2FutureEmissions[carbonprices[carbonprice]][i + baseyear];
+// 					cP[i] = cP[i] * CO2FutureEmissions[state][i + baseyear];
+// 				}
+// 			} // step 3
+// 			for (let i = 0; i < yearsIn; i++) {
+// 				cP[i] = cP[i] * carbonConvert;
+// 			} // step 4
+// 		}
+// 	}
+// };
 
 const getKeyByValue = (obj: typeof SocialCost, value: string) => {
 	const entry = Object.entries(obj).find(([, val]) => val === value);
@@ -231,8 +232,8 @@ const getKeyByValue = (obj: typeof SocialCost, value: string) => {
 export const finalCalculations = (inputs: calculationInput) => {
 	const [
 		sector,
-		state,
-		zip,
+		state, // add zip
+		,
 		coal,
 		oil,
 		electricity,
@@ -332,7 +333,7 @@ export const finalCalculations = (inputs: calculationInput) => {
 			if (hasCoal && baseyearCarbon) {
 				const index_start = contractStart - baseyearCarbon + 1;
 				const index_end = index_start + term - 1;
-				calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearCarbon, scc, state);
+				// calculateCarbonPrice(CO2Factors["Coal"], carbonC, false, baseyearCarbon, scc, state);
 				addPrices(pricesCoal, carbonC, scc, index_start); // carbonprices is an object of socialCost
 				cC = calculateC(index_start, index_end, pricesCoal);
 				//compareIndicesC = compareStartEnd(index_start, index_end, pricesC);
@@ -349,7 +350,7 @@ export const finalCalculations = (inputs: calculationInput) => {
 			if (hasGas && baseyearGas) {
 				const index_start = contractStart - baseyearGas + 1;
 				const index_end = index_start + term - 1;
-				calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearGas, scc, state);
+				// calculateCarbonPrice(CO2Factors["NatGas"], carbonNG, false, baseyearGas, scc, state);
 				addPrices(pricesGas, carbonNG, scc, index_start);
 				cNG = calculateC(index_start, index_end, pricesGas);
 				//compareIndicesNG = compareStartEnd(index_start, index_end, pricesNG);
@@ -366,7 +367,7 @@ export const finalCalculations = (inputs: calculationInput) => {
 			if (hasElectricity && baseyearElectricity) {
 				const index_start = contractStart - baseyearElectricity + 1;
 				const index_end = index_start + term - 1;
-				calculateCarbonPrice(CO2Factors[/*ZipToState[locale]*/ state], carbonE, true, baseyearElectricity, scc, state);
+				// calculateCarbonPrice(CO2Factors[/*ZipToState[locale]*/ state], carbonE, true, baseyearElectricity, scc, state);
 				addPrices(pricesElectricity, carbonE, scc, index_start);
 				cE = calculateC(index_start, index_end, pricesElectricity);
 				//compareIndicesE = compareStartEnd(index_start, index_end, pricesE);
@@ -383,7 +384,7 @@ export const finalCalculations = (inputs: calculationInput) => {
 			if (hasResidual && baseyearResidual) {
 				const index_start = contractStart - baseyearResidual + 1;
 				const index_end = index_start + term - 1;
-				calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearResidual, scc, state);
+				// calculateCarbonPrice(CO2Factors["ResidOil"], carbonR, false, baseyearResidual, scc, state);
 				addPrices(pricesResidual, carbonR, scc, index_start);
 				cR = calculateC(index_start, index_end, pricesResidual);
 				//compareIndicesR = compareStartEnd(index_start, index_end, pricesR);
@@ -400,7 +401,7 @@ export const finalCalculations = (inputs: calculationInput) => {
 			if (hasOil && baseyearOil) {
 				const index_start = contractStart - baseyearOil + 1;
 				const index_end = index_start + term - 1;
-				calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearOil, scc, state);
+				// calculateCarbonPrice(CO2Factors["DistOil"], carbonD, false, baseyearOil, scc, state);
 				addPrices(pricesOil, carbonD, scc, index_start);
 				cD = calculateC(index_start, index_end, pricesOil);
 				//compareIndicesD = compareStartEnd(index_start, index_end, pricesD);
