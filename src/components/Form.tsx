@@ -1,4 +1,4 @@
-import { FilePdfOutlined, RedoOutlined } from "@ant-design/icons";
+import { RedoOutlined } from "@ant-design/icons";
 import { pdf } from "@react-pdf/renderer";
 import { Button, Layout, Space, Tooltip, Typography } from "antd";
 import Pdf from "./Pdf";
@@ -27,7 +27,7 @@ import {
 } from "../data/Formats";
 import stateZips from "../data/statetozip.json";
 
-import { finalCalculations } from "../Calculations/Calculations";
+import { finalCalculations, stateToRegion } from "../Calculations/Calculations";
 
 import { useCallback, useEffect } from "react";
 import { Coal } from "./Coal";
@@ -38,13 +38,14 @@ import Dropdown from "./Dropdown";
 import Navigation from "./Navigation";
 import NumberInput from "./NumberInput";
 import RatesDisplay from "./RatesDisplay";
+import { SaveReportButton } from "./SaveReportButton";
 
 const { Content, Footer } = Layout;
 const { Title } = Typography;
 
 const dataYearChange$ = new BehaviorSubject<number>(DataYearType.CURRENT);
 const sectorChange$ = new Subject<SectorType>();
-const stateChange$ = new Subject<StateType>();
+const stateChange$ = new BehaviorSubject<StateType>(StateType.State);
 const zipCodeChange$ = new Subject<string>();
 
 const coalChange$ = new BehaviorSubject(0);
@@ -100,6 +101,8 @@ stateChange$
 		}),
 	)
 	.subscribe();
+
+const region: string = `${stateToRegion(stateChange$.getValue())}`;
 
 const resetInflationRate = () => {
 	inflationRateChange$.next(inflationRates[dataYearChange$.getValue()]);
@@ -162,7 +165,7 @@ function Form() {
 		(
 			dataYear: number,
 			sector: string,
-			location: { state: string; zipcode: string },
+			location: { state: string; zipcode: string; region: string },
 			sources: { coal: number; oil: number; electricity: number; gas: number; residual: number },
 			contract: { contractDate: number; contractTerm: number },
 			inflationRate: number,
@@ -233,7 +236,7 @@ function Form() {
 				generatePdf(
 					dataYear,
 					sector,
-					{ state, zipcode },
+					{ state, zipcode, region },
 					{ coal, oil, electricity, gas, residual },
 					{ contractDate, contractTerm },
 					inflationRate,
@@ -426,12 +429,7 @@ function Form() {
 							<RatesDisplay title="Real Rate" displayValue$={realRate$} />
 							<RatesDisplay title="Nominal Rate" displayValue$={nominalRate$} />
 						</Space>
-
-						<Space>
-							<Button className="mt-2 blue" icon={<FilePdfOutlined />} onClick={handlePdfClick}>
-								Save Report (PDF)
-							</Button>
-						</Space>
+						<SaveReportButton realRate$={realRate$} onClick={handlePdfClick} />
 					</Space>
 				</Content>
 			</Space>
