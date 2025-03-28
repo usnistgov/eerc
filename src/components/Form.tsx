@@ -86,10 +86,13 @@ const totalSum$ = combineLatest([coalChange$, oilChange$, electricityChange$, ga
 	map((arr) => arr.reduce((acc, sum) => acc + (sum || 0), 0)), // Ensure sum defaults to 0
 );
 
+let region: string = StateType.State;
+
 stateChange$
 	.pipe(
 		switchMap((selectedState: StateType) => {
 			if (selectedState !== StateType.State) {
+				region = `${stateToRegion(stateChange$.getValue())}`;
 				// @ts-expect-error unable to resolve type
 				const zips: string[] = stateZips[selectedState];
 				const firstZip: string = zips.length > 0 ? zips[0] : "";
@@ -101,8 +104,6 @@ stateChange$
 		}),
 	)
 	.subscribe();
-
-const region: string = `${stateToRegion(stateChange$.getValue())}`;
 
 const resetInflationRate = () => {
 	inflationRateChange$.next(inflationRates[dataYearChange$.getValue()]);
