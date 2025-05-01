@@ -251,7 +251,8 @@ export const finalCalculations = (inputs: calculationInput) => {
 	let escalationRate = 0;
 	let nomRate = 0;
 
-	if (total !== 100 || sector == SectorType.NONE || state == StateType.State) return [escalationRate, nomRate];
+	if (total !== 100 || sector == SectorType.NONE || state == StateType.State || term < 10)
+		return [escalationRate, nomRate];
 
 	const scc: SocialCostType | string = getKeyByValue(SocialCost, "No carbon price") || SocialCost.NONE; // - change 2nd parameter to "socialCost" when scc is added back, for now - will always be "NONE"
 	const region: keyof EncostType = `${stateToRegion(state)} ${sector}`;
