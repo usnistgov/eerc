@@ -123,7 +123,7 @@ export enum StateType {
 	// no data available for above states
 }
 
-export const currentYear = 2024;
+export const currentYear = 2025;
 
 export const DataYearType = {
 	PREVIOUS: currentYear - 1,
@@ -140,7 +140,7 @@ export const ContractStartDateType = {
 export const inflationRates: { [key: string]: number } = {
 	"2023": 2.3,
 	"2024": 2.9,
-	// "2025": 2.5, // uncomment when data is available
+	"2025": 2.5,
 };
 
 export type calculationInput = [
