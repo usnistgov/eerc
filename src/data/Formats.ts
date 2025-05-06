@@ -144,6 +144,7 @@ export const inflationRates: { [key: string]: number } = {
 };
 
 export type calculationInput = [
+	number, // dataYear
 	string, // Sector
 	string, // State
 	string, // Zip
