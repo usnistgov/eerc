@@ -126,7 +126,7 @@ const results$ = combineLatest([
 ]).pipe(
 	tap((inputs) => {
 		console.log(inputs);
-		const totalSum = inputs[8]; // totalSum is the 10th element in the inputs array
+		const totalSum = inputs[8]; // totalSum is the 9th element in the inputs array
 		if (totalSum !== 100) {
 			console.log("calculations not done");
 		}
@@ -407,13 +407,7 @@ function Form() {
 						title="The general rate of inflation for the nominal discount rate calculation. The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using data from CEA and the method described in 10 CFR 436 without consideration of the 3.0 % floor for the real discount rate."
 					/>
 					<Space className="flex justify-center">
-						<NumberInput
-							value$={inflationRateChange$}
-							wire={inflationRateChange$}
-							min={0}
-							defaultValue={2.9}
-							step={0.1}
-						/>
+						<NumberInput value$={inflationRateChange$} wire={inflationRateChange$} defaultValue={2.9} step={0.1} />
 						<Tooltip placement="right" title="Reset to default inflation rate">
 							<Button className="flex flex-col justify-center blue" onClick={resetInflationRate}>
 								<RedoOutlined />
