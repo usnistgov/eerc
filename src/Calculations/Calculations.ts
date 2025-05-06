@@ -1,4 +1,12 @@
-import { calculationInput, EncostType, SectorType, SocialCost, SocialCostType, StateType } from "../data/Formats";
+import {
+	calculationInput,
+	currentYear,
+	EncostType,
+	SectorType,
+	SocialCost,
+	SocialCostType,
+	StateType,
+} from "../data/Formats";
 import {
 	carbonC,
 	// carbonConvert,
@@ -16,7 +24,8 @@ import {
 
 // import { CO2ePrices, CO2Factors, CO2FutureEmissions } from "../data/CO2Data";
 // import { sccOptions } from "../data/Constants";
-import { encost as Encost } from "../data/Encost";
+import { encost_2024 as EncostPrevYear } from "../data/Encost_2024";
+import { encost_2025 as EncostCurrentYear } from "../data/Encost_2025";
 
 export const stateToRegion = (state: string) => {
 	switch (state) {
@@ -231,6 +240,7 @@ const getKeyByValue = (obj: typeof SocialCost, value: string) => {
 // base years for each fuel comes from encost data
 export const finalCalculations = (inputs: calculationInput) => {
 	const [
+		dataReleaseYear,
 		sector,
 		state, // add zip
 		,
@@ -256,6 +266,7 @@ export const finalCalculations = (inputs: calculationInput) => {
 
 	const scc: SocialCostType | string = getKeyByValue(SocialCost, "No carbon price") || SocialCost.NONE; // - change 2nd parameter to "socialCost" when scc is added back, for now - will always be "NONE"
 	const region: keyof EncostType = `${stateToRegion(state)} ${sector}`;
+	const Encost: EncostType = dataReleaseYear === currentYear ? EncostCurrentYear : EncostPrevYear;
 
 	let baseyearCarbon = null;
 	let baseyearGas = null;

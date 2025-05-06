@@ -110,6 +110,7 @@ const resetInflationRate = () => {
 };
 
 const results$ = combineLatest([
+	dataYearChange$,
 	sectorChange$,
 	stateChange$,
 	zipCodeChange$,
@@ -126,7 +127,7 @@ const results$ = combineLatest([
 ]).pipe(
 	tap((inputs) => {
 		console.log(inputs);
-		const totalSum = inputs[8]; // totalSum is the 9th element in the inputs array
+		const totalSum = inputs[9]; // totalSum is the 10th element in the inputs array
 		if (totalSum !== 100) {
 			console.log("calculations not done");
 		}

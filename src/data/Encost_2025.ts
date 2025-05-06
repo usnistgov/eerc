@@ -1,6 +1,6 @@
 import { EncostType } from "./Formats";
 
-export const encost: EncostType = {
+export const encost_2025: EncostType = {
 	"WestNorthCentral Residential": {
 		"Distillate Oil": {
 			"2025": 17.165485,
