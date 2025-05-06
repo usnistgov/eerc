@@ -323,7 +323,7 @@ function Form() {
 						<NumberInput
 							value$={oilChange$}
 							wire={oilChange$}
-							label="Fuel Oil"
+							label="Distillate Oil"
 							min={0}
 							tooltip="Percentage of energy cost savings in dollars that is attributable to fuel oil."
 						/>
@@ -344,7 +344,7 @@ function Form() {
 						<NumberInput
 							value$={residualChange$}
 							wire={residualChange$}
-							label="Residual"
+							label="Residual Oil"
 							min={0}
 							tooltip="Percentage of energy cost savings in dollars that is attributable to residual."
 						/>
