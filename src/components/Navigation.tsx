@@ -53,7 +53,11 @@ const rightMenuItems: MenuItem[] = [
 		children: [
 			{
 				label: (
-					<a href="public\EERC User Guide - 2025.htm" target="_blank" rel="noopener noreferrer">
+					<a
+						href="https://pages.nist.gov/eerc2025//EERC%20User%20Guide%20-%202025.htm"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						HTML
 					</a>
 				),
@@ -61,7 +65,11 @@ const rightMenuItems: MenuItem[] = [
 			},
 			{
 				label: (
-					<a href="public\EERC User Guide - 2025.pdf" target="_blank" rel="noopener noreferrer">
+					<a
+						href="https://pages.nist.gov/eerc2025//EERC%20User%20Guide%20-%202025.pdf"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						PDF
 					</a>
 				),
