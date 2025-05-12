@@ -138,9 +138,8 @@ export const ContractStartDateType = {
 };
 
 export const inflationRates: { [key: string]: number } = {
-	"2023": 2.3,
 	"2024": 2.9,
-	"2025": 2.5,
+	"2025": 2.3,
 };
 
 export type calculationInput = [
