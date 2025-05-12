@@ -1,2912 +1,354 @@
-<html
-	xmlns:v="urn:schemas-microsoft-com:vml"
-	xmlns:o="urn:schemas-microsoft-com:office:office"
-	xmlns:w="urn:schemas-microsoft-com:office:word"
-	xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-	xmlns="http://www.w3.org/TR/REC-html40"
->
+<html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
-		<meta name="ProgId" content="Word.Document" />
-		<meta name="Generator" content="Microsoft Word 15" />
-		<meta name="Originator" content="Microsoft Word 15" />
-		<link rel="File-List" href="EERC%20User%20Guide%20-%202025_files/filelist.xml" />
-		<link rel="Edit-Time-Data" href="EERC%20User%20Guide%20-%202025_files/editdata.mso" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="Generator" content="Microsoft Word 15 (filtered)" />
 		<title>Energy Escalation Rate Calculator (EERC) User Guide</title>
-		<link
-			rel="dataStoreItem"
-			href="EERC%20User%20Guide%20-%202025_files/item0001.xml"
-			target="EERC%20User%20Guide%20-%202025_files/props002.xml"
-		/>
-		<link rel="themeData" href="EERC%20User%20Guide%20-%202025_files/themedata.thmx" />
-		<link rel="colorSchemeMapping" href="EERC%20User%20Guide%20-%202025_files/colorschememapping.xml" />
-
 		<style>
-			<!--
-			 /* Font Definitions */
-			 @font-face
-				{font-family:"Tms Rmn";
-				panose-1:2 2 6 3 4 5 5 2 3 4;
-				mso-font-alt:"Times New Roman";
-				mso-font-charset:0;
-				mso-generic-font-family:roman;
-				mso-font-format:other;
-				mso-font-pitch:variable;
-				mso-font-signature:3 0 0 0 1 0;}
-			@font-face
-				{font-family:Wingdings;
-				panose-1:5 0 0 0 0 0 0 0 0 0;
-				mso-font-charset:2;
-				mso-generic-font-family:auto;
-				mso-font-pitch:variable;
-				mso-font-signature:0 268435456 0 0 -2147483648 0;}
-			@font-face
-				{font-family:"Cambria Math";
-				panose-1:2 4 5 3 5 4 6 3 2 4;
-				mso-font-charset:0;
-				mso-generic-font-family:roman;
-				mso-font-pitch:variable;
-				mso-font-signature:-536869121 1107305727 33554432 0 415 0;}
-			@font-face
-				{font-family:"Segoe UI";
-				panose-1:2 11 5 2 4 2 4 2 2 3;
-				mso-font-charset:0;
-				mso-generic-font-family:swiss;
-				mso-font-pitch:variable;
-				mso-font-signature:-469750017 -1073683329 9 0 511 0;}
-			 /* Style Definitions */
-			 p.MsoNormal, li.MsoNormal, div.MsoNormal
-				{mso-style-unhide:no;
-				mso-style-qformat:yes;
-				mso-style-parent:"";
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			h1
-				{mso-style-unhide:no;
-				mso-style-qformat:yes;
-				mso-style-next:Normal;
-				margin-top:12.0pt;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				mso-outline-level:1;
-				tab-stops:.3in .5in 4.0in;
-				font-size:14.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				mso-font-kerning:0pt;
-				font-weight:bold;
-				mso-bidi-font-weight:normal;}
-			h2
-				{mso-style-unhide:no;
-				mso-style-qformat:yes;
-				mso-style-parent:"Heading 1";
-				mso-style-next:Normal;
-				margin-top:6.0pt;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:9.35pt;
-				mso-pagination:widow-orphan;
-				mso-outline-level:2;
-				tab-stops:.3in .5in 4.0in;
-				font-size:13.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				font-weight:bold;
-				mso-bidi-font-weight:normal;
-				text-decoration:underline;
-				text-underline:single;}
-			h3
-				{mso-style-unhide:no;
-				mso-style-qformat:yes;
-				mso-style-parent:"Heading 2";
-				mso-style-next:Normal;
-				margin-top:6.0pt;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:18.7pt;
-				mso-pagination:widow-orphan;
-				mso-outline-level:3;
-				tab-stops:.3in .5in 4.0in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				font-weight:bold;
-				mso-bidi-font-weight:normal;
-				text-decoration:underline;
-				text-underline:single;}
-			h4
-				{mso-style-unhide:no;
-				mso-style-qformat:yes;
-				mso-style-parent:"Heading 3";
-				mso-style-next:Normal;
-				margin-top:6.0pt;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:28.1pt;
-				mso-pagination:widow-orphan;
-				mso-outline-level:4;
-				tab-stops:.3in .5in 4.0in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				font-weight:bold;
-				mso-bidi-font-weight:normal;
-				text-decoration:underline;
-				text-underline:single;}
-			h5
-				{mso-style-unhide:no;
-				mso-style-qformat:yes;
-				mso-style-parent:"Heading 4";
-				mso-style-next:Normal;
-				margin-top:6.0pt;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:37.45pt;
-				mso-pagination:widow-orphan;
-				mso-outline-level:5;
-				tab-stops:.3in .5in 4.0in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				font-weight:bold;
-				mso-bidi-font-weight:normal;
-				text-decoration:underline;
-				text-underline:single;}
-			p.MsoIndex1, li.MsoIndex1, div.MsoIndex1
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoIndex2, li.MsoIndex2, div.MsoIndex2
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:.25in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoIndex3, li.MsoIndex3, div.MsoIndex3
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:.5in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoToc1, li.MsoToc1, div.MsoToc1
-				{mso-style-priority:39;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:12.0pt;
-				margin-right:.5in;
-				margin-bottom:6.0pt;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				tab-stops:right 6.5in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				font-weight:bold;
-				mso-bidi-font-weight:normal;}
-			p.MsoToc2, li.MsoToc2, div.MsoToc2
-				{mso-style-priority:39;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:6.0pt;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:12.0pt;
-				mso-pagination:widow-orphan;
-				tab-stops:right 6.5in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				font-style:italic;
-				mso-bidi-font-style:normal;}
-			p.MsoToc3, li.MsoToc3, div.MsoToc3
-				{mso-style-priority:39;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:24.0pt;
-				mso-pagination:widow-orphan;
-				tab-stops:right 6.5in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoToc4, li.MsoToc4, div.MsoToc4
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:.5in;
-				mso-pagination:widow-orphan;
-				tab-stops:right 6.5in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoToc5, li.MsoToc5, div.MsoToc5
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:48.0pt;
-				mso-pagination:widow-orphan;
-				tab-stops:right 6.5in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoToc6, li.MsoToc6, div.MsoToc6
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:60.0pt;
-				mso-pagination:widow-orphan;
-				tab-stops:right 6.5in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoToc7, li.MsoToc7, div.MsoToc7
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:1.0in;
-				mso-pagination:widow-orphan;
-				tab-stops:right 6.5in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoToc8, li.MsoToc8, div.MsoToc8
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:84.0pt;
-				mso-pagination:widow-orphan;
-				tab-stops:right 6.5in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoToc9, li.MsoToc9, div.MsoToc9
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:96.0pt;
-				mso-pagination:widow-orphan;
-				tab-stops:right 6.5in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoCommentText, li.MsoCommentText, div.MsoCommentText
-				{mso-style-noshow:yes;
-				mso-style-priority:99;
-				mso-style-link:"Comment Text Char";
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoHeader, li.MsoHeader, div.MsoHeader
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in center 3.0in left 4.0in right 6.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoFooter, li.MsoFooter, div.MsoFooter
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in center 3.0in left 4.0in right 6.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoIndexHeading, li.MsoIndexHeading, div.MsoIndexHeading
-				{mso-style-noshow:yes;
-				mso-style-unhide:no;
-				mso-style-next:"Index 1";
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			span.MsoCommentReference
-				{mso-style-noshow:yes;
-				mso-style-priority:99;
-				mso-ansi-font-size:8.0pt;
-				mso-bidi-font-size:8.0pt;}
-			a:link, span.MsoHyperlink
-				{mso-style-priority:99;
-				color:blue;
-				text-decoration:underline;
-				text-underline:single;}
-			a:visited, span.MsoHyperlinkFollowed
-				{mso-style-noshow:yes;
-				mso-style-priority:99;
-				color:#954F72;
-				mso-themecolor:followedhyperlink;
-				text-decoration:underline;
-				text-underline:single;}
-			p
-				{mso-style-priority:99;
-				mso-margin-top-alt:auto;
-				margin-right:0in;
-				mso-margin-bottom-alt:auto;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				font-size:12.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				mso-fareast-theme-font:minor-fareast;}
-			p.MsoCommentSubject, li.MsoCommentSubject, div.MsoCommentSubject
-				{mso-style-noshow:yes;
-				mso-style-priority:99;
-				mso-style-parent:"Comment Text";
-				mso-style-link:"Comment Subject Char";
-				mso-style-next:"Comment Text";
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				font-weight:bold;}
-			p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-				{mso-style-noshow:yes;
-				mso-style-priority:99;
-				mso-style-link:"Balloon Text Char";
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:9.0pt;
-				font-family:"Segoe UI",sans-serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-				{mso-style-priority:34;
-				mso-style-unhide:no;
-				mso-style-qformat:yes;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:.5in;
-				mso-add-space:auto;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
-				{mso-style-priority:34;
-				mso-style-unhide:no;
-				mso-style-qformat:yes;
-				mso-style-type:export-only;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:.5in;
-				mso-add-space:auto;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
-				{mso-style-priority:34;
-				mso-style-unhide:no;
-				mso-style-qformat:yes;
-				mso-style-type:export-only;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:.5in;
-				mso-add-space:auto;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
-				{mso-style-priority:34;
-				mso-style-unhide:no;
-				mso-style-qformat:yes;
-				mso-style-type:export-only;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:.5in;
-				mso-add-space:auto;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.NormalIndent1, li.NormalIndent1, div.NormalIndent1
-				{mso-style-name:"Normal Indent1";
-				mso-style-unhide:no;
-				mso-style-next:Normal;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:.5in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.lev2, li.lev2, div.lev2
-				{mso-style-name:lev2;
-				mso-style-unhide:no;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:5.0pt;
-				margin-left:.25in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				font-weight:bold;
-				mso-bidi-font-weight:normal;
-				text-decoration:underline;
-				text-underline:single;}
-			p.lev1, li.lev1, div.lev1
-				{mso-style-name:lev1;
-				mso-style-unhide:no;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:15.0pt;
-				margin-left:0in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:14.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				font-weight:bold;
-				mso-bidi-font-weight:normal;}
-			p.lev3, li.lev3, div.lev3
-				{mso-style-name:lev3;
-				mso-style-unhide:no;
-				mso-style-parent:"Heading 4";
-				margin-top:2.0pt;
-				margin-right:.5in;
-				margin-bottom:5.0pt;
-				margin-left:1.0in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;
-				font-weight:bold;
-				mso-bidi-font-weight:normal;
-				text-decoration:underline;
-				text-underline:single;}
-			p.level2bullet, li.level2bullet, div.level2bullet
-				{mso-style-name:"level 2 bullet";
-				mso-style-unhide:no;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:.4in;
-				text-indent:-.2in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 4.0in;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			p.level2bullet0, li.level2bullet0, div.level2bullet0
-				{mso-style-name:"level 2 bullet";
-				mso-style-unhide:no;
-				margin-top:0in;
-				margin-right:.5in;
-				margin-bottom:0in;
-				margin-left:.4in;
-				text-indent:-.2in;
-				mso-pagination:widow-orphan;
-				tab-stops:.5in 63.0pt 4.0in 297.0pt 315.0pt;
-				font-size:12.0pt;
-				mso-bidi-font-size:10.0pt;
-				font-family:"Times New Roman",serif;
-				mso-fareast-font-family:"Times New Roman";
-				color:black;}
-			span.BalloonTextChar
-				{mso-style-name:"Balloon Text Char";
-				mso-style-noshow:yes;
-				mso-style-priority:99;
-				mso-style-unhide:no;
-				mso-style-locked:yes;
-				mso-style-link:"Balloon Text";
-				mso-ansi-font-size:9.0pt;
-				mso-bidi-font-size:9.0pt;
-				font-family:"Segoe UI",sans-serif;
-				mso-ascii-font-family:"Segoe UI";
-				mso-hansi-font-family:"Segoe UI";
-				mso-bidi-font-family:"Segoe UI";
-				color:black;}
-			span.CommentTextChar
-				{mso-style-name:"Comment Text Char";
-				mso-style-noshow:yes;
-				mso-style-priority:99;
-				mso-style-unhide:no;
-				mso-style-locked:yes;
-				mso-style-link:"Comment Text";
-				font-family:"Times New Roman",serif;
-				mso-ascii-font-family:"Times New Roman";
-				mso-hansi-font-family:"Times New Roman";
-				color:black;}
-			span.CommentSubjectChar
-				{mso-style-name:"Comment Subject Char";
-				mso-style-noshow:yes;
-				mso-style-priority:99;
-				mso-style-unhide:no;
-				mso-style-locked:yes;
-				mso-style-parent:"Comment Text Char";
-				mso-style-link:"Comment Subject";
-				font-family:"Times New Roman",serif;
-				mso-ascii-font-family:"Times New Roman";
-				mso-hansi-font-family:"Times New Roman";
-				color:black;
-				font-weight:bold;}
-			span.UnresolvedMention1
-				{mso-style-name:"Unresolved Mention1";
-				mso-style-noshow:yes;
-				mso-style-priority:99;
-				color:#605E5C;
-				background:#E1DFDD;}
-			.MsoChpDefault
-				{mso-style-type:export-only;
-				mso-default-props:yes;
-				font-size:10.0pt;
-				mso-ansi-font-size:10.0pt;
-				mso-bidi-font-size:10.0pt;
-				mso-ascii-font-family:"Tms Rmn";
-				mso-hansi-font-family:"Tms Rmn";
-				mso-font-kerning:0pt;
-				mso-ligatures:none;}
-			 /* Page Definitions */
-			 @page
-				{mso-footnote-separator:url("EERC%20User%20Guide%20-%202025_files/header.htm") fs;
-				mso-footnote-continuation-separator:url("EERC%20User%20Guide%20-%202025_files/header.htm") fcs;
-				mso-endnote-separator:url("EERC%20User%20Guide%20-%202025_files/header.htm") es;
-				mso-endnote-continuation-separator:url("EERC%20User%20Guide%20-%202025_files/header.htm") ecs;}
-			@page WordSection1
-				{size:8.5in 11.0in;
-				margin:1.0in 1.0in 1.0in 1.0in;
-				mso-header-margin:.5in;
-				mso-footer-margin:.5in;
-				mso-header:url("EERC%20User%20Guide%20-%202025_files/header.htm") h1;
-				mso-footer:url("EERC%20User%20Guide%20-%202025_files/header.htm") f1;
-				mso-paper-source:0;}
-			div.WordSection1
-				{page:WordSection1;}
-			 /* List Definitions */
-			 @list l0
-				{mso-list-id:-2;
-				mso-list-type:simple;
-				mso-list-template-ids:-1;}
-			@list l0:level1
-				{mso-level-start-at:0;
-				mso-level-text:*;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:0in;
-				text-indent:0in;}
-			@list l1
-				{mso-list-id:50159086;
-				mso-list-type:hybrid;
-				mso-list-template-ids:493626750 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l1:level1
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l1:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l1:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l1:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l1:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l1:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l1:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l1:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l1:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l2
-				{mso-list-id:87510493;
-				mso-list-type:hybrid;
-				mso-list-template-ids:1884310044 -1779770862 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l2:level1
-				{mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;}
-			@list l2:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.75in;
-				text-indent:-.25in;}
-			@list l2:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:1.25in;
-				text-indent:-9.0pt;}
-			@list l2:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:1.75in;
-				text-indent:-.25in;}
-			@list l2:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.25in;
-				text-indent:-.25in;}
-			@list l2:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:2.75in;
-				text-indent:-9.0pt;}
-			@list l2:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.25in;
-				text-indent:-.25in;}
-			@list l2:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.75in;
-				text-indent:-.25in;}
-			@list l2:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:4.25in;
-				text-indent:-9.0pt;}
-			@list l3
-				{mso-list-id:167790642;
-				mso-list-template-ids:282387196;}
-			@list l3:level1
-				{mso-level-start-at:4;
-				mso-level-tab-stop:.25in;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;}
-			@list l3:level2
-				{mso-level-start-at:3;
-				mso-level-legal-format:yes;
-				mso-level-text:"%1\.%2";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:28.85pt;
-				text-indent:-19.5pt;}
-			@list l3:level3
-				{mso-level-legal-format:yes;
-				mso-level-text:"%1\.%2\.%3";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:54.7pt;
-				text-indent:-.5in;}
-			@list l3:level4
-				{mso-level-legal-format:yes;
-				mso-level-text:"%1\.%2\.%3\.%4";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:64.05pt;
-				text-indent:-.5in;}
-			@list l3:level5
-				{mso-level-legal-format:yes;
-				mso-level-text:"%1\.%2\.%3\.%4\.%5";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:91.4pt;
-				text-indent:-.75in;}
-			@list l3:level6
-				{mso-level-legal-format:yes;
-				mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:118.75pt;
-				text-indent:-1.0in;}
-			@list l3:level7
-				{mso-level-legal-format:yes;
-				mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:128.1pt;
-				text-indent:-1.0in;}
-			@list l3:level8
-				{mso-level-legal-format:yes;
-				mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:155.45pt;
-				text-indent:-1.25in;}
-			@list l3:level9
-				{mso-level-legal-format:yes;
-				mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:164.8pt;
-				text-indent:-1.25in;}
-			@list l4
-				{mso-list-id:189076375;
-				mso-list-type:hybrid;
-				mso-list-template-ids:1525604224 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l4:level1
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l4:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l4:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l4:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l4:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l4:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l4:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l4:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l4:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l5
-				{mso-list-id:333805243;
-				mso-list-template-ids:-1945048022;}
-			@list l5:level2
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:1.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:"Courier New";
-				mso-bidi-font-family:"Times New Roman";}
-			@list l5:level3
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:1.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l5:level4
-				{mso-level-text:"\(%4\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l6
-				{mso-list-id:365183828;
-				mso-list-type:hybrid;
-				mso-list-template-ids:1361341652 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-			@list l6:level1
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				font-family:Symbol;}
-			@list l6:level2
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				font-family:"Courier New";}
-			@list l6:level3
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				font-family:Wingdings;}
-			@list l6:level4
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				font-family:Symbol;}
-			@list l6:level5
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				font-family:"Courier New";}
-			@list l6:level6
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				font-family:Wingdings;}
-			@list l6:level7
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				font-family:Symbol;}
-			@list l6:level8
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				font-family:"Courier New";}
-			@list l6:level9
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				font-family:Wingdings;}
-			@list l7
-				{mso-list-id:450898980;
-				mso-list-template-ids:754191418;}
-			@list l7:level1
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Symbol;}
-			@list l7:level2
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:1.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:"Courier New";
-				mso-bidi-font-family:"Times New Roman";}
-			@list l7:level3
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:1.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l7:level4
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:2.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l7:level5
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:2.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l7:level6
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:3.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l7:level7
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:3.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l7:level8
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:4.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l7:level9
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:4.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l8
-				{mso-list-id:492992118;
-				mso-list-type:hybrid;
-				mso-list-template-ids:546884164 1684958070 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l8:level1
-				{mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l8:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l8:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l8:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l8:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l8:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l8:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l8:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l8:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l9
-				{mso-list-id:597836927;
-				mso-list-type:hybrid;
-				mso-list-template-ids:-247710300 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-			@list l9:level1
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;
-				font-family:Symbol;}
-			@list l9:level2
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.75in;
-				text-indent:-.25in;
-				font-family:"Courier New";}
-			@list l9:level3
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:1.25in;
-				text-indent:-.25in;
-				font-family:Wingdings;}
-			@list l9:level4
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:1.75in;
-				text-indent:-.25in;
-				font-family:Symbol;}
-			@list l9:level5
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.25in;
-				text-indent:-.25in;
-				font-family:"Courier New";}
-			@list l9:level6
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.75in;
-				text-indent:-.25in;
-				font-family:Wingdings;}
-			@list l9:level7
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.25in;
-				text-indent:-.25in;
-				font-family:Symbol;}
-			@list l9:level8
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.75in;
-				text-indent:-.25in;
-				font-family:"Courier New";}
-			@list l9:level9
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:4.25in;
-				text-indent:-.25in;
-				font-family:Wingdings;}
-			@list l10
-				{mso-list-id:599485440;
-				mso-list-type:hybrid;
-				mso-list-template-ids:1076945344 951512190 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l10:level1
-				{mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;}
-			@list l10:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.75in;
-				text-indent:-.25in;}
-			@list l10:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:1.25in;
-				text-indent:-9.0pt;}
-			@list l10:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:1.75in;
-				text-indent:-.25in;}
-			@list l10:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.25in;
-				text-indent:-.25in;}
-			@list l10:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:2.75in;
-				text-indent:-9.0pt;}
-			@list l10:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.25in;
-				text-indent:-.25in;}
-			@list l10:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.75in;
-				text-indent:-.25in;}
-			@list l10:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:4.25in;
-				text-indent:-9.0pt;}
-			@list l11
-				{mso-list-id:691761276;
-				mso-list-type:hybrid;
-				mso-list-template-ids:1000391420 252867756 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l11:level1
-				{mso-level-start-at:14;
-				mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;}
-			@list l11:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l11:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l11:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l11:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l11:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l11:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l11:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l11:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l12
-				{mso-list-id:905188959;
-				mso-list-type:hybrid;
-				mso-list-template-ids:-462499044 -1888858444 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l12:level1
-				{mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l12:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l12:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l12:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l12:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l12:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l12:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l12:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l12:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l13
-				{mso-list-id:996037331;
-				mso-list-type:hybrid;
-				mso-list-template-ids:2028763962 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
-			@list l13:level1
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;
-				font-family:Symbol;}
-			@list l13:level2
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.75in;
-				text-indent:-.25in;
-				font-family:"Courier New";}
-			@list l13:level3
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:1.25in;
-				text-indent:-.25in;
-				font-family:Wingdings;}
-			@list l13:level4
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:1.75in;
-				text-indent:-.25in;
-				font-family:Symbol;}
-			@list l13:level5
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.25in;
-				text-indent:-.25in;
-				font-family:"Courier New";}
-			@list l13:level6
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.75in;
-				text-indent:-.25in;
-				font-family:Wingdings;}
-			@list l13:level7
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.25in;
-				text-indent:-.25in;
-				font-family:Symbol;}
-			@list l13:level8
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.75in;
-				text-indent:-.25in;
-				font-family:"Courier New";}
-			@list l13:level9
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:4.25in;
-				text-indent:-.25in;
-				font-family:Wingdings;}
-			@list l14
-				{mso-list-id:1050417687;
-				mso-list-type:hybrid;
-				mso-list-template-ids:1189657938 -868826060 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l14:level1
-				{mso-level-start-at:7;
-				mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;}
-			@list l14:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l14:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l14:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l14:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l14:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l14:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l14:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l14:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l15
-				{mso-list-id:1065254032;
-				mso-list-type:hybrid;
-				mso-list-template-ids:1076945344 951512190 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l15:level1
-				{mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;}
-			@list l15:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.75in;
-				text-indent:-.25in;}
-			@list l15:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:1.25in;
-				text-indent:-9.0pt;}
-			@list l15:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:1.75in;
-				text-indent:-.25in;}
-			@list l15:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.25in;
-				text-indent:-.25in;}
-			@list l15:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:2.75in;
-				text-indent:-9.0pt;}
-			@list l15:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.25in;
-				text-indent:-.25in;}
-			@list l15:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.75in;
-				text-indent:-.25in;}
-			@list l15:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:4.25in;
-				text-indent:-9.0pt;}
-			@list l16
-				{mso-list-id:1083140987;
-				mso-list-type:hybrid;
-				mso-list-template-ids:-374676132 2008568178 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l16:level1
-				{mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l16:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l16:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l16:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l16:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l16:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l16:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l16:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l16:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l17
-				{mso-list-id:1084374244;
-				mso-list-type:simple;
-				mso-list-template-ids:2146716306;}
-			@list l17:level1
-				{mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				mso-level-legacy:yes;
-				mso-level-legacy-indent:.25in;
-				mso-level-legacy-space:0in;
-				margin-left:.45in;
-				text-indent:-.25in;}
-			@list l18
-				{mso-list-id:1150292106;
-				mso-list-type:hybrid;
-				mso-list-template-ids:1419137796 964566214 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l18:level1
-				{mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;}
-			@list l18:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.75in;
-				text-indent:-.25in;}
-			@list l18:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:1.25in;
-				text-indent:-9.0pt;}
-			@list l18:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:1.75in;
-				text-indent:-.25in;}
-			@list l18:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.25in;
-				text-indent:-.25in;}
-			@list l18:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:2.75in;
-				text-indent:-9.0pt;}
-			@list l18:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.25in;
-				text-indent:-.25in;}
-			@list l18:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.75in;
-				text-indent:-.25in;}
-			@list l18:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:4.25in;
-				text-indent:-9.0pt;}
-			@list l19
-				{mso-list-id:1177040153;
-				mso-list-template-ids:1520447168;}
-			@list l19:level1
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Symbol;}
-			@list l19:level2
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:1.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:"Courier New";
-				mso-bidi-font-family:"Times New Roman";}
-			@list l19:level3
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:1.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l19:level4
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:2.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l19:level5
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:2.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l19:level6
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:3.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l19:level7
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:3.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l19:level8
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:4.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l19:level9
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:4.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l20
-				{mso-list-id:1509521846;
-				mso-list-type:hybrid;
-				mso-list-template-ids:647103202 -1269767346 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l20:level1
-				{mso-level-start-at:8;
-				mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;}
-			@list l20:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l20:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l20:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l20:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l20:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l20:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l20:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l20:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l21
-				{mso-list-id:1642614662;
-				mso-list-template-ids:-1945048022;}
-			@list l21:level2
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:1.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:"Courier New";
-				mso-bidi-font-family:"Times New Roman";}
-			@list l21:level3
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:1.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l21:level4
-				{mso-level-text:"\(%4\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l22
-				{mso-list-id:1651859850;
-				mso-list-template-ids:-2010736254;}
-			@list l22:level1
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Symbol;}
-			@list l22:level2
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:1.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:"Courier New";
-				mso-bidi-font-family:"Times New Roman";}
-			@list l22:level3
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:1.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l22:level4
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:2.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l22:level5
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:2.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l22:level6
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:3.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l22:level7
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:3.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l22:level8
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:4.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l22:level9
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:4.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l23
-				{mso-list-id:1875314336;
-				mso-list-type:hybrid;
-				mso-list-template-ids:-252275816 67698709 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l23:level1
-				{mso-level-number-format:alpha-upper;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.25in;
-				text-indent:-.25in;}
-			@list l23:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.75in;
-				text-indent:-.25in;}
-			@list l23:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:1.25in;
-				text-indent:-9.0pt;}
-			@list l23:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:1.75in;
-				text-indent:-.25in;}
-			@list l23:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.25in;
-				text-indent:-.25in;}
-			@list l23:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:2.75in;
-				text-indent:-9.0pt;}
-			@list l23:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.25in;
-				text-indent:-.25in;}
-			@list l23:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.75in;
-				text-indent:-.25in;}
-			@list l23:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:4.25in;
-				text-indent:-9.0pt;}
-			@list l24
-				{mso-list-id:1907379276;
-				mso-list-type:hybrid;
-				mso-list-template-ids:2075941922 -684719040 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l24:level1
-				{mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l24:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l24:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l24:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l24:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l24:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l24:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l24:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				text-indent:-.25in;}
-			@list l24:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				text-indent:-9.0pt;}
-			@list l25
-				{mso-list-id:1975792175;
-				mso-list-type:simple;
-				mso-list-template-ids:2146716306;}
-			@list l25:level1
-				{mso-level-text:"\(%1\)";
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				mso-level-legacy:yes;
-				mso-level-legacy-indent:.25in;
-				mso-level-legacy-space:0in;
-				margin-left:31.5pt;
-				text-indent:-.25in;}
-			@list l26
-				{mso-list-id:1991708048;
-				mso-list-template-ids:47895480;}
-			@list l26:level1
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Symbol;}
-			@list l26:level2
-				{mso-level-number-format:bullet;
-				mso-level-text:o;
-				mso-level-tab-stop:1.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:"Courier New";
-				mso-bidi-font-family:"Times New Roman";}
-			@list l26:level3
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:1.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l26:level4
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:2.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l26:level5
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:2.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l26:level6
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:3.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l26:level7
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:3.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l26:level8
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:4.0in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l26:level9
-				{mso-level-number-format:bullet;
-				mso-level-text:\F0A7;
-				mso-level-tab-stop:4.5in;
-				mso-level-number-position:left;
-				text-indent:-.25in;
-				mso-ansi-font-size:10.0pt;
-				font-family:Wingdings;}
-			@list l27
-				{mso-list-id:2104493278;
-				mso-list-type:hybrid;
-				mso-list-template-ids:-1004263776 67698713 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
-			@list l27:level1
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:.75in;
-				text-indent:-.25in;}
-			@list l27:level2
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:1.25in;
-				text-indent:-.25in;}
-			@list l27:level3
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:1.75in;
-				text-indent:-9.0pt;}
-			@list l27:level4
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.25in;
-				text-indent:-.25in;}
-			@list l27:level5
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:2.75in;
-				text-indent:-.25in;}
-			@list l27:level6
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:3.25in;
-				text-indent:-9.0pt;}
-			@list l27:level7
-				{mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:3.75in;
-				text-indent:-.25in;}
-			@list l27:level8
-				{mso-level-number-format:alpha-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				margin-left:4.25in;
-				text-indent:-.25in;}
-			@list l27:level9
-				{mso-level-number-format:roman-lower;
-				mso-level-tab-stop:none;
-				mso-level-number-position:right;
-				margin-left:4.75in;
-				text-indent:-9.0pt;}
-			@list l0:level1 lfo3
-				{mso-level-start-at:1;
-				mso-level-number-format:bullet;
-				mso-level-numbering:continue;
-				mso-level-text:\F0B7;
-				mso-level-tab-stop:none;
-				mso-level-number-position:left;
-				mso-level-legacy:yes;
-				mso-level-legacy-indent:.25in;
-				mso-level-legacy-space:0in;
-				margin-left:.75in;
-				text-indent:-.25in;
-				font-family:Symbol;}
-			ol
-				{margin-bottom:0in;}
-			ul
-				{margin-bottom:0in;}
-			-->
+			/* Style Definitions */
+			body {
+				font-family: "Times New Roman", serif;
+				color: black;
+			}
+			p.MsoNormal,
+			li.MsoNormal,
+			div.MsoNormal {
+				margin-top: 0in;
+				margin-right: 0.5in;
+				margin-bottom: 0in;
+				margin-left: 0in;
+			}
+			h1 {
+				font-size: 20pt;
+				font-weight: bold;
+			}
+			h2 {
+				font-size: 15pt;
+				font-weight: bold;
+			}
+			p.MsoListParagraph,
+			li.MsoListParagraph,
+			div.MsoListParagraph {
+				margin-top: 0in;
+				margin-right: 0.5in;
+				margin-bottom: 0in;
+				margin-left: 0.5in;
+			}
+			p.MsoListParagraphCxSpFirst,
+			li.MsoListParagraphCxSpFirst,
+			div.MsoListParagraphCxSpFirst {
+				margin-top: 0in;
+				margin-right: 0.5in;
+				margin-bottom: 0in;
+				margin-left: 0.5in;
+			}
+			p.MsoListParagraphCxSpMiddle,
+			li.MsoListParagraphCxSpMiddle,
+			div.MsoListParagraphCxSpMiddle {
+				margin-top: 0in;
+				margin-right: 0.5in;
+				margin-bottom: 0in;
+				margin-left: 0.5in;
+			}
+			p.MsoListParagraphCxSpLast,
+			li.MsoListParagraphCxSpLast,
+			div.MsoListParagraphCxSpLast {
+				margin-top: 0in;
+				margin-right: 0.5in;
+				margin-bottom: 0in;
+				margin-left: 0.5in;
+			}
+			.MsoChpDefault {
+				font-size: 10pt;
+			}
+
+			/* List Definitions */
+
+			ul {
+				margin-bottom: 0in;
+			}
 		</style>
-		<!--[if gte mso 10]>
-			<style>
-				/* Style Definitions */
-				table.MsoNormalTable {
-					mso-style-name: "Table Normal";
-					mso-tstyle-rowband-size: 0;
-					mso-tstyle-colband-size: 0;
-					mso-style-noshow: yes;
-					mso-style-priority: 99;
-					mso-style-parent: "";
-					mso-padding-alt: 0in 5.4pt 0in 5.4pt;
-					mso-para-margin: 0in;
-					mso-pagination: widow-orphan;
-					font-size: 10pt;
-					font-family: "Tms Rmn", serif;
-				}
-				table.MsoTableGrid {
-					mso-style-name: "Table Grid";
-					mso-tstyle-rowband-size: 0;
-					mso-tstyle-colband-size: 0;
-					mso-style-priority: 59;
-					mso-style-unhide: no;
-					border: solid windowtext 1pt;
-					mso-border-alt: solid windowtext 0.5pt;
-					mso-padding-alt: 0in 5.4pt 0in 5.4pt;
-					mso-border-insideh: 0.5pt solid windowtext;
-					mso-border-insidev: 0.5pt solid windowtext;
-					mso-para-margin: 0in;
-					mso-pagination: widow-orphan;
-					font-size: 10pt;
-					font-family: "Tms Rmn", serif;
-				}
-			</style>
-		<![endif]-->
-		<!--[if gte mso 9]><xml> <o:shapedefaults v:ext="edit" spidmax="2050" /> </xml><![endif]-->
-		<!--[if gte mso 9
-			]><xml>
-				<o:shapelayout v:ext="edit"> <o:idmap v:ext="edit" data="2" /> </o:shapelayout></xml
-		><![endif]-->
 	</head>
 
-	<body lang="EN-US" link="blue" vlink="#954F72" style="tab-interval: 0.5in; word-wrap: break-word">
+	<body lang="EN-US" link="blue" vlink="#954F72" style="word-wrap: break-word">
 		<div class="WordSection1">
-			<p class="MsoNormal" align="center" style="text-align: center; tab-stops: 0.5in 76pt 297pt 315pt">
-				<a name="_Hlk1053996"
-					><b><span style="mso-bidi-font-size: 12pt">Energy Escalation Rate Calculator (EERC)</span></b></a
-				><b
-					><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span
-				></b>
-			</p>
-
-			<p class="MsoNormal" align="center" style="text-align: center; tab-stops: 0.5in 76pt 297pt 315pt">
-				<b
-					><span style="mso-bidi-font-size: 12pt">User Guide<o:p></o:p></span
-				></b>
-			</p>
-
-			<p class="MsoNormal" align="center" style="text-align: center; tab-stops: 0.5in 76pt 297pt 315pt">
-				<span style="mso-bidi-font-size: 12pt; mso-bidi-font-weight: bold"><o:p>&nbsp;</o:p></span>
-			</p>
-
-			<h1>
-				<a name="_Toc21606435"><span style="font-size: 12pt">Summary</span></a
-				><span style="font-size: 12pt"> <o:p></o:p></span>
+			<h1 class="MsoNormal" align="center" style="text-align: center">
+				<a name="_Hlk1053996"><b>Energy Escalation Rate Calculator (EERC)</b></a>
 			</h1>
 
-			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
-			</p>
+			<h1 class="MsoNormal" align="center" style="text-align: center"><b>User Guide</b></h1>
+
+			<p class="MsoNormal" align="center" style="text-align: center">&nbsp;</p>
+
+			<h1 style="text-decoration: underline">Summary</h1>
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"
-					>The Energy Escalation Rate Calculator (EERC) computes a compound annual average rate of escalation for a
-					specified time period, which can be used as an escalation rate for contract payments in Energy Savings
-					Performance Contracts (ESPCs) and Utility Energy Service Contracts (UESCs). These escalation rates are based
-					on energy price projections from the Department of Energy (DOE) Energy Information Administration (EIA). While
-					the underlying energy price projections vary from year to year, for calculating contract payments the single
-					EERC-calculated uniform average rate is preferable. The rate is stated in real (excluding inflation) and
-					nominal (including inflation) terms and weighted by the share of each of the energy types used in the project.
-					Alternatively, an escalation rate for each energy type can be computed separately. <o:p></o:p
-				></span>
+				The Energy Escalation Rate Calculator (EERC) computes a compound annual average rate of escalation for a
+				specified time period, which can be used as an escalation rate for contract payments in Energy Savings
+				Performance Contracts (ESPCs) and Utility Energy Service Contracts (UESCs). These escalation rates are based on
+				energy price projections from the Department of Energy (DOE) Energy Information Administration (EIA). While the
+				underlying energy price projections vary from year to year, for calculating contract payments the single
+				EERC-calculated uniform average rate is preferable. The rate is stated in real (excluding inflation) and nominal
+				(including inflation) terms and weighted by the share of each of the energy types used in the project.
+				Alternatively, an escalation rate for each energy type can be computed separately.
 			</p>
+
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
+				EERC was redeveloped in 2025 to match the Building Life Cycle Cost (BLCC) web application design and included
+				two significant changes. First, an option for “Data Release Year” has been included, which allows a user to see
+				compound annual average escalation rates from previous release years to validate analysis that used an older
+				version of EERC. The current version includes data for 2024 and 2025. Second, the option to include an explicit
+				economic cost for energy-related emissions was removed from EERC because the EIA projections used by EERC
+				already internalize emissions market impacts on regions of the country for which emissions trading markets
+				influence the energy markets.
 			</p>
+
+			<p class="MsoNormal">EERC prompts the user for:</p>
+			<ul>
+				<li>Data Release Year</li>
+				<li>Customer Sector Type</li>
+				<li>Project Location (state)</li>
+				<li>Fuel Type</li>
+				<li>Contract Start Date</li>
+				<li>Duration of Contract</li>
+				<li>Annual Inflation Rate</li>
+			</ul>
+
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"
-					>EERC was redeveloped in 2025 to match the Building Life Cycle Cost (BLCC) web application design and included
-					<span style="mso-spacerun: yes">�</span>two significant changes. First, an option for �Data Release Year� has
-					been included, which allows a user to see compound annual average escalation rates from previous release years
-					to validate analysis that used an older version of EERC. The current version includes data for 2024 and 2025.
-					Second, the option to include an explicit economic cost for energy-related emissions was removed from EERC
-					because the EIA projections used by EERC already internalize emissions market impacts on regions of the
-					country for which emissions trading markets influence the energy markets.<o:p></o:p
-				></span>
+				Default values are provided for the inflation rate (based on annual supplement value). The discount rate is
+				fixed based on the Annual Supplement.
 			</p>
 
-			<p class="MsoNormal" style="tab-stops: 0.5in 76pt">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
-			</p>
-
-			<p class="MsoNormal" style="tab-stops: 0.5in 76pt">
-				<span style="mso-bidi-font-size: 12pt">EERC prompts the user for:<o:p></o:p></span>
-			</p>
-
-			<p
-				class="MsoListParagraphCxSpFirst"
-				style="text-indent: -0.25in; mso-list: l6 level1 lfo28; tab-stops: 0.5in 76pt"
-			>
-				<![if !supportLists]><span
-					style="
-						mso-bidi-font-size: 12pt;
-						font-family: Symbol;
-						mso-fareast-font-family: Symbol;
-						mso-bidi-font-family: Symbol;
-					"
-					><span style="mso-list: Ignore"
-						>�<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><span style="mso-bidi-font-size: 12pt">data release year<o:p></o:p></span>
-			</p>
-
-			<p
-				class="MsoListParagraphCxSpMiddle"
-				style="text-indent: -0.25in; mso-list: l6 level1 lfo28; tab-stops: 0.5in 76pt"
-			>
-				<![if !supportLists]><span
-					style="
-						mso-bidi-font-size: 12pt;
-						font-family: Symbol;
-						mso-fareast-font-family: Symbol;
-						mso-bidi-font-family: Symbol;
-					"
-					><span style="mso-list: Ignore"
-						>�<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><span style="mso-bidi-font-size: 12pt">customer sector type<o:p></o:p></span>
-			</p>
-
-			<p
-				class="MsoListParagraphCxSpMiddle"
-				style="text-indent: -0.25in; mso-list: l6 level1 lfo28; tab-stops: 0.5in 76pt"
-			>
-				<![if !supportLists]><span
-					style="
-						mso-bidi-font-size: 12pt;
-						font-family: Symbol;
-						mso-fareast-font-family: Symbol;
-						mso-bidi-font-family: Symbol;
-					"
-					><span style="mso-list: Ignore"
-						>�<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><span style="mso-bidi-font-size: 12pt">project location (state)<o:p></o:p></span>
-			</p>
-
-			<p
-				class="MsoListParagraphCxSpMiddle"
-				style="text-indent: -0.25in; mso-list: l6 level1 lfo28; tab-stops: 0.5in 76pt"
-			>
-				<![if !supportLists]><span
-					style="
-						mso-bidi-font-size: 12pt;
-						font-family: Symbol;
-						mso-fareast-font-family: Symbol;
-						mso-bidi-font-family: Symbol;
-					"
-					><span style="mso-list: Ignore"
-						>�<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><span style="mso-bidi-font-size: 12pt">fuel type<o:p></o:p></span>
-			</p>
-
-			<p
-				class="MsoListParagraphCxSpMiddle"
-				style="text-indent: -0.25in; mso-list: l6 level1 lfo28; tab-stops: 0.5in 76pt"
-			>
-				<![if !supportLists]><span
-					style="
-						mso-bidi-font-size: 12pt;
-						font-family: Symbol;
-						mso-fareast-font-family: Symbol;
-						mso-bidi-font-family: Symbol;
-					"
-					><span style="mso-list: Ignore"
-						>�<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><span style="mso-bidi-font-size: 12pt">contract start date<o:p></o:p></span>
-			</p>
-
-			<p
-				class="MsoListParagraphCxSpMiddle"
-				style="text-indent: -0.25in; mso-list: l6 level1 lfo28; tab-stops: 0.5in 76pt"
-			>
-				<![if !supportLists]><span
-					style="
-						mso-bidi-font-size: 12pt;
-						font-family: Symbol;
-						mso-fareast-font-family: Symbol;
-						mso-bidi-font-family: Symbol;
-					"
-					><span style="mso-list: Ignore"
-						>�<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><span style="mso-bidi-font-size: 12pt">duration of contract<o:p></o:p></span>
-			</p>
-
-			<p
-				class="MsoListParagraphCxSpLast"
-				style="text-indent: -0.25in; mso-list: l6 level1 lfo28; tab-stops: 0.5in 76pt"
-			>
-				<![if !supportLists]><span
-					style="
-						mso-bidi-font-size: 12pt;
-						font-family: Symbol;
-						mso-fareast-font-family: Symbol;
-						mso-bidi-font-family: Symbol;
-					"
-					><span style="mso-list: Ignore"
-						>�<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><span style="mso-bidi-font-size: 12pt">annual inflation rate<o:p></o:p></span>
-			</p>
-
-			<p class="MsoNormal" style="tab-stops: 0.5in 76pt">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
-			</p>
-
-			<p class="MsoNormal" style="tab-stops: 0.5in 76pt">
-				<span style="mso-bidi-font-size: 12pt"
-					>Default values are provided for the inflation rate (based on annual supplement value). The discount rate is
-					fixed based on the Annual Supplement. <o:p></o:p
-				></span>
-			</p>
-
-			<p class="MsoNormal" style="tab-stops: 0.5in 76pt">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
-			</p>
-
-			<p class="MsoNormal" style="tab-stops: 0.5in 76pt">
-				<span style="mso-bidi-font-size: 12pt"
-					>Based on the user inputs, EERC retrieves the relevant energy price forecasts and computes the compound annual
-					average escalation rate, as described above. Since the performance period generally begins a year or more
-					later than the contract award date, the calculated compound annual average rate includes the price escalation
-					for the intervening year(s). Escalation is assumed to take place during this period.<o:p></o:p
-				></span>
-			</p>
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
+				Based on the user inputs, EERC retrieves the relevant energy price forecasts and computes the compound annual
+				average escalation rate, as described above. Since the performance period generally begins a year or more later
+				than the contract award date, the calculated compound annual average rate includes the price escalation for the
+				intervening year(s). Escalation is assumed to take place during this period.
 			</p>
+
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"
-					>The calculated compound annual average escalation rate is reported in both real (excluding inflation) and
-					nominal (including inflation) terms. The energy price projections for all scenarios exclude inflation and thus
-					generate real rates. The default inflation rate used in the EERC is the long-term inflation rate calculated
-					annually by NIT for DOE Federal Energy Management Program (FEMP) using the average annual inflation estimates
-					for the next 10 years from the White House Council of Economic Advisors (CEA) Analytical Perspectives and the
-					methodology described in 10 CFR 436 Subpart A, but without consideration of the 3.0 % floor for the real
-					discount rate. The default inflation rate does not account for the discount rate floor to accommodate the need
-					for market-based projections of future energy prices in contract negotiations. Otherwise, the default
-					inflation rate would be artificially low in years when the 3.0 % floor applies. <o:p></o:p
-				></span>
+				The calculated compound annual average escalation rate is reported in both real (excluding inflation) and
+				nominal (including inflation) terms. The energy price projections for all scenarios exclude inflation and thus
+				generate real rates. The default inflation rate used in the EERC is the long-term inflation rate calculated
+				annually by NIT for DOE Federal Energy Management Program (FEMP) using the average annual inflation estimates
+				for the next 10 years from the White House Council of Economic Advisors (CEA) Analytical Perspectives and the
+				methodology described in 10 CFR 436 Subpart A, but without consideration of the 3.0 % floor for the real
+				discount rate. The default inflation rate does not account for the discount rate floor to accommodate the need
+				for market-based projections of future energy prices in contract negotiations. Otherwise, the default inflation
+				rate would be artificially low in years when the 3.0 % floor applies.
 			</p>
 
-			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
+			<br />
+
+			<h1 class="MsoNormal" style="margin-right: 0in; page-break-after: avoid; text-decoration: underline">
+				<b>Inputs and Outputs</b>
+			</h1>
+
+			<br />
+
+			<h3 class="MsoNormal" style="margin-right: 0in"><b>Data and Fuel Rate Information:</b></h3>
+
+			<ul type="disc">
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>Data Release Year</i>: Year of the Annual Supplement data used for the calculation.
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>Sector</i>: Selection of commercial or industrial sector determines the type of utility rate schedule
+					applied to the energy cost calculation.
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>Project Location (state)</i>: Selection of the state in which the project is located allows the program to
+					select the energy price escalation rates for the corresponding census division.
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>Sector</i>: Selection of commercial or industrial sector determines the type of utility rate schedule
+					applied to the energy cost calculation.
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in"><i>User must make a selection of all three inputs</i></li>
+			</ul>
+			<br />
+
+			<h3 class="MsoNormal" style="margin-right: 0in"><b>Percent of Energy Cost Savings</b>:</h3>
+
+			<ul type="disc">
+				<li class="MsoNormal" style="margin-right: 0in">
+					Percentage of energy cost savings in dollars that is attributable to one or more of the fuel types used in the
+					project. This input is used to weight the escalation rate.
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in">Default values are zeros</li>
+				<li class="MsoNormal" style="margin-right: 0in">Inputted values must sum to 100%</li>
+			</ul>
+			<br />
+
+			<h3 class="MsoNormal" style="margin-right: 0in"><b>Contract Term:</b></h3>
+
+			<ul type="disc">
+				<li class="MsoNormal" style="margin-right: 0in"><i>Contract Start Date</i>: Year of contract award/signing.</li>
+			</ul>
+
+			<p class="MsoNormal" style="margin-right: 0in; margin-left: 1in; text-indent: -0.25in">
+				<span style="font-size: 10pt; font-family: 'Courier New'"
+					>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp; </span></span
+				><i>User must select a start date year</i>
 			</p>
 
-			<h2 style="margin-left: 0in; page-break-after: avoid">
-				<a name="_Toc21606436"><span style="font-size: 12pt">Inputs and Outputs</span></a
-				><span style="font-size: 12pt"><o:p></o:p></span>
-			</h2>
-
-			<p class="MsoNormal" style="mso-margin-top-alt: auto; margin-right: 0in; tab-stops: 0.5in">
-				<b><span style="mso-bidi-font-size: 12pt">Data and Fuel Rate Information:</span></b
-				><span style="mso-bidi-font-size: 12pt; color: windowtext"><o:p></o:p></span>
+			<p class="MsoNormal" style="margin-right: 0in; margin-left: 1in; text-indent: -0.25in">
+				<span style="font-size: 10pt; font-family: 'Courier New'"
+					>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp; </span></span
+				><i>Options are limited to the next 4 years</i>
 			</p>
 
 			<ul type="disc">
-				<li
-					class="MsoNormal"
-					style="mso-margin-top-alt: auto; margin-right: 0in; mso-list: l22 level1 lfo22; tab-stops: list 0.5in"
-				>
-					<i><span style="mso-bidi-font-size: 12pt">Data Release Year</span></i
-					><span style="mso-bidi-font-size: 12pt"
-						>: Year of the Annual Supplement data used for the calculation.<o:p></o:p
-					></span>
-				</li>
-				<li
-					class="MsoNormal"
-					style="mso-margin-top-alt: auto; margin-right: 0in; mso-list: l22 level1 lfo22; tab-stops: list 0.5in"
-				>
-					<i><span style="mso-bidi-font-size: 12pt">Sector</span></i
-					><span style="mso-bidi-font-size: 12pt"
-						>: Selection of commercial or industrial sector determines the type of utility rate schedule applied to the
-						energy cost calculation.<o:p></o:p
-					></span>
-				</li>
-				<li
-					class="MsoNormal"
-					style="mso-margin-top-alt: auto; margin-right: 0in; mso-list: l22 level1 lfo22; tab-stops: list 0.5in"
-				>
-					<i><span style="mso-bidi-font-size: 12pt">Project Location (state)</span></i
-					><span style="mso-bidi-font-size: 12pt"
-						>: Selection of the state in which the project is located allows the program to select the energy price
-						escalation rates for the corresponding census division.<o:p></o:p
-					></span>
-				</li>
-				<li
-					class="MsoNormal"
-					style="mso-margin-top-alt: auto; margin-right: 0in; mso-list: l22 level1 lfo22; tab-stops: list 0.5in"
-				>
-					<i><span style="mso-bidi-font-size: 12pt">User must make a selection of all three inputs</span></i
-					><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span>
-				</li>
+				<li class="MsoNormal" style="margin-right: 0in"><i>Duration</i>: Number of years of the contract term.</li>
 			</ul>
 
-			<p class="MsoNormal" style="mso-margin-top-alt: auto; margin-right: 0in; tab-stops: 0.5in">
-				<b><span style="mso-bidi-font-size: 12pt">Percent of Energy Cost Savings</span></b
-				><span style="mso-bidi-font-size: 12pt">:<o:p></o:p></span>
+			<p class="MsoNormal" style="margin-right: 0in; margin-left: 1in; text-indent: -0.25in">
+				<span style="font-size: 10pt; font-family: 'Courier New'"
+					>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp; </span></span
+				><i>User must make a selection for the duration</i>
 			</p>
 
-			<ul type="disc">
-				<li
-					class="MsoNormal"
-					style="mso-margin-top-alt: auto; margin-right: 0in; mso-list: l26 level1 lfo21; tab-stops: list 0.5in"
-				>
-					<span style="mso-bidi-font-size: 12pt"
-						>Percentage of energy cost savings in dollars that is attributable to one or more of the fuel types used in
-						the project. This input is used to weight the escalation rate.<o:p></o:p
-					></span>
-				</li>
-				<li
-					class="MsoNormal"
-					style="mso-margin-top-alt: auto; margin-right: 0in; mso-list: l26 level1 lfo21; tab-stops: list 0.5in"
-				>
-					<span style="mso-bidi-font-size: 12pt">Default values are zeros<o:p></o:p></span>
-				</li>
-				<li
-					class="MsoNormal"
-					style="mso-margin-top-alt: auto; margin-right: 0in; mso-list: l26 level1 lfo21; tab-stops: list 0.5in"
-				>
-					<i
-						><span style="mso-bidi-font-size: 12pt">Inputted values must sum to 100%<o:p></o:p></span
-					></i>
-				</li>
-			</ul>
-
-			<p class="MsoNormal" style="mso-margin-top-alt: auto; margin-right: 0in; tab-stops: 0.5in">
-				<b><span style="mso-bidi-font-size: 12pt">Contract Term:</span></b
-				><span style="mso-bidi-font-size: 12pt; color: windowtext"><o:p></o:p></span>
+			<p class="MsoNormal" style="margin-right: 0in; margin-left: 1in; text-indent: -0.25in">
+				<span style="font-size: 10pt; font-family: 'Courier New'"
+					>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp; </span></span
+				><i>The duration is limited between 10 years and 25 years</i>
 			</p>
 
-			<ul type="disc">
-				<li
-					class="MsoNormal"
-					style="mso-margin-top-alt: auto; margin-right: 0in; mso-list: l19 level1 lfo23; tab-stops: list 0.5in"
-				>
-					<i><span style="mso-bidi-font-size: 12pt">Contract Start Date</span></i
-					><span style="mso-bidi-font-size: 12pt">: Year of contract award/signing.<o:p></o:p></span>
-				</li>
-			</ul>
+			<br />
 
-			<p
-				class="MsoNormal"
-				style="
-					mso-margin-top-alt: auto;
-					margin-right: 0in;
-					margin-left: 1in;
-					text-indent: -0.25in;
-					mso-list: l19 level2 lfo23;
-					tab-stops: 0.5in list 1in;
-				"
-			>
-				<![if !supportLists]><span
-					style="
-						font-size: 10pt;
-						mso-bidi-font-size: 12pt;
-						font-family: 'Courier New';
-						mso-fareast-font-family: 'Courier New';
-					"
-					><span style="mso-list: Ignore"
-						>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><i><span style="mso-bidi-font-size: 12pt">User must select a start date year</span></i
-				><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span>
-			</p>
+			<h3 class="MsoNormal" style="margin-right: 0in"><b>Annual Inflation Rate:</b></h3>
 
-			<p
-				class="MsoNormal"
-				style="
-					mso-margin-top-alt: auto;
-					margin-right: 0in;
-					margin-left: 1in;
-					text-indent: -0.25in;
-					mso-list: l19 level2 lfo23;
-					tab-stops: 0.5in list 1in;
-				"
-			>
-				<![if !supportLists]><span
-					style="
-						font-size: 10pt;
-						mso-bidi-font-size: 12pt;
-						font-family: 'Courier New';
-						mso-fareast-font-family: 'Courier New';
-					"
-					><span style="mso-list: Ignore"
-						>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><i><span style="mso-bidi-font-size: 12pt">Options are limited to the next 4 years</span></i
-				><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span>
-			</p>
-
-			<ul type="disc">
-				<li
-					class="MsoNormal"
-					style="mso-margin-top-alt: auto; margin-right: 0in; mso-list: l19 level1 lfo23; tab-stops: list 0.5in"
-				>
-					<i><span style="mso-bidi-font-size: 12pt">Duration</span></i
-					><span style="mso-bidi-font-size: 12pt">: Number of years of the contract term.<o:p></o:p></span>
-				</li>
-			</ul>
-
-			<p
-				class="MsoNormal"
-				style="
-					mso-margin-top-alt: auto;
-					margin-right: 0in;
-					margin-left: 1in;
-					text-indent: -0.25in;
-					mso-list: l19 level2 lfo23;
-					tab-stops: 0.5in list 1in;
-				"
-			>
-				<![if !supportLists]><span
-					style="
-						font-size: 10pt;
-						mso-bidi-font-size: 12pt;
-						font-family: 'Courier New';
-						mso-fareast-font-family: 'Courier New';
-					"
-					><span style="mso-list: Ignore"
-						>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><i><span style="mso-bidi-font-size: 12pt">User must make a selection for the duration</span></i
-				><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span>
-			</p>
-
-			<p
-				class="MsoNormal"
-				style="
-					mso-margin-top-alt: auto;
-					margin-right: 0in;
-					margin-left: 1in;
-					text-indent: -0.25in;
-					mso-list: l19 level2 lfo23;
-					tab-stops: 0.5in list 1in;
-				"
-			>
-				<![if !supportLists]><span
-					style="
-						font-size: 10pt;
-						mso-bidi-font-size: 12pt;
-						font-family: 'Courier New';
-						mso-fareast-font-family: 'Courier New';
-						mso-bidi-font-weight: bold;
-					"
-					><span style="mso-list: Ignore"
-						>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp; </span></span
-					></span
-				><![endif]><i
-					><span style="mso-bidi-font-size: 12pt">The duration is limited between 10 years and 25 years</span></i
-				><b
-					><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span
-				></b>
-			</p>
-
-			<p class="MsoNormal" style="margin-right: 0in; tab-stops: 0.5in">
-				<b
-					><span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span></b
-				>
-			</p>
-
-			<p class="MsoNormal" style="margin-right: 0in; tab-stops: 0.5in">
-				<b><span style="mso-bidi-font-size: 12pt">Annual Inflation Rate:</span></b
-				><span style="mso-bidi-font-size: 12pt"> <o:p></o:p></span>
-			</p>
-
-			<p class="MsoNormal" style="margin-right: 0in; tab-stops: 0.5in">
-				<span style="mso-bidi-font-size: 12pt"
-					>The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using CEA data
-					and the method described in 10 CFR 436 Subpart A, but without consideration of the 3.0 % floor for the real
-					discount rate. The default inflation rate does not account for the discount rate floor to accommodate the need
-					for market-based projections of future energy prices in contract negotiations. Otherwise, the default
-					inflation rate would be artificially low in years when the 3.0&nbsp;% floor applies. The inflation rate may be
-					edited.<o:p></o:p
-				></span>
+			<p class="MsoNormal" style="margin-right: 0in">
+				The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using CEA data and
+				the method described in 10 CFR 436 Subpart A, but without consideration of the 3.0 % floor for the real discount
+				rate. The default inflation rate does not account for the discount rate floor to accommodate the need for
+				market-based projections of future energy prices in contract negotiations. Otherwise, the default inflation rate
+				would be artificially low in years when the 3.0 % floor applies. The inflation rate may be edited.
 			</p>
 
 			<ul style="margin-top: 0in" type="disc">
-				<li class="MsoNormal" style="margin-right: 0in; mso-list: l7 level1 lfo25; tab-stops: list 0.5in">
-					<i
-						><span style="mso-bidi-font-size: 12pt"
-							>The tool makes all the calculations using the default inflation rate</span
-						></i
-					><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span>
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>The tool makes all the calculations using the default inflation rate.</i>
 				</li>
-				<li class="MsoNormal" style="margin-right: 0in; mso-list: l7 level1 lfo25; tab-stops: list 0.5in">
-					<i
-						><span style="mso-bidi-font-size: 12pt"
-							>If the user decides to change the inflation rate, the calculations should be re-created.</span
-						></i
-					><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span>
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>If the user decides to change the inflation rate, the calculations should be re-created.</i>
 				</li>
 			</ul>
+			<br />
+			<h3 class="MsoNormal" style="margin-right: 0in"><b>Output - Annual Energy Escalation Rates:</b></h3>
+			<br />
 
-			<p class="MsoNormal" style="margin-right: 0in; tab-stops: 0.5in">
-				<b
-					><span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span></b
-				>
+			<p class="MsoNormal" style="margin-right: 0in">
+				<i>Real and Nominal Escalation Rates</i>: The output of the program is the calculated average escalation rate,
+				stated both in real terms (excluding the rate of inflation) and in nominal terms (including the rate of
+				inflation).
 			</p>
 
-			<p class="MsoNormal" style="margin-right: 0in; tab-stops: 0.5in">
-				<b><span style="mso-bidi-font-size: 12pt">Output - Annual Energy Escalation Rates:</span></b
-				><span style="mso-bidi-font-size: 12pt; color: windowtext"><o:p></o:p></span>
-			</p>
+			<br />
 
-			<ul type="disc">
-				<li
-					class="MsoNormal"
-					style="
-						mso-margin-top-alt: auto;
-						margin-right: 0in;
-						mso-margin-bottom-alt: auto;
-						mso-list: l7 level1 lfo25;
-						tab-stops: list 0.5in;
-					"
-				>
-					<i><span style="mso-bidi-font-size: 12pt">Real and Nominal Escalation Rates</span></i
-					><span style="mso-bidi-font-size: 12pt"
-						>: The output of the program is the calculated average escalation rate, stated both in real terms (excluding
-						the rate of inflation) and in nominal terms (including the rate of inflation).<o:p></o:p
-					></span>
-				</li>
-			</ul>
+			<h1 style="margin-left: 0in; text-decoration: underline">Functions</h1>
 
-			<h2 style="margin-left: 0in">
-				<a name="_Toc21606437"><span style="font-size: 12pt">Functions</span></a
-				><span style="font-size: 12pt"><o:p></o:p></span>
-			</h2>
-
-			<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"
-					>To calculate the nominal escalation rate, which includes inflation, the calculator uses the following
-					relationship:<o:p></o:p
-				></span>
+				To calculate the nominal escalation rate, which includes inflation, the calculator uses the following
+				relationship:
 			</p>
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt; mso-no-proof: yes"
-					><v:shapetype
-						id="_x0000_t75"
-						coordsize="21600,21600"
-						o:spt="75"
-						o:preferrelative="t"
-						path="m@4@5l@4@11@9@11@9@5xe"
-						filled="f"
-						stroked="f"
-					>
-						<v:stroke joinstyle="miter" />
-						<v:formulas>
-							<v:f eqn="if lineDrawn pixelLineWidth 0" />
-							<v:f eqn="sum @0 1 0" />
-							<v:f eqn="sum 0 0 @1" />
-							<v:f eqn="prod @2 1 2" />
-							<v:f eqn="prod @3 21600 pixelWidth" />
-							<v:f eqn="prod @3 21600 pixelHeight" />
-							<v:f eqn="sum @0 0 1" />
-							<v:f eqn="prod @6 1 2" />
-							<v:f eqn="prod @7 21600 pixelWidth" />
-							<v:f eqn="sum @8 21600 0" />
-							<v:f eqn="prod @7 21600 pixelHeight" />
-							<v:f eqn="sum @10 21600 0" />
-						</v:formulas>
-						<v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect" />
-						<o:lock v:ext="edit" aspectratio="t" /> </v:shapetype
-					><v:shape
-						id="Picture_x0020_1"
-						o:spid="_x0000_i1028"
-						type="#_x0000_t75"
-						style="width: 468pt; height: 16.5pt; visibility: visible; mso-wrap-style: square"
-					>
-						<v:imagedata src="EERC%20User%20Guide%20-%202025_files/image001.png" o:title="" /> </v:shape></span
-				><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span>
+				<img height="30" id="Picture 12" src="./EERC User Guide - 2025_files/image001.png" />
 			</p>
-
-			<p class="MsoNormal" style="tab-stops: 0.5in 76pt">
-				<span style="mso-bidi-font-size: 12pt"
-					>The calculated compound annual average escalation rate,
-					<i style="mso-bidi-font-style: normal">e<sub>avg</sub></i
-					>, when applied to the base-year energy costs or savings of ESPC or UESC projects, results in approximately
-					the same undiscounted total amounts over the performance period as do the EIA-projected, or adjusted
-					EIA-projected, variable rates. If more than one fuel is used in the project, the EERC weights the average
-					escalation rate according to the proportions stated by the user.<o:p></o:p
-				></span>
-			</p>
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
+				The calculated compound annual average escalation rate, <i>e<sub>avg</sub></i
+				>, when applied to the base- year energy costs or savings of ESPC or UESC projects, results in approximately the
+				same undiscounted total amounts over the performance period as do the EIA-projected, or adjusted EIA-projected,
+				variable rates. If more than one fuel is used in the project, the EERC weights the average escalation rate
+				according to the proportions stated by the user.
 			</p>
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"
-					>To compute a compound annual average escalation rate, base-year (i.e., award year) energy costs are escalated
-					from year to year at rates projected by EIA to arrive at the total energy cost over a given performance
-					period. The escalation rates, e, are projected by census division, energy type, and industrial sector and vary
-					from year to year. The formula used EERC prompts the user for information on the share of cost savings
-					attributable to each fuel type, project location, industry sector, and the beginning date and duration of the
-					performance period. Then it retrieves the relevant energy price forecasts and computes the compound annual
-					average escalation rate, as described above. <o:p></o:p
-				></span>
+				To compute a compound annual average escalation rate, base-year (i.e., award year) energy costs are escalated
+				from year to year at rates projected by EIA to arrive at the total energy cost over a given performance period.
+				The escalation rates, e, are projected by census division, energy type, and industrial sector and vary from year
+				to year. The formula used EERC prompts the user for information on the share of cost savings attributable to
+				each fuel type, project location, industry sector, and the beginning date and duration of the performance
+				period. Then it retrieves the relevant energy price forecasts and computes the compound annual average
+				escalation rate, as described above.
 			</p>
+			<br />
+
+			<p class="MsoNormal">The formula to calculate total energy costs is:</p>
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
+				<img height="50" id="Picture 10" src="./EERC User Guide - 2025_files/image002.png" />
 			</p>
+			<br />
+
+			<p class="MsoNormal">where</p>
+			<br />
+
+			<p class="MsoNormal"><i>C</i> is the undiscounted total of future energy costs over the performance period</p>
+
+			<p class="MsoNormal"><i>A</i> is the base-year annual cost</p>
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt">The formula to calculate total energy costs is:<o:p></o:p></span>
+				<i>e<sub>i</sub></i> is the annual escalation rate, which varies from year to year over the performance period
 			</p>
+
+			<p class="MsoNormal"><i>n</i> is the number of years in the performance period</p>
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt; mso-no-proof: yes"
-					><v:shape
-						id="Picture_x0020_2"
-						o:spid="_x0000_i1027"
-						type="#_x0000_t75"
-						style="width: 468pt; height: 28.5pt; visibility: visible; mso-wrap-style: square"
-					>
-						<v:imagedata src="EERC%20User%20Guide%20-%202025_files/image002.png" o:title="" /> </v:shape></span
-				><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span>
+				When the escalation rate is the same in each year of the study period, the series can be simplified to a factor
+				applied to the base-year annual cost, A:
 			</p>
+			<br />
 
 			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt">where<o:p></o:p></span>
+				<img height="50" id="Content Placeholder 6" src="EERC User Guide - 2025_files/image003.png" />
 			</p>
+			<br />
 
 			<p class="MsoNormal">
-				<i style="mso-bidi-font-style: normal"><span style="mso-bidi-font-size: 12pt">C</span></i
-				><span style="mso-bidi-font-size: 12pt">
-					is the undiscounted total of future energy costs over the performance period<o:p></o:p
-				></span>
+				where <i>e<sub>avg</sub></i> is the average annual escalation rate
 			</p>
+			<br />
 
 			<p class="MsoNormal">
-				<i style="mso-bidi-font-style: normal"><span style="mso-bidi-font-size: 12pt">A</span></i
-				><span style="mso-bidi-font-size: 12pt"> is the base-year annual cost<o:p></o:p></span>
+				Since a uniform escalation rate is needed to compute the contract payments in ESPC and UESC projects, the EERC
+				uses this equation to approximate <i>C</i>, as calculated with EIA rates or adjusted EIA rates, and iteratively
+				solves for <i>e<sub>avg</sub></i
+				>, the compound annual average escalation rate. The relationship between the factor calculated in the equation
+				and the variable escalation rates in the series can be expressed as follows for a performance period of n years
+				duration:
 			</p>
+			<br />
 
 			<p class="MsoNormal">
-				<i style="mso-bidi-font-style: normal"
-					><span style="mso-bidi-font-size: 12pt">e<sub>i</sub></span></i
-				><span style="mso-bidi-font-size: 12pt">
-					is the annual escalation rate, which varies from year to year over the performance period<o:p></o:p
-				></span>
+				<img height="75" id="Picture 4" src="EERC User Guide - 2025_files/image004.png" />
 			</p>
+			<br />
 
-			<p class="MsoNormal">
-				<i style="mso-bidi-font-style: normal"><span style="mso-bidi-font-size: 12pt">n</span></i
-				><span style="mso-bidi-font-size: 12pt"> is the number of years in the performance period<o:p></o:p></span>
-			</p>
+			<h1 style="margin-left: 0in; text-decoration: underline">Data Tables</h1>
+			<br />
 
-			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
-			</p>
-
-			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"
-					>When the escalation rate is the same in each year of the study period, the series can be simplified to a
-					factor applied to the base-year annual cost, A:<o:p></o:p
-				></span>
-			</p>
-
-			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt; mso-no-proof: yes"
-					><v:shape
-						id="Picture_x0020_3"
-						o:spid="_x0000_i1026"
-						type="#_x0000_t75"
-						style="width: 468pt; height: 39pt; visibility: visible; mso-wrap-style: square"
-					>
-						<v:imagedata src="EERC%20User%20Guide%20-%202025_files/image003.png" o:title="" /> </v:shape></span
-				><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span>
-			</p>
-
-			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"
-					>where <i style="mso-bidi-font-style: normal">e<sub>avg</sub></i> is the compound annual average escalation
-					rate<o:p></o:p
-				></span>
-			</p>
-
-			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
-			</p>
-
-			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt"
-					>Since a uniform escalation rate is needed to compute the contract payments in ESPC and UESC projects, the
-					EERC uses this equation to approximate <i style="mso-bidi-font-style: normal">C</i>, as calculated with EIA
-					rates or adjusted EIA rates, and iteratively solves for
-					<i style="mso-bidi-font-style: normal">e<sub>avg</sub></i
-					>, the compound annual average escalation rate. The relationship between the factor calculated in the equation
-					and the variable escalation rates in the series can be expressed as follows for a performance period of
-					<i style="mso-bidi-font-style: normal">n</i> years duration:<o:p></o:p
-				></span>
-			</p>
-
-			<p class="MsoNormal">
-				<span style="mso-bidi-font-size: 12pt; mso-no-proof: yes"
-					><v:shape
-						id="Picture_x0020_4"
-						o:spid="_x0000_i1025"
-						type="#_x0000_t75"
-						style="width: 468pt; height: 53.25pt; visibility: visible; mso-wrap-style: square"
-					>
-						<v:imagedata src="EERC%20User%20Guide%20-%202025_files/image004.png" o:title="" /> </v:shape></span
-				><a name="_Toc21606438"
-					><span style="mso-bidi-font-size: 12pt"><o:p></o:p></span
-				></a>
-			</p>
-
-			<h2 style="margin-left: 0in">
-				<span style="mso-bookmark: _Toc21606438"><span style="font-size: 12pt">Data Tables</span></span
-				><span style="font-size: 12pt"><o:p></o:p></span>
-			</h2>
-
-			<p class="MsoNormal" style="margin-right: 0in; tab-stops: 0.5in">
-				<span style="mso-bidi-font-size: 12pt"><o:p>&nbsp;</o:p></span>
-			</p>
-
-			<p class="MsoNormal" style="margin-right: 0in; tab-stops: 0.5in">
-				<span style="mso-bidi-font-size: 12pt"
-					>The data tables include the Encost file published as part of the Annual Supplement to Handbook 135 that
-					includes the EIA energy price projections for each fuel type over time. These data tables are called on by the
-					code, will stay constant over time in term of format, but the data is updated annually.<o:p></o:p
-				></span>
+			<p class="MsoNormal" style="margin-right: 0in">
+				The data tables include the Encost file published as part of the Annual Supplement to Handbook 135 that includes
+				the EIA energy price projections for each fuel type over time. These data tables are called on by the code, will
+				stay constant over time in term of format, but the data is updated annually.
 			</p>
 		</div>
 	</body>
