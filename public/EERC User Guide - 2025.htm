@@ -1,0 +1,355 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="Generator" content="Microsoft Word 15 (filtered)" />
+		<title>Energy Escalation Rate Calculator (EERC) User Guide</title>
+		<style>
+			/* Style Definitions */
+			body {
+				font-family: "Times New Roman", serif;
+				color: black;
+			}
+			p.MsoNormal,
+			li.MsoNormal,
+			div.MsoNormal {
+				margin-top: 0in;
+				margin-right: 0.5in;
+				margin-bottom: 0in;
+				margin-left: 0in;
+			}
+			h1 {
+				font-size: 20pt;
+				font-weight: bold;
+			}
+			h2 {
+				font-size: 15pt;
+				font-weight: bold;
+			}
+			p.MsoListParagraph,
+			li.MsoListParagraph,
+			div.MsoListParagraph {
+				margin-top: 0in;
+				margin-right: 0.5in;
+				margin-bottom: 0in;
+				margin-left: 0.5in;
+			}
+			p.MsoListParagraphCxSpFirst,
+			li.MsoListParagraphCxSpFirst,
+			div.MsoListParagraphCxSpFirst {
+				margin-top: 0in;
+				margin-right: 0.5in;
+				margin-bottom: 0in;
+				margin-left: 0.5in;
+			}
+			p.MsoListParagraphCxSpMiddle,
+			li.MsoListParagraphCxSpMiddle,
+			div.MsoListParagraphCxSpMiddle {
+				margin-top: 0in;
+				margin-right: 0.5in;
+				margin-bottom: 0in;
+				margin-left: 0.5in;
+			}
+			p.MsoListParagraphCxSpLast,
+			li.MsoListParagraphCxSpLast,
+			div.MsoListParagraphCxSpLast {
+				margin-top: 0in;
+				margin-right: 0.5in;
+				margin-bottom: 0in;
+				margin-left: 0.5in;
+			}
+			.MsoChpDefault {
+				font-size: 10pt;
+			}
+
+			/* List Definitions */
+
+			ul {
+				margin-bottom: 0in;
+			}
+		</style>
+	</head>
+
+	<body lang="EN-US" link="blue" vlink="#954F72" style="word-wrap: break-word">
+		<div class="WordSection1">
+			<h1 class="MsoNormal" align="center" style="text-align: center">
+				<a name="_Hlk1053996"><b>Energy Escalation Rate Calculator (EERC)</b></a>
+			</h1>
+
+			<h1 class="MsoNormal" align="center" style="text-align: center"><b>User Guide</b></h1>
+
+			<p class="MsoNormal" align="center" style="text-align: center">&nbsp;</p>
+
+			<h1 style="text-decoration: underline">Summary</h1>
+			<br />
+
+			<p class="MsoNormal">
+				The Energy Escalation Rate Calculator (EERC) computes a compound annual average rate of escalation for a
+				specified time period, which can be used as an escalation rate for contract payments in Energy Savings
+				Performance Contracts (ESPCs) and Utility Energy Service Contracts (UESCs). These escalation rates are based on
+				energy price projections from the Department of Energy (DOE) Energy Information Administration (EIA). While the
+				underlying energy price projections vary from year to year, for calculating contract payments the single
+				EERC-calculated uniform average rate is preferable. The rate is stated in real (excluding inflation) and nominal
+				(including inflation) terms and weighted by the share of each of the energy types used in the project.
+				Alternatively, an escalation rate for each energy type can be computed separately.
+			</p>
+
+			<br />
+
+			<p class="MsoNormal">
+				EERC was redeveloped in 2025 to match the Building Life Cycle Cost (BLCC) web application design and included
+				two significant changes. First, an option for “Data Release Year” has been included, which allows a user to see
+				compound annual average escalation rates from previous release years to validate analysis that used an older
+				version of EERC. The current version includes data for 2024 and 2025. Second, the option to include an explicit
+				economic cost for energy-related emissions was removed from EERC because the EIA projections used by EERC
+				already internalize emissions market impacts on regions of the country for which emissions trading markets
+				influence the energy markets.
+			</p>
+
+			<p class="MsoNormal">EERC prompts the user for:</p>
+			<ul>
+				<li>Data Release Year</li>
+				<li>Customer Sector Type</li>
+				<li>Project Location (state)</li>
+				<li>Fuel Type</li>
+				<li>Contract Start Date</li>
+				<li>Duration of Contract</li>
+				<li>Annual Inflation Rate</li>
+			</ul>
+
+			<br />
+
+			<p class="MsoNormal">
+				Default values are provided for the inflation rate (based on annual supplement value). The discount rate is
+				fixed based on the Annual Supplement.
+			</p>
+
+			<br />
+
+			<p class="MsoNormal">
+				Based on the user inputs, EERC retrieves the relevant energy price forecasts and computes the compound annual
+				average escalation rate, as described above. Since the performance period generally begins a year or more later
+				than the contract award date, the calculated compound annual average rate includes the price escalation for the
+				intervening year(s). Escalation is assumed to take place during this period.
+			</p>
+
+			<br />
+
+			<p class="MsoNormal">
+				The calculated compound annual average escalation rate is reported in both real (excluding inflation) and
+				nominal (including inflation) terms. The energy price projections for all scenarios exclude inflation and thus
+				generate real rates. The default inflation rate used in the EERC is the long-term inflation rate calculated
+				annually by NIT for DOE Federal Energy Management Program (FEMP) using the average annual inflation estimates
+				for the next 10 years from the White House Council of Economic Advisors (CEA) Analytical Perspectives and the
+				methodology described in 10 CFR 436 Subpart A, but without consideration of the 3.0 % floor for the real
+				discount rate. The default inflation rate does not account for the discount rate floor to accommodate the need
+				for market-based projections of future energy prices in contract negotiations. Otherwise, the default inflation
+				rate would be artificially low in years when the 3.0 % floor applies.
+			</p>
+
+			<br />
+
+			<h1 class="MsoNormal" style="margin-right: 0in; page-break-after: avoid; text-decoration: underline">
+				<b>Inputs and Outputs</b>
+			</h1>
+
+			<br />
+
+			<h3 class="MsoNormal" style="margin-right: 0in"><b>Data and Fuel Rate Information:</b></h3>
+
+			<ul type="disc">
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>Data Release Year</i>: Year of the Annual Supplement data used for the calculation.
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>Sector</i>: Selection of commercial or industrial sector determines the type of utility rate schedule
+					applied to the energy cost calculation.
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>Project Location (state)</i>: Selection of the state in which the project is located allows the program to
+					select the energy price escalation rates for the corresponding census division.
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>Sector</i>: Selection of commercial or industrial sector determines the type of utility rate schedule
+					applied to the energy cost calculation.
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in"><i>User must make a selection of all three inputs</i></li>
+			</ul>
+			<br />
+
+			<h3 class="MsoNormal" style="margin-right: 0in"><b>Percent of Energy Cost Savings</b>:</h3>
+
+			<ul type="disc">
+				<li class="MsoNormal" style="margin-right: 0in">
+					Percentage of energy cost savings in dollars that is attributable to one or more of the fuel types used in the
+					project. This input is used to weight the escalation rate.
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in">Default values are zeros</li>
+				<li class="MsoNormal" style="margin-right: 0in">Inputted values must sum to 100%</li>
+			</ul>
+			<br />
+
+			<h3 class="MsoNormal" style="margin-right: 0in"><b>Contract Term:</b></h3>
+
+			<ul type="disc">
+				<li class="MsoNormal" style="margin-right: 0in"><i>Contract Start Date</i>: Year of contract award/signing.</li>
+			</ul>
+
+			<p class="MsoNormal" style="margin-right: 0in; margin-left: 1in; text-indent: -0.25in">
+				<span style="font-size: 10pt; font-family: 'Courier New'"
+					>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp; </span></span
+				><i>User must select a start date year</i>
+			</p>
+
+			<p class="MsoNormal" style="margin-right: 0in; margin-left: 1in; text-indent: -0.25in">
+				<span style="font-size: 10pt; font-family: 'Courier New'"
+					>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp; </span></span
+				><i>Options are limited to the next 4 years</i>
+			</p>
+
+			<ul type="disc">
+				<li class="MsoNormal" style="margin-right: 0in"><i>Duration</i>: Number of years of the contract term.</li>
+			</ul>
+
+			<p class="MsoNormal" style="margin-right: 0in; margin-left: 1in; text-indent: -0.25in">
+				<span style="font-size: 10pt; font-family: 'Courier New'"
+					>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp; </span></span
+				><i>User must make a selection for the duration</i>
+			</p>
+
+			<p class="MsoNormal" style="margin-right: 0in; margin-left: 1in; text-indent: -0.25in">
+				<span style="font-size: 10pt; font-family: 'Courier New'"
+					>o<span style="font: 7pt 'Times New Roman'">&nbsp;&nbsp; </span></span
+				><i>The duration is limited between 10 years and 25 years</i>
+			</p>
+
+			<br />
+
+			<h3 class="MsoNormal" style="margin-right: 0in"><b>Annual Inflation Rate:</b></h3>
+
+			<p class="MsoNormal" style="margin-right: 0in">
+				The default rate of inflation is the long-term inflation rate calculated annually by DOE/FEMP using CEA data and
+				the method described in 10 CFR 436 Subpart A, but without consideration of the 3.0 % floor for the real discount
+				rate. The default inflation rate does not account for the discount rate floor to accommodate the need for
+				market-based projections of future energy prices in contract negotiations. Otherwise, the default inflation rate
+				would be artificially low in years when the 3.0 % floor applies. The inflation rate may be edited.
+			</p>
+
+			<ul style="margin-top: 0in" type="disc">
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>The tool makes all the calculations using the default inflation rate.</i>
+				</li>
+				<li class="MsoNormal" style="margin-right: 0in">
+					<i>If the user decides to change the inflation rate, the calculations should be re-created.</i>
+				</li>
+			</ul>
+			<br />
+			<h3 class="MsoNormal" style="margin-right: 0in"><b>Output - Annual Energy Escalation Rates:</b></h3>
+			<br />
+
+			<p class="MsoNormal" style="margin-right: 0in">
+				<i>Real and Nominal Escalation Rates</i>: The output of the program is the calculated average escalation rate,
+				stated both in real terms (excluding the rate of inflation) and in nominal terms (including the rate of
+				inflation).
+			</p>
+
+			<br />
+
+			<h1 style="margin-left: 0in; text-decoration: underline">Functions</h1>
+
+			<br />
+
+			<p class="MsoNormal">
+				To calculate the nominal escalation rate, which includes inflation, the calculator uses the following
+				relationship:
+			</p>
+			<br />
+
+			<p class="MsoNormal">
+				<img height="30" id="Picture 12" src="./EERC User Guide - 2025_files/image001.png" />
+			</p>
+			<br />
+
+			<p class="MsoNormal">
+				The calculated compound annual average escalation rate, <i>e<sub>avg</sub></i
+				>, when applied to the base- year energy costs or savings of ESPC or UESC projects, results in approximately the
+				same undiscounted total amounts over the performance period as do the EIA-projected, or adjusted EIA-projected,
+				variable rates. If more than one fuel is used in the project, the EERC weights the average escalation rate
+				according to the proportions stated by the user.
+			</p>
+			<br />
+
+			<p class="MsoNormal">
+				To compute a compound annual average escalation rate, base-year (i.e., award year) energy costs are escalated
+				from year to year at rates projected by EIA to arrive at the total energy cost over a given performance period.
+				The escalation rates, e, are projected by census division, energy type, and industrial sector and vary from year
+				to year. The formula used EERC prompts the user for information on the share of cost savings attributable to
+				each fuel type, project location, industry sector, and the beginning date and duration of the performance
+				period. Then it retrieves the relevant energy price forecasts and computes the compound annual average
+				escalation rate, as described above.
+			</p>
+			<br />
+
+			<p class="MsoNormal">The formula to calculate total energy costs is:</p>
+			<br />
+
+			<p class="MsoNormal">
+				<img height="50" id="Picture 10" src="./EERC User Guide - 2025_files/image002.png" />
+			</p>
+			<br />
+
+			<p class="MsoNormal">where</p>
+			<br />
+
+			<p class="MsoNormal"><i>C</i> is the undiscounted total of future energy costs over the performance period</p>
+
+			<p class="MsoNormal"><i>A</i> is the base-year annual cost</p>
+
+			<p class="MsoNormal">
+				<i>e<sub>i</sub></i> is the annual escalation rate, which varies from year to year over the performance period
+			</p>
+
+			<p class="MsoNormal"><i>n</i> is the number of years in the performance period</p>
+			<br />
+
+			<p class="MsoNormal">
+				When the escalation rate is the same in each year of the study period, the series can be simplified to a factor
+				applied to the base-year annual cost, A:
+			</p>
+			<br />
+
+			<p class="MsoNormal">
+				<img height="50" id="Content Placeholder 6" src="EERC User Guide - 2025_files/image003.png" />
+			</p>
+			<br />
+
+			<p class="MsoNormal">
+				where <i>e<sub>avg</sub></i> is the average annual escalation rate
+			</p>
+			<br />
+
+			<p class="MsoNormal">
+				Since a uniform escalation rate is needed to compute the contract payments in ESPC and UESC projects, the EERC
+				uses this equation to approximate <i>C</i>, as calculated with EIA rates or adjusted EIA rates, and iteratively
+				solves for <i>e<sub>avg</sub></i
+				>, the compound annual average escalation rate. The relationship between the factor calculated in the equation
+				and the variable escalation rates in the series can be expressed as follows for a performance period of n years
+				duration:
+			</p>
+			<br />
+
+			<p class="MsoNormal">
+				<img height="75" id="Picture 4" src="EERC User Guide - 2025_files/image004.png" />
+			</p>
+			<br />
+
+			<h1 style="margin-left: 0in; text-decoration: underline">Data Tables</h1>
+			<br />
+
+			<p class="MsoNormal" style="margin-right: 0in">
+				The data tables include the Encost file published as part of the Annual Supplement to Handbook 135 that includes
+				the EIA energy price projections for each fuel type over time. These data tables are called on by the code, will
+				stay constant over time in term of format, but the data is updated annually.
+			</p>
+		</div>
+	</body>
+</html>
