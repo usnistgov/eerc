@@ -24,7 +24,7 @@ const leftMenuItems: MenuItem[] = [
 		key: "handbook",
 		label: (
 			<a
-				href="https://nvlpubs.nist.gov/nistpubs/hb/2022/NIST.HB.135e2022-upd1.pdf"
+				href="https://nvlpubs.nist.gov/nistpubs/hb/2022/NIST.HB.135e2025.pdf"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
@@ -36,7 +36,7 @@ const leftMenuItems: MenuItem[] = [
 		key: "supplement",
 		label: (
 			<a
-				href="https://nvlpubs.nist.gov/nistpubs/ir/2024/NIST.IR.85-3273-39.pdf"
+				href="https://nvlpubs.nist.gov/nistpubs/ir/2024/NIST.IR.85-3273-40.pdf"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
